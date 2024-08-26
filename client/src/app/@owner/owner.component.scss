@@ -1,0 +1,8 @@
+@import "../shared/variable.scss";
+
+.owner {
+	&-sidebar {
+		background-color: $owner-primary;
+		height: 100%;
+	}
+}

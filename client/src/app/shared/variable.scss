@@ -1,0 +1,62 @@
+$primary-dark: #1a73e8; // A dark blue shade
+$primary: #4285f4; // The primary blue color
+$primary-medium: #3367d6; // A medium blue shade
+$primary-light: #669df6; // A light blue shade
+$primary-ultra-light: #a6c8ff; // A very light blue shade
+$primary-active: #0aa0dd;
+
+$onwer-primary-dark: #b71c1c; // A dark red shade
+$owner-primary: #e53935; // The primary red color
+$owner-primary-medium: #d32f2f; // A medium red shade
+$onwer-primary-light: #ef5350; // A light red shade
+$owner-primary-ultra-light: #ffcdd2; // A very light red shade
+$owner-primary-active: #f44336; // A vibrant red shade
+
+$text-size: 16px;
+* {
+	text-decoration: none;
+}
+ul,
+ol {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.btn-primary-custom {
+	background-color: $primary;
+}
+
+.btn-custom {
+	border-radius: 8px;
+}
+
+.layout-common {
+	min-height: 100vh;
+	overflow: hidden;
+	.row {
+		min-height: 100vh;
+	}
+	&-sidebar {
+		height: 100%;
+
+		.nav-link {
+			display: flex;
+			align-items: center;
+			gap: 4px;
+			i {
+				font-size: 14px;
+				min-width: 20px;
+			}
+
+			span {
+				font-size: 14px;
+			}
+		}
+	}
+
+	&-content {
+		height: 100%;
+		padding: 32px 0;
+	}
+}

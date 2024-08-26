@@ -1,0 +1,18 @@
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations.Schema;
+using StoreManagement.Domain.Models;
+
+namespace StoreManagement.Domain.Models
+{
+    public class Order : DeleteableEntity
+    {
+        public double Total { get; set; }
+        public string NameUser { get; set; }
+        public string PhoneUser { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public int IdTable { get; set; }
+        [ForeignKey("IdTable")]
+        public Table Table { get; set; }
+        public virtual Collection<OrderDetail> OrderDetails { get; set; }
+    }
+}
