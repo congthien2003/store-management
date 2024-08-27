@@ -42,7 +42,7 @@ namespace StoreManagement.Controllers
                 return BadRequest(Result<AuthResult>.Failure(result.errors[0]));
             }
 
-            return Ok(Result<AuthResult>.Success(result, "Login Success"));
+            return Ok(Result<AuthResult>.Success(result, "Login success"));
         }
 
         [HttpPost("change-password")]
@@ -52,9 +52,10 @@ namespace StoreManagement.Controllers
             var result = await _authenticationService.ChangePassword(request);
             if (result.errors.Any())
             {
-                return BadRequest(new { result.errors });
+                return BadRequest(Result<AuthResult>.Failure(result.errors[0]));
             }
-            return Ok(result);
+
+            return Ok(Result<AuthResult>.Success(result, "Change password success"));
         }
 
         [HttpPost("restore-password")]
@@ -63,9 +64,10 @@ namespace StoreManagement.Controllers
             var result = await _authenticationService.RestorePassword(request);
             if (result.errors.Any())
             {
-                return BadRequest(new { result.errors });
+                return BadRequest(Result<AuthResult>.Failure(result.errors[0]));
             }
-            return Ok(result);
+
+            return Ok(Result<AuthResult>.Success(result, "Restore password success"));
         }
 
         [HttpPost("logout")]

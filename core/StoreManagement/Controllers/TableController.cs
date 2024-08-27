@@ -19,14 +19,8 @@ namespace StoreManagement.Controllers
         [HttpPost("create")]
         public async Task<ActionResult> CreateAsync(TableDTO tableDTO)
         {
-            try
-            {
-                var table = await _tableService.CreateAsync(tableDTO);
-                return Ok(table);
-            }catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+             var table = await _tableService.CreateAsync(tableDTO);
+             return Ok(table);
         }
         [HttpPut("update")]
         public async Task<ActionResult> UpdateAsync(int id, TableDTO tableDTO)
