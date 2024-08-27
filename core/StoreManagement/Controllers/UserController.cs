@@ -22,25 +22,25 @@ namespace StoreManagement.Controllers
 
         [HttpGet]
         [Route("{id:int}")]
-        public async Task<Result> GetUserByIdAsync(int id)
+        public async Task<ActionResult<Result>> GetUserByIdAsync(int id)
         {
             var user = await _userService.GetById(id);
             if (user == null)
             {
-                return Result.Failure("Không tìm thấy người dùng");
+                return BadRequest(Result.Failure("Không tìm thấy người dùng"));
             }
-            return Result<UserDTO?>.Success(user, "Lấy thông tin thành công");
+            return Ok(Result<UserDTO?>.Success(user, "Lấy thông tin thành công"));
         }
 
         [HttpPut("update")]
-        public async Task<Result> Update(UserDTO user)
+        public async Task<ActionResult<Result>> Update(UserDTO user)
         {
             var update = await _userService.Edit(user);
             if (update == null)
             {
-                return Result.Failure("Không tìm thấy người dùng");
+                return BadRequest(Result.Failure("Không tìm thấy người dùng"));
             }
-            return Result<UserDTO?>.Success(update, "Cập nhật thông tin thành công");
+            return Ok(Result<UserDTO?>.Success(update, "Cập nhật thông tin thành công"));
         }
 
     }
