@@ -3,6 +3,7 @@ using StoreManagement.Application.Interfaces.IServices;
 using StoreManagement.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using StoreManagement.Application.Common;
 
 namespace StoreManagement.Controllers
 {
@@ -18,77 +19,45 @@ namespace StoreManagement.Controllers
         }
         [HttpPost]
         [Route("create")]
-        public async Task<ActionResult> CreateAsync(CategoryDTO categoryDTO)
+        public async Task<ActionResult<Result>> CreateAsync(CategoryDTO categoryDTO)
         {
-            try
-            {
-                var category = await _categoryService.CreateAsync(categoryDTO);
-                return Ok(category);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var result = await _categoryService.CreateAsync(categoryDTO);
+            return Ok(Result<CategoryDTO?>.Success(result, "Tạo mới thành công"));
         }
         [HttpPut("update")]
         public async Task<ActionResult> UpdateAsync(int id, CategoryDTO categoryDTO)
         {
-            try
-            {
-                var update = await _categoryService.UpdateAsync(id, categoryDTO);
-                return Ok(update);
-            }catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var result = await _categoryService.UpdateAsync(id, categoryDTO);
+            return Ok(Result<CategoryDTO?>.Success(result, "Cập nhật thành công"));
         }
         [HttpDelete("delete")]
-        public async Task<ActionResult> DeleteAsync(int id)
+        public async Task<ActionResult<Result>> DeleteAsync(int id)
         {
-            try
-            {
-                var delete = await _categoryService.DeleteAsync(id);
-                return Ok(delete);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var result = await _categoryService.DeleteAsync(id);
+            return Ok(Result<bool>.Success(result,"Đã xóa thành công"));
         }
         [HttpGet]
         [Route("{id:int}")]
-        public async Task<ActionResult> GetCategoryById(int id)
+        public async Task<ActionResult<Result>> GetCategoryById(int id)
         {
-            try
-            {
-                var result = await _categoryService.GetByIdAsync(id);
-                return Ok(result);
-            }catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var result = await _categoryService.GetByIdAsync(id);
+            return Ok(Result<CategoryDTO?>.Success(result, "Lấy thông tin thành công"));
         }
         [HttpGet("search")]
         public async Task<ActionResult> GetCategoryByName(int idStore, string name)
         {
-            try
-            {
-                var result = await _categoryService.GetByNameAsync(idStore, name);
-                return Ok(result);
-            }catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var result = await _categoryService.GetByNameAsync(idStore, name);
+            return Ok(result);
         }
         [HttpGet("store")]
-        public async Task<ActionResult> GetAllCategoryByIdStore(int idStore,string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortColumn = "", string asc = "true")
+        public async Task<ActionResult> GetAllCategoryByIdStore(int idStore, string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortColumn = "", string asc = "true")
         {
             int _currentPage = int.Parse(currentPage);
             int _pageSize = int.Parse(pageSize);
             bool _asc = bool.Parse(asc);
 
             var list = await _categoryService.GetAllByIdStoreAsync(idStore, _currentPage, _pageSize, searchTerm, sortColumn, _asc, false);
-            var count = await _categoryService.GetCountList(idStore,searchTerm, false);
+            var count = await _categoryService.GetCountList(idStore, searchTerm, false);
             var _totalPage = count % _pageSize == 0 ? count / _pageSize : count / _pageSize + 1;
             var result = new
             {

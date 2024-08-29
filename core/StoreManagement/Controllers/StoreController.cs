@@ -2,6 +2,8 @@
 using StoreManagement.Application.Interfaces.IServices;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using StoreManagement.Application.Common;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace StoreManagement.Controllers
 {
@@ -20,18 +22,13 @@ namespace StoreManagement.Controllers
         [Route("create")]
         public async Task<ActionResult> CreateAsync(StoreDTO storeDTO)
         {
-            try
-            {
-                var store = await storeService.CreateAsync(storeDTO);
-                return Ok(store);
-            }catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+
+            var result = await storeService.CreateAsync(storeDTO);
+            return Ok(Result<StoreDTO?>.Success(result, "Tạo cửa hàng thành công"));
         }
         [HttpGet]
         [Route("all")]
-        public async Task<ActionResult> GetAllStore(string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortColumn = "", string asc = "true")
+        public async Task<ActionResult<Result>> GetAllStore(string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortColumn = "", string asc = "true")
         {
             int _currentPage = int.Parse(currentPage);
             int _pageSize = int.Parse(pageSize);
@@ -54,54 +51,29 @@ namespace StoreManagement.Controllers
         }
         [HttpGet]
         [Route("{id:int}")]
-        public async Task<ActionResult> GetStoreById(int id)
+        public async Task<ActionResult<Result>> GetStoreById(int id)
         {
-            try
-            {
-                var result = await storeService.GetByIdAsync(id);  
-                return Ok(result);
-            }catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var result = await storeService.GetByIdAsync(id);
+            return Ok(Result<StoreDTO?>.Success(result, "Lấy thông tin cửa hàng thành công"));
         }
         [HttpGet]
         [Route("search")]
         public async Task<ActionResult> GetStoreByName(string name)
         {
-            try
-            {
-                var result = await storeService.GetByNameAsync(name);
-                return Ok(result);
-            }catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var result = await storeService.GetByNameAsync(name);
+            return Ok(result);
         }
         [HttpPut("update")]
-        public async Task<ActionResult> UpdateStore(int id, StoreDTO storeDTO)
+        public async Task<ActionResult<Result>> UpdateStore(int id, StoreDTO storeDTO)
         {
-            try
-            {
-                var update = await storeService.UpdateAsync(id, storeDTO);
-                return Ok(update);
-            }catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var result = await storeService.UpdateAsync(id, storeDTO);
+            return Ok(Result<StoreDTO?>.Success(result, "Cập nhật thành công"));
         }
         [HttpDelete("Delete")]
-        public async Task<ActionResult> DeleteStore(int id)
+        public async Task<ActionResult<Result>> DeleteStore(int id)
         {
-            try
-            {
-                var delete = await storeService.DeleteAsync(id);
-                return Ok(delete);
-            }
-            catch(Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var result = await storeService.DeleteAsync(id);
+            return Ok(Result<bool>.Success(result, "Cập nhật thành công"));
         }
     }
 }

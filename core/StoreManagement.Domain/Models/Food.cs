@@ -12,5 +12,6 @@ namespace StoreManagement.Domain.Models
         [ForeignKey("IdCategory")]
         public Category Category { get; set; }
         public virtual Collection<OrderDetail> OrderDetails { get; set; }
+        public virtual Collection<ProductSell> ProductSells { get; set; }
     }
 }

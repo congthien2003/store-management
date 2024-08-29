@@ -17,6 +17,7 @@ namespace StoreManagement.Infrastructure.Data
         public DbSet<Voucher> Vouchers { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<ProductSell> ProductSells { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

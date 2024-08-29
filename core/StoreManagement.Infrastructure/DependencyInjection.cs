@@ -26,6 +26,7 @@ namespace StoreManagement.Infrastructure
             services.AddScoped<IOrderRepository<Order>, OrderRepositoy>();
             services.AddScoped<IOrderDetailRepository<OrderDetail>, OrderDetailRepository>();
             services.AddScoped<IInvoiceRepository<Invoice>, InvoiceRepository>();
+            services.AddScoped<IProductSellRepository<ProductSell>, ProductSellRepository>();
             return services; 
         }
     }
