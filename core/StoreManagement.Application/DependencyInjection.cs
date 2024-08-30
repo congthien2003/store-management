@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using StoreManagement.Application.Interfaces.IServices;
+using StoreManagement.Application.Services;
 using StoreManagement.Services;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,7 @@ namespace StoreManagement.Application
             services.AddTransient<IOrderSerivce, OrderService>();
             services.AddTransient<IOrderDetailService, OrderDetailService>();
             services.AddTransient<IInvoiceService, InvoiceService>();
+            services.AddTransient<IProductSellService, ProductSellService>();
             return services; 
         }
     }
