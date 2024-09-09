@@ -1,4 +1,5 @@
-﻿namespace StoreManagement.Application.DTOs
+﻿
+namespace StoreManagement.Application.DTOs
 {
     public class StoreDTO
     {

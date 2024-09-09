@@ -15,25 +15,31 @@ import {
 	provideHttpClient,
 } from "@angular/common/http";
 
+// platformBrowserDynamic().bootstrapModule(AppModule);
 bootstrapApplication(AppComponent, {
 	providers: [
-    importProvidersFrom(BrowserModule, AppRoutingModule, CommonModule, ToastrModule.forRoot({
-        timeOut: 3000,
-        positionClass: "toast-top-right",
-        preventDuplicates: true,
-    })),
-    {
-        provide: HTTP_INTERCEPTORS,
-        useClass: TokenInterceptor,
-        multi: true,
-    },
-    {
-        provide: HTTP_INTERCEPTORS,
-        useClass: LoadingInterceptor,
-        multi: true,
-    },
-    provideAnimations(),
-    provideHttpClient(withInterceptorsFromDi()),
-    provideAnimations()
-],
+		importProvidersFrom(
+			BrowserModule,
+			AppRoutingModule,
+			CommonModule,
+			ToastrModule.forRoot({
+				timeOut: 3000,
+				positionClass: "toast-top-right",
+				preventDuplicates: true,
+			})
+		),
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: TokenInterceptor,
+			multi: true,
+		},
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: LoadingInterceptor,
+			multi: true,
+		},
+		provideAnimations(),
+		provideHttpClient(withInterceptorsFromDi()),
+		provideAnimations(),
+	],
 }).catch((err) => console.error(err));

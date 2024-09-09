@@ -25,10 +25,11 @@ namespace StoreManagement.Controllers
         public async Task<ActionResult> Register(RegisterDTO request)
         {
             var result = await _authenticationService.Register(request);
-            if (result.errors.Any()) {
+            if (result.errors.Any())
+            {
                 return BadRequest(Result<AuthResult>.Failure(result.errors[0]));
             }
-            
+
             return Ok(Result<AuthResult>.Success(result, "Register Success"));
         }
 

@@ -1,22 +1,17 @@
 ﻿using AutoMapper;
 using StoreManagement.Application.DTOs;
-using StoreManagement.Application.Interfaces.IRepositories;
 using StoreManagement.Application.Interfaces.IServices;
+using StoreManagement.Domain.IRepositories;
 using StoreManagement.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StoreManagement.Application.Services
 {
     public class ProductSellService : IProductSellService
     {
-        private readonly Mapper _mapper;
+        private readonly IMapper _mapper;
         private readonly IProductSellRepository<ProductSell> _productSellRepository;
 
-        public ProductSellService(Mapper mapper, IProductSellRepository<ProductSell> productSellRepository)
+        public ProductSellService(IMapper mapper, IProductSellRepository<ProductSell> productSellRepository)
         {
             _mapper = mapper;
             _productSellRepository = productSellRepository;

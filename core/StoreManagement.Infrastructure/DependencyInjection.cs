@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using StoreManagement.Application.Interfaces.IRepositories;
+using StoreManagement.Domain.IRepositories;
 using StoreManagement.Infrastructure.Repositories;
 using StoreManagement.Domain.Models;
 using StoreManagement.Infrastructure.Data;

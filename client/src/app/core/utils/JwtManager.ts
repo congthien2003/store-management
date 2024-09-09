@@ -1,31 +1,24 @@
 import { secretKeyToken } from "../constant/secret";
+import * as CryptoJS from "crypto-js";
 export class JwtManager {
-	encrypt(plainText: string): string {
-		let newString: string = "";
-		for (let i = 0; i < plainText.length; i++) {
-			newString += plainText.charCodeAt(i) + 3;
-		}
-		return newString;
-	}
-
-	decrypt(plainText: string): string {
-		let newString: string = "";
-		for (let i = 0; i < plainText.length; i++) {
-			newString += plainText.charCodeAt(i) - 3;
-		}
-		return newString;
-	}
-
 	encryptToken(token: string): string {
-		return this.encrypt(token);
+		const encryptedToken = CryptoJS.AES.encrypt(
+			token,
+			secretKeyToken
+		).toString();
+		return encryptedToken;
 	}
 
 	decryptToken(token: string): string {
-		return this.decrypt(token);
+		// Giải mã token
+		const bytes = CryptoJS.AES.decrypt(token, secretKeyToken);
+		const decryptedToken = bytes.toString(CryptoJS.enc.Utf8);
+		return decryptedToken;
 	}
 
 	getToken(): string {
-		const token = localStorage.getItem("token");
+		const token = localStorage.getItem("token") ?? "";
+
 		return token ? this.decryptToken(token) : "";
 	}
 

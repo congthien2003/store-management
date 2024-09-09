@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using StoreManagement.Application.Interfaces.IRepositories;
+using StoreManagement.Domain.IRepositories;
 using StoreManagement.Domain.Models;
 using StoreManagement.Infrastructure.Data;
 

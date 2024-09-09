@@ -14,6 +14,7 @@ import { JwtManager } from "src/app/core/utils/JwtManager";
 })
 export class RegisterComponent {
 	user: User = {
+		id: 0,
 		username: "",
 		password: "",
 		email: "",
@@ -29,24 +30,24 @@ export class RegisterComponent {
 		this.jwtManager = new JwtManager();
 	}
 	regiser() {
-		this.service
-			.register(this.user.username, this.user.email, this.user.password)
-			.subscribe({
-				next: (res) => {
-					this.jwtManager.setToken(res.data.token);
-					this.toastr.error("", "Đăng ký thành công !", {
-						timeOut: 3000,
-					});
-				},
-				error: (error) => {
-					this.toastr.error(
-						error.error.errors[0],
-						"Đăng ký không thành công !",
-						{
-							timeOut: 3000,
-						}
-					);
-				},
-			});
+		// this.service
+		// 	.register(this.user.username, this.user.email, this.user.password)
+		// 	.subscribe({
+		// 		next: (res) => {
+		// 			this.jwtManager.setToken(res.data.token);
+		// 			this.toastr.error("", "Đăng ký thành công !", {
+		// 				timeOut: 3000,
+		// 			});
+		// 		},
+		// 		error: (error) => {
+		// 			this.toastr.error(
+		// 				error.error.errors[0],
+		// 				"Đăng ký không thành công !",
+		// 				{
+		// 					timeOut: 3000,
+		// 				}
+		// 			);
+		// 		},
+		// 	});
 	}
 }

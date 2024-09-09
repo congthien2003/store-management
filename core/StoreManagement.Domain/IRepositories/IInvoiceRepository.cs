@@ -1,6 +1,6 @@
 ﻿using StoreManagement.Domain.Models;
 
-namespace StoreManagement.Application.Interfaces.IRepositories
+namespace StoreManagement.Domain.IRepositories
 {
     public interface IInvoiceRepository<TInvoice> where TInvoice : Invoice
     {

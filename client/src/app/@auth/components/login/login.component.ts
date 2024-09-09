@@ -21,6 +21,7 @@ import { JwtManager } from "src/app/core/utils/JwtManager";
 export class LoginComponent implements OnInit {
 	isLoading = true;
 	user: User = {
+		id: 0,
 		username: "",
 		password: "",
 		email: "",
