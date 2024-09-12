@@ -85,7 +85,7 @@ namespace StoreManagement.Services
                 return result;
             }
             var emailExists = await _userService.GetByEmail(register.Email);
-            if (emailExists != null )
+            if (emailExists != null)
             {
                 result.errors.Add("Email đã tồn tại");
                 return result;

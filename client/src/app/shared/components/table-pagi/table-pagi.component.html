@@ -1,0 +1,28 @@
+<table class="table">
+	<thead>
+		<tr class="bg-primary">
+			<th
+				class="bg-primary"
+				*ngFor="let columns of config.displayedColumns"
+				scope="col">
+				{{ columns.display }}
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let item of data">
+			<th scope="row">{{ item.id }}</th>
+			<td>{{ item.username }}</td>
+			<td>{{ item.email }}</td>
+			<td>{{ item.phones }}</td>
+		</tr>
+	</tbody>
+</table>
+<div class="table--pagination">
+	<table-pagination
+		[_hasNext]="pagi.hasNextPage"
+		[_hasPrev]="pagi.hasPrevPage"
+		[_currentPage]="pagi.currentPage"
+		[_totalPage]="pagi.totalPage"
+		(changePage)="onChangePage($event)"></table-pagination>
+</div>

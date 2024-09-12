@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using StoreManagement.Application.DTOs;
-using StoreManagement.Application.Interfaces.IRepositories;
 using StoreManagement.Application.Interfaces.IServices;
+using StoreManagement.Domain.IRepositories;
 using StoreManagement.Domain.Models;
 
 namespace StoreManagement.Services

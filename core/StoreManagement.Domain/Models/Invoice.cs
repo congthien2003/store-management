@@ -9,7 +9,7 @@ namespace StoreManagement.Domain.Models
         public DateTime FinishedAt { get; set; }
         public bool Status { get; set; }
         public int TotalOrder { get; set; }
-        public double Charge { get; set; }
+        public decimal Charge { get; set; }
         public int IdPaymentType { get; set; }
         [ForeignKey("IdPaymentType")]
         public PaymentType PaymentType { get; set; }

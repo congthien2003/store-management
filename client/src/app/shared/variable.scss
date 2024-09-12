@@ -1,16 +1,4 @@
-$primary-dark: #1a73e8; // A dark blue shade
-$primary: #4285f4; // The primary blue color
-$primary-medium: #3367d6; // A medium blue shade
-$primary-light: #669df6; // A light blue shade
-$primary-ultra-light: #a6c8ff; // A very light blue shade
-$primary-active: #0aa0dd;
-
-$onwer-primary-dark: #b71c1c; // A dark red shade
-$owner-primary: #e53935; // The primary red color
-$owner-primary-medium: #d32f2f; // A medium red shade
-$onwer-primary-light: #ef5350; // A light red shade
-$owner-primary-ultra-light: #ffcdd2; // A very light red shade
-$owner-primary-active: #f44336; // A vibrant red shade
+@import "./color.scss";
 
 $text-size: 16px;
 * {
@@ -24,7 +12,8 @@ ol {
 }
 
 .btn-primary-custom {
-	background-color: $primary;
+	background-color: $primary !important;
+	color: white !important;
 }
 
 .btn-custom {
@@ -58,5 +47,123 @@ ol {
 	&-content {
 		height: 100%;
 		padding: 32px 0;
+	}
+}
+
+.management {
+	&--wrapper {
+		padding: 4px 32px;
+	}
+
+	&--header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	&--search {
+		min-width: 25%;
+		width: 50%;
+		input {
+			width: 100%;
+		}
+	}
+
+	&--filter {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+
+		.group-filter {
+			border: 1px solid #cecece;
+			padding: 0 16px;
+			border-radius: 12px;
+		}
+	}
+
+	&--table {
+		margin-top: 24px;
+		thead {
+			th {
+				background-color: $primary;
+				color: #f3f3f3;
+				font-size: 14px;
+				font-weight: 450;
+			}
+		}
+
+		tbody {
+			tr {
+				td {
+					font-size: 14px;
+					font-weight: 400;
+					min-height: 40px;
+				}
+			}
+		}
+
+		.table--pagination {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.table-actions {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+
+			.btn-management {
+				&-edit {
+					background-color: $primary-dark;
+					color: white;
+					height: 25px;
+				}
+
+				&-delete {
+					background-color: #ef5350;
+					color: whitesmoke;
+					height: 25px;
+				}
+			}
+		}
+	}
+
+	&--action {
+		button {
+			background-color: $primary-medium;
+			color: white;
+		}
+	}
+
+	&--main {
+		max-height: 100vh;
+	}
+}
+
+.modal.show {
+	display: block;
+}
+
+.modal {
+	&-header {
+		background-color: $primary-light;
+	}
+	&-title {
+		font-size: 20px;
+		font-weight: bolder;
+		margin-bottom: 0;
+		color: white;
+	}
+	&-body {
+		font-size: 16px;
+	}
+}
+
+.btn {
+	font-weight: 500;
+	transition: 0.1s ease-in;
+	&:hover {
+		opacity: 0.9;
 	}
 }

@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
 using StoreManagement.Infrastructure.Data;
-using StoreManagement.Application.Interfaces.IRepositories;
 using StoreManagement.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using StoreManagement.Application.DTOs.Auth;
+using StoreManagement.Domain.IRepositories;
+using System.Linq.Expressions;
 
 namespace StoreManagement.Infrastructure.Repositories
 {
@@ -62,13 +63,11 @@ namespace StoreManagement.Infrastructure.Repositories
             return user;
         }
 
-        public async Task<User> CreateUser(RegisterDTO register)
+        public async Task<User> CreateUser(User user)
         {
-            
-            var newUser = mapper.Map<User>(register);
-            _dataContext.Users.Add(newUser);
+            _dataContext.Users.Add(user);
             await _dataContext.SaveChangesAsync();
-            return newUser;
+            return user;
         }
 
         public async Task<User> UpdatePassword(int id, string password, bool includeDeleted = false)
@@ -78,6 +77,50 @@ namespace StoreManagement.Infrastructure.Repositories
             _dataContext.Update(user);
             await _dataContext.SaveChangesAsync();
             return user;
+        }
+
+        public Expression<Func<User, object>> GetSortColumnExpression(string sortColumn)
+        {
+            switch (sortColumn)
+            {
+                case "username":
+                    return x => x.Username;
+                case "phones":
+                    return x => x.Phones;
+                case "email":
+                    return x => x.Email;
+                case "role":
+                    return x => x.Role;
+                default:
+                    return x => x.Id;
+            }
+        }
+
+        public async Task<List<User>> GetAll(int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortCol = "", bool ascSort = true, bool incluDeleted = false)
+        {
+            var users = _dataContext.Users.AsQueryable();
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                users = users.Where(t => t.Username.Contains(searchTerm));
+            }
+            if (!incluDeleted)
+            {
+                users = users.Where(t => t.IsDeleted == incluDeleted);
+            }
+            /*if (!string.IsNullOrEmpty(sortCol))
+            {
+                if (ascSort)
+                {
+                    users = users.OrderByDescending(GetSortColumnExpression(sortCol.ToLower()));
+                }
+                else
+                {
+                    users = users.OrderBy(GetSortColumnExpression(sortCol.ToLower()));
+
+                }
+            }*/
+            var list = await users.Skip(currentPage * pageSize - pageSize).Take(pageSize).ToListAsync();
+            return list;
         }
     }
 }

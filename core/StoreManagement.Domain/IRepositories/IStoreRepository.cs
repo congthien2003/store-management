@@ -1,6 +1,6 @@
 ﻿using StoreManagement.Domain.Models;
 
-namespace StoreManagement.Application.Interfaces.IRepositories
+namespace StoreManagement.Domain.IRepositories
 {
     public interface IStoreRepository<TStore> where TStore : Store
     {

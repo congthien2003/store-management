@@ -6,7 +6,7 @@ namespace StoreManagement.Domain.Models
 {
     public class Order : DeleteableEntity
     {
-        public double Total { get; set; }
+        public decimal Total { get; set; }
         public string NameUser { get; set; }
         public string PhoneUser { get; set; }
         public DateTime CreatedAt { get; set; }

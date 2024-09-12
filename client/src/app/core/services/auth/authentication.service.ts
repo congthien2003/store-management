@@ -66,12 +66,16 @@ export class AuthenticationService {
 	register(
 		username: string,
 		email: string,
-		password: string
+		password: string,
+		phones: string,
+		role: number
 	): Observable<ApiResponse> {
 		return this.service.post(`${this.apiController.register}`, {
 			username,
 			email,
 			password,
+			phones,
+			role,
 		});
 	}
 

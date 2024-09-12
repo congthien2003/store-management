@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using StoreManagement.Infrastructure.Data;
-using StoreManagement.Application.Interfaces.IRepositories;
 using StoreManagement.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using StoreManagement.Domain.IRepositories;
 
 namespace StoreManagement.Infrastructure.Repositories
 {

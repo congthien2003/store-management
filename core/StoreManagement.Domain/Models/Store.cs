@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations.Schema;
-using StoreManagement.Domain.Models;
 
 namespace StoreManagement.Domain.Models
 {

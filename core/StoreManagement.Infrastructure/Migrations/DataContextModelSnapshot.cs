@@ -58,6 +58,9 @@ namespace StoreManagement.Infrastructure.Migrations
                     b.Property<int>("IdCategory")
                         .HasColumnType("int");
 
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
