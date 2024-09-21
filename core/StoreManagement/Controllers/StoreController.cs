@@ -53,7 +53,7 @@ namespace StoreManagement.Controllers
         public async Task<ActionResult<Result>> GetStoreById(int id)
         {
             var result = await storeService.GetByIdAsync(id);
-            return Ok(Result<StoreDTO?>.Success(result, "Lấy thông tin cửa hàng thành công"));
+            return Ok(Result<StoreResponse?>.Success(result, "Lấy thông tin cửa hàng thành công"));
         }
         [HttpGet]
         [Route("search")]

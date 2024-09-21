@@ -29,28 +29,28 @@ namespace StoreManagement.Services
             return true;
         }
 
-        public async Task<List<FoodDTO>> GetAllByIdStoreAsync(int id,int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortColumn = "", bool ascSort = true, bool incluDeleted = false)
+        public async Task<List<FoodResponse>> GetAllByIdStoreAsync(int id,int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortColumn = "", bool ascSort = true, bool incluDeleted = false)
         {
             var listFoods = await _foodRepository.GetAllByIdStoreAsync(id,currentPage, pageSize, searchTerm, sortColumn, ascSort, incluDeleted);
-            return _mapper.Map<List<FoodDTO>>(listFoods);
+            return _mapper.Map<List<FoodResponse>>(listFoods);
         }
 
-        public async Task<FoodDTO> GetByIdAsync(int id)
+        public async Task<FoodResponse> GetByIdAsync(int id)
         {
             var food = await _foodRepository.GetByIdAsync(id);
-            return _mapper.Map<FoodDTO>(food);
+            return _mapper.Map<FoodResponse>(food);
         }
 
-        public async Task<List<FoodDTO>> GetByIdCategoryAsync(int id)
+        public async Task<List<FoodResponse>> GetByIdCategoryAsync(int id)
         {
             var listFood = await _foodRepository.GetByIdCategory(id);
-            return _mapper.Map<List<FoodDTO>>(listFood);
+            return _mapper.Map<List<FoodResponse>>(listFood);
         }
 
-        public async Task<List<FoodDTO>> GetByNameAsync(int idStore, string name)
+        public async Task<List<FoodResponse>> GetByNameAsync(int idStore, string name)
         {
             var listFood = await _foodRepository.GetByNameAsync(idStore, name);
-            return _mapper.Map<List<FoodDTO>>(listFood);
+            return _mapper.Map<List<FoodResponse>>(listFood);
         }
 
         public async Task<int> GetCountList(int idStore, string searchTerm = "", bool incluDeleted = false)

@@ -42,6 +42,10 @@ namespace StoreManagement.Infrastructure.Data
                 .HasForeignKey(od => od.IdFood)
                 .OnDelete(DeleteBehavior.NoAction);
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Food>()
+            .Property(f => f.Price)
+            .HasColumnType("decimal(18,2)");
         }
     }
 }

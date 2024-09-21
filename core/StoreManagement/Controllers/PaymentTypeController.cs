@@ -38,7 +38,7 @@ namespace StoreManagement.Controllers
         public async Task<ActionResult<Result>> GetByIdAsync(int id)
         {
             var result = await _paymentTypeService.GetByIdAsync(id);
-            return Ok(Result<PaymentTypeDTO?>.Success("Lấy thông tin thành công"));
+            return Ok(Result<PaymentTypeResponse?>.Success("Lấy thông tin thành công"));
         }
         [HttpGet("search")]
         public async Task<ActionResult<Result>> GetByNameAsync(int idStore, string name)

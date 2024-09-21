@@ -41,7 +41,7 @@ namespace StoreManagement.Controllers
         public async Task<ActionResult<Result>> GetCategoryById(int id)
         {
             var result = await _categoryService.GetByIdAsync(id);
-            return Ok(Result<CategoryDTO?>.Success(result, "Lấy thông tin thành công"));
+            return Ok(Result<CategoryResponse?>.Success(result, "Lấy thông tin thành công"));
         }
         [HttpGet("search")]
         public async Task<ActionResult> GetCategoryByName(int idStore, string name)

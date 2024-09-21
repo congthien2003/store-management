@@ -29,23 +29,23 @@ namespace StoreManagement.Services
             return true;
         }
 
-        public async Task<List<StoreDTO>> GetAllAsync(int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortColumn = "", bool ascSort = true, bool incluDeleted = false)
+        public async Task<List<StoreResponse>> GetAllAsync(int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortColumn = "", bool ascSort = true, bool incluDeleted = false)
         {
             var listStore = await _storeRepository.GetAllAsync(currentPage,pageSize,searchTerm,sortColumn,ascSort,incluDeleted);
-            return _mapper.Map<List<StoreDTO>>(listStore);
+            return _mapper.Map<List<StoreResponse>>(listStore);
         }
 
-        public async Task<StoreDTO> GetByIdAsync(int id)
+        public async Task<StoreResponse> GetByIdAsync(int id)
         {
             var store = await _storeRepository.GetByIdAsync(id);
-            return _mapper.Map<StoreDTO>(store);
+            return _mapper.Map<StoreResponse>(store);
         }
 
 
-        public async Task<List<StoreDTO>> GetByNameAsync(string name)
+        public async Task<List<StoreResponse>> GetByNameAsync(string name)
         {
             var store = await _storeRepository.GetByNameAsync(name);
-            return _mapper.Map<List<StoreDTO>>(store);
+            return _mapper.Map<List<StoreResponse>>(store);
         }
 
         public async Task<int> GetCountList(string searchTerm = "", bool incluDeleted = false)

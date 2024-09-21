@@ -46,7 +46,7 @@ namespace StoreManagement.Controllers
         {
 
             var result = await _tableService.GetByIdAsync(id);
-            return Ok(Result<TableDTO?>.Success(result, "Lấy thông tin thành công"));
+            return Ok(Result<TableResponse?>.Success(result, "Lấy thông tin thành công"));
 
 
         }

@@ -29,22 +29,22 @@ namespace StoreManagement.Services
             return true;
         }
 
-        public async Task<List<OrderDTO>> GetAllByIdStoreAsync(int idStore, int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortCol = "", bool ascSort = true)
+        public async Task<List<OrderResponse>> GetAllByIdStoreAsync(int idStore, int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortCol = "", bool ascSort = true)
         {
             var listOrders = await _orderRepository.GetAllByIdStoreAsync(idStore, currentPage, pageSize, searchTerm, sortCol, ascSort);
-            return _mapper.Map<List<OrderDTO>>(listOrders);
+            return _mapper.Map<List<OrderResponse>>(listOrders);
         }
 
-        public async Task<OrderDTO> GetByIdAsync(int id)
+        public async Task<OrderResponse> GetByIdAsync(int id)
         {
             var order = await _orderRepository.GetByIdAsync(id);
-            return _mapper.Map<OrderDTO>(order);
+            return _mapper.Map<OrderResponse>(order);
         }
 
-        public async Task<List<OrderDTO>> GetByNameUserAsync(string name)
+        public async Task<List<OrderResponse>> GetByNameUserAsync(string name)
         {
             var listOrders = await _orderRepository.GetByNameUser(name);
-            return _mapper.Map<List<OrderDTO>>(listOrders);
+            return _mapper.Map<List<OrderResponse>>(listOrders);
         }
 
         public async Task<int> GetCountAsync(int idStore, string searchTerm = "")
