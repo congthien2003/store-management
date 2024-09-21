@@ -38,7 +38,7 @@ namespace StoreManagement.Controllers
         public async Task<ActionResult<Result>> GetByIdAsync(int id)
         {
             var result = await _invoiceService.GetByIdAsync(id);
-            return Ok(Result<InvoiceDTO?>.Success(result,"Lấy thông tin thành công"));
+            return Ok(Result<InvoiceResponse?>.Success(result,"Lấy thông tin thành công"));
         }
         [HttpGet("all")]
         public async Task<ActionResult> GetAllByIdStoreAsync(int idStore, string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortColumn = "", string asc = "true")

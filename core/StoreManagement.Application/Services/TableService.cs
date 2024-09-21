@@ -28,16 +28,16 @@ namespace StoreManagement.Services
             await _tableRepository.DeleteAsync(id);
             return true;
         }
-        public async Task<TableDTO> GetByIdAsync(int id)
+        public async Task<TableResponse> GetByIdAsync(int id)
         {
             var table = await _tableRepository.GetByIdAsync(id);
-            return _mapper.Map<TableDTO>(table);
+            return _mapper.Map<TableResponse>(table);
         }
 
-        public async Task<List<TableDTO>> GetAllByIdStore(int id, int currentPage = 1, int pageSize = 5, string sortCol = "", bool ascSort = true)
+        public async Task<List<TableResponse>> GetAllByIdStore(int id, int currentPage = 1, int pageSize = 5, string sortCol = "", bool ascSort = true)
         {
             var listTables = await _tableRepository.GetAllByIdStore(id,currentPage,pageSize,sortCol,ascSort);
-            return _mapper.Map<List<TableDTO>>(listTables);
+            return _mapper.Map<List<TableResponse>>(listTables);
         }
         public async Task<TableDTO> UpdateAsync(int id, TableDTO tableDTO)
         {

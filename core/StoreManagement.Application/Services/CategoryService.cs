@@ -30,28 +30,28 @@ namespace StoreManagement.Services
             return true;
         }
 
-        public async Task<List<CategoryDTO>> GetAllByIdStoreAsync(int id, int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortColumn = "", bool ascSort = true, bool incluDeleted = false)
+        public async Task<List<CategoryResponse>> GetAllByIdStoreAsync(int id, int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortColumn = "", bool ascSort = true, bool incluDeleted = false)
         {
             var listCategories = await _categoryRepository.GetAllByIdStoreAsync(id,currentPage,pageSize,searchTerm,sortColumn,ascSort,incluDeleted);
-            return _mapper.Map<List<CategoryDTO>>(listCategories);
+            return _mapper.Map<List<CategoryResponse>>(listCategories);
         }
 
-        public async Task<CategoryDTO> GetByIdAsync(int id)
+        public async Task<CategoryResponse> GetByIdAsync(int id)
         {
             var category = await _categoryRepository.GetByIdAsync(id);
-            return _mapper.Map<CategoryDTO>(category);
+            return _mapper.Map<CategoryResponse>(category);
         }
 
-        public async Task<List<CategoryDTO>> GetByIdStore(int id)
+        public async Task<List<CategoryResponse>> GetByIdStore(int id)
         {
             var listCategory = await _categoryRepository.GetByIdStoreAsync(id);
-            return _mapper.Map<List<CategoryDTO>>(listCategory);
+            return _mapper.Map<List<CategoryResponse>>(listCategory);
         }
 
-        public async Task<List<CategoryDTO>> GetByNameAsync(int idStore, string name)
+        public async Task<List<CategoryResponse>> GetByNameAsync(int idStore, string name)
         {
             var listCategoires = await _categoryRepository.GetByNameAsync(idStore,name);
-            return _mapper.Map<List<CategoryDTO>>(listCategoires);
+            return _mapper.Map<List<CategoryResponse>>(listCategoires);
         }
 
         public async Task<int> GetCountList(int idStore, string searchTerm = "", bool incluDeleted = false)

@@ -29,22 +29,22 @@ namespace StoreManagement.Services
             return true;
         }
 
-        public async Task<List<PaymentTypeDTO>> GetAllByIdStoreAsync(int idStore, int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortColumn = "", bool ascSort = true)
+        public async Task<List<PaymentTypeResponse>> GetAllByIdStoreAsync(int idStore, int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortColumn = "", bool ascSort = true)
         {
             var listPayment = await _paymentTypeRepository.GetAllByIdStore(idStore,currentPage,pageSize,searchTerm,sortColumn,ascSort);
-            return _mapper.Map<List<PaymentTypeDTO>>(listPayment);
+            return _mapper.Map<List<PaymentTypeResponse>>(listPayment);
         }
 
-        public async Task<PaymentTypeDTO> GetByIdAsync(int id)
+        public async Task<PaymentTypeResponse> GetByIdAsync(int id)
         {
             var payment = await _paymentTypeRepository.GetByIdAsync(id);
-            return _mapper.Map<PaymentTypeDTO>(payment);
+            return _mapper.Map<PaymentTypeResponse>(payment);
         }
 
-        public async Task<List<PaymentTypeDTO>> GetByNameAsync(int idStore, string name)
+        public async Task<List<PaymentTypeResponse>> GetByNameAsync(int idStore, string name)
         {
             var listPayments = await _paymentTypeRepository.GetByNameAsync(idStore,name);
-            return _mapper.Map<List<PaymentTypeDTO>>(listPayments);
+            return _mapper.Map<List<PaymentTypeResponse>>(listPayments);
         }
 
         public async Task<int> GetCountAsync(int idStore, string searchTerm = "")

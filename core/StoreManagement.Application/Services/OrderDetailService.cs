@@ -29,10 +29,10 @@ namespace StoreManagement.Services
             return true;
         }
 
-        public async Task<List<OrderDetailDTO>> GetAllByIdOrderAsync(int idOrder, int currentPage = 1, int pageSize = 5, string sortCol = "", bool ascSort = true)
+        public async Task<List<OrderDetailResponse>> GetAllByIdOrderAsync(int idOrder, int currentPage = 1, int pageSize = 5, string sortCol = "", bool ascSort = true)
         {
             var listDetails = await _orderDetailRepo.GetAllByIdOrderAsync(idOrder, currentPage, pageSize, sortCol, ascSort);
-            return _mapper.Map<List<OrderDetailDTO>>(listDetails);
+            return _mapper.Map<List<OrderDetailResponse>>(listDetails);
         }
 
         public async Task<int> GetCountAsync(int idOrder)

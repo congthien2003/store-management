@@ -29,16 +29,16 @@ namespace StoreManagement.Services
             return true;
         }
 
-        public async Task<List<InvoiceDTO>> GetAllByIdStoreAsync(int idStore, int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortCol = "", bool ascSort = true)
+        public async Task<List<InvoiceResponse>> GetAllByIdStoreAsync(int idStore, int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortCol = "", bool ascSort = true)
         {
             var listInvoice = await _InvoiceRepository.GetAllByIdStoreAsync(idStore, currentPage, pageSize,sortCol,ascSort);
-            return _mapper.Map<List<InvoiceDTO>>(listInvoice);
+            return _mapper.Map<List<InvoiceResponse>>(listInvoice);
         }
 
-        public async Task<InvoiceDTO> GetByIdAsync(int id)
+        public async Task<InvoiceResponse> GetByIdAsync(int id)
         {
             var result = await _InvoiceRepository.GetByIdAsync(id);
-            return _mapper.Map<InvoiceDTO>(result);
+            return _mapper.Map<InvoiceResponse>(result);
         }
 
         public async Task<int> GetCountAsync(int idStore)
