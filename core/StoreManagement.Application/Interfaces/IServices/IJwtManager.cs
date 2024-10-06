@@ -1,4 +1,4 @@
-﻿using StoreManagement.Application.DTOs;
+﻿using StoreManagement.Application.DTOs.Request;
 
 namespace StoreManagement.Application.Interfaces.IServices
 {

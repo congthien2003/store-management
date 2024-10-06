@@ -82,7 +82,7 @@ namespace StoreManagement.Infrastructure.Repositories
 
         public async Task<Food> GetByIdAsync(int id, bool incluDeleted = false)
         {
-            var food = await _dataContext.Foods.FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == incluDeleted);
+            var food = await _dataContext.Foods.Include(x=>x.Category).FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == incluDeleted);
             if (food == null)
             {
                 throw new KeyNotFoundException("Không tìm thấy đồ ăn");
@@ -103,7 +103,7 @@ namespace StoreManagement.Infrastructure.Repositories
 
         public async Task<List<Food>> GetByNameAsync(int idStore, string name, bool incluDeleted = false)
         {
-            var listFoods = await _dataContext.Foods.Where(x => x.Name.Contains(name) && x.IsDeleted == incluDeleted && x.Category.IdStore == idStore).ToListAsync();
+            var listFoods = await _dataContext.Foods.Include(x => x.Category).Where(x => x.Name.Contains(name) && x.IsDeleted == incluDeleted && x.Category.IdStore == idStore).ToListAsync();
             if (listFoods.Count == 0)
             {
                 throw new KeyNotFoundException("Không tìm thấy đồ ăn");

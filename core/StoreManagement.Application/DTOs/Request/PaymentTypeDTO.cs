@@ -1,6 +1,6 @@
-﻿namespace StoreManagement.Application.DTOs
+﻿namespace StoreManagement.Application.DTOs.Request
 {
-    public class CategoryDTO
+    public class PaymentTypeDTO
     {
         public int Id { get; set; }
         public string Name { get; set; }

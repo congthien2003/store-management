@@ -50,7 +50,7 @@ namespace StoreManagement.Infrastructure.Repositories
         }
         public async Task<Table> GetByIdAsync(int id, bool incluDeleted = false)
         {
-            var table = await _dataContext.Tables.FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == incluDeleted);
+            var table = await _dataContext.Tables.Include(s => s.Store).ThenInclude(s => s.User).FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == incluDeleted);
             if (table == null)
             {
                 throw new KeyNotFoundException("Bàn  không tồn tại");

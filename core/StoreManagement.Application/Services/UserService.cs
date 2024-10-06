@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using StoreManagement.Application.Common;
-using StoreManagement.Application.DTOs;
 using StoreManagement.Application.DTOs.Auth;
+using StoreManagement.Application.DTOs.Request;
 using StoreManagement.Application.Interfaces.IServices;
 using StoreManagement.Domain.IRepositories;
 using StoreManagement.Domain.Models;
@@ -71,11 +71,12 @@ namespace StoreManagement.Services
             int _pageSize = int.Parse(pageSize);
             bool _asc = bool.Parse(asc);
 
+            var totalRecords = await _userRepository.CountAsync(searchTerm);
             var list = await _userRepository.GetAll(_currentPage, _pageSize, searchTerm, sortColumn, _asc);
             var count = list.Count();
 
             var listUser = mapper.Map<List<UserDTO>>(list);
-            return PaginationResult<List<UserDTO>>.Create(listUser, _currentPage, _pageSize, count);
+            return PaginationResult<List<UserDTO>>.Create(listUser, _currentPage, _pageSize, totalRecords);
         }
     }
 }

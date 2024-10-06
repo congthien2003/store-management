@@ -26,6 +26,11 @@ namespace StoreManagement.Infrastructure.Repositories
             {
                 throw new InvalidOperationException("Thể loại thanh toán không tồn tại");
             }
+            var statusOrder = await _dataContext.Invoices.FirstOrDefaultAsync(x=>x.IdOrder == invoice.IdOrder);
+            if (statusOrder != null && statusOrder.Status) 
+            {
+                throw new InvalidOperationException("Đơn hàng đã có hóa đơn!");
+            }
             var newInvoice = await _dataContext.Invoices.AddAsync(invoice); ;
             await _dataContext.SaveChangesAsync();
             return newInvoice.Entity;
@@ -52,7 +57,7 @@ namespace StoreManagement.Infrastructure.Repositories
         }
         public Task<List<Invoice>> GetAllByIdStoreAsync(int idStore, int currentPage = 1, int pageSize = 5, string sortCol = "", bool ascSort = true, bool incluDeleted = false)
         {
-            var invoice = _dataContext.Invoices.Where(x => x.Order.Table.IdStore == idStore && x.IsDeleted == incluDeleted).AsQueryable();
+            var invoice = _dataContext.Invoices.Include(x=>x.PaymentType).Include(x=>x.Order).Include(x=>x.Voucher).Where(x => x.Order.Table.IdStore == idStore && x.IsDeleted == incluDeleted).AsQueryable();
             if (!incluDeleted)
             {
                 invoice = invoice.Where(t => t.IsDeleted == incluDeleted);
@@ -75,7 +80,7 @@ namespace StoreManagement.Infrastructure.Repositories
 
         public async Task<Invoice> GetByIdAsync(int id, bool incluDeleted = false)
         {
-            var invoice = await _dataContext.Invoices.FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == incluDeleted);
+            var invoice = await _dataContext.Invoices.Include(x => x.PaymentType).Include(x => x.Order).Include(x => x.Voucher).FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == incluDeleted);
             if (invoice == null)
             {
                 throw new KeyNotFoundException("Không tìm thấy hóa đơn");
@@ -87,7 +92,7 @@ namespace StoreManagement.Infrastructure.Repositories
         {
             var invoice = _dataContext.Invoices.Where(x => x.Order.Table.IdStore == idStore && x.IsDeleted == incluDeleted).AsQueryable();
             if (!incluDeleted)
-            {
+            { 
                 invoice = invoice.Where(t => t.IsDeleted == incluDeleted);
             }
             var searchInvoice = await invoice.ToListAsync();

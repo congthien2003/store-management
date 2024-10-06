@@ -44,4 +44,5 @@ export class UserService {
 		const params = new HttpParams().set("id", id);
 		return this.service.delete(`${this.endpoint.delete}/`, { params });
 	}
+	
 }

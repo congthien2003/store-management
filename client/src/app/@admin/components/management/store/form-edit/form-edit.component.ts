@@ -24,8 +24,8 @@ import {
 } from "@angular/forms";
 import { NzFormModule } from "ng-zorro-antd/form";
 import { NzSelectModule } from "ng-zorro-antd/select";
-import { UserService } from "src/app/core/services/user/user.service";
-import { User } from "src/app/core/models/interfaces/User";
+import { StoreService } from "src/app/core/services/store/store.service";
+import { Store } from "src/app/core/models/interfaces/Store";
 import { ToastrService } from "ngx-toastr";
 
 const NzModule = [NzFormModule, NzSelectModule];
@@ -55,15 +55,15 @@ export class FormEditComponent implements OnInit {
 		public dialogRef: MatDialogRef<FormEditComponent>,
 		@Inject(MAT_DIALOG_DATA) public data: { id: number },
 		private fb: NonNullableFormBuilder,
-		private userService: UserService,
+		private storeService: StoreService,
 		private toastr: ToastrService,
 	) {
 		this.validateForm = this.fb.group({
 			id: [this.data.id],
-			username: ["", [Validators.required, Validators.minLength(6)]],
-			email: ["", [Validators.email, Validators.required]],
-			phones: ["", [Validators.required]],
-			role: [1, [Validators.required]],
+			name: ["", [Validators.required]],
+			address: ["", [ Validators.required]],
+			phone: ["", [Validators.required]],
+			IdUser: ["", [Validators.required]],
 		});
 	}
 
@@ -76,15 +76,17 @@ export class FormEditComponent implements OnInit {
 	}
 
 	loadForm(): void {
-		this.userService.getById(this.data.id).subscribe({
+		this.storeService.getById(this.data.id).subscribe({
 			next: (res) => {
-				const user = res.data as User;
+				const store = res.data;
+				console.log('Data:', store);
+				const userId = store.userDTO && store.userDTO.id ? store.userDTO.id : "";
 				this.validateForm.setValue({
-					id: user.id,
-					username: user.username,
-					email: user.email,
-					phones: user.phones,
-					role: user.role,
+					id: store.id,
+					name: store.name,
+					address: store.address,
+					phone: store.phone,
+					IdUser: userId,
 				});
 			},
 		});
@@ -96,7 +98,7 @@ export class FormEditComponent implements OnInit {
 
 	onSubmit(): void {
 		console.log(this.validateForm.value);
-		this.userService.update(this.validateForm.value).subscribe({
+		this.storeService.update(this.validateForm.value).subscribe({
 			next: (res) => {
 				if (res.isSuccess) {
 					this.toastr.success(res.message, "Thành công", {
