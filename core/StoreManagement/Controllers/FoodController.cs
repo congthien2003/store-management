@@ -1,9 +1,10 @@
-﻿using StoreManagement.Application.DTOs;
-using StoreManagement.Application.Interfaces.IServices;
+﻿using StoreManagement.Application.Interfaces.IServices;
 using StoreManagement.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StoreManagement.Application.Common;
+using StoreManagement.Application.DTOs.Request;
+using StoreManagement.Application.DTOs.Response;
 
 namespace StoreManagement.Controllers
 {
@@ -40,7 +41,7 @@ namespace StoreManagement.Controllers
         {
 
             var result = await _foodService.GetByIdAsync(id);
-            return Ok(Result<FoodDTO?>.Success(result, "Lấy thông tin thành công"));
+            return Ok(Result<FoodResponse?>.Success(result, "Lấy thông tin thành công"));
         }
         [HttpGet("search")]
         public async Task<ActionResult> GetByNameAsync(int idStore, string name)

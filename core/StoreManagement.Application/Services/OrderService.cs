@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using StoreManagement.Application.Common;
-using StoreManagement.Application.DTOs;
+using StoreManagement.Application.DTOs.Request;
+using StoreManagement.Application.DTOs.Response;
 using StoreManagement.Application.Interfaces.IServices;
 using StoreManagement.Domain.IRepositories;
 using StoreManagement.Domain.Models;
@@ -11,19 +11,14 @@ namespace StoreManagement.Services
     {
         private readonly IMapper _mapper;
         private readonly IOrderRepository<Order> _orderRepository;
+        private readonly ITableRepository<Table> _tableRepository;
 
-        public OrderService(IMapper mapper, IOrderRepository<Order> orderRepository)
+        public OrderService(IMapper mapper, IOrderRepository<Order> orderRepository, ITableRepository<Table> tableRepository)
         {
             _mapper = mapper;
             _orderRepository = orderRepository;
+            _tableRepository = tableRepository;
         }
-
-        public async Task<double> CaculateTotal(int id, bool incluDeleted = false)
-        {
-            var total = await _orderRepository.CaculateTotal(id);
-            return total;
-        }
-
         public async Task<OrderDTO> CreateAsync(OrderDTO orderDTO)
         {
             var order = _mapper.Map<Order>(orderDTO);
@@ -37,28 +32,44 @@ namespace StoreManagement.Services
             return true;
         }
 
-        public async Task<PaginationResult<List<OrderDTO>>> GetAllByIdStoreAsync(int idStore, string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortCol = "", string asc = "true")
+        public async Task<List<OrderResponse>> GetAllByIdStoreAsync(int idStore, int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortCol = "", bool ascSort = true)
         {
-            int _currentPage = int.Parse(currentPage);
-            int _pageSize = int.Parse(pageSize);
-            bool _asc = bool.Parse(asc);
-            var totalRecord = await _orderRepository.GetCountAsync(idStore, searchTerm);
-            var list = await _orderRepository.GetAllByIdStoreAsync(idStore, _currentPage, _pageSize, searchTerm, sortCol, _asc);
-            var count = list.Count();
-            var listOrders = _mapper.Map<List<OrderDTO>>(list);
-            return PaginationResult<List<OrderDTO>>.Create(listOrders, _currentPage, _pageSize, totalRecord);
+            var list = await _orderRepository.GetAllByIdStoreAsync(idStore, currentPage, pageSize, searchTerm, sortCol, ascSort);
+            var listOrders = new List<OrderResponse>();
+            foreach (var order in list)
+            {
+                var orderResponse = _mapper.Map<OrderResponse>(order);
+                var table = await _tableRepository.GetByIdAsync(order.IdTable);
+                if (table != null)
+                {
+                    orderResponse.TableDTO = _mapper.Map<TableDTO>(table);
+                }
+                listOrders.Add(orderResponse);
+            }
+            return listOrders;
         }
 
-        public async Task<OrderDTO> GetByIdAsync(int id)
+        public async Task<OrderResponse> GetByIdAsync(int id)
         {
             var order = await _orderRepository.GetByIdAsync(id);
-            return _mapper.Map<OrderDTO>(order);
+            var orderResponse = _mapper.Map<OrderResponse>(order);
+            if (order.Table != null)
+            {
+                orderResponse.TableDTO = new TableDTO
+                {
+                    Id = order.Table.Id,
+                    Status = order.Table.Status,
+                    IdStore = order.Table.IdStore,
+                };
+
+            }
+            return orderResponse;
         }
 
-        public async Task<List<OrderDTO>> GetByNameUserAsync(string name)
+        public async Task<List<OrderResponse>> GetByNameUserAsync(string name)
         {
             var listOrders = await _orderRepository.GetByNameUser(name);
-            return _mapper.Map<List<OrderDTO>>(listOrders);
+            return _mapper.Map<List<OrderResponse>>(listOrders);
         }
 
         public async Task<int> GetCountAsync(int idStore, string searchTerm = "")

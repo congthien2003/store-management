@@ -1,9 +1,10 @@
-﻿using StoreManagement.Application.DTOs;
-using StoreManagement.Application.Interfaces.IServices;
+﻿using StoreManagement.Application.Interfaces.IServices;
 using StoreManagement.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StoreManagement.Application.Common;
+using StoreManagement.Application.DTOs.Request;
+using StoreManagement.Application.DTOs.Response;
 
 namespace StoreManagement.Controllers
 {
@@ -46,7 +47,7 @@ namespace StoreManagement.Controllers
         {
 
             var result = await _tableService.GetByIdAsync(id);
-            return Ok(Result<TableDTO?>.Success(result, "Lấy thông tin thành công"));
+            return Ok(Result<TableResponse?>.Success(result, "Lấy thông tin thành công"));
 
 
         }

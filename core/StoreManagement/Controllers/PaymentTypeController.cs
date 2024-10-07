@@ -1,7 +1,8 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
 using StoreManagement.Application.Common;
-using StoreManagement.Application.DTOs;
+using StoreManagement.Application.DTOs.Request;
+using StoreManagement.Application.DTOs.Response;
 using StoreManagement.Application.Interfaces.IServices;
 
 namespace StoreManagement.Controllers
@@ -38,7 +39,7 @@ namespace StoreManagement.Controllers
         public async Task<ActionResult<Result>> GetByIdAsync(int id)
         {
             var result = await _paymentTypeService.GetByIdAsync(id);
-            return Ok(Result<PaymentTypeDTO?>.Success("Lấy thông tin thành công"));
+            return Ok(Result<PaymentTypeResponse?>.Success(result, "Lấy thông tin thành công"));
         }
         [HttpGet("search")]
         public async Task<ActionResult<Result>> GetByNameAsync(int idStore, string name)

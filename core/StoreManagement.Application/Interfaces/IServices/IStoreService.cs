@@ -1,16 +1,17 @@
-﻿using StoreManagement.Application.DTOs;
+﻿using StoreManagement.Application.Common;
+using StoreManagement.Application.DTOs.Request;
+using StoreManagement.Application.DTOs.Response;
 
 namespace StoreManagement.Application.Interfaces.IServices
 {
-    public interface IStoreService
-    {
-        Task<StoreDTO> UpdateAsync(int id,StoreDTO storeDTO);
-        Task<bool> DeleteAsync(int id);
-        Task<StoreDTO> CreateAsync(StoreDTO storeDTO);
-        Task<StoreDTO> GetByIdAsync(int id);
-        Task<StoreDTO> GetyByIdUserAsync(int idUser);
-        Task<List<StoreDTO>> GetByNameAsync(string name);
-        Task<List<StoreDTO>> GetAllAsync(int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortColumn = "", bool ascSort = true, bool incluDeleted = false);
-        Task<int> GetCountList(string searchTerm = "", bool incluDeleted = false);
-    }
+        public interface IStoreService
+        {
+                Task<StoreDTO> UpdateAsync(StoreDTO storeDTO);
+                Task<bool> DeleteAsync(int id);
+                Task<StoreDTO> CreateAsync(StoreDTO storeDTO);
+                Task<StoreResponse> GetByIdAsync(int id);
+                Task<List<StoreResponse>> GetByNameAsync(string name);
+                Task<PaginationResult<List<StoreResponse>>> GetAllAsync(string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortColumn = "", string asc = "true");
+                Task<int> GetCountList(string searchTerm = "", bool incluDeleted = false);
+        }
 }

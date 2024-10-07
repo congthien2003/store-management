@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using StoreManagement.Application.DTOs;
+using StoreManagement.Application.DTOs.Request;
 using StoreManagement.Application.Interfaces.IServices;
 using StoreManagement.Domain.Models;
 using System.IdentityModel.Tokens.Jwt;

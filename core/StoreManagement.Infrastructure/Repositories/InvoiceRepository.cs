@@ -10,26 +10,26 @@ namespace StoreManagement.Infrastructure.Repositories
     {
         private readonly DataContext _dataContext;
 
-        public InvoiceRepository(DataContext dataContext) 
+        public InvoiceRepository(DataContext dataContext)
         {
             _dataContext = dataContext;
         }
         public async Task<Invoice> CreateAsync(Invoice invoice)
         {
             var order = await _dataContext.Orders.FirstOrDefaultAsync(x => x.Id == invoice.IdOrder);
-            if(order == null)
+            if (order == null)
             {
                 throw new InvalidOperationException("Order không tồn tại");
             }
             var paymentType = await _dataContext.PaymentTypes.FirstOrDefaultAsync(x => x.Id == invoice.IdPaymentType);
-            if(paymentType == null)
+            if (paymentType == null)
             {
                 throw new InvalidOperationException("Thể loại thanh toán không tồn tại");
             }
-            if(invoice.Voucher != null)
+            if (invoice.Voucher != null)
             {
                 var voucher = await _dataContext.Vouchers.FirstOrDefaultAsync(x => x.Id == invoice.IdVoucher);
-                if(voucher == null)
+                if (voucher == null)
                 {
                     invoice.IdVoucher = null;
                 }
@@ -42,7 +42,7 @@ namespace StoreManagement.Infrastructure.Repositories
         public async Task<Invoice> DeleteAsync(int id, bool incluDeleted = false)
         {
             var invoice = await _dataContext.Invoices.FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false);
-            if(invoice == null)
+            if (invoice == null)
             {
                 throw new InvalidOperationException("Hóa đơn này không tồn tại");
             }
@@ -60,7 +60,7 @@ namespace StoreManagement.Infrastructure.Repositories
         }
         public Task<List<Invoice>> GetAllByIdStoreAsync(int idStore, int currentPage = 1, int pageSize = 5, string sortCol = "", bool ascSort = true, bool incluDeleted = false)
         {
-            var invoice = _dataContext.Invoices.Where(x => x.Order.Table.IdStore == idStore && x.IsDeleted == incluDeleted).AsQueryable();
+            var invoice = _dataContext.Invoices.Include(x => x.PaymentType).Include(x => x.Order).Include(x => x.Voucher).Where(x => x.Order.Table.IdStore == idStore && x.IsDeleted == incluDeleted).AsQueryable();
             if (!incluDeleted)
             {
                 invoice = invoice.Where(t => t.IsDeleted == incluDeleted);
@@ -83,7 +83,7 @@ namespace StoreManagement.Infrastructure.Repositories
 
         public async Task<Invoice> GetByIdAsync(int id, bool incluDeleted = false)
         {
-            var invoice = await _dataContext.Invoices.FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == incluDeleted);
+            var invoice = await _dataContext.Invoices.Include(x => x.PaymentType).Include(x => x.Order).Include(x => x.Voucher).FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == incluDeleted);
             if (invoice == null)
             {
                 throw new KeyNotFoundException("Không tìm thấy hóa đơn");

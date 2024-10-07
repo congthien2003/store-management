@@ -4,9 +4,10 @@ namespace StoreManagement.Domain.IRepositories
 {
     public interface IStoreRepository<TStore> where TStore : Store
     {
+        Task<int> CountAsync(string searchTerm);
         Task<int> GetCount(string searchTerm = "", bool incluDeleted = false);
         Task<TStore> CreateAsync(TStore store);
-        Task<TStore> UpdateAsync(int id, TStore store, bool includeDeleted = false);
+        Task<TStore> UpdateAsync(TStore store, bool includeDeleted = false);
         Task<TStore> DeleteAsync(int id);
         Task<TStore> GetByIdAsync(int id, bool includeDeleted = false);
         Task<Store> GetByIdUserAsync(int idUser, bool includeDeleted = false);

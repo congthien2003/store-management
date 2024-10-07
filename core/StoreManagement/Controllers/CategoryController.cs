@@ -1,10 +1,10 @@
-﻿using StoreManagement.Application.DTOs;
-using StoreManagement.Application.Interfaces.IServices;
+﻿using StoreManagement.Application.Interfaces.IServices;
 using StoreManagement.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StoreManagement.Application.Common;
-using System.Collections.Generic;
+using StoreManagement.Application.DTOs.Request;
+using StoreManagement.Application.DTOs.Response;
 
 namespace StoreManagement.Controllers
 {
@@ -35,14 +35,14 @@ namespace StoreManagement.Controllers
         public async Task<ActionResult<Result>> DeleteAsync(int id)
         {
             var result = await _categoryService.DeleteAsync(id);
-            return Ok(Result<bool>.Success(result,"Đã xóa thành công"));
+            return Ok(Result<bool>.Success(result, "Đã xóa thành công"));
         }
         [HttpGet]
         [Route("{id:int}")]
         public async Task<ActionResult<Result>> GetCategoryById(int id)
         {
             var result = await _categoryService.GetByIdAsync(id);
-            return Ok(Result<CategoryDTO?>.Success(result, "Lấy thông tin thành công"));
+            return Ok(Result<CategoryResponse?>.Success(result, "Lấy thông tin thành công"));
         }
         [HttpGet("search")]
         public async Task<ActionResult> GetCategoryByName(int idStore, string name)
@@ -54,7 +54,7 @@ namespace StoreManagement.Controllers
         public async Task<ActionResult<Result>> GetAllCategoryByIdStore(int idStore, string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortColumn = "", string asc = "true")
         {
             var results = await _categoryService.GetAllByIdStoreAsync(idStore, currentPage, pageSize, searchTerm, sortColumn, asc);
-            return Ok(Result<PaginationResult<List<CategoryDTO>>>.Success(results,"Lấy thông tin thành công"));
+            return Ok(Result<PaginationResult<List<CategoryDTO>>>.Success(results, "Lấy thông tin thành công"));
         }
     }
 }

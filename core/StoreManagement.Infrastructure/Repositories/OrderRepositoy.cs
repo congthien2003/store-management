@@ -92,7 +92,7 @@ namespace StoreManagement.Infrastructure.Repositories
 
         public async Task<Order> GetByIdAsync(int id, bool incluDeleted = false)
         {
-            var order = await _dataContext.Orders.FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false);
+            var order = await _dataContext.Orders.Include(x=>x.Table).FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false);
             if (order == null)
             {
                 throw new KeyNotFoundException("Order không tồn tại");

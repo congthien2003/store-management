@@ -1,4 +1,4 @@
-﻿namespace StoreManagement.Application.DTOs
+﻿namespace StoreManagement.Application.DTOs.Request
 {
     public class OrderDTO
     {
@@ -9,6 +9,6 @@
         public bool Status { get; set; } = false;
         public DateTime CreatedAt { get; set; }
         public int IdTable { get; set; }
-        
+
     }
 }

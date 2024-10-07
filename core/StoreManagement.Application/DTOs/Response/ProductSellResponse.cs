@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StoreManagement.Application.DTOs
+namespace StoreManagement.Application.DTOs.Response
 {
-    public class ProductSellDTO
+    public class ProductSellResponse
     {
-        public int Id { get; set; }
         public int Quantity { get; set; }
-        public int FoodId { get; set; } 
+        public int FoodId { get; set; }
     }
 }
