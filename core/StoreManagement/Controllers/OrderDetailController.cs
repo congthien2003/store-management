@@ -29,33 +29,18 @@ namespace StoreManagement.Controllers
             var result = await _orderDetailService.UpdateAsync(orderDetailDTO);
             return Ok(Result<OrderDetailDTO?>.Success(result, "Cập nhật thành công"));
         }
-        [HttpDelete]
+        [HttpDelete("delete/{idFood:int}/{idOrder:int}")]
         public async Task<ActionResult<Result>> DeleteAsync(int idFood, int idOrder)
         {
             var result = await _orderDetailService.DeleteAsync(idFood, idOrder);
             return Ok(Result<bool>.Success(result, "Xóa thành công"));
         }
-        [HttpGet("IdOrder")]
-        public async Task<ActionResult> GetAllByIdOrderAsync(int idOrder, string currentPage = "1", string pageSize = "5", string sortColumn = "", string asc = "true")
+        [HttpGet("idOrder/{idOrder:int}")]
+        public async Task<ActionResult<Result>> GetAllByIdOrderAsync(int idOrder, string currentPage = "1", string pageSize = "5", string sortColumn = "", string asc = "true")
         {
-            int _currentPage = int.Parse(currentPage);
-            int _pageSize = int.Parse(pageSize);
-            bool _asc = bool.Parse(asc);
-
-            var list = await _orderDetailService.GetAllByIdOrderAsync(idOrder, _currentPage, _pageSize, sortColumn, _asc);
-            var count = await _orderDetailService.GetCountAsync(idOrder);
-            var _totalPage = count % _pageSize == 0 ? count / _pageSize : count / _pageSize + 1;
-            var result = new
-            {
-                list,
-                _currentPage,
-                _pageSize,
-                _totalPage,
-                _totalRecords = count,
-                _hasNext = _currentPage < _totalPage,
-                _hasPre = _currentPage > 1,
-            };
-            return Ok(result);
+            var result = await _orderDetailService.GetAllByIdOrderAsync(idOrder, currentPage, pageSize, sortColumn, asc);
+            
+            return Ok(Result<PaginationResult<List<OrderDetailDTO>>>.Success(result, "Lấy thông tin thành công"));
         }
     }
 }

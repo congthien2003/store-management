@@ -64,13 +64,13 @@
 						<span>Món ăn</span>
 					</button>
 				</li>
-				<li
-					class="nav-item"
-					[class.active]="4 == activeIndex"
+				<li 	
+					class="nav-item" 
+					[class.active]="4 == activeIndex" 
 					(click)="swithRoute(4)">
 					<button class="nav-link">
-						<i class="fa-solid fa-bell"></i>
-						<span>Đơn đặt hàng</span>
+						<i class="fa-solid fa-table"></i>
+						<span>Bàn</span>
 					</button>
 				</li>
 				<li
@@ -78,14 +78,23 @@
 					[class.active]="5 == activeIndex"
 					(click)="swithRoute(5)">
 					<button class="nav-link">
-						<i class="fa-solid fa-file-invoice-dollar"></i>
-						<span>Hóa đơn</span>
+						<i class="fa-solid fa-bell"></i>
+						<span>Đơn đặt hàng</span>
 					</button>
 				</li>
 				<li
 					class="nav-item"
 					[class.active]="6 == activeIndex"
 					(click)="swithRoute(6)">
+					<button class="nav-link">
+						<i class="fa-solid fa-file-invoice-dollar"></i>
+						<span>Hóa đơn</span>
+					</button>
+				</li>
+				<li
+					class="nav-item"
+					[class.active]="7 == activeIndex"
+					(click)="swithRoute(7)">
 					<button class="nav-link">
 						<i class="fa-solid fa-user"></i>
 						<span>Nhân viên</span>
@@ -94,8 +103,8 @@
 
 				<li
 					class="nav-item"
-					[class.active]="7 == activeIndex"
-					(click)="swithRoute(7)">
+					[class.active]="8 == activeIndex"
+					(click)="swithRoute(8)">
 					<button class="nav-link">
 						<i class="fa-solid fa-chart-line"></i>
 						<span>Thống kê</span>

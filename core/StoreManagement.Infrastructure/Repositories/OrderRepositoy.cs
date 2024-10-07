@@ -14,6 +14,32 @@ namespace StoreManagement.Infrastructure.Repositories
         {
             _dataContext = dataContext;
         }
+
+        public async Task<double> CaculateTotal(int id, bool incluDeleted = false)
+        {
+            var exitsId = await _dataContext.Orders.FirstOrDefaultAsync(o => o.Id == id && o.IsDeleted == incluDeleted);
+            if (exitsId == null)
+            {
+                throw new KeyNotFoundException("Order không tồn tại");
+            }
+            var listOrderDetail = await _dataContext.OrderDetails.Where(x => x.IdOrder == id).ToListAsync();
+            if (listOrderDetail.Count == 0)
+            {
+                throw new KeyNotFoundException("Chi tiết Order không tồn tại");
+            }
+            double total = 0;
+            foreach (var order in listOrderDetail)
+            {
+                var food = await _dataContext.Foods.FindAsync(order.IdFood);
+                if (food != null)
+                {
+                    total += order.Quantity * (double)food.Price;
+                }
+            }
+            return total;
+        }
+
+
         public async Task<Order> CreateAsync(Order order)
         {
             var newOrder = await _dataContext.Orders.AddAsync(order);
@@ -119,7 +145,8 @@ namespace StoreManagement.Infrastructure.Repositories
             orderUpdate.IdTable = order.IdTable;
             orderUpdate.CreatedAt = order.CreatedAt;
             orderUpdate.NameUser = order.NameUser;
-            orderUpdate.PhoneUser = orderUpdate.PhoneUser;
+            orderUpdate.PhoneUser = order.PhoneUser;
+            orderUpdate.Status = order.Status;
             _dataContext.Orders.Update(orderUpdate);
             await _dataContext.SaveChangesAsync();
             return orderUpdate;

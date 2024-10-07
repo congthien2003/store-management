@@ -62,7 +62,7 @@ namespace StoreManagement.Controllers
             var result = await storeService.GetByNameAsync(name);
             return Ok(result);
         }
-        [HttpPut("update")]
+        [HttpPut("update/{id}")]
         public async Task<ActionResult<Result>> UpdateStore(int id, StoreDTO storeDTO)
         {
             var result = await storeService.UpdateAsync(id, storeDTO);
@@ -73,6 +73,12 @@ namespace StoreManagement.Controllers
         {
             var result = await storeService.DeleteAsync(id);
             return Ok(Result<bool>.Success(result, "Cập nhật thành công"));
+        }
+        [HttpGet("User/{idUser}")]
+        public async Task<ActionResult<Result>> GetByIdUser(int idUser)
+        {
+            var result = await storeService.GetyByIdUserAsync(idUser);
+            return Ok(Result<StoreDTO?>.Success(result, "Lấy thông tin thành công"));
         }
     }
 }

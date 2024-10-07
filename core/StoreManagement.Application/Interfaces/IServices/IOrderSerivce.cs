@@ -1,4 +1,5 @@
-﻿using StoreManagement.Application.DTOs;
+﻿using StoreManagement.Application.Common;
+using StoreManagement.Application.DTOs;
 
 namespace StoreManagement.Application.Interfaces.IServices
 {
@@ -10,6 +11,7 @@ namespace StoreManagement.Application.Interfaces.IServices
         Task<OrderDTO> GetByIdAsync(int id);
         Task<int> GetCountAsync(int idStore, string searchTerm = "");
         Task<List<OrderDTO>> GetByNameUserAsync(string name);
-        Task<List<OrderDTO>> GetAllByIdStoreAsync(int idStore, int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortCol = "", bool ascSort = true);
+        Task<double> CaculateTotal(int id, bool incluDeleted = false);
+        Task<PaginationResult<List<OrderDTO>>> GetAllByIdStoreAsync(int idStore, string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortCol = "", string ascSort = "true");
     }
 }

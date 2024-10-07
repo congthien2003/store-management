@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { Pagination } from "src/app/core/models/interfaces/Pagination";
+import { Pagination } from "src/app/core/models/common/Pagination";
 
 // Import Components
 import { PaginationComponent } from "../pagination/pagination.component";

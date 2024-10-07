@@ -1,0 +1,17 @@
+@import "../../../../shared/variable.scss";
+
+.management--table {
+    thead {
+        th {
+            background-color: $owner-primary;
+            color: #ececec;
+        }
+    }
+}
+.store-name {
+    text-align: center;
+    /* Chỉ căn giữa tên quán */
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}

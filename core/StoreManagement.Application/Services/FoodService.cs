@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using StoreManagement.Application.Common;
 using StoreManagement.Application.DTOs;
 using StoreManagement.Application.Interfaces.IServices;
 using StoreManagement.Domain.IRepositories;
@@ -29,11 +30,19 @@ namespace StoreManagement.Services
             return true;
         }
 
-        public async Task<List<FoodDTO>> GetAllByIdStoreAsync(int id,int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortColumn = "", bool ascSort = true, bool incluDeleted = false)
+        public async Task<PaginationResult<List<FoodDTO>>> GetAllByIdStoreAsync(int id,string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortColumn = "", string asc = "true", bool incluDeleted = false)
         {
-            var listFoods = await _foodRepository.GetAllByIdStoreAsync(id,currentPage, pageSize, searchTerm, sortColumn, ascSort, incluDeleted);
-            return _mapper.Map<List<FoodDTO>>(listFoods);
+            int _currentPage = int.Parse(currentPage);
+            int _pageSize = int.Parse(pageSize);
+            bool _asc = bool.Parse(asc);
+            var totalRecord = await _foodRepository.GetCountAsync(id, searchTerm);
+            var list = await _foodRepository.GetAllByIdStoreAsync(id,_currentPage, _pageSize, searchTerm, sortColumn, _asc, incluDeleted);
+            var count = list.Count();
+            var listFoods = _mapper.Map<List<FoodDTO>>(list);
+            return PaginationResult<List<FoodDTO>>.Create(listFoods, _currentPage,_pageSize,totalRecord);
         }
+
+        
 
         public async Task<FoodDTO> GetByIdAsync(int id)
         {

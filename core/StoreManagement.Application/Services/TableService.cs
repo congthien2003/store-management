@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using StoreManagement.Application.Common;
 using StoreManagement.Application.DTOs;
 using StoreManagement.Application.Interfaces.IServices;
 using StoreManagement.Domain.IRepositories;
@@ -34,10 +35,16 @@ namespace StoreManagement.Services
             return _mapper.Map<TableDTO>(table);
         }
 
-        public async Task<List<TableDTO>> GetAllByIdStore(int id, int currentPage = 1, int pageSize = 5, string sortCol = "", bool ascSort = true)
+        public async Task<PaginationResult<List<TableDTO>>> GetAllByIdStore(int id, string currentPage = "1", string pageSize = "5", string sortCol = "", string asc = "true")
         {
-            var listTables = await _tableRepository.GetAllByIdStore(id,currentPage,pageSize,sortCol,ascSort);
-            return _mapper.Map<List<TableDTO>>(listTables);
+            int _currentPage = int.Parse(currentPage);
+            int _pageSize = int.Parse(pageSize);
+            bool _asc = bool.Parse(asc);
+            var totalRecord = await _tableRepository.GetCountAsync(id);
+            var list = await _tableRepository.GetAllByIdStore(id,_currentPage,_pageSize,sortCol,_asc);
+            var count = list.Count();
+            var listTables = _mapper.Map<List<TableDTO>>(list);
+            return PaginationResult<List<TableDTO>>.Create(listTables, _currentPage, _pageSize, totalRecord);
         }
         public async Task<TableDTO> UpdateAsync(int id, TableDTO tableDTO)
         {

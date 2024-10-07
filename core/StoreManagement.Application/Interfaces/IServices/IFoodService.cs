@@ -1,4 +1,5 @@
-﻿using StoreManagement.Application.DTOs;
+﻿using StoreManagement.Application.Common;
+using StoreManagement.Application.DTOs;
 
 namespace StoreManagement.Application.Interfaces.IServices
 {
@@ -10,7 +11,7 @@ namespace StoreManagement.Application.Interfaces.IServices
         Task<FoodDTO> GetByIdAsync(int id);
         Task<List<FoodDTO>> GetByNameAsync(int idStore, string name);
         Task<List<FoodDTO>> GetByIdCategoryAsync(int id);
-        Task<List<FoodDTO>> GetAllByIdStoreAsync(int id,int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortColumn = "", bool ascSort = true, bool incluDeleted = false);
+        Task<PaginationResult<List<FoodDTO>>> GetAllByIdStoreAsync(int id,string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortColumn = "", string ascSort = "true", bool incluDeleted = false);
         Task<int> GetCountList(int idStore, string searchTerm = "", bool incluDeleted = false);
     }
 }

@@ -54,6 +54,12 @@ namespace StoreManagement.Services
             return count;
         }
 
+        public async Task<StoreDTO> GetyByIdUserAsync(int idUser)
+        {
+            var store = await _storeRepository.GetByIdUserAsync(idUser);
+            return _mapper.Map<StoreDTO>(store);
+        }
+
         public async Task<StoreDTO> UpdateAsync(int id,StoreDTO storeDTO)
         {
             var storeUpdate = _mapper.Map<Store>(storeDTO); 

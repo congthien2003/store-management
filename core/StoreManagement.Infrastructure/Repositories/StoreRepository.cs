@@ -76,6 +76,17 @@ namespace StoreManagement.Infrastructure.Repositories
             }
             return store;
         }
+
+        public async Task<Store> GetByIdUserAsync(int idUser, bool includeDeleted = false)
+        {
+            var store = await _dataContext.Stores.FirstOrDefaultAsync(x => x.IdUser == idUser && x.IsDeleted == includeDeleted);
+            if (store == null)
+            {
+                throw new KeyNotFoundException("Cửa hàng không tồn tại");
+            }
+            return store;
+        }
+
         public async Task<List<Store>> GetByNameAsync(string name, bool includeDeleted = false)
         {
             var listStores = await _dataContext.Stores.Where(x=>x.Name.Contains(name)).ToListAsync();

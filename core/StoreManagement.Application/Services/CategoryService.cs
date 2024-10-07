@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using StoreManagement.Application.Common;
 using StoreManagement.Application.DTOs;
 using StoreManagement.Application.Interfaces.IServices;
 using StoreManagement.Domain.IRepositories;
@@ -29,11 +30,17 @@ namespace StoreManagement.Services
             await _categoryRepository.DeleteAsync(id);
             return true;
         }
-
-        public async Task<List<CategoryDTO>> GetAllByIdStoreAsync(int id, int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortColumn = "", bool ascSort = true, bool incluDeleted = false)
+            
+        public async Task<PaginationResult<List<CategoryDTO>>> GetAllByIdStoreAsync(int id, string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortColumn = "", string asc = "true", bool incluDeleted = false)
         {
-            var listCategories = await _categoryRepository.GetAllByIdStoreAsync(id,currentPage,pageSize,searchTerm,sortColumn,ascSort,incluDeleted);
-            return _mapper.Map<List<CategoryDTO>>(listCategories);
+            int _currentPage = int.Parse(currentPage);
+            int _pageSize = int.Parse(pageSize);
+            bool _asc = bool.Parse(asc);
+            var totalRecord = await _categoryRepository.GetCountAsync(id,searchTerm);
+            var list = await _categoryRepository.GetAllByIdStoreAsync(id, _currentPage, _pageSize, searchTerm, sortColumn, _asc, incluDeleted);
+            var count = list.Count();
+            var listCategories = _mapper.Map<List<CategoryDTO>>(list);
+            return PaginationResult<List<CategoryDTO>>.Create(listCategories, _currentPage, _pageSize, totalRecord);
         }
 
         public async Task<CategoryDTO> GetByIdAsync(int id)

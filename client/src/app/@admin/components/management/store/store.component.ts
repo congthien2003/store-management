@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { Pagination } from "src/app/core/models/interfaces/Pagination";
+import { Pagination } from "src/app/core/models/common/Pagination";
 import { User } from "src/app/core/models/interfaces/User";
 
 // Import Components
