@@ -1,7 +1,8 @@
 export const StoreApi = {
     create: "Store/create",
-    getAll: "Store/getall",
+    getAll: "Store/getAll",
     getById: "Store",
-    delete: "Store/delete",
-    update: "Store/update",
+    delete:"Store/delete",
+    getByIdUser: "Store/User",
+    update: "Store/update"
 }
