@@ -1,9 +1,9 @@
-﻿using StoreManagement.Application.DTOs;
-using StoreManagement.Application.DTOs.Auth;
+﻿using StoreManagement.Application.DTOs.Auth;
 using StoreManagement.Application.Interfaces.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StoreManagement.Application.Common;
+using StoreManagement.Application.DTOs.Request;
 
 namespace StoreManagement.Controllers
 {

@@ -46,7 +46,7 @@ namespace StoreManagement.Infrastructure.Repositories
 
         public Task<List<OrderDetail>> GetAllByIdOrderAsync(int idOrder, int currentPage = 1, int pageSize = 5, string sortCol = "", bool ascSort = true)
         {
-            var listOrderDetails = _dataContext.OrderDetails.Where(x => x.IdOrder == idOrder).AsQueryable();
+            var listOrderDetails = _dataContext.OrderDetails.Include(x=>x.Order).Include(x=>x.Food).Where(x => x.IdOrder == idOrder).AsQueryable();
             if (!string.IsNullOrEmpty(sortCol))
             {
                 if (ascSort)

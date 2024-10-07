@@ -36,8 +36,8 @@ namespace StoreManagement.Application.Common
             this.pageSize = pageSize;
             totalPage = (int)Math.Ceiling((double)totalRecords / pageSize);
             this.totalRecords = totalRecords;
-            this.hasPrevPage = this.currentPage > totalPage;
-            this.hasNextPage = this.currentPage > 1;
+            this.hasPrevPage = this.currentPage > 1 && this.currentPage <= totalPage;
+            this.hasNextPage = this.currentPage < totalPage;
         }
     }
 

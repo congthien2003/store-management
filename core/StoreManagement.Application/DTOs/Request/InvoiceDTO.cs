@@ -1,4 +1,4 @@
-﻿namespace StoreManagement.Application.DTOs
+﻿namespace StoreManagement.Application.DTOs.Request
 {
     public class InvoiceDTO
     {

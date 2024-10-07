@@ -5,7 +5,7 @@
 		</div>
 		<div class="management--action">
 			<button mat-raised-button (click)="openAddDialog()">
-				Thêm mới người dùng
+				Thêm mới cửa hàng
 			</button>
 		</div>
 		<!-- <div class="management--filter">
@@ -31,11 +31,12 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr *ngFor="let item of listUser">
+					<tr *ngFor="let item of listStore" >
 						<th scope="row">{{ item.id }}</th>
-						<td>{{ item.username }}</td>
-						<td>{{ item.email }}</td>
-						<td>{{ item.phones }}</td>
+						<td>{{ item.name }}</td>
+						<td>{{ item.address }}</td>
+						<td>{{ item.phone }}</td>
+						<td>{{ item.User?.username || '-' }}</td>
 						<td class="table-actions">
 							<button
 								mat-raised-button

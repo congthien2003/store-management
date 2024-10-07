@@ -1,4 +1,4 @@
-﻿using StoreManagement.Application.DTOs;
+﻿using StoreManagement.Application.DTOs.Request;
 using StoreManagement.Domain.Models;
 using System;
 using System.Collections.Generic;

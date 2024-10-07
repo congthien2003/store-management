@@ -1,9 +1,10 @@
-﻿using StoreManagement.Application.DTOs;
-using StoreManagement.Application.Interfaces.IServices;
+﻿using StoreManagement.Application.Interfaces.IServices;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using StoreManagement.Application.Common;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using StoreManagement.Application.DTOs.Request;
+using StoreManagement.Application.DTOs.Response;
 
 namespace StoreManagement.Controllers
 {
@@ -26,34 +27,22 @@ namespace StoreManagement.Controllers
             return Ok(Result<StoreDTO?>.Success(result, "Tạo cửa hàng thành công"));
         }
         [HttpGet]
-        [Route("all")]
+        [Route("getall")]
         public async Task<ActionResult<Result>> GetAllStore(string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortColumn = "", string asc = "true")
         {
-            int _currentPage = int.Parse(currentPage);
-            int _pageSize = int.Parse(pageSize);
-            bool _asc = bool.Parse(asc);
-
-            var list = await storeService.GetAllAsync(_currentPage, _pageSize, searchTerm, sortColumn, _asc);
-            var count = await storeService.GetCountList(searchTerm);
-            var _totalPage = count % _pageSize == 0 ? count / _pageSize : count / _pageSize + 1;
-            var result = new
+            var store = await storeService.GetAllAsync(currentPage, pageSize, searchTerm, sortColumn, asc);
+            if( store == null)
             {
-                list,
-                _currentPage,
-                _pageSize,
-                _totalPage,
-                _totalRecords = count,
-                _hasNext = _currentPage < _totalPage,
-                _hasPre = _currentPage > 1,
-            };
-            return Ok(result);
+                return BadRequest(Result.Failure("không tìm thấy cửa hàng"));
+            }
+            return Ok(Result<PaginationResult<List<StoreResponse>>>.Success(store, "lấy thông tin thành công"));
         }
         [HttpGet]
         [Route("{id:int}")]
         public async Task<ActionResult<Result>> GetStoreById(int id)
         {
             var result = await storeService.GetByIdAsync(id);
-            return Ok(Result<StoreDTO?>.Success(result, "Lấy thông tin cửa hàng thành công"));
+            return Ok(Result<StoreResponse?>.Success(result, "Lấy thông tin cửa hàng thành công"));
         }
         [HttpGet]
         [Route("search")]
@@ -63,9 +52,9 @@ namespace StoreManagement.Controllers
             return Ok(result);
         }
         [HttpPut("update")]
-        public async Task<ActionResult<Result>> UpdateStore(int id, StoreDTO storeDTO)
+        public async Task<ActionResult<Result>> UpdateStore(StoreDTO storeDTO)
         {
-            var result = await storeService.UpdateAsync(id, storeDTO);
+            var result = await storeService.UpdateAsync(storeDTO);
             return Ok(Result<StoreDTO?>.Success(result, "Cập nhật thành công"));
         }
         [HttpDelete("Delete")]
