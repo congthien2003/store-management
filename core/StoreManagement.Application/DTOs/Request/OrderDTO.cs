@@ -1,4 +1,4 @@
-﻿namespace StoreManagement.Application.DTOs
+﻿namespace StoreManagement.Application.DTOs.Request
 {
     public class OrderDTO
     {
@@ -8,6 +8,6 @@
         public string PhoneUser { get; set; }
         public DateTime CreatedAt { get; set; }
         public int IdTable { get; set; }
-        
+
     }
 }

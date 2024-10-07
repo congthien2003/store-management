@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StoreManagement.Application.DTOs
+namespace StoreManagement.Application.DTOs.Response
 {
-    public class PaymentTypeResponse
+    public class VoucherResponse
     {
         public string Name { get; set; }
+        public int Discount { get; set; }
         public int IdStore { get; set; }
     }
 }

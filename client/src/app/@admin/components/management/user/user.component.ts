@@ -81,7 +81,7 @@ export class UserComponent implements OnInit {
 		totalPage: 0,
 		totalRecords: 0,
 		currentPage: 1,
-		pageSize: 15,
+		pageSize: 10,
 		hasNextPage: false,
 		hasPrevPage: false,
 	};
@@ -121,6 +121,7 @@ export class UserComponent implements OnInit {
 	onChangePage(currentPage: any): void {
 		console.log(currentPage);
 		this.pagi.currentPage = currentPage;
+		this.loadListUser();
 	}
 
 	openAddDialog(): void {

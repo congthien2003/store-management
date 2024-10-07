@@ -84,7 +84,7 @@ namespace StoreManagement.Infrastructure.Repositories
         }
         public async Task<Category> GetByIdAsync(int id, bool incluDeleted = false)
         {
-            var category = await _dataContext.Categories.FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == incluDeleted);
+            var category = await _dataContext.Categories.Include(c=>c.Store).FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == incluDeleted);
             if(category == null)
             {
                 throw new KeyNotFoundException("Không tìm thấy thể loại");
@@ -94,7 +94,7 @@ namespace StoreManagement.Infrastructure.Repositories
 
         public async Task<List<Category>> GetByNameAsync(int idStore, string name, bool incluDeleted = false)
         {
-            var listCategories = await _dataContext.Categories.Where(x => x.Name.Contains(name) && x.IsDeleted == incluDeleted && x.Store.Id == idStore).ToListAsync();
+            var listCategories = await _dataContext.Categories.Include(c => c.Store).Where(x => x.Name.Contains(name) && x.IsDeleted == incluDeleted && x.Store.Id == idStore).ToListAsync();
             if(listCategories.Count == 0)
             {
                 throw new KeyNotFoundException("Thể loại không tồn tại");

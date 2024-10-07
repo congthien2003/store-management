@@ -122,5 +122,16 @@ namespace StoreManagement.Infrastructure.Repositories
             var list = await users.Skip(currentPage * pageSize - pageSize).Take(pageSize).ToListAsync();
             return list;
         }
+
+        public async Task<int> CountAsync(string searchTerm)
+        {
+            var query = _dataContext.Users.AsQueryable();
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                query = query.Where(t => t.Username.Contains(searchTerm));
+            }
+
+            return await query.CountAsync();
+        }
     }
 }

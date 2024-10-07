@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
-using StoreManagement.Application.DTOs;
 using StoreManagement.Application.DTOs.Auth;
+using StoreManagement.Application.DTOs.Request;
+using StoreManagement.Application.DTOs.Response;
 using StoreManagement.Domain.Models;
 
 namespace StoreManagement.Application.Helper
