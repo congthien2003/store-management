@@ -11,5 +11,6 @@ namespace StoreManagement.Domain.IRepositories
         Task<int> GetCountAsync(int idStore, string searchTerm = "", bool incluDeleted = false);
         Task<List<TOrder>> GetAllByIdStoreAsync(int idStore, int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortCol = "", bool ascSort = true, bool incluDeleted = false);
         Task<List<TOrder>> GetByNameUser(string name, bool incluDeleted = false);
+        Task<double> CaculateTotal(int id, bool incluDeleted = false);
     }
 }

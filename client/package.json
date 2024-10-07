@@ -23,6 +23,7 @@
     "@auth0/angular-jwt": "^5.2.0",
     "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.2.3",
+    "client": "file:",
     "crypto-js": "^4.2.0",
     "jwt-decode": "^4.0.0",
     "ng-zorro-antd": "^16.2.2",

@@ -47,7 +47,7 @@ namespace StoreManagement.Services
                         Id = listDetails[i].Order.Id,
                         Total = (double)listDetails[i].Order.Total,
                         NameUser = listDetails[i].Order.NameUser,
-                        PhoneUser = listDetails[i].Order.PhoneUser, 
+                        PhoneUser = listDetails[i].Order.PhoneUser,
                         CreatedAt = listDetails[i].Order.CreatedAt,
                         IdTable = listDetails[i].Order.IdTable,
                     };

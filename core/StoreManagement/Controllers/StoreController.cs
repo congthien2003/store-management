@@ -31,7 +31,7 @@ namespace StoreManagement.Controllers
         public async Task<ActionResult<Result>> GetAllStore(string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortColumn = "", string asc = "true")
         {
             var store = await storeService.GetAllAsync(currentPage, pageSize, searchTerm, sortColumn, asc);
-            if( store == null)
+            if (store == null)
             {
                 return BadRequest(Result.Failure("không tìm thấy cửa hàng"));
             }
@@ -51,8 +51,8 @@ namespace StoreManagement.Controllers
             var result = await storeService.GetByNameAsync(name);
             return Ok(result);
         }
-        [HttpPut("update")]
-        public async Task<ActionResult<Result>> UpdateStore(StoreDTO storeDTO)
+        [HttpPut("update/{id}")]
+        public async Task<ActionResult<Result>> UpdateStore(int id, StoreDTO storeDTO)
         {
             var result = await storeService.UpdateAsync(storeDTO);
             return Ok(Result<StoreDTO?>.Success(result, "Cập nhật thành công"));
@@ -62,6 +62,12 @@ namespace StoreManagement.Controllers
         {
             var result = await storeService.DeleteAsync(id);
             return Ok(Result<bool>.Success(result, "Cập nhật thành công"));
+        }
+        [HttpGet("User/{idUser}")]
+        public async Task<ActionResult<Result>> GetByIdUser(int idUser)
+        {
+            var result = await storeService.GetyByIdUserAsync(idUser);
+            return Ok(Result<StoreDTO?>.Success(result, "Lấy thông tin thành công"));
         }
     }
 }

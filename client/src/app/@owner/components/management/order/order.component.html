@@ -1,1 +1,63 @@
-<p>order works!</p>
+<div class="management--wrapper">
+    <div class="management--header">
+        <div class="management--search">
+            <input aria-label="Search Food" type="text" class="form-control" [(ngModel)]="searchTerm"
+                (ngModelChange)="onSearchTerm()" />
+        </div>
+        <!-- <div class="management--action">
+            <button mat-raised-button color="warn" (click)="openAddDialog()">
+                Thêm mới đồ ăn
+            </button>
+        </div> -->
+    </div>
+    <div class="management--main">
+        <div class="management--table">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th *ngFor="let columns of config.displayedColumns" scope="col">
+                            {{ columns.display }}
+                        </th>
+                        <th>-</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of listOrder">
+                        <th scope="row">{{ item.id }}</th>
+                        <td>{{ item.nameUser }}</td>
+                        <td>{{ item.phoneUser }}</td>
+                        <td>{{ total[item.id] !== undefined ? total[item.id] : 'Đang tính toán...' }} VND</td>
+                        <td>{{ item.createdAt }}</td>
+                        <td>{{item.status ? 'Đã chấp nhận' : 'Chưa chấp nhận'}}</td>
+                        <td>{{item.idTable}}</td>
+
+
+                        <td class="table-actions">
+                            <button *ngIf="item.status" mat-raised-button class="btn-management-edit " matTooltip="Chi tiết hóa đơn"
+                                (click)="openDetailDialog(item.id)" aria-label="Detail">
+                                <i class="fa-solid fa-circle-info"></i>
+                            </button>
+                        
+                            <ng-container *ngIf="!item.status">
+                                <button mat-raised-button class="btn-management-edit" matTooltip="Chấp nhận hóa đơn"
+                                    (click)="openDetailDialog(item.id)" aria-label="Accept">
+                                    <i class="fa-solid fa-check"></i>
+                                </button>
+                                <button mat-raised-button class="btn-management-delete" matTooltip="Từ chối hóa đơn"
+                                    (click)="openDeleteDialog(item.id)" aria-label="Reject">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            </ng-container>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+            <div class="table--pagination">
+                <table-pagination [_hasNext]="pagi.hasNextPage" [_hasPrev]="pagi.hasPrevPage"
+                    [_currentPage]="pagi.currentPage" [_totalPage]="pagi.totalPage" (changePage)="onChangePage($event)">
+                </table-pagination>
+            </div>
+        </div>
+    </div>
+</div>

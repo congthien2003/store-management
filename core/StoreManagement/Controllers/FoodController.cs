@@ -24,13 +24,13 @@ namespace StoreManagement.Controllers
             var result = await _foodService.CreateAsync(foodDTO);
             return Ok(Result<FoodDTO?>.Success(result, "Tạo mới thành công"));
         }
-        [HttpPut("update")]
+        [HttpPut("update/{id:int}")]
         public async Task<ActionResult<Result>> UpdateAsync(int id, FoodDTO foodDTO)
         {
             var result = await _foodService.UpdateAsync(id, foodDTO);
             return Ok(Result<FoodDTO?>.Success(result, "Cập nhật thành công"));
         }
-        [HttpDelete("delete")]
+        [HttpDelete("delete/{id:int}")]
         public async Task<ActionResult<Result>> DeleteAsync(int id)
         {
             var result = await _foodService.DeleteAsync(id);
@@ -49,27 +49,11 @@ namespace StoreManagement.Controllers
             var result = await _foodService.GetByNameAsync(idStore, name);
             return Ok(result);
         }
-        [HttpGet("Store")]
-        public async Task<ActionResult> GetAllFoodByIdStore(int idStore, string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortColumn = "", string asc = "true")
+        [HttpGet("Store/{idStore:int}")]
+        public async Task<ActionResult<Result>> GetAllFoodByIdStore(int idStore, string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortColumn = "", string asc = "true")
         {
-            int _currentPage = int.Parse(currentPage);
-            int _pageSize = int.Parse(pageSize);
-            bool _asc = bool.Parse(asc);
-
-            var list = await _foodService.GetAllByIdStoreAsync(idStore, _currentPage, _pageSize, searchTerm, sortColumn, _asc, false);
-            var count = await _foodService.GetCountList(idStore, searchTerm, false);
-            var _totalPage = count % _pageSize == 0 ? count / _pageSize : count / _pageSize + 1;
-            var result = new
-            {
-                list,
-                _currentPage,
-                _pageSize,
-                _totalPage,
-                _totalRecords = count,
-                _hasNext = _currentPage < _totalPage,
-                _hasPre = _currentPage > 1,
-            };
-            return Ok(result);
+            var results = await _foodService.GetAllByIdStoreAsync(idStore, currentPage, pageSize, searchTerm, sortColumn, asc);
+            return Ok(Result<PaginationResult<List<FoodDTO>>>.Success(results, "Lấy thông tin thành công"));
         }
         [HttpGet("Category")]
         public async Task<ActionResult> GetFoodByIdCategory(int id)

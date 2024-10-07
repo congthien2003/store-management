@@ -36,11 +36,11 @@ namespace StoreManagement.Services
         {
             var list = await _orderRepository.GetAllByIdStoreAsync(idStore, currentPage, pageSize, searchTerm, sortCol, ascSort);
             var listOrders = new List<OrderResponse>();
-            foreach(var order in list)
+            foreach (var order in list)
             {
                 var orderResponse = _mapper.Map<OrderResponse>(order);
                 var table = await _tableRepository.GetByIdAsync(order.IdTable);
-                if(table != null)
+                if (table != null)
                 {
                     orderResponse.TableDTO = _mapper.Map<TableDTO>(table);
                 }
@@ -53,7 +53,7 @@ namespace StoreManagement.Services
         {
             var order = await _orderRepository.GetByIdAsync(id);
             var orderResponse = _mapper.Map<OrderResponse>(order);
-            if(order.Table != null)
+            if (order.Table != null)
             {
                 orderResponse.TableDTO = new TableDTO
                 {
@@ -61,7 +61,7 @@ namespace StoreManagement.Services
                     Status = order.Table.Status,
                     IdStore = order.Table.IdStore,
                 };
-                
+
             }
             return orderResponse;
         }

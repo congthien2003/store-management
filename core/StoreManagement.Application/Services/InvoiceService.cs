@@ -12,7 +12,7 @@ namespace StoreManagement.Services
         private readonly IMapper _mapper;
         private readonly IInvoiceRepository<Invoice> _InvoiceRepository;
 
-        public InvoiceService(IInvoiceRepository<Invoice> invoiceRepository, IMapper mapper) 
+        public InvoiceService(IInvoiceRepository<Invoice> invoiceRepository, IMapper mapper)
         {
             _mapper = mapper;
             _InvoiceRepository = invoiceRepository;
@@ -131,7 +131,7 @@ namespace StoreManagement.Services
         public async Task<InvoiceDTO> UpdateAsync(int id, InvoiceDTO invoiceDTO)
         {
             var invoiceUpdate = _mapper.Map<Invoice>(invoiceDTO);
-            var update = await _InvoiceRepository.UpdateAsync(id,invoiceUpdate);
+            var update = await _InvoiceRepository.UpdateAsync(id, invoiceUpdate);
             return _mapper.Map<InvoiceDTO>(update);
         }
     }

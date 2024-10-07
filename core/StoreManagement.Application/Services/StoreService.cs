@@ -44,11 +44,11 @@ namespace StoreManagement.Services
 
             //var listStore = _mapper.Map<List<StoreResponse>>(list);
             var listStore = new List<StoreResponse>();
-            foreach(var store in list)
+            foreach (var store in list)
             {
                 var storeResponse = _mapper.Map<StoreResponse>(store);
                 var user = await _userRepository.GetById(store.IdUser);
-                if(user != null)
+                if (user != null)
                 {
                     storeResponse.UserDTO = _mapper.Map<UserDTO>(user);
                 }
@@ -64,9 +64,9 @@ namespace StoreManagement.Services
             var store = await _storeRepository.GetByIdAsync(id);
 
 
-            var storeResponse =  _mapper.Map<StoreResponse>(store);
+            var storeResponse = _mapper.Map<StoreResponse>(store);
 
-            if(store.User != null)
+            if (store.User != null)
             {
                 storeResponse.UserDTO = new UserDTO
                 {
@@ -110,8 +110,8 @@ namespace StoreManagement.Services
 
         public async Task<StoreDTO> UpdateAsync(StoreDTO storeDTO)
         {
-            var storeUpdate = _mapper.Map<Store>(storeDTO); 
-            var update = await _storeRepository.UpdateAsync( storeUpdate);
+            var storeUpdate = _mapper.Map<Store>(storeDTO);
+            var update = await _storeRepository.UpdateAsync(storeUpdate);
             return _mapper.Map<StoreDTO>(update);
         }
     }

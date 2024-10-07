@@ -24,7 +24,7 @@ namespace StoreManagement.Controllers
             var result = await _tableService.CreateAsync(tableDTO);
             return Ok(Result<TableDTO?>.Success(result,"Tạo mới thành công"));
         }
-        [HttpPut("update")]
+        [HttpPut("update/{id:int}")]
         public async Task<ActionResult<Result>> UpdateAsync(int id, TableDTO tableDTO)
         {
 
@@ -33,7 +33,7 @@ namespace StoreManagement.Controllers
 
 
         }
-        [HttpDelete("delete")]
+        [HttpDelete("delete/{id:int}")]
         public async Task<ActionResult<Result>> DeleteAsync(int id)
         {
 
@@ -51,27 +51,12 @@ namespace StoreManagement.Controllers
 
 
         }
-        [HttpGet("all")]
-        public async Task<ActionResult> GetByIdStore(int idStore, string currentPage = "1", string pageSize = "5", string sortCol = "", string ascSort = "true")
+        [HttpGet("all/{idStore:int}")]
+        public async Task<ActionResult<Result>> GetByIdStore(int idStore, string currentPage = "1", string pageSize = "5", string sortCol = "", string asc = "true")
         {
-            int _currentPage = int.Parse(currentPage);
-            int _pageSize = int.Parse(pageSize);
-            bool _asc = bool.Parse(ascSort);
-
-            var list = await _tableService.GetAllByIdStore(idStore, _currentPage, _pageSize, sortCol, _asc);
-            var count = await _tableService.GetCountAsync(idStore);
-            var _totalPage = count % _pageSize == 0 ? count / _pageSize : count / _pageSize + 1;
-            var result = new
-            {
-                list,
-                _currentPage,
-                _pageSize,
-                _totalPage,
-                _totalRecords = count,
-                _hasNext = _currentPage < _totalPage,
-                _hasPre = _currentPage > 1,
-            };
-            return Ok(result);
+            var results = await _tableService.GetAllByIdStore(idStore, currentPage, pageSize, sortCol, asc);
+           
+            return Ok(Result<PaginationResult<List<TableDTO>>>.Success(results, "Lấy thông tin thành công"));
         }
     }
 }

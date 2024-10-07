@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using StoreManagement.Application.Common;
 using StoreManagement.Application.DTOs;
 using StoreManagement.Application.DTOs.Request;
 using StoreManagement.Application.DTOs.Response;
@@ -14,7 +15,7 @@ namespace StoreManagement.Services
         private readonly IStoreRepository<Store> _storeRepository;
         private readonly IMapper _mapper;
 
-        public TableService(IMapper mapper, ITableRepository<Table> tableRepository, IStoreRepository<Store> storeRepository) 
+        public TableService(IMapper mapper, ITableRepository<Table> tableRepository, IStoreRepository<Store> storeRepository)
         {
             _tableRepository = tableRepository;
             _storeRepository = storeRepository;
@@ -38,7 +39,7 @@ namespace StoreManagement.Services
 
             var tableResponse = _mapper.Map<TableResponse>(table);
 
-            if(table.Store != null)
+            if (table.Store != null)
             {
                 tableResponse.StoreDTO = new StoreDTO
                 {
@@ -52,21 +53,16 @@ namespace StoreManagement.Services
             return tableResponse;
         }
 
-        public async Task<List<TableResponse>> GetAllByIdStore(int id, int currentPage = 1, int pageSize = 5, string sortCol = "", bool ascSort = true)
+        public async Task<PaginationResult<List<TableDTO>>> GetAllByIdStore(int id, string currentPage = "1", string pageSize = "5", string sortCol = "", string asc = "true")
         {
-            var list = await _tableRepository.GetAllByIdStore(id,currentPage,pageSize,sortCol,ascSort);
-            var listTable = new List<TableResponse>();
-            foreach(var table in list)
-            {
-                var tableResponse = _mapper.Map<TableResponse>(table);
-                var store = await _storeRepository.GetByIdAsync(table.IdStore);
-                if(store != null)
-                {
-                    tableResponse.StoreDTO = _mapper.Map<StoreDTO>(store);
-                }
-                listTable.Add(tableResponse);
-            }
-            return listTable;
+            int _currentPage = int.Parse(currentPage);
+            int _pageSize = int.Parse(pageSize);
+            bool _asc = bool.Parse(asc);
+            var totalRecord = await _tableRepository.GetCountAsync(id);
+            var list = await _tableRepository.GetAllByIdStore(id, _currentPage, _pageSize, sortCol, _asc);
+            var count = list.Count();
+            var listTables = _mapper.Map<List<TableDTO>>(list);
+            return PaginationResult<List<TableDTO>>.Create(listTables, _currentPage, _pageSize, totalRecord);
         }
         public async Task<TableDTO> UpdateAsync(int id, TableDTO tableDTO)
         {

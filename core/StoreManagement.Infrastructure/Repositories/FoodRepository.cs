@@ -134,6 +134,7 @@ namespace StoreManagement.Infrastructure.Repositories
                 throw new KeyNotFoundException("Không tìm thấy đồ ăn cần chỉnh sửa");
             }
             foodUpdate.Name = food.Name;
+            foodUpdate.Price = food.Price;
             foodUpdate.Status = food.Status;
             foodUpdate.Quantity = food.Quantity;
             _dataContext.Foods.Update(foodUpdate);

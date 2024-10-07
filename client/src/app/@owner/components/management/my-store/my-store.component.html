@@ -1,1 +1,32 @@
-<p>my-store works!</p>
+<div class="management--wrapper">
+    <div *ngIf="myStore" class="store-container">
+        <h2 class="store-name">{{ myStore.name }}</h2>
+    </div>
+
+    <div class="management--main">
+        <div class="management--table">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th *ngFor="let columns of config.displayedColumns" scope="col">
+                            {{ columns.display }}
+                        </th>
+                        <th>-</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <td>{{myStore.name}}</td>
+                        <td>{{myStore.address}}</td>
+                        <td>{{myStore.phone}}</td>
+                        <td>{{nameUser}}</td>
+                        <td class="table-actions">
+                            <button mat-raised-button class="btn-management-edit" matTooltip="Chỉnh sửa thông tin đồ ăn"
+                                (click)="openEditDialog()" aria-label="Edit">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                        </td>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

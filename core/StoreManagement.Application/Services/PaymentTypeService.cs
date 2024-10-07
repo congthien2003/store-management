@@ -19,7 +19,7 @@ namespace StoreManagement.Services
         }
         public async Task<PaymentTypeDTO> CreateAsync(PaymentTypeDTO paymentTypeDTO)
         {
-           var payment = _mapper.Map<PaymentType>(paymentTypeDTO);
+            var payment = _mapper.Map<PaymentType>(paymentTypeDTO);
             var paymentCreated = await _paymentTypeRepository.CreateAsync(payment);
             return _mapper.Map<PaymentTypeDTO>(paymentCreated);
         }
@@ -32,7 +32,7 @@ namespace StoreManagement.Services
 
         public async Task<List<PaymentTypeResponse>> GetAllByIdStoreAsync(int idStore, int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortColumn = "", bool ascSort = true)
         {
-            var listPayment = await _paymentTypeRepository.GetAllByIdStore(idStore,currentPage,pageSize,searchTerm,sortColumn,ascSort);
+            var listPayment = await _paymentTypeRepository.GetAllByIdStore(idStore, currentPage, pageSize, searchTerm, sortColumn, ascSort);
             var responseList = new List<PaymentTypeResponse>();
 
             for (int i = 0; i < listPayment.Count; i++)
@@ -79,7 +79,7 @@ namespace StoreManagement.Services
 
         public async Task<List<PaymentTypeResponse>> GetByNameAsync(int idStore, string name)
         {
-            var listPayments = await _paymentTypeRepository.GetByNameAsync(idStore,name);
+            var listPayments = await _paymentTypeRepository.GetByNameAsync(idStore, name);
             var responseList = new List<PaymentTypeResponse>();
 
             for (int i = 0; i < listPayments.Count; i++)
