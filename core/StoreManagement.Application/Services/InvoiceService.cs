@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using StoreManagement.Application.Common;
 using StoreManagement.Application.DTOs.Request;
 using StoreManagement.Application.DTOs.Response;
 using StoreManagement.Application.Interfaces.IServices;
@@ -30,9 +31,12 @@ namespace StoreManagement.Services
             return true;
         }
 
-        public async Task<List<InvoiceResponse>> GetAllByIdStoreAsync(int idStore, int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortCol = "", bool ascSort = true)
+        public async Task<PaginationResult<List<InvoiceResponse>>> GetAllByIdStoreAsync(int idStore, string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortCol = "", string asc = "true")
         {
-            var listInvoice = await _InvoiceRepository.GetAllByIdStoreAsync(idStore, currentPage, pageSize, sortCol, ascSort);
+            int _currentPage = int.Parse(currentPage);
+            int _pageSize = int.Parse(pageSize);
+            bool _asc = bool.Parse(asc);
+            var listInvoice = await _InvoiceRepository.GetAllByIdStoreAsync(idStore, _currentPage, _pageSize, sortCol, _asc);
 
             var responseList = new List<InvoiceResponse>();
 
@@ -75,8 +79,8 @@ namespace StoreManagement.Services
 
                 responseList.Add(invoiceResponse);
             }
-
-            return responseList;
+            var totalRecords = await _InvoiceRepository.GetCountAsync(idStore);
+            return PaginationResult<List<InvoiceResponse>>.Create(responseList,_currentPage,_pageSize, totalRecords);
         }
 
         public async Task<InvoiceResponse> GetByIdAsync(int id)

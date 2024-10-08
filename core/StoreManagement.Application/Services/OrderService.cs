@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using StoreManagement.Application.Common;
 using StoreManagement.Application.DTOs.Request;
 using StoreManagement.Application.DTOs.Response;
 using StoreManagement.Application.Interfaces.IServices;
@@ -32,9 +33,12 @@ namespace StoreManagement.Services
             return true;
         }
 
-        public async Task<List<OrderResponse>> GetAllByIdStoreAsync(int idStore, int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortCol = "", bool ascSort = true)
+        public async Task<PaginationResult<List<OrderResponse>>> GetAllByIdStoreAsync(int idStore, string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortCol = "", string asc = "true")
         {
-            var list = await _orderRepository.GetAllByIdStoreAsync(idStore, currentPage, pageSize, searchTerm, sortCol, ascSort);
+            int _currentPage = int.Parse(currentPage);
+            int _pageSize = int.Parse(pageSize);
+            bool _asc = bool.Parse(asc);
+            var list = await _orderRepository.GetAllByIdStoreAsync(idStore, _currentPage, _pageSize, searchTerm, sortCol, _asc);
             var listOrders = new List<OrderResponse>();
             foreach (var order in list)
             {
@@ -46,7 +50,8 @@ namespace StoreManagement.Services
                 }
                 listOrders.Add(orderResponse);
             }
-            return listOrders;
+            var totalRecords = await _orderRepository.GetCountAsync(idStore);
+            return PaginationResult<List<OrderResponse>>.Create(listOrders,_currentPage,_pageSize,totalRecords);
         }
 
         public async Task<OrderResponse> GetByIdAsync(int id)
@@ -83,6 +88,11 @@ namespace StoreManagement.Services
             var orderUpdate = _mapper.Map<Order>(orderDTO);
             var update = await _orderRepository.UpdateAsync(id, orderUpdate);
             return _mapper.Map<OrderDTO>(update);
+        }
+        public async Task<double> CaculateTotal(int id, bool incluDeleted = false)
+        {
+            var total = await _orderRepository.CaculateTotal(id);
+            return total;
         }
     }
 }

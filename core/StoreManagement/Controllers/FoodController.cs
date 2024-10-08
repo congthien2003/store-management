@@ -53,7 +53,7 @@ namespace StoreManagement.Controllers
         public async Task<ActionResult<Result>> GetAllFoodByIdStore(int idStore, string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortColumn = "", string asc = "true")
         {
             var results = await _foodService.GetAllByIdStoreAsync(idStore, currentPage, pageSize, searchTerm, sortColumn, asc);
-            return Ok(Result<PaginationResult<List<FoodDTO>>>.Success(results, "Lấy thông tin thành công"));
+            return Ok(Result<PaginationResult<List<FoodResponse>>>.Success(results, "Lấy thông tin thành công"));
         }
         [HttpGet("Category")]
         public async Task<ActionResult> GetFoodByIdCategory(int id)

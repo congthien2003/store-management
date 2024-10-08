@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using StoreManagement.Application.Common;
 using StoreManagement.Application.DTOs.Request;
 using StoreManagement.Application.DTOs.Response;
 using StoreManagement.Application.Interfaces.IServices;
@@ -32,9 +33,13 @@ namespace StoreManagement.Services
             return true;
         }
 
-        public async Task<List<FoodResponse>> GetAllByIdStoreAsync(int id, int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortColumn = "", bool ascSort = true, bool incluDeleted = false)
+        public async Task<PaginationResult<List<FoodResponse>>> GetAllByIdStoreAsync(int id, string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortColumn = "", string asc = "true", bool incluDeleted = false)
         {
-            var list = await _foodRepository.GetAllByIdStoreAsync(id, currentPage, pageSize, searchTerm, sortColumn, ascSort, incluDeleted);
+
+            int _currentPage = int.Parse(currentPage);
+            int _pageSize = int.Parse(pageSize);
+            bool _asc = bool.Parse(asc);
+            var list = await _foodRepository.GetAllByIdStoreAsync(id, _currentPage, _pageSize, searchTerm, sortColumn, _asc, incluDeleted);
             var listFood = new List<FoodResponse>();
             foreach (var food in list)
             {
@@ -46,7 +51,9 @@ namespace StoreManagement.Services
                 }
                 listFood.Add(foodResponse);
             }
-            return listFood;
+            var totalRecords = await _foodRepository.GetCountAsync(id);
+
+            return PaginationResult<List<FoodResponse>>.Create(listFood,_currentPage,_pageSize,totalRecords);
         }
 
         public async Task<FoodResponse> GetByIdAsync(int id)

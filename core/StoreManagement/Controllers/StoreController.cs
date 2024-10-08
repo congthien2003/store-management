@@ -66,8 +66,8 @@ namespace StoreManagement.Controllers
         [HttpGet("User/{idUser}")]
         public async Task<ActionResult<Result>> GetByIdUser(int idUser)
         {
-            var result = await storeService.GetyByIdUserAsync(idUser);
-            return Ok(Result<StoreDTO?>.Success(result, "Lấy thông tin thành công"));
+            var result = await storeService.GetByIdAsync(idUser);
+            return Ok(Result<StoreResponse?>.Success(result, "Lấy thông tin thành công"));
         }
     }
 }

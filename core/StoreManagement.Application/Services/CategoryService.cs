@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using StoreManagement.Application.Common;
 using StoreManagement.Application.DTOs.Request;
 using StoreManagement.Application.DTOs.Response;
 using StoreManagement.Application.Interfaces.IServices;
@@ -33,9 +34,12 @@ namespace StoreManagement.Services
             return true;
         }
 
-        public async Task<List<CategoryResponse>> GetAllByIdStoreAsync(int id, int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortColumn = "", bool ascSort = true, bool incluDeleted = false)
+        public async Task<PaginationResult<List<CategoryResponse>>> GetAllByIdStoreAsync(int id, string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortColumn = "", string ascSort = "true", bool incluDeleted = false)
         {
-            var list = await _categoryRepository.GetAllByIdStoreAsync(id, currentPage, pageSize, searchTerm, sortColumn, ascSort, incluDeleted);
+            int _currentPage = int.Parse(currentPage);
+            int _pageSize = int.Parse(pageSize);
+            bool _asc = bool.Parse(ascSort);
+            var list = await _categoryRepository.GetAllByIdStoreAsync(id, _currentPage, _pageSize, searchTerm, sortColumn, _asc, incluDeleted);
             var listCategory = new List<CategoryResponse>();
             foreach (var category in list)
             {
@@ -47,7 +51,8 @@ namespace StoreManagement.Services
                 }
                 listCategory.Add(categoryResponse);
             }
-            return listCategory;
+            var totalRecords = await _categoryRepository.GetCountAsync(id);
+            return PaginationResult<List<CategoryResponse>>.Create(listCategory, _currentPage, _pageSize, totalRecords);
         }
 
         public async Task<CategoryResponse> GetByIdAsync(int id)
@@ -67,12 +72,6 @@ namespace StoreManagement.Services
                 };
             }
             return categoryResponse;
-        }
-
-        public async Task<List<CategoryResponse>> GetByIdStore(int id)
-        {
-            var listCategory = await _categoryRepository.GetByIdStoreAsync(id);
-            return _mapper.Map<List<CategoryResponse>>(listCategory);
         }
 
         public async Task<List<CategoryResponse>> GetByNameAsync(int idStore, string name)
@@ -110,5 +109,7 @@ namespace StoreManagement.Services
             var update = await _categoryRepository.UpdateAsync(id, categoryUpdate);
             return _mapper.Map<CategoryDTO>(update);
         }
+
+       
     }
 }

@@ -52,7 +52,7 @@ namespace StoreManagement.Controllers
         {
             var list = await _paymentTypeService.GetAllByIdStoreAsync(idStore, currentPage, pageSize, searchTerm, sortColumn, asc);
            
-            return Ok(Result<PaginationResult<List<PaymentTypeDTO>>>.Success(list, "Lấy thông tin thành công"));
+            return Ok(Result<PaginationResult<List<PaymentTypeResponse>>>.Success(list, "Lấy thông tin thành công"));
         }
     }
 }

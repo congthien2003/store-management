@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using StoreManagement.Application.Common;
 using StoreManagement.Application.DTOs.Request;
 using StoreManagement.Application.DTOs.Response;
 using StoreManagement.Application.Interfaces.IServices;
@@ -30,9 +31,12 @@ namespace StoreManagement.Services
             return true;
         }
 
-        public async Task<List<OrderDetailResponse>> GetAllByIdOrderAsync(int idOrder, int currentPage = 1, int pageSize = 5, string sortCol = "", bool ascSort = true)
+        public async Task<PaginationResult<List<OrderDetailResponse>>> GetAllByIdOrderAsync(int idOrder, string currentPage = "1", string pageSize = "5", string sortCol = "", string asc = "true")
         {
-            var listDetails = await _orderDetailRepo.GetAllByIdOrderAsync(idOrder, currentPage, pageSize, sortCol, ascSort);
+            int _currentPage = int.Parse(currentPage);
+            int _pageSize = int.Parse(pageSize);
+            bool _asc = bool.Parse(asc);
+            var listDetails = await _orderDetailRepo.GetAllByIdOrderAsync(idOrder, _currentPage, _pageSize, sortCol, _asc);
             var orderDetail = new List<OrderDetailResponse>();
             for (int i = 0; i < listDetails.Count; i++)
             {
@@ -70,8 +74,8 @@ namespace StoreManagement.Services
 
                 orderDetail.Add(detailResponse);
             }
-
-            return orderDetail;
+            var totalRecords = await _orderDetailRepo.GetCountAsync(idOrder);
+            return PaginationResult<List<OrderDetailResponse>>.Create(orderDetail, _currentPage, _pageSize, totalRecords);
         }
 
         public async Task<int> GetCountAsync(int idOrder)

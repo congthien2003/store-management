@@ -1,3 +1,4 @@
+using StoreManagement.Application.Common;
 using StoreManagement.Application.DTOs.Request;
 using StoreManagement.Application.DTOs.Response;
 
@@ -11,7 +12,7 @@ namespace StoreManagement.Application.Interfaces.IServices
                 Task<PaymentTypeResponse> GetByIdAsync(int id);
                 Task<List<PaymentTypeResponse>> GetByNameAsync(int idStore, string name);
                 Task<int> GetCountAsync(int idStore, string searchTerm = "");
-                Task<List<PaymentTypeResponse>> GetAllByIdStoreAsync(int idStore, int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortColumn = "", bool ascSort = true);
+                Task<PaginationResult<List<PaymentTypeResponse>>> GetAllByIdStoreAsync(int idStore, string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortColumn = "", string ascSort = "true");
 
         }
 }

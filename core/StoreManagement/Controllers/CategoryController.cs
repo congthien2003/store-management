@@ -54,7 +54,7 @@ namespace StoreManagement.Controllers
         public async Task<ActionResult<Result>> GetAllCategoryByIdStore(int idStore, string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortColumn = "", string asc = "true")
         {
             var results = await _categoryService.GetAllByIdStoreAsync(idStore, currentPage, pageSize, searchTerm, sortColumn, asc);
-            return Ok(Result<PaginationResult<List<CategoryDTO>>>.Success(results, "Lấy thông tin thành công"));
+            return Ok(Result<PaginationResult<List<CategoryResponse>>>.Success(results, "Lấy thông tin thành công"));
         }
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StoreManagement.Application.Common;
 using StoreManagement.Application.DTOs.Request;
+using StoreManagement.Application.DTOs.Response;
 
 namespace StoreManagement.Controllers
 {
@@ -40,7 +41,7 @@ namespace StoreManagement.Controllers
         {
             var result = await _orderDetailService.GetAllByIdOrderAsync(idOrder, currentPage, pageSize, sortColumn, asc);
             
-            return Ok(Result<PaginationResult<List<OrderDetailDTO>>>.Success(result, "Lấy thông tin thành công"));
+            return Ok(Result<PaginationResult<List<OrderDetailResponse>>>.Success(result, "Lấy thông tin thành công"));
         }
     }
 }

@@ -48,7 +48,7 @@ namespace StoreManagement.Controllers
         {
             var results = await _OrderService.GetAllByIdStoreAsync(idStore, currentPage, pageSize, searchTerm, sortColumn, asc);
             
-            return Ok(Result<PaginationResult<List<OrderDTO>>>.Success(results, " Lấy thông tin thành công"));
+            return Ok(Result<PaginationResult<List<OrderResponse>>>.Success(results, " Lấy thông tin thành công"));
         }
         [HttpGet("caculateTotal/{id:int}")]
         public async Task<ActionResult<Result>> CaculateTotal (int id)

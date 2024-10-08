@@ -56,7 +56,7 @@ namespace StoreManagement.Controllers
         {
             var results = await _tableService.GetAllByIdStore(idStore, currentPage, pageSize, sortCol, asc);
            
-            return Ok(Result<PaginationResult<List<TableDTO>>>.Success(results, "Lấy thông tin thành công"));
+            return Ok(Result<PaginationResult<List<TableResponse>>>.Success(results, "Lấy thông tin thành công"));
         }
     }
 }

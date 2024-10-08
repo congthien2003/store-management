@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using StoreManagement.Application.Common;
 using StoreManagement.Application.DTOs.Request;
 using StoreManagement.Application.DTOs.Response;
 using StoreManagement.Application.Interfaces.IServices;
@@ -30,9 +31,12 @@ namespace StoreManagement.Services
             return true;
         }
 
-        public async Task<List<PaymentTypeResponse>> GetAllByIdStoreAsync(int idStore, int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortColumn = "", bool ascSort = true)
+        public async Task<PaginationResult<List<PaymentTypeResponse>>> GetAllByIdStoreAsync(int idStore, string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortColumn = "", string asc = "true")
         {
-            var listPayment = await _paymentTypeRepository.GetAllByIdStore(idStore, currentPage, pageSize, searchTerm, sortColumn, ascSort);
+            int _currentPage = int.Parse(currentPage);
+            int _pageSize = int.Parse(pageSize);
+            bool _asc = bool.Parse(asc);
+            var listPayment = await _paymentTypeRepository.GetAllByIdStore(idStore, _currentPage, _pageSize, searchTerm, sortColumn, _asc);
             var responseList = new List<PaymentTypeResponse>();
 
             for (int i = 0; i < listPayment.Count; i++)
@@ -53,8 +57,8 @@ namespace StoreManagement.Services
 
                 responseList.Add(paymentResponse);
             }
-
-            return responseList;
+            var totalRecords = await _paymentTypeRepository.GetCountAsync(idStore);
+            return PaginationResult<List<PaymentTypeResponse>>.Create(responseList,_currentPage, _pageSize, totalRecords);
         }
 
         public async Task<PaymentTypeResponse> GetByIdAsync(int id)
