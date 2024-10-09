@@ -155,6 +155,9 @@ namespace StoreManagement.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
                     b.Property<decimal>("Total")
                         .HasColumnType("decimal(18,2)");
 
