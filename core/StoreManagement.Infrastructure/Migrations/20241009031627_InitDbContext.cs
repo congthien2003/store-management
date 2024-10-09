@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace StoreManagement.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class DbInit : Migration
+    public partial class InitDbContext : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -145,6 +145,8 @@ namespace StoreManagement.Infrastructure.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<bool>(type: "bit", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     IdCategory = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -165,9 +167,10 @@ namespace StoreManagement.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Total = table.Column<double>(type: "float", nullable: false),
+                    Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     NameUser = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneUser = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Status = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IdTable = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
@@ -184,6 +187,27 @@ namespace StoreManagement.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ProductSells",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    FoodId = table.Column<int>(type: "int", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductSells", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProductSells_Foods_FoodId",
+                        column: x => x.FoodId,
+                        principalTable: "Foods",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Invoices",
                 columns: table => new
                 {
@@ -193,7 +217,7 @@ namespace StoreManagement.Infrastructure.Migrations
                     FinishedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Status = table.Column<bool>(type: "bit", nullable: false),
                     TotalOrder = table.Column<int>(type: "int", nullable: false),
-                    Charge = table.Column<double>(type: "float", nullable: false),
+                    Charge = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     IdPaymentType = table.Column<int>(type: "int", nullable: false),
                     IdOrder = table.Column<int>(type: "int", nullable: false),
                     IdVoucher = table.Column<int>(type: "int", nullable: true),
@@ -285,6 +309,11 @@ namespace StoreManagement.Infrastructure.Migrations
                 column: "IdStore");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ProductSells_FoodId",
+                table: "ProductSells",
+                column: "FoodId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Stores_IdUser",
                 table: "Stores",
                 column: "IdUser",
@@ -311,22 +340,25 @@ namespace StoreManagement.Infrastructure.Migrations
                 name: "OrderDetails");
 
             migrationBuilder.DropTable(
+                name: "ProductSells");
+
+            migrationBuilder.DropTable(
                 name: "PaymentTypes");
 
             migrationBuilder.DropTable(
                 name: "Vouchers");
 
             migrationBuilder.DropTable(
-                name: "Foods");
-
-            migrationBuilder.DropTable(
                 name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "Foods");
 
             migrationBuilder.DropTable(
                 name: "Tables");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "Stores");
