@@ -48,12 +48,12 @@
                         </div>
                     </div>
 
-                    <div *ngFor="let food of listFood" class="row mb-3">
+                    <div *ngFor="let order of listOrderDetail" class="row mb-3">
                         <div class="col-sm-4">
                             <nz-form-item>
                                 <nz-form-label nzFor="foodName">Tên món ăn</nz-form-label>
                                 <nz-form-control nzErrorTip="The input is not valid name">
-                                    <span>{{ food.name }}</span>
+                                    <span>{{ order.foodDTO.name }}</span>
                                 </nz-form-control>
                             </nz-form-item>
                         </div>
@@ -61,7 +61,7 @@
                             <nz-form-item>
                                 <nz-form-label nzFor="foodPrice">Giá món ăn</nz-form-label>
                                 <nz-form-control nzErrorTip="The input is not valid price">
-                                    <span>{{ food.price }}</span>
+                                    <span>{{ order.foodDTO.price }}</span>
                                 </nz-form-control>
                             </nz-form-item>
                         </div>
@@ -69,7 +69,7 @@
                             <nz-form-item>
                                 <nz-form-label nzFor="foodQuantity">Số lượng</nz-form-label>
                                 <nz-form-control nzErrorTip="The input is not valid quantity">
-                                    <span>{{ food.quantity }}</span>
+                                    <span>{{ order.quantity }}</span>
                                 </nz-form-control>
                             </nz-form-item>
                         </div>

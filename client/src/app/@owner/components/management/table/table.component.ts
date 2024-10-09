@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Pagination } from 'src/app/core/models/common/Pagination';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
-import { TableService } from 'src/app/core/services/table.service';
+import { TableService } from 'src/app/core/services/store/table.service';
 import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 import {
   FormGroup,

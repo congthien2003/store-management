@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCommonModule } from '@angular/material/core';
 import { MatMenuModule } from '@angular/material/menu';
 import { Router, RouterOutlet } from '@angular/router';
-import { StoreService } from '../core/services/store.service';
+import { StoreService } from '../core/services/store/store.service';
 import { AuthenticationService } from '../core/services/auth/authentication.service';
 const MatModuleImport = [MatButtonModule, MatCommonModule, MatMenuModule];
 
@@ -22,6 +22,7 @@ export class OwnerComponent {
   id!: number;
   idUser!: number;
   idStore!: number;
+  nameStore!: string;
   constructor(
     private router: Router,
     private service: StoreService,
@@ -35,13 +36,14 @@ export class OwnerComponent {
       this.service.getByIdUser(idUser).subscribe(
         (res) => {
           localStorage.setItem('idStore', res.data.id);
+          this.nameStore = res.data.name;
         },
         (err) => {
           console.error('Lỗi khi lấy id store', err);
         }
       );
     } else {
-      console.error('Không có id user được tìm thấy trong session');
+      console.error('Không có id user được tìm thấy trong localstorage');
     }
   }
   swithRoute(index: number) {

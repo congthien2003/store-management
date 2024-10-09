@@ -4,7 +4,7 @@ import { Pagination } from 'src/app/core/models/common/Pagination';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { FormAddComponent } from './form-add/form-add.component';
-import { FoodService } from 'src/app/core/services/food.service';
+import { FoodService } from 'src/app/core/services/store/food.service';
 import { debounce, debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { FormEditComponent } from './form-edit/form-edit.component';
 import { ModalDeleteComponent } from 'src/app/shared/components/modal-delete/modal-delete.component';
@@ -19,7 +19,7 @@ import { TablePagiComponent } from 'src/app/shared/components/table-pagi/table-p
 import { SpinnerComponent } from 'src/app/shared/components/spinner/spinner.component';
 import { RolePipe } from 'src/app/core/utils/role.pipe';
 import { FormsModule } from '@angular/forms';
-import { CategoryService } from 'src/app/core/services/category.service';
+import { CategoryService } from 'src/app/core/services/store/category.service';
 const MatImport = [
   MatRadioModule,
   MatButtonModule,
@@ -83,7 +83,7 @@ export class FoodComponent implements OnInit {
     totalPage: 0,
     totalRecords: 0,
     currentPage: 1,
-    pageSize: 10,
+    pageSize: 5,
     hasNextPage: false,
     hasPrevPage: false,
   };
@@ -116,6 +116,8 @@ export class FoodComponent implements OnInit {
       .getByIdStore(this.idStore, this.pagi, this.searchTerm)
       .subscribe({
         next: (res) => {
+          console.log(res.data);
+
           this.listFood = res.data.list;
           this.pagi = res.data.pagination;
         },

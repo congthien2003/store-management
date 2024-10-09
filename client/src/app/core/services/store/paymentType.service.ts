@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
-import { InvoiceApi } from '../constant/api/invoice.api';
-import { MasterService } from './master/master.service';
+import { PaymentTypeApi } from '../../constant/api/paymentType.api';
+import { MasterService } from '../master/master.service';
+import { Pagination } from '../../models/common/Pagination';
 import { Observable } from 'rxjs';
-import { ApiResponse } from '../models/common/ApiResponse';
-import { Pagination } from '../models/common/Pagination';
+import { ApiResponse } from '../../models/common/ApiResponse';
 import { HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
-export class InvoiceService {
-  endpoint = InvoiceApi;
+export class PaymentTypeService {
+  endpoint = PaymentTypeApi;
   constructor(private service: MasterService) {}
-
   list(
     idStore: number,
     pagi: Pagination,
@@ -21,7 +20,7 @@ export class InvoiceService {
     ascSort: boolean = true
   ): Observable<ApiResponse> {
     const params = new HttpParams()
-      .set('idOrder', idStore)
+      .set('idStore', idStore)
       .set('currentPage', pagi.currentPage)
       .set('pageSize', pagi.pageSize)
       .set('searchTerm', searchTerm)
@@ -32,10 +31,13 @@ export class InvoiceService {
   getById(id: number): Observable<ApiResponse> {
     return this.service.get(`${this.endpoint.getById}/${id}`);
   }
-  create(invoice: any): Observable<ApiResponse> {
-    return this.service.post(`${this.endpoint.create}`, invoice);
+  create(order: any): Observable<ApiResponse> {
+    return this.service.post(`${this.endpoint.create}`, order);
   }
-  update(id: number, invoice: any): Observable<ApiResponse> {
-    return this.service.put(`${this.endpoint.update}/${id}`, invoice);
+  update(id: number, order: any): Observable<ApiResponse> {
+    return this.service.put(`${this.endpoint.update}/${id}`, order);
+  }
+  delete(id: number): Observable<ApiResponse> {
+    return this.service.delete(`${this.endpoint.delete}/${id}`);
   }
 }

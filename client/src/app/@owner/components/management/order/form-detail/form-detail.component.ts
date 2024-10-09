@@ -25,10 +25,10 @@ import {
   FormBuilder,
 } from '@angular/forms';
 import { Pagination } from 'src/app/core/models/common/Pagination';
-import { OrderDetailService } from 'src/app/core/services/orderDetail.service';
-import { OrderService } from 'src/app/core/services/order.service';
+import { OrderDetailService } from 'src/app/core/services/store/orderDetail.service';
+import { OrderService } from 'src/app/core/services/store/order.service';
 import { Order } from 'src/app/core/models/interfaces/Order';
-import { FoodService } from 'src/app/core/services/food.service';
+import { FoodService } from 'src/app/core/services/store/food.service';
 import { Food } from 'src/app/core/models/interfaces/Food';
 import { ResolveStart } from '@angular/router';
 const NzModule = [NzFormModule, NzSelectModule];
@@ -99,7 +99,7 @@ export class FormDetailComponent implements OnInit {
           total: order.total,
           createdAt: order.createdAt,
           status: order.status,
-          idTable: order.idTable,
+          idTable: res.data.tableDTO.id,
         });
       },
     });
@@ -134,22 +134,6 @@ export class FormDetailComponent implements OnInit {
         next: (res) => {
           this.listOrderDetail = res.data.list;
           this.pagi = res.data.pagination;
-          this.listOrderDetail.forEach((detail) => {
-            this.loadFood(detail.idFood, detail.quantity);
-          });
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
-    }
-  }
-  loadFood(id: number, quantity: number): void {
-    if (id) {
-      this.foodService.getById(id).subscribe({
-        next: (res) => {
-          const foodWithQuantity = { ...res.data, quantity };
-          this.listFood.push(foodWithQuantity);
         },
         error: (err) => {
           console.log(err);

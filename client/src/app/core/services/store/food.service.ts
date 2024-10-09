@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { FoodApi } from '../constant/api/food.api';
-import { MasterService } from './master/master.service';
-import { Pagination } from '../models/common/Pagination';
+import { FoodApi } from '../../constant/api/food.api';
+import { MasterService } from '../master/master.service';
+import { Pagination } from '../../models/common/Pagination';
 import { Observable } from 'rxjs';
-import { ApiResponse } from '../models/common/ApiResponse';
+import { ApiResponse } from '../../models/common/ApiResponse';
 import { HttpParams } from '@angular/common/http';
 
 @Injectable({

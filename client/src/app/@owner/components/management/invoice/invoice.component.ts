@@ -12,7 +12,7 @@ import { SpinnerComponent } from 'src/app/shared/components/spinner/spinner.comp
 import { RolePipe } from 'src/app/core/utils/role.pipe';
 import { Pagination } from 'src/app/core/models/common/Pagination';
 import { ToastrService } from 'ngx-toastr';
-import { InvoiceService } from 'src/app/core/services/invoice.service';
+import { InvoiceService } from 'src/app/core/services/store/invoice.service';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 const MatImport = [
   MatRadioModule,
@@ -29,7 +29,7 @@ import {
   FormsModule,
 } from '@angular/forms';
 import { Invoice } from 'src/app/core/models/interfaces/Invoice';
-import { PaymentTypeService } from 'src/app/core/services/paymentType.service';
+import { PaymentTypeService } from 'src/app/core/services/store/paymentType.service';
 import { PaymentType } from 'src/app/core/models/interfaces/PaymentType';
 @Component({
   selector: 'app-invoice',
@@ -128,6 +128,8 @@ export class InvoiceComponent implements OnInit {
       .list(this.idStore, this.pagi, this.searchTerm)
       .subscribe({
         next: (res) => {
+          console.log(res.data);
+
           this.listInvoice = res.data.list;
           this.pagi = res.data.pagination;
         },
