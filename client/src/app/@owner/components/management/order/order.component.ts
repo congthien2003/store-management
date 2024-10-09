@@ -13,7 +13,7 @@ import { RolePipe } from 'src/app/core/utils/role.pipe';
 import { Pagination } from 'src/app/core/models/common/Pagination';
 import { Subject, debounceTime, distinctUntilChanged, timeout } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
-import { OrderService } from 'src/app/core/services/order.service';
+import { OrderService } from 'src/app/core/services/store/order.service';
 import { ModalDeleteComponent } from 'src/app/shared/components/modal-delete/modal-delete.component';
 import {
   FormGroup,
@@ -128,7 +128,7 @@ export class OrderComponent implements OnInit {
         this.listOrder = res.data.list;
         this.pagi = res.data.pagination;
         this.listOrder.forEach((order) => {
-          this.caculate(order.id);
+          this.calculate(order.id);
         });
       },
       error: (err) => {
@@ -189,8 +189,8 @@ export class OrderComponent implements OnInit {
       }
     });
   }
-  caculate(id: number): void {
-    this.orderService.caculateTotal(id).subscribe({
+  calculate(id: number): void {
+    this.orderService.calculateTotal(id).subscribe({
       next: (res) => {
         if (res.isSuccess) {
           this.total[id] = res.data;
@@ -204,7 +204,7 @@ export class OrderComponent implements OnInit {
                 total: this.total[id],
                 createdAt: order.createdAt,
                 status: order.status,
-                idTable: order.idTable,
+                idTable: res.data.tableDTO.id,
               });
               this.orderService.update(id, this.validateForm.value).subscribe({
                 next: (res) => {},

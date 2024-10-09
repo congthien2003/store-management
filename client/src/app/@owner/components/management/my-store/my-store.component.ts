@@ -18,7 +18,7 @@ import {
 } from '@angular/forms';
 import { Pagination } from 'src/app/core/models/common/Pagination';
 import { ToastrService } from 'ngx-toastr';
-import { StoreService } from 'src/app/core/services/store.service';
+import { StoreService } from 'src/app/core/services/store/store.service';
 import { Store } from 'src/app/core/models/interfaces/Store';
 import { UserService } from 'src/app/core/services/user/user.service';
 import { ResolveStart } from '@angular/router';
@@ -73,8 +73,12 @@ export class MyStoreComponent implements OnInit {
   validateForm!: FormGroup;
   idStore!: number;
   nameUser!: string;
-  myStore: { id?: number; name?: string; phone?: string; address?: string } =
-    {};
+  myStore: {
+    id?: number;
+    name?: string;
+    phone?: string;
+    address?: string;
+  } = {};
   constructor(
     public dialog: MatDialog,
     private toastr: ToastrService,
@@ -98,20 +102,15 @@ export class MyStoreComponent implements OnInit {
     this.storeSevice.getById(this.idStore).subscribe({
       next: (res) => {
         this.myStore = res.data;
-        this.getNameUser(res.data.idUser);
+        console.log(res.data);
+        this.nameUser = res.data.userDTO.username;
       },
       error: (err) => {
         console.log(err);
       },
     });
   }
-  getNameUser(id: number): void {
-    this.userService.getById(id).subscribe({
-      next: (res) => {
-        this.nameUser = res.data.username;
-      },
-    });
-  }
+
   openEditDialog(): void {
     this.idStore = JSON.parse(localStorage.getItem('idStore') ?? '');
     const dialogRef = this.dialog.open(FormEditComponent, {

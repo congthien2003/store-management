@@ -80,6 +80,11 @@ namespace StoreManagement.Services
             return storeResponse;
         }
 
+        public async Task<StoreResponse> GetByIdUserAsync(int idUser)
+        {
+            var store = await _storeRepository.GetByIdUserAsync(idUser);
+            return _mapper.Map<StoreResponse>(store);
+        }
 
         public async Task<List<StoreResponse>> GetByNameAsync(string name)
         {

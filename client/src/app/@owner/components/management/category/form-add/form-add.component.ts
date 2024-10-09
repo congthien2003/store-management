@@ -11,7 +11,7 @@ import {
 } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
-import { CategoryService } from 'src/app/core/services/category.service';
+import { CategoryService } from 'src/app/core/services/store/category.service';
 import { Category } from 'src/app/core/models/interfaces/Category';
 import { MatButtonModule } from '@angular/material/button';
 

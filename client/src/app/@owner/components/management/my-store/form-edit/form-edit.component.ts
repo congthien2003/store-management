@@ -12,7 +12,7 @@ import {
   ReactiveFormsModule,
   FormsModule,
 } from '@angular/forms';
-import { StoreService } from 'src/app/core/services/store.service';
+import { StoreService } from 'src/app/core/services/store/store.service';
 import { Store } from 'src/app/core/models/interfaces/Store';
 import { Pagination } from 'src/app/core/models/common/Pagination';
 const NzModule = [NzFormModule, NzSelectModule];

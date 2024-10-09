@@ -22,8 +22,8 @@
                         <td>{{item.totalOrder}}</td>
                         <td>{{item.createdAt}}</td>
                         <td>{{item.finishedAt}}</td>
-                        <td>{{item.idOrder}}</td>
-                        <td>{{getNamePayment(item.idPaymentType) }}</td>
+                        <td>{{item.orderDTO.id}}</td>
+                        <td>{{getNamePayment(item.paymentTypeDTO.id) }}</td>
                         <td>{{ item.status ? 'Đã thanh toán' : 'Chưa thanh toán' }}</td>
                         <td class="table-actions">
                             <button *ngIf="!item.status" mat-raised-button class="btn-management-edit" matTooltip="Chỉnh sửa trạng thái hóa đơn"

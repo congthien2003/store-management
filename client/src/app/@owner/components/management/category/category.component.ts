@@ -5,7 +5,7 @@ import { Pagination } from 'src/app/core/models/common/Pagination';
 import { ModalDeleteComponent } from 'src/app/shared/components/modal-delete/modal-delete.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
-import { CategoryService } from 'src/app/core/services/category.service';
+import { CategoryService } from 'src/app/core/services/store/category.service';
 import { debounce, debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { FormAddComponent } from './form-add/form-add.component';
 import { MatRadioModule } from '@angular/material/radio';
@@ -94,6 +94,8 @@ export class CategoryComponent implements OnInit {
       .list(this.idStore, this.pagi, this.searchTerm)
       .subscribe({
         next: (res) => {
+          console.log(res.data);
+
           this.listCategory = res.data.list;
           this.pagi = res.data.pagination;
         },
@@ -104,7 +106,6 @@ export class CategoryComponent implements OnInit {
   }
 
   onChangePage(currentPage: any): void {
-    console.log(currentPage);
     this.pagi.currentPage = currentPage;
     this.loadListCategory();
   }

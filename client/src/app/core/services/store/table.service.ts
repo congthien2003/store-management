@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
-import { OrderApi } from '../constant/api/order.api';
-import { MasterService } from './master/master.service';
+import { TableApi } from '../../constant/api/table.api';
+import { MasterService } from '../master/master.service';
+import { Pagination } from '../../models/common/Pagination';
 import { Observable } from 'rxjs';
-import { ApiResponse } from '../models/common/ApiResponse';
-import { Pagination } from '../models/common/Pagination';
+import { ApiResponse } from '../../models/common/ApiResponse';
 import { HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
-export class OrderService {
-  endpoint = OrderApi;
+export class TableService {
+  endpoint = TableApi;
   constructor(private service: MasterService) {}
+
   list(
     idStore: number,
     pagi: Pagination,
@@ -26,21 +27,20 @@ export class OrderService {
       .set('searchTerm', searchTerm)
       .set('sortColumn', sortColumn)
       .set('ascSrot', ascSort);
-    return this.service.get(`${this.endpoint.getAll}/${idStore}`, params);
+    return (
+      this, this.service.get(`${this.endpoint.getAll}/${idStore}`, { params })
+    );
   }
   getById(id: number): Observable<ApiResponse> {
     return this.service.get(`${this.endpoint.getById}/${id}`);
   }
-  create(order: any): Observable<ApiResponse> {
-    return this.service.post(`${this.endpoint.create}`, order);
+  create(table: any): Observable<ApiResponse> {
+    return this.service.post(`${this.endpoint.create}`, table);
   }
-  update(id: number, order: any): Observable<ApiResponse> {
-    return this.service.put(`${this.endpoint.update}/${id}`, order);
+  update(table: any, id: number): Observable<ApiResponse> {
+    return this.service.put(`${this.endpoint.update}/${id}`, table);
   }
   delete(id: number): Observable<ApiResponse> {
     return this.service.delete(`${this.endpoint.delete}/${id}`);
-  }
-  caculateTotal(id: number): Observable<ApiResponse> {
-    return this.service.get(`${this.endpoint.caculateTotal}/${id}`);
   }
 }

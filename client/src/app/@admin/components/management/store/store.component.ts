@@ -22,9 +22,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { debounceTime, distinctUntilChanged, Subject, timeout } from 'rxjs';
 import { StoreService } from 'src/app/core/services/store/store.service';
-import { User } from 'src/app/core/models/interfaces/User';
+import { ApiResponse } from 'src/app/core/models/common/ApiResponse';
 import { UserService } from 'src/app/core/services/user/user.service';
-import { ApiResponse } from 'src/app/core/models/interfaces/ApiResponse';
+import { Store } from 'src/app/core/models/interfaces/Store';
 
 const MatImport = [
   MatRadioModule,

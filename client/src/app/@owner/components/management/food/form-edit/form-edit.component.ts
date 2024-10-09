@@ -12,9 +12,9 @@ import {
   ReactiveFormsModule,
   FormsModule,
 } from '@angular/forms';
-import { FoodService } from 'src/app/core/services/food.service';
+import { FoodService } from 'src/app/core/services/store/food.service';
 import { Food } from 'src/app/core/models/interfaces/Food';
-import { CategoryService } from 'src/app/core/services/category.service';
+import { CategoryService } from 'src/app/core/services/store/category.service';
 import { Pagination } from 'src/app/core/models/common/Pagination';
 const NzModule = [NzFormModule, NzSelectModule];
 
@@ -83,7 +83,7 @@ export class FormEditComponent implements OnInit {
           price: food.price,
           quantity: food.quantity,
           status: food.status,
-          idCategory: food.idCategory,
+          idCategory: res.data.categoryDTO.id,
         });
       },
     });

@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
-import { PaymentTypeApi } from '../constant/api/paymentType.api';
-import { MasterService } from './master/master.service';
-import { Pagination } from '../models/common/Pagination';
 import { Observable } from 'rxjs';
-import { ApiResponse } from '../models/common/ApiResponse';
+import { Pagination } from '../../models/common/Pagination';
+import { CategoryApi } from '../../constant/api/category.api';
+import { ApiResponse } from '../../models/common/ApiResponse';
 import { HttpParams } from '@angular/common/http';
+import { MasterService } from '../master/master.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class PaymentTypeService {
-  endpoint = PaymentTypeApi;
+export class CategoryService {
+  endpoint = CategoryApi;
   constructor(private service: MasterService) {}
+
   list(
     idStore: number,
     pagi: Pagination,
@@ -20,22 +21,22 @@ export class PaymentTypeService {
     ascSort: boolean = true
   ): Observable<ApiResponse> {
     const params = new HttpParams()
-      .set('idStore', idStore)
       .set('currentPage', pagi.currentPage)
       .set('pageSize', pagi.pageSize)
       .set('searchTerm', searchTerm)
       .set('sortColumn', sortColumn)
       .set('ascSrot', ascSort);
-    return this.service.get(`${this.endpoint.getAll}/${idStore}`, params);
+    return this.service.get(`${this.endpoint.getAll}/${idStore}`, { params });
   }
+
   getById(id: number): Observable<ApiResponse> {
     return this.service.get(`${this.endpoint.getById}/${id}`);
   }
-  create(order: any): Observable<ApiResponse> {
-    return this.service.post(`${this.endpoint.create}`, order);
+  create(catgory: any): Observable<ApiResponse> {
+    return this.service.post(`${this.endpoint.create}`, catgory);
   }
-  update(id: number, order: any): Observable<ApiResponse> {
-    return this.service.put(`${this.endpoint.update}/${id}`, order);
+  update(category: any, id: number): Observable<ApiResponse> {
+    return this.service.put(`${this.endpoint.update}/${id}`, category);
   }
   delete(id: number): Observable<ApiResponse> {
     return this.service.delete(`${this.endpoint.delete}/${id}`);

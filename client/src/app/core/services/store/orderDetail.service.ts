@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { OrderDetailApi } from '../constant/api/orderDetail.api';
-import { MasterService } from './master/master.service';
+import { OrderDetailApi } from '../../constant/api/orderDetail.api';
+import { MasterService } from '../master/master.service';
 import { Observable } from 'rxjs';
-import { ApiResponse } from '../models/common/ApiResponse';
-import { Pagination } from '../models/common/Pagination';
+import { ApiResponse } from '../../models/common/ApiResponse';
+import { Pagination } from '../../models/common/Pagination';
 import { HttpParams } from '@angular/common/http';
 @Injectable({
   providedIn: 'root',
