@@ -7,6 +7,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { Router, RouterOutlet } from '@angular/router';
 import { StoreService } from '../core/services/store/store.service';
 import { AuthenticationService } from '../core/services/auth/authentication.service';
+import { Token } from '@angular/compiler';
+import { LoginComponent } from '../@auth/components';
 const MatModuleImport = [MatButtonModule, MatCommonModule, MatMenuModule];
 
 @Component({
@@ -83,6 +85,11 @@ export class OwnerComponent {
       }
       case 8: {
         this.router.navigate(['/owner/analytics']);
+        break;
+      }
+      case 9: {
+        this.authService.logout();
+        this.router.navigate(['/auth/login']);
         break;
       }
     }

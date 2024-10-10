@@ -3,7 +3,11 @@ import { CommonModule } from '@angular/common';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import {
+  MatDialog,
+  MatDialogModule,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { PaginationComponent } from 'src/app/shared/components/pagination/pagination.component';
@@ -23,6 +27,7 @@ import { Store } from 'src/app/core/models/interfaces/Store';
 import { UserService } from 'src/app/core/services/user/user.service';
 import { ResolveStart } from '@angular/router';
 import { FormEditComponent } from './form-edit/form-edit.component';
+import { AuthenticationService } from 'src/app/core/services/auth/authentication.service';
 
 const MatImport = [
   MatRadioModule,
@@ -70,6 +75,7 @@ export class MyStoreComponent implements OnInit {
     ],
     hasAction: true,
   };
+  isEditing: boolean = false;
   validateForm!: FormGroup;
   idStore!: number;
   nameUser!: string;
@@ -80,29 +86,21 @@ export class MyStoreComponent implements OnInit {
     address?: string;
   } = {};
   constructor(
+    // public dialogRef: MatDialogRef<MyStoreComponent>,
     public dialog: MatDialog,
     private toastr: ToastrService,
-    private storeSevice: StoreService,
-    private userService: UserService,
-    private fb: NonNullableFormBuilder
-  ) {
-    this.validateForm = this.fb.group({
-      id: [0],
-      name: [''],
-      address: [''],
-      phone: [''],
-      idUser: [''],
-    });
-  }
+    private storeService: StoreService,
+    private fb: NonNullableFormBuilder,
+    private authService: AuthenticationService
+  ) {}
   ngOnInit(): void {
     this.getMyStore();
   }
   getMyStore(): void {
     this.idStore = JSON.parse(localStorage.getItem('idStore') ?? '');
-    this.storeSevice.getById(this.idStore).subscribe({
+    this.storeService.getById(this.idStore).subscribe({
       next: (res) => {
         this.myStore = res.data;
-        console.log(res.data);
         this.nameUser = res.data.userDTO.username;
       },
       error: (err) => {
@@ -110,16 +108,39 @@ export class MyStoreComponent implements OnInit {
       },
     });
   }
-
-  openEditDialog(): void {
-    this.idStore = JSON.parse(localStorage.getItem('idStore') ?? '');
-    const dialogRef = this.dialog.open(FormEditComponent, {
-      data: { id: this.myStore.id },
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.getMyStore();
-      }
+  toggleEdit() {
+    if (this.isEditing) {
+      this.onSubmit();
+    }
+    this.isEditing = !this.isEditing;
+  }
+  onSubmit(): void {
+    const idUser = this.authService.getIdUserFromToken();
+    const id = JSON.parse(localStorage.getItem('idStore') ?? '');
+    const dataToSave = {
+      id: id,
+      name: this.myStore.name,
+      address: this.myStore.address,
+      phone: this.myStore.phone,
+      idUser: idUser,
+    };
+    this.storeService.update(dataToSave, id).subscribe({
+      next: (res) => {
+        if (res.isSuccess) {
+          this.toastr.success(res.message, 'Thành công', {
+            timeOut: 3000,
+          });
+        } else {
+          this.toastr.error(res.message, 'Thất bại', {
+            timeOut: 3000,
+          });
+        }
+      },
+      error: (err) => {
+        this.toastr.error(err.message || 'Có lỗi xảy ra', 'Thất bại', {
+          timeOut: 3000,
+        });
+      },
     });
   }
 }
