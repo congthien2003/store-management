@@ -10,8 +10,41 @@
 }
 .store-name {
     text-align: center;
-    /* Chỉ căn giữa tên quán */
-    font-size: 24px;
+    font-size: 36px;
     font-weight: bold;
     margin-bottom: 20px;
+}
+.store-input-container {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    margin-bottom: 15px; 
+
+    label {
+        margin-right: 10px;
+        white-space: nowrap; 
+        font-size: 1.05rem; 
+        width: 150px; 
+    }
+
+    input {
+        flex: 0.5; 
+        min-width: 0; 
+    }
+}
+
+.table-actions {
+    float: left;
+    
+        .edit-button {
+            background-color: #4693b8;
+            color: white;
+    
+            &:hover {
+                background-color: #5d97a1;
+            }
+        }
+}
+.table--edit {
+
 }
