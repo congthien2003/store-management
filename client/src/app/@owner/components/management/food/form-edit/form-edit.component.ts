@@ -16,6 +16,7 @@ import { FoodService } from 'src/app/core/services/store/food.service';
 import { Food } from 'src/app/core/models/interfaces/Food';
 import { CategoryService } from 'src/app/core/services/store/category.service';
 import { Pagination } from 'src/app/core/models/common/Pagination';
+import { FirebaseService } from 'src/app/core/services/store/firebase.service';
 const NzModule = [NzFormModule, NzSelectModule];
 
 @Component({
@@ -39,7 +40,8 @@ export class FormEditComponent implements OnInit {
   selectedCategory!: number;
   listCategory!: any[];
   searchTerm: string = '';
-
+  selectedFile: File | null = null;
+  imageUrl: string | null = null;
   pagi: Pagination = {
     totalPage: 0,
     totalRecords: 0,
@@ -55,7 +57,8 @@ export class FormEditComponent implements OnInit {
     private fb: NonNullableFormBuilder,
     private foodService: FoodService,
     private toastr: ToastrService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private firebaseService: FirebaseService
   ) {
     this.validateForm = this.fb.group({
       id: [this.data.id],
@@ -64,6 +67,7 @@ export class FormEditComponent implements OnInit {
       quantity: [null, [Validators.required, Validators.min(1)]],
       status: [null, [Validators.required, Validators.pattern('true|false')]],
       idCategory: [null, [Validators.required]],
+      imageUrl: [null],
     });
   }
   ngOnInit(): void {
@@ -84,22 +88,35 @@ export class FormEditComponent implements OnInit {
           quantity: food.quantity,
           status: food.status,
           idCategory: res.data.categoryDTO.id,
+          imageUrl: res.data.imageUrl,
         });
+        console.log(res.data);
       },
     });
   }
   onNoClick(): void {
     this.dialogRef.close(false);
   }
-  onSubmit(): void {
+  onFileSelected(event: any): void {
+    this.selectedFile = event.target.files[0];
+    console.log(this.selectedFile);
+  }
+  async onSubmit(): Promise<void> {
     if (this.validateForm.valid) {
       const formValues = this.validateForm.value;
+      console.log(this.selectedFile);
 
       const payload = {
         ...formValues,
         status: formValues.status === 'true',
         price: Number(formValues.price),
         quantity: Number(formValues.quantity),
+        imageUrl: this.selectedFile
+          ? await this.firebaseService.saveFile(
+              `foods/${this.selectedFile.name}`,
+              this.selectedFile
+            )
+          : this.imageUrl,
       };
       const id = formValues.id;
 
