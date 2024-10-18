@@ -68,7 +68,11 @@ export class OrderComponent implements OnInit {
       },
       {
         prop: 'createdAt',
-        display: 'Thời gian',
+        display: 'Thời gian bắt đầu',
+      },
+      {
+        prop: 'finishedAt',
+        display: 'Thời gian kết thúc',
       },
       {
         prop: 'status',
@@ -113,6 +117,7 @@ export class OrderComponent implements OnInit {
       status: [null, [Validators.required]],
       total: [null, [Validators.required]],
       createdAt: [null, [Validators.required]],
+      finishedAt: [null],
       idTable: [null],
     });
   }
@@ -128,7 +133,7 @@ export class OrderComponent implements OnInit {
         this.listOrder = res.data.list;
         this.pagi = res.data.pagination;
         this.listOrder.forEach((order) => {
-          this.calculate(order.id);
+          order.total = this.calculateTotalPrice(order.items);
         });
       },
       error: (err) => {
@@ -189,33 +194,36 @@ export class OrderComponent implements OnInit {
       }
     });
   }
-  calculate(id: number): void {
-    this.orderService.calculateTotal(id).subscribe({
-      next: (res) => {
-        if (res.isSuccess) {
-          this.total[id] = res.data;
-          this.orderService.getById(id).subscribe({
-            next: (res) => {
-              const order = res.data as Order;
-              this.validateForm.setValue({
-                id: order.id,
-                nameUser: order.nameUser,
-                phoneUser: order.phoneUser,
-                total: this.total[id],
-                createdAt: order.createdAt,
-                status: order.status,
-                idTable: res.data.tableDTO.id,
-              });
-              this.orderService.update(id, this.validateForm.value).subscribe({
-                next: (res) => {},
-              });
-            },
-          });
-        }
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+  // calculate(id: number): void {
+  //   this.orderService.calculateTotal(id).subscribe({
+  //     next: (res) => {
+  //       if (res.isSuccess) {
+  //         this.total[id] = res.data;
+  //         this.orderService.getById(id).subscribe({
+  //           next: (res) => {
+  //             const order = res.data as Order;
+  //             this.validateForm.setValue({
+  //               id: order.id,
+  //               nameUser: order.nameUser,
+  //               phoneUser: order.phoneUser,
+  //               total: this.total[id],
+  //               createdAt: order.createdAt,
+  //               status: order.status,
+  //               idTable: res.data.tableDTO.id,
+  //             });
+  //             this.orderService.update(id, this.validateForm.value).subscribe({
+  //               next: (res) => {},
+  //             });
+  //           },
+  //         });
+  //       }
+  //     },
+  //     error: (err) => {
+  //       console.log(err);
+  //     },
+  //   });
+  // }
+  calculateTotalPrice(items: { idFood: number; price: number }[]): number {
+    return items.reduce((total, item) => total + item.price, 0);
   }
 }

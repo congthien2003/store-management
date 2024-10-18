@@ -26,8 +26,9 @@
                         <th scope="row">{{ item.id }}</th>
                         <td>{{ item.nameUser }}</td>
                         <td>{{ item.phoneUser }}</td>
-                        <td>{{ total[item.id] !== undefined ? total[item.id] : 'Đang tính toán...' }} VND</td>
+                        <td>{{ item.total !== undefined ? item.total : 'Đang tính toán...' }} VND</td>
                         <td>{{ item.createdAt }}</td>
+                        <td>{{ item.finishedAt }}</td>
                         <td>{{item.status ? 'Đã chấp nhận' : 'Chưa chấp nhận'}}</td>
                         <td>{{item.tableDTO.id}}</td>
 

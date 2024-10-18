@@ -20,6 +20,7 @@ import { SpinnerComponent } from 'src/app/shared/components/spinner/spinner.comp
 import { RolePipe } from 'src/app/core/utils/role.pipe';
 import { FormsModule } from '@angular/forms';
 import { CategoryService } from 'src/app/core/services/store/category.service';
+import { FirebaseService } from 'src/app/core/services/store/firebase.service';
 const MatImport = [
   MatRadioModule,
   MatButtonModule,
@@ -74,6 +75,10 @@ export class FoodComponent implements OnInit {
         display: 'Thể loại',
       },
       {
+        prop: 'imageUrl',
+        display: 'Hình ảnh',
+      },
+      {
         display: 'Hành động',
       },
     ],
@@ -98,7 +103,8 @@ export class FoodComponent implements OnInit {
     public dialog: MatDialog,
     private toastr: ToastrService,
     private foodService: FoodService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private firebaseService: FirebaseService
   ) {
     this.searchSubject
       .pipe(debounceTime(1500), distinctUntilChanged())
@@ -116,10 +122,13 @@ export class FoodComponent implements OnInit {
       .getByIdStore(this.idStore, this.pagi, this.searchTerm)
       .subscribe({
         next: (res) => {
-          console.log(res.data);
-
           this.listFood = res.data.list;
           this.pagi = res.data.pagination;
+          for (const food of this.listFood) {
+            const imageRef = this.firebaseService.getImageRefFromUrl(
+              food.imageUrl
+            );
+          }
         },
         error: (err) => {
           console.log(err);
@@ -127,7 +136,6 @@ export class FoodComponent implements OnInit {
       });
   }
   onChangePage(currentPage: any): void {
-    console.log(currentPage);
     this.pagi.currentPage = currentPage;
     this.loadlistFood();
   }
