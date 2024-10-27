@@ -108,6 +108,16 @@
 							</select>
 						</nz-form-control>
 					</nz-form-item>
+					<nz-form-item>
+						<nz-form-label [nzSm]="8" [nzXs]="24" nzFor="fileUpload" nzRequired>
+							Upload Image
+						</nz-form-label>
+						<nz-form-control [nzSm]="14" [nzXs]="24">
+							<input type="file" id="fileUpload" (change)="onFileSelected($event)" aria-label="Upload Image"
+								class="form-control" />
+						</nz-form-control>
+					</nz-form-item>
+
 				</form>
 			</div>
 			<div class="modal-footer">

@@ -137,6 +137,7 @@ namespace StoreManagement.Infrastructure.Repositories
             foodUpdate.Price = food.Price;
             foodUpdate.Status = food.Status;
             foodUpdate.Quantity = food.Quantity;
+            foodUpdate.ImageUrl = food.ImageUrl;
             _dataContext.Foods.Update(foodUpdate);
             await _dataContext.SaveChangesAsync();
             return foodUpdate;
