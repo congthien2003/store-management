@@ -1,9 +1,8 @@
 export interface Order {
-  id: number;
-  nameUser: string;
-  phoneUser: string;
-  status: boolean;
-  total: number;
-  createdAt: Date;
-  idTable: number;
+	id: number;
+	total: number;
+	status: boolean;
+	createdAt: Date;
+	idTable: number;
+	idStore: number;
 }

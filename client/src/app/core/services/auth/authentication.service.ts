@@ -38,7 +38,7 @@ export class AuthenticationService {
 			return null;
 		}
 	}
-	getIdUserFromToken(): any {
+	getIdFromToken(): any {
 		const token = this.jwtManager.getToken();
 		if (token === "") {
 			return null;

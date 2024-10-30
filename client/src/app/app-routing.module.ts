@@ -22,6 +22,11 @@ const routes: Routes = [
 		loadChildren: () =>
 			import("./@owner/owner.module").then((m) => m.OwnerModule),
 	},
+	{
+		path: "",
+		loadChildren: () =>
+			import("./@customer/customer.module").then((m) => m.CustomerModule),
+	},
 	{ path: "", redirectTo: "pages", pathMatch: "full" },
 	{ path: "**", redirectTo: "pages" },
 ];

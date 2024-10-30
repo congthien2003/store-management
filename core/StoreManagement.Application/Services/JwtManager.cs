@@ -65,7 +65,7 @@ namespace StoreManagement.Services
         public string getHashpassword(string password)
         {
             byte[] bytes = Encoding.Unicode.GetBytes(password);
-            SHA256Managed hashstring = new SHA256Managed();
+            var hashstring = new SHA256Managed();
             byte[] hash = hashstring.ComputeHash(bytes);
             string hashString = string.Empty;
             foreach (byte x in hash)
