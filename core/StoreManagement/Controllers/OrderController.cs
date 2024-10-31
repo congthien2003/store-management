@@ -44,7 +44,7 @@ namespace StoreManagement.Controllers
             return Ok(Result<OrderResponse?>.Success(result, "Lấy thông tin thành công"));
         }
         [HttpGet("all/{idStore:int}")]
-        public async Task<ActionResult<Result>> GetAllByIdStoreAsync(int idStore, string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortColumn = "", string asc = "true")
+        public async Task<ActionResult<Result>> GetAllByIdStoreAsync(int idStore, string currentPage = "1", string pageSize = "10", string searchTerm = "", string sortColumn = "", string asc = "true")
         {
             var results = await _OrderService.GetAllByIdStoreAsync(idStore, currentPage, pageSize, searchTerm, sortColumn, asc);
             

@@ -61,5 +61,20 @@ namespace StoreManagement.Controllers
             var results = await _foodService.GetByIdCategoryAsync(id);
             return Ok(results);
         }
+
+        [HttpGet("best-seller")]
+        public async Task<IActionResult> GetTopFoods(int idCategory, int currentPage = 1, int pageSize = 10)
+        {
+            try
+            {
+                var result = await _foodService.GetTopFood(idCategory, currentPage, pageSize);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Đã xảy ra lỗi khi lấy dữ liệu.", error = ex.Message });
+            }
+        }
+
     }
 }

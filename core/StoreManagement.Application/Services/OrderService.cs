@@ -3,6 +3,7 @@ using StoreManagement.Application.Common;
 using StoreManagement.Application.DTOs.Request;
 using StoreManagement.Application.DTOs.Response;
 using StoreManagement.Application.Interfaces.IServices;
+using StoreManagement.Application.Services;
 using StoreManagement.Domain.IRepositories;
 using StoreManagement.Domain.Models;
 
@@ -13,12 +14,15 @@ namespace StoreManagement.Services
         private readonly IMapper _mapper;
         private readonly IOrderRepository<Order> _orderRepository;
         private readonly ITableRepository<Table> _tableRepository;
-
-        public OrderService(IMapper mapper, IOrderRepository<Order> orderRepository, ITableRepository<Table> tableRepository)
+        private readonly IOrderDetailRepository<OrderDetail> _orderDetailRepository;
+        private readonly IProductSellRepository<ProductSell> _productSellRepository;
+        public OrderService(IMapper mapper, IOrderRepository<Order> orderRepository, ITableRepository<Table> tableRepository, IOrderDetailRepository<OrderDetail> orderDetailRepository, IProductSellRepository<ProductSell> productSellRepository)
         {
             _mapper = mapper;
             _orderRepository = orderRepository;
             _tableRepository = tableRepository;
+            _orderDetailRepository = orderDetailRepository;
+            _productSellRepository = productSellRepository;
         }
         public async Task<OrderDTO> CreateAsync(OrderDTO orderDTO)
         {
@@ -86,13 +90,33 @@ namespace StoreManagement.Services
         public async Task<OrderDTO> UpdateAsync(int id, OrderDTO orderDTO)
         {
             var orderUpdate = _mapper.Map<Order>(orderDTO);
-            var update = await _orderRepository.UpdateAsync(id, orderUpdate);
-            return _mapper.Map<OrderDTO>(update);
+
+            var updatedOrder = await _orderRepository.UpdateAsync(id, orderUpdate);
+
+            // Chỉ tiếp tục nếu trạng thái đơn hàng là true
+            if (updatedOrder.Status == true)
+            {
+                // Lấy chi tiết đơn hàng dựa trên idOrder của Order vừa cập nhật
+                var latestOrderDetails = await _orderRepository.GetOrderDetailsByOrderIdAsync(updatedOrder.Id);
+
+                // Đảm bảo chỉ lấy foodId đầu tiên
+                var firstOrderDetail = latestOrderDetails.FirstOrDefault();
+
+                if (firstOrderDetail != null)
+                {
+                    // Cập nhật số lượng sản phẩm dựa trên IdFood và orderId
+                    await _productSellRepository.UpdateProductSellQuantityAsync(firstOrderDetail.IdFood, firstOrderDetail.IdOrder,firstOrderDetail.Quantity);
+                }
+            }
+
+            // Trả về DTO đã cập nhật
+            return _mapper.Map<OrderDTO>(updatedOrder);
         }
         public async Task<double> CaculateTotal(int id, bool incluDeleted = false)
         {
             var total = await _orderRepository.CaculateTotal(id);
             return total;
         }
+
     }
 }

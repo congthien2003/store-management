@@ -127,9 +127,9 @@ export class OrderComponent implements OnInit {
       next: (res) => {
         this.listOrder = res.data.list;
         this.pagi = res.data.pagination;
-        this.listOrder.forEach((order) => {
-          this.calculate(order.id);
-        });
+        // this.listOrder.forEach((order) => {
+        //   this.calculate(order.id);
+        // });
       },
       error: (err) => {
         console.log(err);

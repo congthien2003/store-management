@@ -39,6 +39,11 @@ namespace StoreManagement.Infrastructure.Repositories
             return total;
         }
 
+        public async Task<bool> CheckOrderDetailExists(int orderId, int foodId)
+        {
+            return await _dataContext.OrderDetails
+           .AnyAsync(od => od.IdOrder == orderId && od.IdFood == foodId);
+        }
 
         public async Task<Order> CreateAsync(Order order)
         {
@@ -124,6 +129,14 @@ namespace StoreManagement.Infrastructure.Repositories
             var searchFood = await order.ToListAsync();
             return searchFood.Count();
         }
+
+        public async Task<List<OrderDetail>> GetOrderDetailsByOrderIdAsync(int orderId)
+        {
+            return await _dataContext.OrderDetails
+           .Where(od => od.IdOrder == orderId)
+           .ToListAsync();
+        }
+
         public Expression<Func<Order, object>> GetSortColumnExpression(string sortColumn)
         {
             switch (sortColumn)
@@ -152,4 +165,5 @@ namespace StoreManagement.Infrastructure.Repositories
             return orderUpdate;
         }
     }
+
 }
