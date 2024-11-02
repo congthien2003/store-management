@@ -64,7 +64,11 @@ export class OrderComponent implements OnInit {
       },
       {
         prop: 'createdAt',
-        display: 'Thời gian',
+        display: 'Thời gian bắt đầu',
+      },
+      {
+        prop: 'finishedAt',
+        display: 'Thời gian kết thúc',
       },
       {
         prop: 'status',
@@ -103,6 +107,7 @@ export class OrderComponent implements OnInit {
       status: [null, [Validators.required]],
       total: [null, [Validators.required]],
       createdAt: [null, [Validators.required]],
+      finishedAt: [null],
       idTable: [null],
     });
   }
@@ -117,9 +122,6 @@ export class OrderComponent implements OnInit {
       next: (res) => {
         this.listOrder = res.data.list;
         this.pagi = res.data.pagination;
-        // this.listOrder.forEach((order) => {
-        //   this.calculate(order.id);
-        // });
       },
       error: (err) => {
         console.log(err);
@@ -189,8 +191,7 @@ export class OrderComponent implements OnInit {
   //             const order = res.data as Order;
   //             this.validateForm.setValue({
   //               id: order.id,
-  //               // nameUser: order.nameUser,
-  //               // phoneUser: order.phoneUser,
+
   //               total: this.total[id],
   //               createdAt: order.createdAt,
   //               status: order.status,
@@ -208,4 +209,7 @@ export class OrderComponent implements OnInit {
   //     },
   //   });
   // }
+  calculateTotalPrice(items: { idFood: number; price: number }[]): number {
+    return items.reduce((total, item) => total + item.price, 0);
+  }
 }

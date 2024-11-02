@@ -89,7 +89,6 @@ export class FormDetailComponent implements OnInit {
 	loadForm(): void {
 		this.orderService.getById(this.data.id).subscribe({
 			next: (res) => {
-				console.log("API Response:", res);
 				const order = res.data as Order;
 				this.validateForm.setValue({
 					id: order.id,
@@ -99,15 +98,11 @@ export class FormDetailComponent implements OnInit {
 					idTable: res.data.tableDTO.id,
 				});
 			},
-			error: (err) => {
-				console.error("Error fetching order:", err);
-			  }
 		});
 	}
 	onSubmit(): void {
 		const newStatus = true;
 		const id = this.validateForm.value.id;
-		
 		this.validateForm.patchValue({ status: newStatus });
 		this.orderService.update(id, this.validateForm.value).subscribe({
 			next: (res) => {

@@ -29,9 +29,11 @@
                 <tbody>
                     <tr *ngFor="let item of listOrder">
                         <th scope="row">{{ item.id }}</th>
+
                         <td>{{item.tableDTO.id}}</td>
                         <td>{{ item.total !== undefined ? item.total : 'Đang tính toán...' }} VND</td>
                         <td>{{ item.createdAt }}</td>
+                        <td>{{ item.finishedAt }}</td>
                         <td>{{item.status ? 'Đã chấp nhận' : 'Chưa chấp nhận'}}</td>
                         
 

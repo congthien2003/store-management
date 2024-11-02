@@ -167,6 +167,7 @@ export class FormEditComponent implements OnInit {
 		});
 	}
 
+
 	listCategories(): void {
 		this.idStore = JSON.parse(localStorage.getItem("idStore") ?? "");
 		this.categoryService
