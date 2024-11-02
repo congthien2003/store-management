@@ -1,5 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { NotAuthorComponent } from "./shared/components/not-author/not-author.component";
+import { AccessDeninedComponent } from "./shared/components/access-denined/access-denined.component";
 
 const routes: Routes = [
 	{
@@ -26,6 +28,14 @@ const routes: Routes = [
 		path: "",
 		loadChildren: () =>
 			import("./@customer/customer.module").then((m) => m.CustomerModule),
+	},
+	{
+		path: "not-authorized",
+		component: NotAuthorComponent,
+	},
+	{
+		path: "denied",
+		component: AccessDeninedComponent,
 	},
 	{ path: "", redirectTo: "pages", pathMatch: "full" },
 	{ path: "**", redirectTo: "pages" },

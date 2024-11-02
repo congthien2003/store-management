@@ -11,14 +11,17 @@ namespace StoreManagement.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository<User> _userRepository;
+        private readonly IJwtManager _jwtManager;
         private readonly IMapper mapper;
 
         public UserService(
                            IUserRepository<User> userRepository,
-                           IMapper mapper)
+                           IMapper mapper,
+                           IJwtManager jwtManager)
         {
             _userRepository = userRepository;
             this.mapper = mapper;
+            _jwtManager = jwtManager;
         }
 
         public async Task<bool> Delete(int id)
@@ -54,6 +57,7 @@ namespace StoreManagement.Services
 
         public async Task<UserDTO> Register(RegisterDTO registerDTO)
         {
+           registerDTO.Password = _jwtManager.getHashpassword(registerDTO.Password);
            var newUser = mapper.Map<User>(registerDTO);
            await _userRepository.CreateUser(newUser);
            return mapper.Map<UserDTO>(newUser);

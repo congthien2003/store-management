@@ -110,4 +110,11 @@ export class AuthenticationService {
 			email,
 		});
 	}
+
+	checkToken(): Observable<ApiResponse> {
+		const token = this.jwtManager.getToken();
+		return this.service.post(`${this.apiController.checkAccessToken}`, {
+			token,
+		});
+	}
 }

@@ -4,4 +4,5 @@ export const AuthApi = {
 	changePassword: "Auth/change-password",
 	restorePassword: "Auth/restore-password",
 	refreshToken: "Auth/refresh-token",
+	checkAccessToken: "Auth/check-access-token",
 };

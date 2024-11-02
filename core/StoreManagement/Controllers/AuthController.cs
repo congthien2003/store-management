@@ -92,13 +92,13 @@ namespace StoreManagement.Controllers
             });
         }
         [HttpPost("check-access-token")]
-        public async Task<ActionResult> CheckAccessToken(TokenDTO request)
+        public async Task<ActionResult> CheckAccessToken([FromBody] TokenDTO req)
         {
-            if(request == null)
+            if(req == null)
             {
                 return BadRequest(Result<CheckToken>.Failure("lấy thông tin thất bại"));
             }
-            var result = await _authenticationService.CheckAccessToken(request.Token);
+            var result = await _authenticationService.CheckAccessToken(req.Token);
             if (result == null)
             {
                 return BadRequest(Result<CheckToken>.Failure("lấy thông tin thất bại"));

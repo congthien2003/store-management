@@ -83,7 +83,20 @@ namespace StoreManagement.Services
         public async Task<StoreResponse> GetByIdUserAsync(int idUser)
         {
             var store = await _storeRepository.GetByIdUserAsync(idUser);
-            return _mapper.Map<StoreResponse>(store);
+            var storeResponse = _mapper.Map<StoreResponse>(store);
+
+            if (store.User != null)
+            {
+                storeResponse.UserDTO = new UserDTO
+                {
+                    Id = store.User.Id,
+                    Email = store.User.Email,
+                    Username = store.User.Username,
+                    Phones = store.User.Phones,
+                    Role = store.User.Role
+                };
+            }
+            return storeResponse;
         }
 
         public async Task<List<StoreResponse>> GetByNameAsync(string name)

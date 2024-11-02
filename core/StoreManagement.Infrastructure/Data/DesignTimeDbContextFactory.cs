@@ -13,7 +13,7 @@ namespace StoreManagement.Infrastructure.Data
         public DataContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<DataContext>();
-            optionsBuilder.UseSqlServer("Server=DESKTOP-JQET4F3;Database=StoremanagementWeb;TrustServerCertificate=Yes;Trusted_Connection=True");
+            optionsBuilder.UseSqlServer("Server=.;Database=StoremanagementWeb;TrustServerCertificate=Yes;Trusted_Connection=True");
 
             return new DataContext(optionsBuilder.Options);
         }
