@@ -59,6 +59,27 @@ namespace StoreManagement.Services
             return PaginationResult<List<StoreResponse>>.Create(listStore, _currentPage, _pageSize, totalRecords);
         }
 
+        public async Task<StoreResponse> GetByGuidAsync(Guid guid)
+        {
+            var store = await _storeRepository.GetByGuidAsync(guid);
+
+
+            var storeResponse = _mapper.Map<StoreResponse>(store);
+
+            if (store.User != null)
+            {
+                storeResponse.UserDTO = new UserDTO
+                {
+                    Id = store.User.Id,
+                    Email = store.User.Email,
+                    Username = store.User.Username,
+                    Phones = store.User.Phones,
+                    Role = store.User.Role
+                };
+            }
+            return storeResponse;
+        }
+
         public async Task<StoreResponse> GetByIdAsync(int id)
         {
             var store = await _storeRepository.GetByIdAsync(id);

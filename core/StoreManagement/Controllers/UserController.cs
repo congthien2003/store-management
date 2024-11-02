@@ -45,6 +45,18 @@ namespace StoreManagement.Controllers
             return Ok(Result<UserDTO?>.Success(user, "Lấy thông tin thành công"));
         }
 
+        [HttpGet]
+        [Route("{guid:Guid}")]
+        public async Task<ActionResult<Result>> GetUserByGuidAsync(Guid guid)
+        {
+            var user = await _userService.GetByGuid(guid);
+            if (user == null)
+            {
+                return BadRequest(Result.Failure("Không tìm thấy người dùng"));
+            }
+            return Ok(Result<UserDTO?>.Success(user, "Lấy thông tin thành công"));
+        }
+
         [HttpPut("update")]
         public async Task<ActionResult<Result>> Update(UserDTO user)
         {

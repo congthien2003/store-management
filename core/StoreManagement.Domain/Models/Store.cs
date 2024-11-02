@@ -5,6 +5,7 @@ namespace StoreManagement.Domain.Models
 {
     public class Store : DeleteableEntity
     {
+        public Guid Guid { get; set; } = Guid.NewGuid();
         public string Name { get; set; }
         public string Address { get; set; }
         public string Phone { get; set; } 

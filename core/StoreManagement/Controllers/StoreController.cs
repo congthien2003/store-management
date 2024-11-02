@@ -44,6 +44,15 @@ namespace StoreManagement.Controllers
             var result = await storeService.GetByIdAsync(id);
             return Ok(Result<StoreResponse?>.Success(result, "Lấy thông tin cửa hàng thành công"));
         }
+
+        [HttpGet]
+        [Route("{guid:Guid}")]
+        public async Task<ActionResult<Result>> GetStoreByGuid(Guid guid)
+        {
+            var result = await storeService.GetByGuidAsync(guid);
+            return Ok(Result<StoreResponse?>.Success(result, "Lấy thông tin cửa hàng thành công"));
+        }
+
         [HttpGet]
         [Route("search")]
         public async Task<ActionResult> GetStoreByName(string name)

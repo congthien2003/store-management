@@ -51,6 +51,15 @@ namespace StoreManagement.Controllers
 
 
         }
+        [HttpGet("{guid:guid}")]
+        public async Task<ActionResult<Result>> GetByIdAsync(Guid guid)
+        {
+
+            var result = await _tableService.GetByGuidAsync(guid);
+            return Ok(Result<TableResponse?>.Success(result, "Lấy thông tin thành công"));
+
+
+        }
         [HttpGet("all/{idStore:int}")]
         public async Task<ActionResult<Result>> GetByIdStore(int idStore, string currentPage = "1", string pageSize = "5", string sortCol = "", string asc = "true")
         {
