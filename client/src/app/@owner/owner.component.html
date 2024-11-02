@@ -12,9 +12,11 @@
 						<i class="fa-brands fa-docker"></i>
 					</div>
 					<div class="sidebar-brand-text mx-3">
-						<span><div *ngIf="nameStore">
-							<h1>{{ nameStore }}<sup>2</sup></h1>
-						</div></span>
+						<span
+							><div *ngIf="nameStore">
+								<h1>{{ nameStore }}<sup>2</sup></h1>
+							</div></span
+						>
 					</div>
 				</a>
 
@@ -66,9 +68,9 @@
 						<span>Món ăn</span>
 					</button>
 				</li>
-				<li 	
-					class="nav-item" 
-					[class.active]="4 == activeIndex" 
+				<li
+					class="nav-item"
+					[class.active]="4 == activeIndex"
 					(click)="swithRoute(4)">
 					<button class="nav-link">
 						<i class="fa-solid fa-table"></i>
@@ -113,24 +115,34 @@
 					</button>
 				</li>
 				<li class="nav-item dropdown mt-auto">
-					<button class="nav-link dropdown-toggle" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+					<button
+						class="nav-link dropdown-toggle"
+						id="dropdownMenuLink"
+						data-bs-toggle="dropdown"
+						aria-expanded="false">
 						<i class="fa-solid fa-cog"></i>
 						<span>Cài đặt</span>
 					</button>
-					<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+					<ul
+						class="dropdown-menu"
+						aria-labelledby="dropdownMenuLink">
 						<li>
-							<a class="dropdown-item " [class.active]="9 == activeIndex" (click)="swithRoute(9)">
+							<a
+								class="dropdown-item"
+								[class.active]="9 == activeIndex"
+								(click)="swithRoute(9)">
 								<span class="text-dropdown">Đăng xuất</span>
 							</a>
 						</li>
 					</ul>
 				</li>
 			</div>
-			
 		</div>
 		<div class="col-10">
 			<div class="owner-content layout-common-content">
-				<router-outlet></router-outlet>
+				<notfound-store *ngIf="!haveStore"></notfound-store>
+
+				<router-outlet *ngIf="haveStore"></router-outlet>
 			</div>
 		</div>
 	</div>

@@ -85,6 +85,9 @@ export class MyStoreComponent implements OnInit {
 		phone?: string;
 		address?: string;
 	} = {};
+
+	idUser: number = 0;
+	store!: Store;
 	constructor(
 		// public dialogRef: MatDialogRef<MyStoreComponent>,
 		public dialog: MatDialog,
@@ -97,8 +100,11 @@ export class MyStoreComponent implements OnInit {
 		this.getMyStore();
 	}
 	getMyStore(): void {
-		this.idStore = JSON.parse(localStorage.getItem("idStore") ?? "");
-		this.storeService.getById(this.idStore).subscribe({
+		this.idUser = this.authService.getIdFromToken();
+		this.store = JSON.parse(
+			sessionStorage.getItem("storeInfo") ?? ""
+		) as Store;
+		this.storeService.getByIdUser(this.idUser).subscribe({
 			next: (res) => {
 				this.myStore = res.data;
 				this.nameUser = res.data.userDTO.username;

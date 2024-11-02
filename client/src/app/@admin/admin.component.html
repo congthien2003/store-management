@@ -56,13 +56,19 @@
 					</button>
 				</li>
 				<li class="nav-item dropdown mt-auto">
-					<button class="nav-link dropdown-toggle" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+					<button
+						class="nav-link dropdown-toggle"
+						id="dropdownMenuLink"
+						data-bs-toggle="dropdown"
+						aria-expanded="false">
 						<i class="fa-solid fa-cog"></i>
 						<span>Cài đặt</span>
 					</button>
-					<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+					<ul
+						class="dropdown-menu"
+						aria-labelledby="dropdownMenuLink">
 						<li>
-							<a class="dropdown-item " [class.active]="9 == activeIndex" (click)="swithRoute(9)">
+							<a class="dropdown-item" (click)="logOut()">
 								<span class="text-dropdown">Đăng xuất</span>
 							</a>
 						</li>

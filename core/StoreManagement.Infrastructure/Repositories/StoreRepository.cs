@@ -79,7 +79,7 @@ namespace StoreManagement.Infrastructure.Repositories
 
         public async Task<Store> GetByIdUserAsync(int idUser, bool includeDeleted = false)
         {
-            var store = await _dataContext.Stores.FirstOrDefaultAsync(x => x.IdUser == idUser && x.IsDeleted == includeDeleted);
+            var store = await _dataContext.Stores.Include(s => s.User).FirstOrDefaultAsync(x => x.IdUser == idUser && x.IsDeleted == includeDeleted);
             if (store == null)
             {
                 throw new KeyNotFoundException("Cửa hàng không tồn tại");
