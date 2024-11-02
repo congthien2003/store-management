@@ -75,5 +75,25 @@ namespace StoreManagement.Services
             var count = await _tableRepository.GetCountAsync(id);
             return count;
         }
+
+        public async Task<TableResponse> GetByGuidAsync(Guid guid)
+        {
+            var table = await _tableRepository.GetByGuidAsync(guid);
+
+            var tableResponse = _mapper.Map<TableResponse>(table);
+
+            if (table.Store != null)
+            {
+                tableResponse.StoreDTO = new StoreDTO
+                {
+                    Id = table.Store.Id,
+                    Name = table.Store.Name,
+                    Address = table.Store.Address,
+                    Phone = table.Store.Phone,
+                    IdUser = table.Store.IdUser,
+                };
+            }
+            return tableResponse;
+        }
     }
 }

@@ -78,5 +78,11 @@ namespace StoreManagement.Services
             var listUser = mapper.Map<List<UserDTO>>(list);
             return PaginationResult<List<UserDTO>>.Create(listUser, _currentPage, _pageSize, totalRecords);
         }
+
+        public async Task<UserDTO?> GetByGuid(Guid guid, bool includeDeleted = false)
+        {
+            var user = await _userRepository.GetByGuid(guid, includeDeleted);
+            return mapper.Map<UserDTO>(user) ?? null;
+        }
     }
 }

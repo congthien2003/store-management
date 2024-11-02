@@ -146,5 +146,15 @@ namespace StoreManagement.Infrastructure.Repositories
 
             return await query.CountAsync();
         }
+
+        public async Task<Store> GetByGuidAsync(Guid guid, bool includeDeleted = false)
+        {
+            var store = await _dataContext.Stores.FirstOrDefaultAsync(x => x.Guid == guid && x.IsDeleted == includeDeleted);
+            if (store == null)
+            {
+                throw new KeyNotFoundException("Cửa hàng không tồn tại");
+            }
+            return store;
+        }
     }
 }

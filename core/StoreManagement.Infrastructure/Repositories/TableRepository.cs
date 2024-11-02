@@ -98,5 +98,15 @@ namespace StoreManagement.Infrastructure.Repositories
             var searchTable = await table.ToListAsync();
             return searchTable.Count();
         }
+
+        public async Task<Table> GetByGuidAsync(Guid guid, bool incluDeleted = false)
+        {
+            var table = await _dataContext.Tables.Include(s => s.Store).ThenInclude(s => s.User).FirstOrDefaultAsync(x => x.Guid == guid && x.IsDeleted == incluDeleted);
+            if (table == null)
+            {
+                throw new KeyNotFoundException("Bàn không tồn tại");
+            }
+            return table;
+        }
     }
 }

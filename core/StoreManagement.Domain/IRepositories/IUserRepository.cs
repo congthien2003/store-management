@@ -10,6 +10,7 @@ namespace StoreManagement.Domain.IRepositories
         Task<TUser> CreateUser(User user);
         Task<TUser> GetByLogin(string email, string password);
         Task<TUser> GetById(int id, bool includeDeleted = false);
+        Task<TUser> GetByGuid(Guid guid, bool includeDeleted = false);
         Task<TUser> Edit(TUser user);
         Task<TUser> UpdatePassword(int id, string password, bool includeDeleted = false);
         Task<int> CountAsync(string searchTerm);

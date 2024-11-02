@@ -10,6 +10,7 @@ namespace StoreManagement.Application.Interfaces.IServices
         Task<bool> DeleteAsync(int id);
         Task<StoreDTO> CreateAsync(StoreDTO storeDTO);
         Task<StoreResponse> GetByIdAsync(int id);
+        Task<StoreResponse> GetByGuidAsync(Guid guid);
         Task<StoreResponse> GetByIdUserAsync(int idUser);
         Task<List<StoreResponse>> GetByNameAsync(string name);
         Task<PaginationResult<List<StoreResponse>>> GetAllAsync(string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortColumn = "", string asc = "true");

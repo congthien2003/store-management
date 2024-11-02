@@ -133,5 +133,10 @@ namespace StoreManagement.Infrastructure.Repositories
 
             return await query.CountAsync();
         }
+
+        public async Task<User> GetByGuid(Guid guid, bool includeDeleted = false)
+        {
+            return await _dataContext.Users.FirstOrDefaultAsync(x => x.Guid == guid && x.IsDeleted == includeDeleted);
+        }
     }
 }
