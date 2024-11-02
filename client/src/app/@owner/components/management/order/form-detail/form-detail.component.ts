@@ -72,8 +72,6 @@ export class FormDetailComponent implements OnInit {
 	) {
 		this.validateForm = this.fb.group({
 			id: [this.data.id],
-			nameUser: [""],
-			phoneUser: [""],
 			status: [null, [Validators.required]],
 			total: [null, [Validators.required]],
 			createdAt: [null, [Validators.required]],
@@ -105,7 +103,6 @@ export class FormDetailComponent implements OnInit {
 	onSubmit(): void {
 		const newStatus = true;
 		const id = this.validateForm.value.id;
-
 		this.validateForm.patchValue({ status: newStatus });
 		this.orderService.update(id, this.validateForm.value).subscribe({
 			next: (res) => {

@@ -13,25 +13,6 @@
                     <div class="row mb-3">
                         <div class="col-sm-6">
                             <nz-form-item>
-                                <nz-form-label nzFor="nameUser">Name</nz-form-label>
-                                <nz-form-control nzErrorTip="The input is not valid name">
-                                    <span>{{ validateForm.get('nameUser')?.value }}</span>
-                                </nz-form-control>
-                            </nz-form-item>
-                        </div>
-                        <div class="col-sm-6">
-                            <nz-form-item>
-                                <nz-form-label nzFor="phoneUser">Number</nz-form-label>
-                                <nz-form-control nzErrorTip="The input is not valid name">
-                                    <span>{{ validateForm.get('phoneUser')?.value }}</span>
-                                </nz-form-control>
-                            </nz-form-item>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-sm-6">
-                            <nz-form-item>
                                 <nz-form-label nzFor="total">Tổng tiền</nz-form-label>
                                 <nz-form-control nzErrorTip="The input is not valid name">
                                     <span>{{ validateForm.get('total')?.value }}</span>
@@ -49,29 +30,35 @@
                     </div>
 
                     <div *ngFor="let order of listOrderDetail" class="row mb-3">
-                        <div class="col-sm-4">
-                            <nz-form-item>
-                                <nz-form-label nzFor="foodName">Tên món ăn</nz-form-label>
-                                <nz-form-control nzErrorTip="The input is not valid name">
-                                    <span>{{ order.foodDTO.name }}</span>
-                                </nz-form-control>
-                            </nz-form-item>
+                        <div class="row">
+                            <div class="col-12">
+                                <nz-form-item>
+                                    <nz-form-label nzFor="foodName">Tên món ăn</nz-form-label>
+                                    <nz-form-control nzErrorTip="The input is not valid name">
+                                        <span>{{ order.foodDTO.name }}</span>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
                         </div>
-                        <div class="col-sm-4">
-                            <nz-form-item>
-                                <nz-form-label nzFor="foodPrice">Giá món ăn</nz-form-label>
-                                <nz-form-control nzErrorTip="The input is not valid price">
-                                    <span>{{ order.foodDTO.price }}</span>
-                                </nz-form-control>
-                            </nz-form-item>
-                        </div>
-                        <div class="col-sm-4">
-                            <nz-form-item>
-                                <nz-form-label nzFor="foodQuantity">Số lượng</nz-form-label>
-                                <nz-form-control nzErrorTip="The input is not valid quantity">
-                                    <span>{{ order.quantity }}</span>
-                                </nz-form-control>
-                            </nz-form-item>
+            
+                        <!-- Row for Food Price and Quantity -->
+                        <div class="row">
+                            <div class="col-6">
+                                <nz-form-item>
+                                    <nz-form-label nzFor="foodPrice">Giá món ăn</nz-form-label>
+                                    <nz-form-control nzErrorTip="The input is not valid price">
+                                        <span>{{ order.foodDTO.price }}</span>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+                            <div class="col-6">
+                                <nz-form-item>
+                                    <nz-form-label nzFor="foodQuantity">Số lượng</nz-form-label>
+                                    <nz-form-control nzErrorTip="The input is not valid quantity">
+                                        <span>{{ order.quantity }}</span>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
                         </div>
                     </div>
                 </form>

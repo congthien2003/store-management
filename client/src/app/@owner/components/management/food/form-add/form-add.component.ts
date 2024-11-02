@@ -75,10 +75,20 @@ export class FormAddComponent {
 	ngOnInit(): void {
 		this.listCategories();
 	}
+	
+	imagePreview: string | ArrayBuffer | null = null;
 	onFileSelected(event: any): void {
-		this.selectedFile = event.target.files[0];
-		console.log(event.target.files[0]);
+		const fileInput = event.target as HTMLInputElement;
+        if (fileInput.files && fileInput.files[0]) {
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+            reader.onload = () => {
+                this.imagePreview = reader.result;
+            };
+            reader.readAsDataURL(file);
+        }
 	}
+
 	onNoClick(): void {
 		this.dialogRef.close(false);
 	}

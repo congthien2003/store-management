@@ -11,5 +11,6 @@ namespace StoreManagement.Application.DTOs.Request
         public int Id { get; set; }
         public int Quantity { get; set; }
         public int FoodId { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 }

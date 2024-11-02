@@ -26,7 +26,7 @@
 							[nzXs]="24"
 							nzRequired
 							nzFor="name"
-							>Name</nz-form-label
+							>Tên món</nz-form-label
 						>
 						<nz-form-control
 							[nzSm]="14"
@@ -78,7 +78,7 @@
 						</nz-form-control>
 					</nz-form-item>
 					<nz-form-item>
-						<nz-form-label [nzSm]="8" [nzXs]="24" nzFor="status" nzRequired>Status</nz-form-label>
+						<nz-form-label [nzSm]="8" [nzXs]="24" nzFor="status" nzRequired>Trạng thái</nz-form-label>
 						<nz-form-control [nzSm]="14" [nzXs]="24">
 							<select class="form-select" formControlName="status" aria-label="Select Status">
 								<option [value]="true">True</option>
@@ -93,7 +93,7 @@
 							[nzXs]="24" 
 							nzFor="categories" 
 							nzRequired
-							>Category
+							>Loại món
 						</nz-form-label>
 						<nz-form-control 
 							[nzSm]="14" 
@@ -110,11 +110,13 @@
 					</nz-form-item>
 					<nz-form-item>
 						<nz-form-label [nzSm]="8" [nzXs]="24" nzFor="fileUpload" nzRequired>
-							Upload Image
+							Hình ảnh
 						</nz-form-label>
 						<nz-form-control [nzSm]="14" [nzXs]="24">
-							<input type="file" id="fileUpload" (change)="onFileSelected($event)" aria-label="Upload Image"
-								class="form-control" />
+							<input type="file" id="fileUpload" (change)="onFileSelected($event)" aria-label="Upload Image" class="form-control" />
+							<div *ngIf="imagePreview" class="image-preview-container">
+								<img [src]="imagePreview" alt="Image preview" class="image-preview" />
+							</div>
 						</nz-form-control>
 					</nz-form-item>
 
