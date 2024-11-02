@@ -183,10 +183,20 @@ namespace StoreManagement.Infrastructure.Repositories
         .ToListAsync();
         }
 
-        public async Task<List<ProductSell>> GetTopProductsByQuantityAsync(int categoryId)
+        public async Task<List<ProductSell>> GetTopProductsByQuantityAsync(int idStore, int idCategory)
         {
             return await _dataContext.ProductSells
-                 .Where(p => p.Food.IdCategory == categoryId)
+                .Include("Food")
+                 .Where(p => p.Food.IdCategory == idCategory && p.Food.Category.IdStore == idStore)
+                .OrderByDescending(p => p.Quantity)
+                .Take(4)
+                .ToListAsync();
+        }
+        public async Task<List<ProductSell>> GetTopProductsByQuantityByStoreAsync(int idStore)
+        {
+            return await _dataContext.ProductSells
+                .Include("Food")
+                .Where(p => p.Food.Category.IdStore == idStore)
                 .OrderByDescending(p => p.Quantity)
                 .Take(4)
                 .ToListAsync();

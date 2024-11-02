@@ -1,8 +1,11 @@
 @import "../../../../../shared/variable.scss";
 
-.modal-footer {
-	button:nth-child(1) {
-		background-color: $primary-dark;
+.modal-footer{
+	.btn-management-save{
+		background-color: grey;
 		color: white;
 	}
+}
+.modal-header{
+	background-color: grey;
 }

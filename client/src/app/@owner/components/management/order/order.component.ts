@@ -55,12 +55,8 @@ export class OrderComponent implements OnInit {
         display: 'STT',
       },
       {
-        prop: 'nameUser',
-        display: 'Tên khách hàng',
-      },
-      {
-        prop: 'phoneUser',
-        display: 'Số diện thoại',
+        prop: 'idTable',
+        display: 'Bàn',
       },
       {
         prop: 'total',
@@ -73,10 +69,6 @@ export class OrderComponent implements OnInit {
       {
         prop: 'status',
         display: 'Trạng thái',
-      },
-      {
-        prop: 'idTable',
-        display: 'Bàn',
       },
     ],
     hasAction: true,
@@ -108,8 +100,6 @@ export class OrderComponent implements OnInit {
       });
     this.validateForm = this.fb.group({
       id: [0],
-      nameUser: [''],
-      phoneUser: [''],
       status: [null, [Validators.required]],
       total: [null, [Validators.required]],
       createdAt: [null, [Validators.required]],
@@ -189,33 +179,33 @@ export class OrderComponent implements OnInit {
       }
     });
   }
-  calculate(id: number): void {
-    this.orderService.calculateTotal(id).subscribe({
-      next: (res) => {
-        if (res.isSuccess) {
-          this.total[id] = res.data;
-          this.orderService.getById(id).subscribe({
-            next: (res) => {
-              const order = res.data as Order;
-              this.validateForm.setValue({
-                id: order.id,
-                nameUser: order.nameUser,
-                phoneUser: order.phoneUser,
-                total: this.total[id],
-                createdAt: order.createdAt,
-                status: order.status,
-                idTable: res.data.tableDTO.id,
-              });
-              this.orderService.update(id, this.validateForm.value).subscribe({
-                next: (res) => {},
-              });
-            },
-          });
-        }
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
-  }
+  // calculate(id: number): void {
+  //   this.orderService.calculateTotal(id).subscribe({
+  //     next: (res) => {
+  //       if (res.isSuccess) {
+  //         this.total[id] = res.data;
+  //         this.orderService.getById(id).subscribe({
+  //           next: (res) => {
+  //             const order = res.data as Order;
+  //             this.validateForm.setValue({
+  //               id: order.id,
+  //               // nameUser: order.nameUser,
+  //               // phoneUser: order.phoneUser,
+  //               total: this.total[id],
+  //               createdAt: order.createdAt,
+  //               status: order.status,
+  //               idTable: res.data.tableDTO.id,
+  //             });
+  //             this.orderService.update(id, this.validateForm.value).subscribe({
+  //               next: (res) => {},
+  //             });
+  //           },
+  //         });
+  //       }
+  //     },
+  //     error: (err) => {
+  //       console.log(err);
+  //     },
+  //   });
+  // }
 }

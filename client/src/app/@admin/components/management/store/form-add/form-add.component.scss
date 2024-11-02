@@ -1,1 +1,17 @@
 @import "../../../../../shared/variable.scss";
+
+.modal {
+    
+  
+    .modal-content {
+      .modal-header{
+        background-color: grey;
+      }
+      .modal-footer {
+          .btn-grey-custom {
+            background-color: grey; 
+            color: white;
+          }
+      }
+    }
+  }

@@ -62,10 +62,8 @@ namespace StoreManagement.Application.Common
 
         public static PaginationResult<T> Create(T data, int currentPage, int pageSize, int totalRecords)
         {
-            return new PaginationResult<T> (data, currentPage, pageSize, totalRecords);
+            return new PaginationResult<T>(data, currentPage, pageSize, totalRecords);
         }
 
     }
-
-    
 }

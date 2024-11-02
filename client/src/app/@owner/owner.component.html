@@ -112,17 +112,19 @@
 						<span>Thống kê</span>
 					</button>
 				</li>
-				<hr class="sidebar-divider my-0" />
-				<li class="nav-item dropdown mt-auto"> 
+				<li class="nav-item dropdown mt-auto">
 					<button class="nav-link dropdown-toggle" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-						<i class=" fa-solid fa-cog"></i>
+						<i class="fa-solid fa-cog"></i>
 						<span>Cài đặt</span>
 					</button>
 					<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-						<li><a class="dropdown-item" [class.active]="9 == activeIndex" href="#">Đăng xuất</a></li>	
+						<li>
+							<a class="dropdown-item " [class.active]="9 == activeIndex" (click)="swithRoute(9)">
+								<span class="text-dropdown">Đăng xuất</span>
+							</a>
+						</li>
 					</ul>
 				</li>
-				<hr class="sidebar-divider" />
 			</div>
 			
 		</div>

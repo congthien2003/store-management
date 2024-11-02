@@ -39,18 +39,21 @@ export class LoginComponent implements OnInit {
 
 	ngOnInit() {
 		this.isLoading = false;
+		if (this.service.isAuthenticated()) {
+			this.route.navigate(["/owner/dashboard"]);
+		}
 	}
 
 	initForm() {}
 
 	login() {
 		if (this.service.isAuthenticated()) {
-			this.route.navigate(["/pages"]);
+			this.route.navigate(["/owner/dashboard"]);
 		} else {
 			this.service.login(this.user.email, this.user.password).subscribe({
 				next: (res) => {
 					this.jwtManager.setToken(res.data.token);
-					this.route.navigate(["/pages"]);
+					this.route.navigate(["/owner/dashboard"]);
 				},
 				error: (error) => {
 					this.toastr.error(

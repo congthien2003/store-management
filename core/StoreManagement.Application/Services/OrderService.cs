@@ -93,23 +93,20 @@ namespace StoreManagement.Services
 
             var updatedOrder = await _orderRepository.UpdateAsync(id, orderUpdate);
 
-            // Chỉ tiếp tục nếu trạng thái đơn hàng là true
             if (updatedOrder.Status == true)
             {
-                // Lấy chi tiết đơn hàng dựa trên idOrder của Order vừa cập nhật
+
                 var latestOrderDetails = await _orderRepository.GetOrderDetailsByOrderIdAsync(updatedOrder.Id);
 
-                // Đảm bảo chỉ lấy foodId đầu tiên
+
                 var firstOrderDetail = latestOrderDetails.FirstOrDefault();
 
                 if (firstOrderDetail != null)
                 {
-                    // Cập nhật số lượng sản phẩm dựa trên IdFood và orderId
                     await _productSellRepository.UpdateProductSellQuantityAsync(firstOrderDetail.IdFood, firstOrderDetail.IdOrder,firstOrderDetail.Quantity);
                 }
             }
 
-            // Trả về DTO đã cập nhật
             return _mapper.Map<OrderDTO>(updatedOrder);
         }
         public async Task<double> CaculateTotal(int id, bool incluDeleted = false)

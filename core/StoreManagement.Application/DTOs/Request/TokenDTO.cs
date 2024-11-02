@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace StoreManagement.Application.DTOs.Request
 {
-    public class FoodTopDTO
+    public class TokenDTO
     {
-        public List<FoodDTO> AllFoods {  get; set; }
-        public List<ProductSellDTO> Top3ProductsByQuantity { get; set; }
+        public string Token { get; set; }
     }
 }

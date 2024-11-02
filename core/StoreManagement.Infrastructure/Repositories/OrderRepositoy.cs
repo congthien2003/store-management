@@ -71,10 +71,6 @@ namespace StoreManagement.Infrastructure.Repositories
         public Task<List<Order>> GetAllByIdStoreAsync(int idStore, int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortCol = "", bool ascSort = true, bool incluDeleted = false)
         {
             var order = _dataContext.Orders.Where(x => x.Table.IdStore == idStore && x.IsDeleted == incluDeleted).AsQueryable();
-            if (!string.IsNullOrEmpty(searchTerm))
-            {
-                order = order.Where(t => t.NameUser.Contains(searchTerm));
-            }
             if (!incluDeleted)
             {
                 order = order.Where(t => t.IsDeleted == incluDeleted);
@@ -107,7 +103,7 @@ namespace StoreManagement.Infrastructure.Repositories
 
         public async Task<List<Order>> GetByNameUser(string name, bool incluDeleted = false)
         {
-            var listOrders = await _dataContext.Orders.Where(x => x.NameUser.Contains(name) && x.IsDeleted == incluDeleted).ToListAsync();
+            var listOrders = await _dataContext.Orders.Where(x => x.IsDeleted == incluDeleted).ToListAsync();
             if(listOrders.Count == 0)
             {
                 throw new InvalidOperationException("Tên khách hàng order không tồn tại");
@@ -118,10 +114,6 @@ namespace StoreManagement.Infrastructure.Repositories
         public async Task<int> GetCountAsync(int idStore, string searchTerm = "", bool incluDeleted = false)
         {
             var order = _dataContext.Orders.Where(x => x.Table.IdStore ==  idStore && x.IsDeleted == incluDeleted).AsQueryable();
-            if (!string.IsNullOrEmpty(searchTerm))
-            {
-                order = order.Where(t => t.NameUser.Contains(searchTerm));
-            }
             if (!incluDeleted)
             {
                 order = order.Where(t => t.IsDeleted == incluDeleted);
@@ -142,7 +134,7 @@ namespace StoreManagement.Infrastructure.Repositories
             switch (sortColumn)
             {
                 case "name":
-                    return x => x.NameUser;
+                    return x => x.CreatedAt;
                 default:
                     return x => x.Id;
             }
@@ -157,8 +149,6 @@ namespace StoreManagement.Infrastructure.Repositories
             orderUpdate.Total = order.Total;
             orderUpdate.IdTable = order.IdTable;
             orderUpdate.CreatedAt = order.CreatedAt;
-            orderUpdate.NameUser = order.NameUser;
-            orderUpdate.PhoneUser = order.PhoneUser;
             orderUpdate.Status = order.Status;
             _dataContext.Orders.Update(orderUpdate);
             await _dataContext.SaveChangesAsync();

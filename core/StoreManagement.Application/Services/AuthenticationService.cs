@@ -185,5 +185,20 @@ namespace StoreManagement.Services
 
           
         }
+        public async Task<CheckToken> CheckAccessToken(string token)
+        {
+            CheckToken result = new CheckToken();
+            var principal = _jwtManager.ValidateToken(token);
+            if (principal != null)
+            {
+                result.Role = principal.FindFirst("Roles")?.Value;
+                result.IsDenied = false;
+            }
+            else
+            {
+                result.IsDenied = true;
+            }
+            return result;
+        }
     }
 }

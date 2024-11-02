@@ -11,7 +11,6 @@ namespace StoreManagement.Application.DTOs.Response
     {
         public int Quantity { get; set; }
         public DateTime UpdatedAt { get; set; }
-        public int SalesCount { get; set; }
-        public FoodDTO? FoodDTO { get; set; }
+        public FoodDTO FoodDTO { get; set; }
     }
 }

@@ -46,6 +46,9 @@ namespace StoreManagement.Infrastructure.Data
             modelBuilder.Entity<Food>()
             .Property(f => f.Price)
             .HasColumnType("decimal(18,2)");
+
+         
+
         }
     }
 }

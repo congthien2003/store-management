@@ -22,11 +22,11 @@ namespace StoreManagement.Application.Services
             _orderDetailRepository = orderDetailRepository;
             _foodRepository = foodRepository;
         }
-        public async Task<ProductSellDTO> CreateAsync(ProductSellDTO productSellDTO)
+        public async Task<DTOs.Request.ProductSellDTO> CreateAsync(DTOs.Request.ProductSellDTO productSellDTO)
         {
             var productSell = _mapper.Map<ProductSell>(productSellDTO);
             var created = await _productSellRepository.CreateAsync(productSell);
-            return _mapper.Map<ProductSellDTO>(created);    
+            return _mapper.Map<DTOs.Request.ProductSellDTO>(created);    
         }
 
         public async Task<bool> DeleteAsync(int id)
@@ -58,20 +58,20 @@ namespace StoreManagement.Application.Services
                 listProduct.Add(productResponse);
             }
 
-            return PaginationResult<List<ProductSellResponse>>.Create(listProduct, _currentPage, _pageSize, totalRecords);
+            return PaginationResult<List<DTOs.Response.ProductSellResponse>>.Create(listProduct, _currentPage, _pageSize, totalRecords);
         }
 
-        public async Task<ProductSellDTO> GetByIdAsync(int id)
+        public async Task<DTOs.Request.ProductSellDTO> GetByIdAsync(int id)
         {
             var productSell = await _productSellRepository.GetByIdAsync(id);
-            return _mapper.Map<ProductSellDTO>(productSell);
+            return _mapper.Map<DTOs.Request.ProductSellDTO>(productSell);
         }
 
-        public async Task<ProductSellDTO> UpdateAsync(int id, ProductSellDTO productSellDTO)
+        public async Task<DTOs.Request.ProductSellDTO> UpdateAsync(int id, DTOs.Request.ProductSellDTO productSellDTO)
         {
             var update = _mapper.Map<ProductSell>(productSellDTO);
             var updated = await _productSellRepository.UpdateAsync(id, update);
-            return _mapper.Map<ProductSellDTO>(updated);
+            return _mapper.Map<DTOs.Request.ProductSellDTO>(updated);
         }
     }
 }

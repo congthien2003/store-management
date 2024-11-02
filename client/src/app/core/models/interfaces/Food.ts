@@ -1,8 +1,9 @@
 export interface Food {
-  id: number;
-  name: string;
-  price: number;
-  status: boolean;
-  quantity: number;
-  idCategory: number;
+	id: number;
+	name: string;
+	price: number;
+	status: boolean;
+	quantity: number;
+	idCategory: number;
+	imageUrl: string;
 }

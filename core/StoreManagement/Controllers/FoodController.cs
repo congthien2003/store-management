@@ -63,11 +63,13 @@ namespace StoreManagement.Controllers
         }
 
         [HttpGet("best-seller")]
-        public async Task<IActionResult> GetTopFoods(int idCategory, int currentPage = 1, int pageSize = 10)
+        public async Task<IActionResult> GetTopFoods(int idStore,int idCategory = 0, int currentPage = 1, int pageSize = 10)
         {
             try
             {
-                var result = await _foodService.GetTopFood(idCategory, currentPage, pageSize);
+                
+
+                var result = await _foodService.GetTopFood(idStore, idCategory, currentPage, pageSize);
                 return Ok(result);
             }
             catch (Exception ex)

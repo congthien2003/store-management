@@ -123,34 +123,44 @@ namespace StoreManagement.Services
             return count;
         }
 
-        public async Task<FoodTopDTO> GetTopFood(int idCategory, int currentPage, int pageSize)
+        public async Task<FoodBestSellerResponse> GetTopFood(int idStore, int idCategory, int currentPage, int pageSize)
         {
-            var allFoods = await _foodRepository.GetAllAsync(idCategory, currentPage, pageSize);
-            var top3product = await _productSellRepository.GetTopProductsByQuantityAsync(idCategory);
+            var allFoods = idCategory == 0
+                ? await _foodRepository.GetAllByIdStoreAsync(idStore, currentPage, pageSize) 
+                : await _foodRepository.GetAllAsync(idStore, idCategory, currentPage, pageSize);
+            var top4product = idCategory == 0
+                ? await _productSellRepository.GetTopProductsByQuantityByStoreAsync(idStore) 
+                : await _productSellRepository.GetTopProductsByQuantityAsync(idStore, idCategory);
+
 
             var allFoodDto = _mapper.Map<List<FoodDTO>>(allFoods);
-            var top3productDTO = _mapper.Map<List<ProductSellDTO>>(top3product);
+            var top4productDTO = _mapper.Map<List<ProductSellDTO>>(top4product);
 
-            List<FoodDTO> filteredFoods;
-
+            List<FoodDTO> filteredFoods = new List<FoodDTO>();
             if (currentPage == 1)
             {
                 filteredFoods = allFoodDto
-                    .Where(f => !top3productDTO.Any(p => p.FoodId == f.Id))
+                    .Where(f => !top4productDTO.Any(p => p.FoodId == f.Id))
                     .Take(6)
                     .ToList();
             }
             else
             {
                 filteredFoods = allFoodDto
-                    .Where(f => !top3productDTO.Any(p => p.FoodId == f.Id))
+                    .Where(f => !top4productDTO.Any(p => p.FoodId == f.Id))
                     .Take(10)
                     .ToList();
             }
-
-            return new FoodTopDTO
+            List<FoodDTO> top4ProductsByQuantity = new List<FoodDTO>();
+            foreach (var item in top4productDTO)
             {
-                Top3ProductsByQuantity = currentPage == 1 ? top3productDTO : new List<ProductSellDTO>(), 
+                Food food = await _foodRepository.GetByIdAsync(item.FoodId);
+                top4ProductsByQuantity.Add(_mapper.Map<FoodDTO>(food));
+            }
+
+            return new FoodBestSellerResponse
+            {
+                Top4ProductsByQuantity = currentPage == 1 ? top4ProductsByQuantity : [],
                 AllFoods = filteredFoods
             };
         }

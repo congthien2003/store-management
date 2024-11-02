@@ -50,8 +50,6 @@ namespace StoreManagement.Services
                     {
                         Id = listInvoice[i].Order.Id,
                         Total = (double)listInvoice[i].Order.Total,
-                        NameUser = listInvoice[i].Order.NameUser,
-                        PhoneUser = listInvoice[i].Order.PhoneUser,
                         CreatedAt = listInvoice[i].Order.CreatedAt,
                         IdTable = listInvoice[i].Order.IdTable,
                     };
@@ -94,8 +92,6 @@ namespace StoreManagement.Services
                 {
                     Id = result.Order.Id,
                     Total = (double)result.Order.Total,
-                    NameUser = result.Order.NameUser,
-                    PhoneUser = result.Order.PhoneUser,
                     CreatedAt = result.Order.CreatedAt,
                     IdTable = result.Order.IdTable,
 

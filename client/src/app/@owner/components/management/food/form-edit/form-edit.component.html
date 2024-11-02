@@ -16,10 +16,10 @@
                             [nzXs]="24" 
                             nzRequired 
                             nzFor="name"
-                            >Name
+                            >Tên món
                         </nz-form-label>
                         <nz-form-control 
-                            [nzSm]="8" 
+                            [nzSm]="14"
                             [nzXs]="24" 
                             nzErrorTip="The input is not valid name">
                             <input 
@@ -31,23 +31,23 @@
                     </nz-form-item>
                     <nz-form-item>
                         <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired nzFor="price">Giá tiền</nz-form-label>
-                        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="This input is not have enough length!">
+                        <nz-form-control [nzSm]="6" [nzXs]="24" nzErrorTip="This input is not have enough length!">
                             <input aria-label="price" nz-input class="form-control" formControlName="price" id="price" />
                         </nz-form-control>
                     </nz-form-item>
                     <nz-form-item>
-                        <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired nzFor="quantity">Quantity
+                        <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired nzFor="quantity">Số lượng
                         </nz-form-label>
-                        <nz-form-control [nzSm]="8" [nzXs]="24" nzErrorTip="The input is not valid name">
+                        <nz-form-control [nzSm]="4" [nzXs]="24" nzErrorTip="The input is not valid name">
                             <input aria-label="quantity" nz-input class="form-control" formControlName="quantity" id="quantity" />
                         </nz-form-control>
                     </nz-form-item>
                     <nz-form-item>
-                        <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="status" nzRequired>Status</nz-form-label>
+                        <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="status" nzRequired>Trạng thái</nz-form-label>
                         <nz-form-control [nzSm]="14" [nzXs]="24">
                             <select class="form-select" formControlName="status" aria-label="Select Status">
-                                <option [value]="true">True</option>
-                                <option [value]="false">False</option>
+                                <option [value]="true">Hết</option>
+                                <option [value]="false">Còn</option>
                             </select>
                         </nz-form-control>
                     </nz-form-item>
@@ -58,7 +58,7 @@
                             nzFor="categories" 
                             nzRequired
                         >
-                            Category
+                            Loại món
                         </nz-form-label>
                         <nz-form-control 
                             [nzSm]="14" 
@@ -73,6 +73,18 @@
                             </select>
                         </nz-form-control>
                     </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="fileUpload" nzRequired>
+                                Hình ảnh
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24">
+                                <input type="file" id="fileUpload" (change)="onFileSelected($event)" aria-label="Upload Image"
+                                    class="form-control" />
+                                <div *ngIf="imageUrl" class="image-preview">
+                                    <img [src]="imageUrl" alt="Uploaded Image" />
+                                </div>
+                            </nz-form-control>
+                        </nz-form-item>
                 </form>
             </div>
             <div class="modal-footer">

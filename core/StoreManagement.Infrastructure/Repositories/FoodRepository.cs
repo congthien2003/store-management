@@ -137,6 +137,7 @@ namespace StoreManagement.Infrastructure.Repositories
             foodUpdate.Price = food.Price;
             foodUpdate.Status = food.Status;
             foodUpdate.Quantity = food.Quantity;
+            foodUpdate.ImageUrl = food.ImageUrl;
             _dataContext.Foods.Update(foodUpdate);
             await _dataContext.SaveChangesAsync();
             return foodUpdate;
@@ -149,9 +150,27 @@ namespace StoreManagement.Infrastructure.Repositories
             .ToListAsync();
         }
 
-        public async Task<List<Food>> GetAllAsync(int idCategory, int currentPage, int pageSize)
+        public async Task<List<Food>> GetAllAsync(int idStore, int idCategory, int currentPage, int pageSize)
         {
-            return await _dataContext.Foods.Where(x=>x.IdCategory == idCategory)
+            if (idCategory == 0)
+            {
+                return await _dataContext.Foods.Where(x => x.Category.IdStore == idStore)
+                    .Skip((currentPage - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+            }
+            else
+            {
+               return await _dataContext.Foods.Where(x => x.Category.IdStore == idStore && x.Category.Id == idCategory )
+                    .Skip((currentPage - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+            }
+        }
+        public async Task<List<Food>> GetAllByStoreAsync(int idStore, int currentPage, int pageSize)
+        {
+            return await _dataContext.Foods
+                .Where(x => x.Category.IdStore == idStore)
                 .Skip((currentPage - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
