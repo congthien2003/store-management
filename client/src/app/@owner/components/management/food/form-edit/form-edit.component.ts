@@ -84,6 +84,7 @@ export class FormEditComponent implements OnInit {
 		this.foodService.getById(this.data.id).subscribe({
 			next: (res) => {
 				const food = res.data as Food;
+				this.imageUrl = food.imageUrl;
 				this.validateForm.setValue({
 					id: food.id,
 					name: food.name,
@@ -91,7 +92,7 @@ export class FormEditComponent implements OnInit {
 					quantity: food.quantity,
 					status: food.status,
 					idCategory: res.data.categoryDTO.id,
-					imageUrl: res.data.imageUrl,
+					imageUrl: food.imageUrl,
 				});
 				console.log(res.data);
 			},
@@ -102,7 +103,13 @@ export class FormEditComponent implements OnInit {
 	}
 	onFileSelected(event: any): void {
 		this.selectedFile = event.target.files[0];
-		console.log(this.selectedFile);
+    if (this.selectedFile) {
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+            this.imageUrl = e.target.result; 
+        };
+        reader.readAsDataURL(this.selectedFile);
+    }
 	}
 	async onSubmit(): Promise<void> {
 		if (this.validateForm.valid) {
@@ -115,13 +122,10 @@ export class FormEditComponent implements OnInit {
 				price: Number(formValues.price),
 				quantity: Number(formValues.quantity),
 				imageUrl: this.selectedFile
-					? await this.firebaseService.saveFile(
-							`foods/${this.selectedFile.name}`,
-							this.selectedFile
-					  )
-					: this.imageUrl,
-			};
-			const id = formValues.id;
+                ? await this.firebaseService.saveFile(`foods/${this.selectedFile.name}`, this.selectedFile)
+                : this.imageUrl, 
+        };
+        const id = formValues.id;
 
 			this.foodService.update(payload, id).subscribe({
 				next: (res) => {
@@ -162,6 +166,7 @@ export class FormEditComponent implements OnInit {
 			idCategory: categoryId,
 		});
 	}
+
 
 	listCategories(): void {
 		this.idStore = JSON.parse(localStorage.getItem("idStore") ?? "");

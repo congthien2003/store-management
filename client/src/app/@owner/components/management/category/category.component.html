@@ -1,12 +1,13 @@
 <div class="management--wrapper">
 	<div class="management--header">
 		<div class="management--search">
-			<input
-				aria-label="Search User"
-				type="text"
-				class="form-control"
-				[(ngModel)]="searchTerm"
-				(ngModelChange)="onSearchTerm()" />
+			<button mat-raised-button  class="btn-search" aria-label="Search">
+				<i class="fa-solid fa-search"></i> 
+			</button>
+			<input aria-label="Search Category" type="text" class="form-control"
+			[(ngModel)]="searchTerm"
+			(ngModelChange)="onSearchTerm()" />
+			
 		</div>
 		<div class="management--action">
 			<button mat-raised-button color="warn" (click)="openAddDialog()">

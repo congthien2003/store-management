@@ -1,11 +1,14 @@
 <div class="management--wrapper">
     <div class="management--header">
         <div class="management--search">
-            <input aria-label="Search Food"
-                type="text" class="form-control" 
-                [(ngModel)]="searchTerm"
-                (ngModelChange)="onSearchTerm()" />
-        </div>
+			<button mat-raised-button  class="btn-search" aria-label="Search">
+				<i class="fa-solid fa-search"></i> 
+			</button>
+			<input aria-label="Search Food" type="text" class="form-control"
+			[(ngModel)]="searchTerm"
+			(ngModelChange)="onSearchTerm()" />
+			
+		</div>
         <div class="management--action">
             <button mat-raised-button color="warn" (click)="openAddDialog()">
                 Thêm mới đồ ăn
@@ -29,7 +32,6 @@
                         <td>{{ item.name }}</td>
                         <td>{{ item.price }} VND</td>
                         <td>{{item.quantity}}</td>
-                        <td>{{item.status}}</td>
                         <td>{{ getNameCategory(item.categoryDTO.id) }}</td>
                         <td>
                             <img *ngIf="item.imageUrl" [src]="item.imageUrl" alt="{{ item.name }}"

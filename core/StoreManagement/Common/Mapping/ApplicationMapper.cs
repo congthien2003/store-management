@@ -26,7 +26,7 @@ namespace StoreManagement.Application.Helper
             CreateMap<Order, OrderDTO>().ReverseMap();
             CreateMap<OrderDetail, OrderDetailDTO>().ReverseMap();
             CreateMap<Invoice, InvoiceDTO>().ReverseMap();
-            CreateMap<ProductSell, ProductSellDTO>().ReverseMap();
+            CreateMap<ProductSell, DTOs.Request.ProductSellDTO>().ReverseMap();
 
             //Response
             CreateMap<User, UserResponse>().ReverseMap();
@@ -44,7 +44,7 @@ namespace StoreManagement.Application.Helper
             CreateMap<Order, OrderResponse>().ReverseMap();
             CreateMap<OrderDetail, OrderDetailResponse>().ReverseMap();
             CreateMap<Invoice, InvoiceResponse>().ReverseMap();
-            CreateMap<ProductSell, ProductSellResponse>().ReverseMap();
+            CreateMap<ProductSell,ProductSellDTO>().ReverseMap();
         }
     }
 }

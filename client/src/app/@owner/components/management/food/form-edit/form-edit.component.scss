@@ -1,8 +1,51 @@
 @import "../../../../../shared/variable.scss";
 
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%; 
+
+    form {
+        flex-grow: 1;  
+        display: flex;
+        flex-direction: column;
+        
+        nz-form-item {
+            margin-bottom: 1rem; 
+        }
+    }
+}
 .modal-footer {
     button:nth-child(1) {
         background-color: $owner-primary;
         color: white;
     }
+    display: flex;
+    justify-content: flex-end;
+}
+.modal-header{
+    background-color: $owner-primary    ;
+}
+.image-preview {
+    margin-top: 10px;
+    margin-bottom: 10px; 
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    border: 1px solid #ddd; 
+    padding: 5px; 
+    border-radius: 4px; 
+    background-color: #f9f9f9; 
+    img {
+        max-width: 100%; 
+        max-height: 200px; 
+        border-radius: 5px; 
+        object-fit: cover;
+    }
+}
+
+.modal-header, .modal-footer {
+    border: none; // Bỏ viền cho header và footer
 }

@@ -142,5 +142,38 @@ namespace StoreManagement.Infrastructure.Repositories
             await _dataContext.SaveChangesAsync();
             return foodUpdate;
         }
+
+        public async Task<List<Food>> GetAllByIdStoreAsync(int idStore)
+        {
+            return await _dataContext.Foods
+            .Where(x => x.Category.IdStore == idStore && !x.IsDeleted)
+            .ToListAsync();
+        }
+
+        public async Task<List<Food>> GetAllAsync(int idStore, int idCategory, int currentPage, int pageSize)
+        {
+            if (idCategory == 0)
+            {
+                return await _dataContext.Foods.Where(x => x.Category.IdStore == idStore)
+                    .Skip((currentPage - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+            }
+            else
+            {
+               return await _dataContext.Foods.Where(x => x.Category.IdStore == idStore && x.Category.Id == idCategory )
+                    .Skip((currentPage - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+            }
+        }
+        public async Task<List<Food>> GetAllByStoreAsync(int idStore, int currentPage, int pageSize)
+        {
+            return await _dataContext.Foods
+                .Where(x => x.Category.IdStore == idStore)
+                .Skip((currentPage - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+        }
     }
 }

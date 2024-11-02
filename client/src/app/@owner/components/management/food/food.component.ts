@@ -67,10 +67,6 @@ export class FoodComponent implements OnInit {
 				display: "Số lượng",
 			},
 			{
-				prop: "status",
-				display: "Trạng thái",
-			},
-			{
 				prop: "idCategory",
 				display: "Thể loại",
 			},

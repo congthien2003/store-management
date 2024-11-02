@@ -1,9 +1,14 @@
 <div class="management--wrapper">
     <div class="management--header">
         <div class="management--search">
-            <input aria-label="Search Food" type="text" class="form-control" [(ngModel)]="searchTerm"
-                (ngModelChange)="onSearchTerm()" />
-        </div>
+			<button mat-raised-button  class="btn-search" aria-label="Search">
+				<i class="fa-solid fa-search"></i> 
+			</button>
+			<input aria-label="Search Food" type="text" class="form-control"
+			[(ngModel)]="searchTerm"
+			(ngModelChange)="onSearchTerm()" />
+			
+		</div>
         <!-- <div class="management--action">
             <button mat-raised-button color="warn" (click)="openAddDialog()">
                 Thêm mới đồ ăn
@@ -24,13 +29,13 @@
                 <tbody>
                     <tr *ngFor="let item of listOrder">
                         <th scope="row">{{ item.id }}</th>
-                        <td>{{ item.nameUser }}</td>
-                        <td>{{ item.phoneUser }}</td>
+
+                        <td>{{item.tableDTO.id}}</td>
                         <td>{{ item.total !== undefined ? item.total : 'Đang tính toán...' }} VND</td>
                         <td>{{ item.createdAt }}</td>
                         <td>{{ item.finishedAt }}</td>
                         <td>{{item.status ? 'Đã chấp nhận' : 'Chưa chấp nhận'}}</td>
-                        <td>{{item.tableDTO.id}}</td>
+                        
 
 
                         <td class="table-actions">

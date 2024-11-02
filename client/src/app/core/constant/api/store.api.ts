@@ -3,6 +3,6 @@ export const StoreApi = {
 	getAll: "Store/getAll",
 	getById: "Store",
 	delete: "Store/delete",
-	getByIdUser: "Store/idUser",
+	getByIdUser: "Store/User",
 	update: "Store/update",
 };

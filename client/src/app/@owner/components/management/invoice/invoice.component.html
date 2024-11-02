@@ -1,8 +1,14 @@
 <div class="management--wrapper">
     <div class="management--header">
         <div class="management--search">
-            <input aria-label="Search Invoice" type="text" class="form-control" />
-        </div>
+			<button mat-raised-button  class="btn-search" aria-label="Search">
+				<i class="fa-solid fa-search"></i> 
+			</button>
+			<input aria-label="Search Invoice" type="text" class="form-control"
+			[(ngModel)]="searchTerm"
+			(ngModelChange)="onSearchTerm()" />
+			
+		</div>
     </div>
 
     <div class="management--main">
