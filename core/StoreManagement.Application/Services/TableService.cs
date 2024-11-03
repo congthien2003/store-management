@@ -53,16 +53,22 @@ namespace StoreManagement.Services
             return tableResponse;
         }
 
-        public async Task<PaginationResult<List<TableResponse>>> GetAllByIdStore(int id, string currentPage = "1", string pageSize = "5", string sortCol = "", string asc = "true")
+        public async Task<PaginationResult<List<TableResponse>>> GetAllByIdStore(int id, string currentPage = "1", string pageSize = "5", bool filter = false, bool status = false)
         {
             int _currentPage = int.Parse(currentPage);
             int _pageSize = int.Parse(pageSize);
-            bool _asc = bool.Parse(asc);
-            var totalRecord = await _tableRepository.GetCountAsync(id);
-            var list = await _tableRepository.GetAllByIdStore(id, _currentPage, _pageSize, sortCol, _asc);
+
+            var list = await _tableRepository.GetAllByIdStore(id);
+
+            if (filter)
+            {
+                list = list.Where(x => x.Status == status).ToList();
+            }
             var count = list.Count();
-            var listTables = _mapper.Map<List<TableResponse>>(list);
-            return PaginationResult<List<TableResponse>>.Create(listTables, _currentPage, _pageSize, totalRecord);
+            list = list.Skip(_currentPage * _pageSize - _pageSize).Take(_pageSize).ToList();
+
+            var listTable = _mapper.Map<List<TableResponse>>(list);
+            return PaginationResult<List<TableResponse>>.Create(listTable, _currentPage, _pageSize, count);
         }
         public async Task<TableDTO> UpdateAsync(int id, TableDTO tableDTO)
         {

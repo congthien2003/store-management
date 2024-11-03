@@ -61,9 +61,9 @@ namespace StoreManagement.Controllers
 
         }
         [HttpGet("all/{idStore:int}")]
-        public async Task<ActionResult<Result>> GetByIdStore(int idStore, string currentPage = "1", string pageSize = "5", string sortCol = "", string asc = "true")
+        public async Task<ActionResult<Result>> GetByIdStore(int idStore, string currentPage = "1", string pageSize = "5", bool filter = false, bool status = false)
         {
-            var results = await _tableService.GetAllByIdStore(idStore, currentPage, pageSize, sortCol, asc);
+            var results = await _tableService.GetAllByIdStore(idStore, currentPage, pageSize, filter, status);
            
             return Ok(Result<PaginationResult<List<TableResponse>>>.Success(results, "Lấy thông tin thành công"));
         }

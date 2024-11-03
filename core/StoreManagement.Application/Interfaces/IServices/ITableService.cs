@@ -11,7 +11,7 @@ namespace StoreManagement.Application.Interfaces.IServices
         Task<bool> DeleteAsync(int id);
         Task<TableResponse> GetByIdAsync(int id);
         Task<TableResponse> GetByGuidAsync(Guid guid);
-        Task<PaginationResult<List<TableResponse>>> GetAllByIdStore(int id, string currentPage = "1", string pageSize = "5", string sortCol = "", string ascSort = "true");
+        Task<PaginationResult<List<TableResponse>>> GetAllByIdStore(int id, string currentPage = "1", string pageSize = "5", bool filter = false, bool status = false);
         Task<int> GetCountAsync(int id);
     }
 }

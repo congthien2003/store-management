@@ -19,6 +19,7 @@ import { CategoryService } from "src/app/core/services/store/category.service";
 import { Pagination } from "src/app/core/models/common/Pagination";
 import { Category } from "src/app/core/models/interfaces/Category";
 import { FirebaseService } from "src/app/core/services/api-third/firebase.service";
+import { Store } from "src/app/core/models/interfaces/Store";
 const NzModule = [NzFormModule, NzSelectModule];
 @Component({
 	selector: "app-form-add",
@@ -36,7 +37,7 @@ const NzModule = [NzFormModule, NzSelectModule];
 export class FormAddComponent {
 	validateForm!: FormGroup;
 	selectedValue: number = 0;
-	idStore!: number;
+	store!: Store;
 	searchTerm: string = "";
 	listCategory!: any[];
 	selectedCategory!: number;
@@ -52,7 +53,6 @@ export class FormAddComponent {
 
 	constructor(
 		public dialogRef: MatDialogRef<FormAddComponent>,
-
 		private fb: NonNullableFormBuilder,
 		private FoodService: FoodService,
 		private toast: ToastrService,
@@ -75,18 +75,18 @@ export class FormAddComponent {
 	ngOnInit(): void {
 		this.listCategories();
 	}
-	
+
 	imagePreview: string | ArrayBuffer | null = null;
 	onFileSelected(event: any): void {
 		const fileInput = event.target as HTMLInputElement;
-        if (fileInput.files && fileInput.files[0]) {
-            const file = fileInput.files[0];
-            const reader = new FileReader();
-            reader.onload = () => {
-                this.imagePreview = reader.result;
-            };
-            reader.readAsDataURL(file);
-        }
+		if (fileInput.files && fileInput.files[0]) {
+			const file = fileInput.files[0];
+			const reader = new FileReader();
+			reader.onload = () => {
+				this.imagePreview = reader.result;
+			};
+			reader.readAsDataURL(file);
+		}
 	}
 
 	onNoClick(): void {
@@ -142,9 +142,9 @@ export class FormAddComponent {
 	}
 
 	listCategories(): void {
-		this.idStore = JSON.parse(localStorage.getItem("idStore") ?? "");
+		this.store = JSON.parse(sessionStorage.getItem("storeInfo") ?? "");
 		this.categoryService
-			.list(this.idStore, this.pagi, this.searchTerm)
+			.list(this.store.id, this.pagi, this.searchTerm)
 			.subscribe({
 				next: (res) => {
 					this.listCategory = res.data.list;

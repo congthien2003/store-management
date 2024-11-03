@@ -1,43 +1,79 @@
 @import "../../../../shared/variable.scss";
 
-
 .management--search {
-    display: flex; 
-    align-items: center; 
+	display: flex;
+	align-items: center;
 
-    .btn-search {
-        background-color: $owner-primary; 
-        color: #fff; 
-        border: none; 
-        padding: 8px 12px; 
-        border-radius: 4px;
-        cursor: pointer; 
-        transition: background-color 0.3s; 
+	.btn-search {
+		background-color: $owner-primary;
+		color: #fff;
+		border: none;
+		padding: 8px 12px;
+		border-radius: 4px;
+		cursor: pointer;
+		transition: background-color 0.3s;
 
-        &:hover {
-            background-color: darken($owner-primary, 10%); 
-        }
-    }
+		&:hover {
+			background-color: darken($owner-primary, 10%);
+		}
+	}
 
-    input {
-        flex: 1; 
-        margin-left: 8px; 
-        padding: 8px; 
-        border: 1px solid #ccc; 
-        border-radius: 4px; 
-        transition: border-color 0.3s; 
-        
-        &:focus {
-            border-color: $owner-primary; 
-            outline: none; 
-        }
-    }
+	input {
+		flex: 1;
+		margin-left: 8px;
+		padding: 8px;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		transition: border-color 0.3s;
+
+		&:focus {
+			border-color: $owner-primary;
+			outline: none;
+		}
+	}
 }
 .management--table {
-    thead {
-        th {
-            background-color: $owner-primary;
-            color: #ececec;
-        }
-    }
+	thead {
+		th {
+			background-color: $owner-primary;
+			color: #ececec;
+		}
+	}
+}
+
+@import "../../../../shared/variable.scss";
+@import "../../../../shared/layout.scss";
+
+.table {
+	&-card {
+		margin-top: 12px;
+		border: 1px solid #cecece;
+		border-radius: 8px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		padding: 12px 8px;
+	}
+
+	&--info {
+		text-align: center;
+		color: black;
+
+		h4 {
+			margin-bottom: 8px;
+			font-size: 18px;
+			font-weight: bold;
+		}
+
+		p {
+			font-size: 16px;
+		}
+
+		button {
+			i {
+				background-color: transparent;
+			}
+		}
+	}
 }

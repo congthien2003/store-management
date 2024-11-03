@@ -21,6 +21,7 @@ import { RolePipe } from "src/app/core/utils/role.pipe";
 import { FormsModule } from "@angular/forms";
 import { CategoryService } from "src/app/core/services/store/category.service";
 import { FirebaseService } from "src/app/core/services/api-third/firebase.service";
+import { Store } from "src/app/core/models/interfaces/Store";
 const MatImport = [
 	MatRadioModule,
 	MatButtonModule,
@@ -92,7 +93,7 @@ export class FoodComponent implements OnInit {
 	listFood!: any[];
 	listCategory!: any[];
 	idCategory!: number;
-	idStore!: number;
+	store!: Store;
 	private searchSubject = new Subject<string>();
 
 	constructor(
@@ -113,9 +114,9 @@ export class FoodComponent implements OnInit {
 		this.listCategories();
 	}
 	loadlistFood(): void {
-		this.idStore = JSON.parse(localStorage.getItem("idStore") ?? "");
+		this.store = JSON.parse(sessionStorage.getItem("storeInfo") ?? "");
 		this.foodService
-			.getByIdStore(this.idStore, this.pagi, this.searchTerm)
+			.getByIdStore(this.store.id, this.pagi, this.searchTerm)
 			.subscribe({
 				next: (res) => {
 					this.listFood = res.data.list;
@@ -138,7 +139,7 @@ export class FoodComponent implements OnInit {
 	}
 	openAddDialog(): void {
 		const dialogRef = this.dialog.open(FormAddComponent, {
-			data: { idStore: this.idStore },
+			data: { idStore: this.store.id },
 		});
 		dialogRef.afterClosed().subscribe((result) => {
 			if (result) {
@@ -198,9 +199,9 @@ export class FoodComponent implements OnInit {
 	}
 
 	listCategories(): void {
-		this.idStore = JSON.parse(localStorage.getItem("idStore") ?? "");
+		this.store = JSON.parse(localStorage.getItem("storeInfo") ?? "");
 		this.categoryService
-			.list(this.idStore, this.pagi, this.searchTerm)
+			.list(this.store.id, this.pagi, this.searchTerm)
 			.subscribe({
 				next: (res) => {
 					this.listCategory = res.data.list;

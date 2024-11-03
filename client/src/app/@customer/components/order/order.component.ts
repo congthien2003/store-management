@@ -54,8 +54,8 @@ const MatImport = [
 	styleUrls: ["./order.component.scss"],
 })
 export class OrderComponent implements OnInit {
-	idStore: number = 0;
-	idTable: number = 0;
+	idStore: string = "";
+	idTable: string = "";
 
 	store!: Store;
 	listCategory: Category[] = [];
@@ -103,13 +103,12 @@ export class OrderComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		this.idStore = Number.parseInt(
-			this.activeRoute.snapshot.params["idStore"]
-		);
+		this.idStore = this.activeRoute.snapshot.params["idStore"];
+
 		this.idTable = this.activeRoute.snapshot.params["idTable"];
 		forkJoin({
-			store: this.storeService.getById(this.idStore),
-			table: this.tableService.getById(this.idTable),
+			store: this.storeService.getByGuid(this.idStore),
+			table: this.tableService.getByGuid(this.idTable),
 		}).subscribe({
 			next: (res) => {
 				if (res.store.isSuccess && res.table.isSuccess) {
