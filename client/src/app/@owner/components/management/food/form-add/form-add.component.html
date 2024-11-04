@@ -2,7 +2,7 @@
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Tạo mới món ăn</h5>
+				<h5 class="modal-title">Thêm mới</h5>
 				<button
 					type="button"
 					class="btn-close"
@@ -19,14 +19,13 @@
 						class="form-control"
 						formControlName="id"
 						id="id" />
-
 					<nz-form-item>
 						<nz-form-label
 							[nzSm]="8"
 							[nzXs]="24"
 							nzRequired
 							nzFor="name"
-							>Name</nz-form-label
+							>Tên</nz-form-label
 						>
 						<nz-form-control
 							[nzSm]="14"
@@ -40,70 +39,60 @@
 								id="name" />
 						</nz-form-control>
 					</nz-form-item>
-					<nz-form-item>
-						<nz-form-label 
-							[nzSm]="8" 
-							[nzXs]="24" 
-							nzRequired nzFor="price"
-							>Giá tiền</nz-form-label
-						>
-						<nz-form-control
-							[nzSm]="14" 
-							[nzXs]="24" 
-							nzErrorTip="This input is not have enough length!">
-							<input
-								aria-label="price" 
-								nz-input class="form-control" 
-								formControlName="price" 
-								id="price" />
-						</nz-form-control>
-					</nz-form-item>
+
 					<nz-form-item>
 						<nz-form-label
-						 	[nzSm]="8"
-							[nzXs]="24" 
-							nzRequired 
-							nzFor="quantity"
-							>Số lượng</nz-form-label
+							[nzSm]="8"
+							[nzXs]="24"
+							nzRequired
+							nzFor="price"
+							>Giá</nz-form-label
 						>
 						<nz-form-control
-							[nzSm]="14" 
-							[nzXs]="24" 
+							[nzSm]="14"
+							[nzXs]="24"
 							nzErrorTip="This input is not have enough length!">
 							<input
-								aria-label="quantity" 
-								nz-input class="form-control" 
-								formControlName="quantity" 
-								id="quantity" />
-						</nz-form-control>
-					</nz-form-item>
-					<nz-form-item>
-						<nz-form-label [nzSm]="8" [nzXs]="24" nzFor="status" nzRequired>Status</nz-form-label>
-						<nz-form-control [nzSm]="14" [nzXs]="24">
-							<select class="form-select" formControlName="status" aria-label="Select Status">
-								<option [value]="true">True</option>
-								<option [value]="false">False</option>
-							</select>
+								aria-label="price"
+								nz-input
+								class="form-control"
+								formControlName="price"
+								id="price" />
 						</nz-form-control>
 					</nz-form-item>
 
 					<nz-form-item>
-						<nz-form-label 
-							[nzSm]="8" 
-							[nzXs]="24" 
-							nzFor="categories" 
+						<nz-form-label
+							[nzSm]="8"
+							[nzXs]="24"
 							nzRequired
-							>Category
+							nzFor="image"
+							>Hình ảnh</nz-form-label
+						>
+						<nz-form-control [nzSm]="14" [nzXs]="24">
+							<input
+								type="file"
+								aria-label="image"
+								accept=".jpg, .jpeg, .png"
+								(change)="handleChange($event)" />
+						</nz-form-control>
+					</nz-form-item>
+
+					<nz-form-item>
+						<nz-form-label
+							[nzSm]="8"
+							[nzXs]="24"
+							nzRequired
+							nzFor="idCategory"
+							>Loại:
 						</nz-form-label>
-						<nz-form-control 
-							[nzSm]="14" 
-							[nzXs]="24">
-							<select class="form-select" 
-								formControlName="idCategory" 
-								aria-label="Select Category">
-								<option *ngFor="let category of listCategory" 
-										[value]="category.id">
-											{{ category.name }}
+
+						<nz-form-control [nzSm]="14" [nzXs]="24">
+							<select formControlName="idCategory">
+								<option
+									*ngFor="let item of listCategory"
+									[ngValue]="item.id">
+									{{ item.name }}
 								</option>
 							</select>
 						</nz-form-control>
@@ -112,6 +101,7 @@
 			</div>
 			<div class="modal-footer">
 				<button
+					[disabled]="this.validateForm.status === 'INVALID'"
 					type="button"
 					class="btn-primary-custom"
 					mat-stroked-button

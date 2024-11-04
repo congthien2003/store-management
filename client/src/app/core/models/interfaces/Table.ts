@@ -1,5 +1,6 @@
 export interface Table {
-  id: number;
-  status: boolean;
-  idStore: number;
+	id: number;
+	name: string;
+	status: boolean;
+	idStore: number;
 }

@@ -1,4 +1,5 @@
 ﻿using StoreManagement.Application.DTOs.Request;
+using StoreManagement.Application.DTOs.Response;
 using StoreManagement.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -14,5 +15,7 @@ namespace StoreManagement.Application.Interfaces.IServices
         Task<ProductSellDTO> UpdateAsync(int id, ProductSellDTO productSellDTO);
         Task<bool> DeleteAsync(int id);
         Task<ProductSellDTO> GetByIdAsync(int id);
+        Task<List<ProductSellResponse>> GetByIdStoreAsync(int idStore);
+
     }
 }

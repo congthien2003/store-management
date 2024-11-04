@@ -30,6 +30,9 @@ namespace StoreManagement.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<Guid>("Guid")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("IdStore")
                         .HasColumnType("int");
 
@@ -55,6 +58,9 @@ namespace StoreManagement.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<Guid>("Guid")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("IdCategory")
                         .HasColumnType("int");
 
@@ -68,11 +74,8 @@ namespace StoreManagement.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("Price")
+                    b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
@@ -101,13 +104,13 @@ namespace StoreManagement.Infrastructure.Migrations
                     b.Property<DateTime>("FinishedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid>("Guid")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("IdOrder")
                         .HasColumnType("int");
 
                     b.Property<int>("IdPaymentType")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("IdVoucher")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
@@ -116,16 +119,17 @@ namespace StoreManagement.Infrastructure.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
-                    b.Property<int>("TotalOrder")
-                        .HasColumnType("int");
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TotalOrder")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("IdOrder");
 
                     b.HasIndex("IdPaymentType");
-
-                    b.HasIndex("IdVoucher");
 
                     b.ToTable("Invoices");
                 });
@@ -141,19 +145,17 @@ namespace StoreManagement.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid>("Guid")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("IdTable")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<string>("NameUser")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneUser")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
 
                     b.Property<decimal>("Total")
                         .HasColumnType("decimal(18,2)");
@@ -165,6 +167,36 @@ namespace StoreManagement.Infrastructure.Migrations
                     b.ToTable("Orders");
                 });
 
+            modelBuilder.Entity("StoreManagement.Domain.Models.OrderAccessToken", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ExpirationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("IdOrder")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActived")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsPaid")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("QRURL")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("TimeCreated")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OrderAccessTokens");
+                });
+
             modelBuilder.Entity("StoreManagement.Domain.Models.OrderDetail", b =>
                 {
                     b.Property<int>("IdOrder")
@@ -173,7 +205,13 @@ namespace StoreManagement.Infrastructure.Migrations
                     b.Property<int>("IdFood")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StatusProcess")
                         .HasColumnType("int");
 
                     b.HasKey("IdOrder", "IdFood");
@@ -190,6 +228,9 @@ namespace StoreManagement.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<Guid>("Guid")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("IdStore")
                         .HasColumnType("int");
@@ -219,6 +260,9 @@ namespace StoreManagement.Infrastructure.Migrations
                     b.Property<int>("FoodId")
                         .HasColumnType("int");
 
+                    b.Property<Guid>("Guid")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -243,6 +287,9 @@ namespace StoreManagement.Infrastructure.Migrations
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("Guid")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("IdUser")
                         .HasColumnType("int");
@@ -274,11 +321,18 @@ namespace StoreManagement.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<Guid>("Guid")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("IdStore")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
@@ -302,6 +356,9 @@ namespace StoreManagement.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(150)");
 
+                    b.Property<Guid>("Guid")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -322,34 +379,6 @@ namespace StoreManagement.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("StoreManagement.Domain.Models.Voucher", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Discount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdStore")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdStore");
-
-                    b.ToTable("Vouchers");
                 });
 
             modelBuilder.Entity("StoreManagement.Domain.Models.Category", b =>
@@ -388,15 +417,9 @@ namespace StoreManagement.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("StoreManagement.Domain.Models.Voucher", "Voucher")
-                        .WithMany("Invoices")
-                        .HasForeignKey("IdVoucher");
-
                     b.Navigation("Order");
 
                     b.Navigation("PaymentType");
-
-                    b.Navigation("Voucher");
                 });
 
             modelBuilder.Entity("StoreManagement.Domain.Models.Order", b =>
@@ -421,7 +444,7 @@ namespace StoreManagement.Infrastructure.Migrations
                     b.HasOne("StoreManagement.Domain.Models.Order", "Order")
                         .WithMany("OrderDetails")
                         .HasForeignKey("IdOrder")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Food");
@@ -473,17 +496,6 @@ namespace StoreManagement.Infrastructure.Migrations
                     b.Navigation("Store");
                 });
 
-            modelBuilder.Entity("StoreManagement.Domain.Models.Voucher", b =>
-                {
-                    b.HasOne("StoreManagement.Domain.Models.Store", "Store")
-                        .WithMany("Vouchers")
-                        .HasForeignKey("IdStore")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Store");
-                });
-
             modelBuilder.Entity("StoreManagement.Domain.Models.Category", b =>
                 {
                     b.Navigation("Foods");
@@ -513,8 +525,6 @@ namespace StoreManagement.Infrastructure.Migrations
                     b.Navigation("PaymentTypes");
 
                     b.Navigation("Tables");
-
-                    b.Navigation("Vouchers");
                 });
 
             modelBuilder.Entity("StoreManagement.Domain.Models.Table", b =>
@@ -526,11 +536,6 @@ namespace StoreManagement.Infrastructure.Migrations
                 {
                     b.Navigation("Store")
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("StoreManagement.Domain.Models.Voucher", b =>
-                {
-                    b.Navigation("Invoices");
                 });
 #pragma warning restore 612, 618
         }

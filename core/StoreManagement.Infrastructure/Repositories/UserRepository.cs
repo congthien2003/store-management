@@ -96,7 +96,7 @@ namespace StoreManagement.Infrastructure.Repositories
             }
         }
 
-        public async Task<List<User>> GetAll(int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortCol = "", bool ascSort = true, bool incluDeleted = false)
+        public async Task<List<User>> GetAll(string searchTerm = "", string sortCol = "", bool ascSort = true, bool incluDeleted = false)
         {
             var users = _dataContext.Users.AsQueryable();
             if (!string.IsNullOrEmpty(searchTerm))
@@ -107,7 +107,7 @@ namespace StoreManagement.Infrastructure.Repositories
             {
                 users = users.Where(t => t.IsDeleted == incluDeleted);
             }
-            /*if (!string.IsNullOrEmpty(sortCol))
+            if (!string.IsNullOrEmpty(sortCol))
             {
                 if (ascSort)
                 {
@@ -118,20 +118,9 @@ namespace StoreManagement.Infrastructure.Repositories
                     users = users.OrderBy(GetSortColumnExpression(sortCol.ToLower()));
 
                 }
-            }*/
-            var list = await users.Skip(currentPage * pageSize - pageSize).Take(pageSize).ToListAsync();
-            return list;
-        }
-
-        public async Task<int> CountAsync(string searchTerm)
-        {
-            var query = _dataContext.Users.AsQueryable();
-            if (!string.IsNullOrEmpty(searchTerm))
-            {
-                query = query.Where(t => t.Username.Contains(searchTerm));
             }
-
-            return await query.CountAsync();
+            var list = await users.ToListAsync();
+            return list;
         }
     }
 }

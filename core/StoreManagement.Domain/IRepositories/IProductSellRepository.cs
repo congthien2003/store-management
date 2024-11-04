@@ -12,6 +12,7 @@ namespace StoreManagement.Domain.IRepositories
         Task<TProductSell> CreateAsync(TProductSell productSell);
         Task<TProductSell> UpdateAsync(int id, TProductSell productSell, bool incluDeleted = false);
         Task<TProductSell> GetByIdAsync(int id, bool incluDeleted = false);
+        Task<TProductSell?> GetByIdFoodAsync(int idFood, bool incluDeleted = false);
         Task<TProductSell> DeleteAsync(int id, bool incluDeleted = false);
     }
 }

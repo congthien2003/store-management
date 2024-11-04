@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { AfterViewInit, Component } from "@angular/core";
 import { NgIf } from "@angular/common";
 import { LoaderService } from "src/app/core/services/loader.service";
 
@@ -10,7 +10,5 @@ import { LoaderService } from "src/app/core/services/loader.service";
 	imports: [NgIf],
 })
 export class SpinnerComponent {
-	constructor(public loader: LoaderService) {
-		this.loader.setLoading(true);
-	}
+	constructor(public loader: LoaderService) {}
 }

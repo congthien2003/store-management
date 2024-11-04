@@ -14,6 +14,10 @@ import {
 	withInterceptorsFromDi,
 	provideHttpClient,
 } from "@angular/common/http";
+import { CachingInterceptor } from "./app/core/interceptors/caching.interceptor";
+import { environment } from "./environments/environment.development";
+import { AngularFireModule } from "@angular/fire/compat";
+import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
 
 // platformBrowserDynamic().bootstrapModule(AppModule);
 bootstrapApplication(AppComponent, {
@@ -26,7 +30,9 @@ bootstrapApplication(AppComponent, {
 				timeOut: 3000,
 				positionClass: "toast-top-right",
 				preventDuplicates: true,
-			})
+			}),
+			AngularFireModule.initializeApp(environment.firebaseConfig),
+			AngularFirestoreModule
 		),
 		{
 			provide: HTTP_INTERCEPTORS,
@@ -38,6 +44,11 @@ bootstrapApplication(AppComponent, {
 			useClass: LoadingInterceptor,
 			multi: true,
 		},
+		// {
+		// 	provide: HTTP_INTERCEPTORS,
+		// 	useClass: CachingInterceptor,
+		// 	multi: true,
+		// },
 		provideAnimations(),
 		provideHttpClient(withInterceptorsFromDi()),
 		provideAnimations(),

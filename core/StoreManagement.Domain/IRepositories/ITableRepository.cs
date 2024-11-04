@@ -8,7 +8,9 @@ namespace StoreManagement.Domain.IRepositories
         Task<TTable> UpdateAsync(int id, TTable table, bool incluDeleted = false);
         Task<TTable> DeleteAsync(int id, bool incluDeleted = false);
         Task<TTable> GetByIdAsync(int id, bool incluDeleted = false);
-        Task<List<TTable>> GetAllByIdStore(int id, int currentPage = 1, int pageSize = 5, string sortCol = "", bool ascSort = true, bool incluDeleted = false);
+        Task<TTable> GetByIdAsync(Guid id, bool incluDeleted = false);
+
+        Task<List<TTable>> GetAllByIdStore(int id, bool incluDeleted = false);
         Task<int> GetCountAsync(int id, bool incluDeleted = false);
     }
 }

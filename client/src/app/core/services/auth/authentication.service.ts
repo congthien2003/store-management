@@ -4,7 +4,7 @@ import { AuthApi } from "src/app/@auth/auth.api";
 import { Observable } from "rxjs";
 import * as jwtdecode from "jwt-decode";
 import { User } from "../../models/interfaces/User";
-import { ApiResponse } from "../../models/common/ApiResponse";
+import { ApiResponse } from "../../models/interfaces/Common/ApiResponse";
 import { JwtManager } from "../../utils/JwtManager";
 @Injectable({
 	providedIn: "root",
@@ -38,7 +38,8 @@ export class AuthenticationService {
 			return null;
 		}
 	}
-	getIdUserFromToken(): any {
+
+	getIdFromToken(): any {
 		const token = this.jwtManager.getToken();
 		if (token === "") {
 			return null;
@@ -54,7 +55,7 @@ export class AuthenticationService {
 	getInfoToken() {
 		const token = this.jwtManager.getToken();
 		if (token === "") {
-			return false;
+			return null;
 		}
 		const tokendecode = jwtdecode.jwtDecode(token);
 		return tokendecode;
@@ -108,6 +109,13 @@ export class AuthenticationService {
 	restorePassword(email: string): Observable<ApiResponse> {
 		return this.service.post(`${this.apiController.restorePassword}`, {
 			email,
+		});
+	}
+
+	checkToken(): Observable<ApiResponse> {
+		const token = this.jwtManager.getToken();
+		return this.service.post(`${this.apiController.checkAccessToken}`, {
+			token,
 		});
 	}
 }

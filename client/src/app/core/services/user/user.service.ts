@@ -2,12 +2,10 @@ import { Injectable } from "@angular/core";
 import { MasterService } from "../master/master.service";
 import { UserApi } from "../../constant/api/user.api";
 import { Observable } from "rxjs";
-import { ApiResponse } from "../../models/common/ApiResponse";
-import { Pagination } from "../../models/common/Pagination";
+import { ApiResponse } from "../../models/interfaces/Common/ApiResponse";
+import { Pagination } from "../../models/interfaces/Common/Pagination";
 import { HttpParams } from "@angular/common/http";
-import { UserResponse } from "../../models/responses/UserResponse";
-import { HttpClientModule } from "@angular/common/http";
-
+import { JwtManager } from "../../utils/JwtManager";
 @Injectable({
 	providedIn: "root",
 })
@@ -26,12 +24,12 @@ export class UserService {
 			.set("pageSize", pagi.pageSize)
 			.set("searchTerm", searchTerm)
 			.set("sortColumn", sortColumn)
-			.set("ascSort", ascSort);
+			.set("ascSrot", ascSort);
 		return this.service.get(this.endpoint.getAll, { params });
 	}
 
 	getById(id: number): Observable<ApiResponse> {
-		return this.service.get(`${this.endpoint.getById}/${id}`);
+		return this.service.get(`${this.endpoint.getById}/${id} `);
 	}
 
 	create(user: any): Observable<ApiResponse> {
@@ -46,5 +44,4 @@ export class UserService {
 		const params = new HttpParams().set("id", id);
 		return this.service.delete(`${this.endpoint.delete}/`, { params });
 	}
-	
 }

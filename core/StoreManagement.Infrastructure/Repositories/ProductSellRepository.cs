@@ -47,6 +47,16 @@ namespace StoreManagement.Infrastructure.Repositories
             return productSell;
         }
 
+        public async Task<ProductSell?> GetByIdFoodAsync(int idFood, bool incluDeleted = false)
+        {
+            var productSell = await _dataContext.ProductSells.FirstOrDefaultAsync(x => x.FoodId == idFood && x.IsDeleted == incluDeleted);
+            if (productSell == null)
+            {
+                return null;
+            }
+            return productSell;
+        }
+
         public async Task<ProductSell> UpdateAsync(int id, ProductSell productSell, bool incluDeleted = false)
         {
             var update = await _dataContext.ProductSells.FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == incluDeleted);

@@ -21,12 +21,14 @@ namespace StoreManagement.Infrastructure
             services.AddScoped<ICategoryRepository<Category>, CategoryRepository>();
             services.AddScoped<IFoodRepository<Food>, FoodRepository>();
             services.AddScoped<ITableRepository<Table>, TableRepository>();
-            services.AddScoped<IVoucherRepository<Voucher>, VoucherRepository>();
             services.AddScoped<IPaymentTypeRepository<PaymentType>, PaymentTypeRepository>();
             services.AddScoped<IOrderRepository<Order>, OrderRepositoy>();
             services.AddScoped<IOrderDetailRepository<OrderDetail>, OrderDetailRepository>();
             services.AddScoped<IInvoiceRepository<Invoice>, InvoiceRepository>();
             services.AddScoped<IProductSellRepository<ProductSell>, ProductSellRepository>();
+            services.AddScoped<IOrderAccessTokenRepository<OrderAccessToken>, OrderAccessTokenRepository>();
+            /*services.AddScoped<IVoucherRepository<Voucher>, VoucherRepository>();*/
+
             return services; 
         }
     }

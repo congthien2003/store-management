@@ -53,9 +53,13 @@ namespace StoreManagement.Infrastructure.Repositories
                     return x => x.Id;
             }
         }
-        public Task<List<Food>> GetAllByIdStoreAsync(int id, int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortCol = "", bool ascSort = true, bool incluDeleted = false)
+        public Task<List<Food>> GetAllByIdStoreAsync(int id, string searchTerm = "", string sortCol = "", bool ascSort = true, bool incluDeleted = false)
         {
             var food = _dataContext.Foods.Where(x => x.Category.IdStore == id).AsQueryable();
+            if (food.Count() == 0)
+            {
+                throw new KeyNotFoundException("Không tìm thấy món ăn của quán này");
+            }
             if (!string.IsNullOrEmpty(searchTerm))
             {
                 food = food.Where(t => t.Name.Contains(searchTerm));
@@ -76,13 +80,13 @@ namespace StoreManagement.Infrastructure.Repositories
 
                 }
             }
-            var list = food.Skip(currentPage * pageSize - pageSize).Take(pageSize).ToListAsync();
+            var list = food.ToListAsync();
             return list;
         }
 
         public async Task<Food> GetByIdAsync(int id, bool incluDeleted = false)
         {
-            var food = await _dataContext.Foods.Include(x=>x.Category).FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == incluDeleted);
+            var food = await _dataContext.Foods.FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == incluDeleted);
             if (food == null)
             {
                 throw new KeyNotFoundException("Không tìm thấy đồ ăn");
@@ -103,7 +107,7 @@ namespace StoreManagement.Infrastructure.Repositories
 
         public async Task<List<Food>> GetByNameAsync(int idStore, string name, bool incluDeleted = false)
         {
-            var listFoods = await _dataContext.Foods.Include(x => x.Category).Where(x => x.Name.Contains(name) && x.IsDeleted == incluDeleted && x.Category.IdStore == idStore).ToListAsync();
+            var listFoods = await _dataContext.Foods.Where(x => x.Name.Contains(name) && x.IsDeleted == incluDeleted && x.Category.IdStore == idStore).ToListAsync();
             if (listFoods.Count == 0)
             {
                 throw new KeyNotFoundException("Không tìm thấy đồ ăn");
@@ -134,9 +138,7 @@ namespace StoreManagement.Infrastructure.Repositories
                 throw new KeyNotFoundException("Không tìm thấy đồ ăn cần chỉnh sửa");
             }
             foodUpdate.Name = food.Name;
-            foodUpdate.Price = food.Price;
             foodUpdate.Status = food.Status;
-            foodUpdate.Quantity = food.Quantity;
             _dataContext.Foods.Update(foodUpdate);
             await _dataContext.SaveChangesAsync();
             return foodUpdate;

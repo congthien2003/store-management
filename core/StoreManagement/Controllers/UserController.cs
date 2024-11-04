@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using StoreManagement.Application.Common;
 using StoreManagement.Domain.Models;
 using StoreManagement.Application.DTOs.Auth;
+using Azure.Core;
 using StoreManagement.Application.DTOs.Request;
 
 namespace StoreManagement.Controllers

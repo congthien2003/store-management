@@ -3,6 +3,8 @@ using StoreManagement.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StoreManagement.Application.Common;
+using StoreManagement.Domain.Models;
+using StoreManagement.Application.DTOs.Response;
 using StoreManagement.Application.DTOs.Request;
 
 namespace StoreManagement.Controllers
@@ -12,35 +14,72 @@ namespace StoreManagement.Controllers
     public class OrderDetailController : ControllerBase
     {
         private readonly IOrderDetailService _orderDetailService;
+        private readonly IProductSellService _productSellService;
 
-        public OrderDetailController(IOrderDetailService orderDetailService)
+        public OrderDetailController(IOrderDetailService orderDetailService,
+                                    IProductSellService productSellService)
         {
             _orderDetailService = orderDetailService;
+            _productSellService = productSellService;
         }
         [HttpPost("Create")]
-        public async Task<ActionResult<Result>> CreateAsync(OrderDetailDTO orderDetailDTO)
+        public async Task<ActionResult<Result>> CreateAsync(List<OrderDetailDTO> orderDetailDTO)
         {
-            var result = await _orderDetailService.CreateAsync(orderDetailDTO);
-            return Ok(Result<OrderDetailDTO?>.Success(result,"Tạo mới thành công"));
+            var result = await _orderDetailService.CreateByListAsync(orderDetailDTO);
+            
+            foreach (OrderDetailDTO orderDetail in result)
+            {
+                ProductSellDTO productSellDTO = new ProductSellDTO();
+                productSellDTO.FoodId = orderDetail.IdFood;
+                productSellDTO.Quantity = orderDetail.Quantity;
+                await _productSellService.CreateAsync(productSellDTO);
+            }
+            
+            
+            return Ok(Result<List<OrderDetailDTO>>.Success(result,"Tạo mới thành công"));
         }
-        [HttpPut("update")]
+
+        [HttpPut("update/{id:int}")]
         public async Task<ActionResult<Result>> UpdateAsync(OrderDetailDTO orderDetailDTO)
         {
             var result = await _orderDetailService.UpdateAsync(orderDetailDTO);
             return Ok(Result<OrderDetailDTO?>.Success(result, "Cập nhật thành công"));
         }
-        [HttpDelete("delete/{idFood:int}/{idOrder:int}")]
+
+        [HttpPut("updateStatus/{idFood:int}")]
+        public async Task<ActionResult<Result>> UpdateStatusAsync(int idFood, [FromBody] int statusProcess)
+        {
+            var result = await _orderDetailService.UpdateStatusAsync(idFood, statusProcess);
+            return Ok(Result<OrderDetailDTO?>.Success(result, "Cập nhật thành công"));
+        }
+
+        [HttpDelete("delete/{id:int}")]
         public async Task<ActionResult<Result>> DeleteAsync(int idFood, int idOrder)
         {
             var result = await _orderDetailService.DeleteAsync(idFood, idOrder);
             return Ok(Result<bool>.Success(result, "Xóa thành công"));
         }
-        [HttpGet("idOrder/{idOrder:int}")]
-        public async Task<ActionResult<Result>> GetAllByIdOrderAsync(int idOrder, string currentPage = "1", string pageSize = "5", string sortColumn = "", string asc = "true")
+
+        [HttpGet("IdOrder/{idOrder:int}")]
+        public async Task<ActionResult> GetAllByIdOrderAsync(int idOrder, string currentPage = "1", string pageSize = "10")
         {
-            var result = await _orderDetailService.GetAllByIdOrderAsync(idOrder, currentPage, pageSize, sortColumn, asc);
-            
-            return Ok(Result<PaginationResult<List<OrderDetailDTO>>>.Success(result, "Lấy thông tin thành công"));
+            var list = await _orderDetailService.GetAllByIdOrderAsync(idOrder, currentPage, pageSize);
+            if (list == null)
+            {
+                return BadRequest(Result.Failure("Không tìm thấy người dùng"));
+            }
+            return Ok(Result<PaginationResult<List<OrderDetaiResponse>>>.Success(list, "Lấy thông tin thành công"));
+        }
+
+        [HttpGet("IdOrderNoPagi/{idOrder:int}")]
+        public async Task<ActionResult> GetAllByIdOrderNoPaiAsync(int idOrder)
+        {
+            var list = await _orderDetailService.GetAllByIdOrderAsync(idOrder);
+            if (list == null)
+            {
+                return BadRequest(Result.Failure("Không tìm thấy người dùng"));
+            }
+            return Ok(Result<List<OrderDetaiResponse>>.Success(list, "Lấy thông tin thành công"));
         }
     }
 }

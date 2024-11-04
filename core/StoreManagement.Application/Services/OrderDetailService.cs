@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using StoreManagement.Application.Common;
 using StoreManagement.Application.DTOs.Request;
 using StoreManagement.Application.DTOs.Response;
 using StoreManagement.Application.Interfaces.IServices;
 using StoreManagement.Domain.IRepositories;
 using StoreManagement.Domain.Models;
+using System.Collections.Generic;
 
 namespace StoreManagement.Services
 {
@@ -17,11 +19,15 @@ namespace StoreManagement.Services
             _orderDetailRepo = orderDetailRepository;
             _mapper = mapper;
         }
-        public async Task<OrderDetailDTO> CreateAsync(OrderDetailDTO orderDetailDTO)
+        public async Task<List<OrderDetailDTO>> CreateByListAsync(List<OrderDetailDTO> orderDetailDTO)
         {
-            var orderDetail = _mapper.Map<OrderDetail>(orderDetailDTO);
-            var orderCreated = await _orderDetailRepo.CreateAsync(orderDetail);
-            return _mapper.Map<OrderDetailDTO>(orderCreated);
+            List <OrderDetailDTO> listOrderDetailDTO = new List <OrderDetailDTO>();
+            foreach (var orderDetail in orderDetailDTO)
+            {
+                var orderCreated = await _orderDetailRepo.CreateAsync(_mapper.Map<OrderDetail>(orderDetail));
+                listOrderDetailDTO.Add(_mapper.Map<OrderDetailDTO>(orderCreated));
+            }
+            return listOrderDetailDTO;
         }
 
         public async Task<bool> DeleteAsync(int idOrder, int idFood)
@@ -30,48 +36,43 @@ namespace StoreManagement.Services
             return true;
         }
 
-        public async Task<List<OrderDetailResponse>> GetAllByIdOrderAsync(int idOrder, int currentPage = 1, int pageSize = 5, string sortCol = "", bool ascSort = true)
+        public async Task<PaginationResult<List<OrderDetaiResponse>>> GetAllByIdOrderAsync(int idOrder, string currentPage = "1", string pageSize = "10")
         {
-            var listDetails = await _orderDetailRepo.GetAllByIdOrderAsync(idOrder, currentPage, pageSize, sortCol, ascSort);
-            var orderDetail = new List<OrderDetailResponse>();
-            for (int i = 0; i < listDetails.Count; i++)
+            int _currentPage = int.Parse(currentPage);
+            int _pageSize = int.Parse(pageSize);
+
+            List<OrderDetail> list = await _orderDetailRepo.GetAllByIdOrderAsync(idOrder);
+            var count = list.Count();
+            list = list.Skip(_currentPage * _pageSize - _pageSize).Take(_pageSize).ToList();
+
+            List<OrderDetaiResponse> result = new List<OrderDetaiResponse>();
+            foreach (var item in list)
             {
-                var detailResponse = new OrderDetailResponse
-                {
-                    Quantity = listDetails[i].Quantity,
-                };
-                if (listDetails[i].Order != null)
-                {
-                    detailResponse.OrderDTO = new OrderDTO
-                    {
-                        Id = listDetails[i].Order.Id,
-                        Total = (double)listDetails[i].Order.Total,
-                        NameUser = listDetails[i].Order.NameUser,
-                        PhoneUser = listDetails[i].Order.PhoneUser,
-                        CreatedAt = listDetails[i].Order.CreatedAt,
-                        IdTable = listDetails[i].Order.IdTable,
-                    };
-                }
-
-                // Kiểm tra và gán FoodDTO nếu không null
-                if (listDetails[i].Food != null)
-                {
-                    detailResponse.FoodDTO = new FoodDTO
-                    {
-                        Id = listDetails[i].Food.Id,
-                        Name = listDetails[i].Food.Name,
-                        Status = listDetails[i].Food.Status,
-                        Quantity = listDetails[i].Food.Quantity,
-                        ImageUrl = listDetails[i].Food.ImageUrl,
-                        Price = listDetails[i].Food.Price,
-                        IdCategory = listDetails[i].Food.IdCategory,
-                    };
-                }
-
-                orderDetail.Add(detailResponse);
+                OrderDetaiResponse temp = new OrderDetaiResponse();
+                temp.Food = _mapper.Map<FoodDTO>(item.Food);
+                temp.Quantity = item.Quantity;
+                temp.Total = temp.Quantity * item.Food.Price;
+                temp.statusProcess = item.StatusProcess;
+                result.Add(temp);
             }
+            return PaginationResult<List<OrderDetaiResponse>>.Create(result, _currentPage, _pageSize, count);
+        }
 
-            return orderDetail;
+        public async Task<List<OrderDetaiResponse>> GetAllByIdOrderAsync(int idOrder)
+        {
+            List<OrderDetail> list = await _orderDetailRepo.GetAllByIdOrderAsync(idOrder);
+
+            List<OrderDetaiResponse> result = new List<OrderDetaiResponse>();
+            foreach (var item in list)
+            {
+                OrderDetaiResponse temp = new OrderDetaiResponse();
+                temp.Food = _mapper.Map<FoodDTO>(item.Food);
+                temp.Quantity = item.Quantity;
+                temp.Total = temp.Quantity * item.Food.Price;
+                temp.statusProcess = item.StatusProcess;
+                result.Add(temp);
+            }
+            return result;
         }
 
         public async Task<int> GetCountAsync(int idOrder)
@@ -84,6 +85,12 @@ namespace StoreManagement.Services
         {
             var orderUpdate = _mapper.Map<OrderDetail>(orderDetailDTO);
             var update = await _orderDetailRepo.UpdateAsync(orderUpdate);
+            return _mapper.Map<OrderDetailDTO>(update);
+        }
+
+        public async Task<OrderDetailDTO> UpdateStatusAsync(int idFood, int statusProcess)
+        {
+            var update = await _orderDetailRepo.UpdateStatusAsync(idFood, statusProcess);
             return _mapper.Map<OrderDetailDTO>(update);
         }
     }

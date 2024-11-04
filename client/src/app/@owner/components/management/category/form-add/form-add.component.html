@@ -2,7 +2,7 @@
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Tạo mới thể loại</h5>
+				<h5 class="modal-title">Thêm mới</h5>
 				<button
 					type="button"
 					class="btn-close"
@@ -20,13 +20,21 @@
 						formControlName="id"
 						id="id" />
 
+					<input
+						hidden
+						aria-label="idStore"
+						nz-input
+						class="form-control"
+						formControlName="idStore"
+						id="idStore" />
+
 					<nz-form-item>
 						<nz-form-label
 							[nzSm]="8"
 							[nzXs]="24"
 							nzRequired
 							nzFor="name"
-							>Name</nz-form-label
+							>Tên</nz-form-label
 						>
 						<nz-form-control
 							[nzSm]="14"

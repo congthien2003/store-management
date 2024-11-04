@@ -14,32 +14,6 @@ namespace StoreManagement.Infrastructure.Repositories
         {
             _dataContext = dataContext;
         }
-
-        public async Task<double> CaculateTotal(int id, bool incluDeleted = false)
-        {
-            var exitsId = await _dataContext.Orders.FirstOrDefaultAsync(o => o.Id == id && o.IsDeleted == incluDeleted);
-            if (exitsId == null)
-            {
-                throw new KeyNotFoundException("Order không tồn tại");
-            }
-            var listOrderDetail = await _dataContext.OrderDetails.Where(x => x.IdOrder == id).ToListAsync();
-            if (listOrderDetail.Count == 0)
-            {
-                throw new KeyNotFoundException("Chi tiết Order không tồn tại");
-            }
-            double total = 0;
-            foreach (var order in listOrderDetail)
-            {
-                var food = await _dataContext.Foods.FindAsync(order.IdFood);
-                if (food != null)
-                {
-                    total += order.Quantity * (double)food.Price;
-                }
-            }
-            return total;
-        }
-
-
         public async Task<Order> CreateAsync(Order order)
         {
             var newOrder = await _dataContext.Orders.AddAsync(order);
@@ -63,13 +37,9 @@ namespace StoreManagement.Infrastructure.Repositories
             return order;
         }
 
-        public Task<List<Order>> GetAllByIdStoreAsync(int idStore, int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortCol = "", bool ascSort = true, bool incluDeleted = false)
+        public Task<List<Order>> GetAllByIdStoreAsync(int idStore, string sortCol = "", bool ascSort = true, bool incluDeleted = false)
         {
-            var order = _dataContext.Orders.Where(x => x.Table.IdStore == idStore && x.IsDeleted == incluDeleted).AsQueryable();
-            if (!string.IsNullOrEmpty(searchTerm))
-            {
-                order = order.Where(t => t.NameUser.Contains(searchTerm));
-            }
+            var order = _dataContext.Orders.Include("Table").Where(x => x.Table.IdStore == idStore && x.IsDeleted == incluDeleted).AsQueryable();
             if (!incluDeleted)
             {
                 order = order.Where(t => t.IsDeleted == incluDeleted);
@@ -86,13 +56,13 @@ namespace StoreManagement.Infrastructure.Repositories
 
                 }
             }
-            var list = order.Skip(currentPage * pageSize - pageSize).Take(pageSize).ToListAsync();
+            var list = order.ToListAsync();
             return list;
         }
 
         public async Task<Order> GetByIdAsync(int id, bool incluDeleted = false)
         {
-            var order = await _dataContext.Orders.Include(x=>x.Table).FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false);
+            var order = await _dataContext.Orders.Include("Table").FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false);
             if (order == null)
             {
                 throw new KeyNotFoundException("Order không tồn tại");
@@ -100,23 +70,9 @@ namespace StoreManagement.Infrastructure.Repositories
             return order;
         }
 
-        public async Task<List<Order>> GetByNameUser(string name, bool incluDeleted = false)
-        {
-            var listOrders = await _dataContext.Orders.Where(x => x.NameUser.Contains(name) && x.IsDeleted == incluDeleted).ToListAsync();
-            if(listOrders.Count == 0)
-            {
-                throw new InvalidOperationException("Tên khách hàng order không tồn tại");
-            }
-            return listOrders;
-        }
-
         public async Task<int> GetCountAsync(int idStore, string searchTerm = "", bool incluDeleted = false)
         {
             var order = _dataContext.Orders.Where(x => x.Table.IdStore ==  idStore && x.IsDeleted == incluDeleted).AsQueryable();
-            if (!string.IsNullOrEmpty(searchTerm))
-            {
-                order = order.Where(t => t.NameUser.Contains(searchTerm));
-            }
             if (!incluDeleted)
             {
                 order = order.Where(t => t.IsDeleted == incluDeleted);
@@ -128,8 +84,7 @@ namespace StoreManagement.Infrastructure.Repositories
         {
             switch (sortColumn)
             {
-                case "name":
-                    return x => x.NameUser;
+                
                 default:
                     return x => x.Id;
             }
@@ -144,9 +99,6 @@ namespace StoreManagement.Infrastructure.Repositories
             orderUpdate.Total = order.Total;
             orderUpdate.IdTable = order.IdTable;
             orderUpdate.CreatedAt = order.CreatedAt;
-            orderUpdate.NameUser = order.NameUser;
-            orderUpdate.PhoneUser = order.PhoneUser;
-            orderUpdate.Status = order.Status;
             _dataContext.Orders.Update(orderUpdate);
             await _dataContext.SaveChangesAsync();
             return orderUpdate;

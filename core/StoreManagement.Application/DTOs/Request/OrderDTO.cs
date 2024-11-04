@@ -4,11 +4,11 @@
     {
         public int Id { get; set; }
         public double Total { get; set; }
-        public string NameUser { get; set; }
-        public string PhoneUser { get; set; }
-        public bool Status { get; set; } = false;
         public DateTime CreatedAt { get; set; }
         public int IdTable { get; set; }
+        public int IdStore { get; set; }
+        public bool Status { get; set; }
+
 
     }
 }

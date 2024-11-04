@@ -11,12 +11,13 @@ import { animate, style, transition, trigger } from "@angular/animations";
 import { Route, Router } from "@angular/router";
 import { User } from "src/app/core/models/interfaces/User";
 import { JwtManager } from "src/app/core/utils/JwtManager";
+import { MatButtonModule } from "@angular/material/button";
 @Component({
 	selector: "app-login",
 	templateUrl: "./login.component.html",
 	styleUrls: ["./login.component.scss"],
 	standalone: true,
-	imports: [FormsModule],
+	imports: [FormsModule, MatButtonModule],
 })
 export class LoginComponent implements OnInit {
 	isLoading = true;
@@ -53,6 +54,8 @@ export class LoginComponent implements OnInit {
 					this.route.navigate(["/pages"]);
 				},
 				error: (error) => {
+					console.log(error);
+
 					this.toastr.error(
 						error.error.errors[0],
 						"Đăng nhập không thành công !",

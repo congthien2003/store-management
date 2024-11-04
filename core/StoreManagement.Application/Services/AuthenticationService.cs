@@ -23,24 +23,24 @@ namespace StoreManagement.Services
             AuthResult result = new AuthResult();
             if (request == null || string.IsNullOrEmpty(request.Email) || string.IsNullOrEmpty(request.Password) || string.IsNullOrEmpty(request.ConfirmPassword) )
             {
-                result.errors.Add("Vui lòng nhập đầy đủ thông tin");
+                throw new Exception("Vui lòng nhập đầy đủ thông tin");
                 return result;
             }
             if (request.OldPassword == request.Password)
             {
-                result.errors.Add("Mật khẩu mới trùng với mật khẩu cũ");
+                throw new Exception("Mật khẩu mới trùng với mật khẩu cũ");
                 return result;
             }
             if (request.ConfirmPassword != request.Password)
             {
-                result.errors.Add("Mật khẩu mới không trùng khớp");
+                throw new Exception("Mật khẩu mới không trùng khớp");
                 return result;
             }
 
             var user = await _userService.GetByEmail(request.Email);
             if (user == null)
             {
-                result.errors.Add("Sai thông tin tài khoản");
+                throw new Exception("Sai thông tin tài khoản");
                 return result;
             }
             else 
@@ -58,16 +58,14 @@ namespace StoreManagement.Services
             AuthResult result = new AuthResult();
             if (login == null || string.IsNullOrEmpty(login.Email) || string.IsNullOrEmpty(login.Password))
             {
-                result.errors.Add("Vui lòng nhập đầy đủ thông tin");
-                return result;
+                throw new Exception("Vui lòng nhập đầy đủ thông tin");
             }
             var passHash = _jwtManager.getHashpassword(login.Password);
             login.Password = passHash;
             var user = await _userService.Login(login);
             if (user == null)
             {
-                result.errors.Add("Sai thông tin tài khoản");
-                return result;
+                throw new Exception("Sai thông tin tài khoản");
             }
             var token = _jwtManager.CreateToken(user);
             
@@ -81,14 +79,12 @@ namespace StoreManagement.Services
             AuthResult result = new AuthResult();
             if (register == null || string.IsNullOrEmpty(register.Email) || string.IsNullOrEmpty(register.Password))
             {
-                result.errors.Add("Vui lòng nhập đầy đủ thông tin");
-                return result;
+                throw new Exception("Vui lòng nhập đầy đủ thông tin");
             }
             var emailExists = await _userService.GetByEmail(register.Email);
             if (emailExists != null)
             {
-                result.errors.Add("Email đã tồn tại");
-                return result;
+                throw new Exception("Email đã tồn tại");
             }
             else
             {
@@ -105,14 +101,12 @@ namespace StoreManagement.Services
             AuthResult result = new AuthResult();
             if (request == null || string.IsNullOrEmpty(request.Email))
             {
-                result.errors.Add("Vui lòng nhập đầy đủ thông tin");
-                return result;
+                throw new Exception("Vui lòng nhập đầy đủ thông tin");
             }
             var emailExists = await _userService.GetByEmail(request.Email);
             if (emailExists == null)
             {
-                result.errors.Add("Email không tồn tại");
-                return result;
+                throw new Exception("Email không tồn tại");
             }
             else
             {
@@ -120,8 +114,7 @@ namespace StoreManagement.Services
                 var sending = SendEmailAsync(request.Email, newPassword);
                 if (sending == false)
                 {
-                    result.errors.Add("Đã xảy ra lỗi trong quá trình khôi phục mật khẩu");
-                    return result;
+                    throw new Exception("Đã xảy ra lỗi trong quá trình khôi phục mật khẩu");
                 }
                 newPassword = _jwtManager.getHashpassword(newPassword);
                 var user = await _userService.UpdatePassword(emailExists.Id, newPassword);
@@ -181,9 +174,22 @@ namespace StoreManagement.Services
             {
                 return false;
             }
-            
+        }
 
-          
+        public async Task<CheckToken> CheckAccessToken(string token)
+        {
+            CheckToken result = new CheckToken();
+            var principal = _jwtManager.ValidateToken(token);
+            if (principal != null)
+            {
+                result.Role = principal.FindFirst("Roles")?.Value;
+                result.IsDenied = false;
+            }
+            else
+            {
+                result.IsDenied = true;
+            }
+            return result;
         }
     }
 }

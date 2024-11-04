@@ -1,8 +1,7 @@
 @import "../../../../../shared/variable.scss";
 
-.modal-footer {
-    button:nth-child(1) {
-        background-color: $owner-primary;
-        color: white;
-    }
+select {
+	padding: 4px 8px;
+	font-weight: 450;
+	outline: none;
 }

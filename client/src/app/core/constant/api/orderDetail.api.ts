@@ -1,6 +1,8 @@
 export const OrderDetailApi = {
-  create: 'OrderDetail/create',
-  update: 'OrderDetail/update',
-  delete: 'OrderDetail/delete',
-  getAll: 'OrderDetail/idOrder',
+	create: "OrderDetail/create",
+	getByIdOrder: "OrderDetail/IdOrder",
+	delete: "OrderDetail/delete",
+	update: "OrderDetail/update",
+	updateStatus: "OrderDetail/updateStatus",
+	listNoPagi: "OrderDetail/IdOrderNoPagi",
 };

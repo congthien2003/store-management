@@ -1,8 +1,9 @@
 export const OrderApi = {
-  create: 'Order/create',
-  getById: 'Order',
-  update: 'Order/update',
-  delete: 'Order/delete',
-  getAll: 'Order/all',
-  caculateTotal: 'Order/caculateTotal',
+	create: "Order/create",
+	getById: "Order",
+	delete: "Order/delete",
+	update: "Order/update",
+	search: "Order/search",
+	getAll: "Order/all",
+	accept: "Order/accept",
 };

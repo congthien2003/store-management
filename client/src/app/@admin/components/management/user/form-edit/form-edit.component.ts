@@ -1,26 +1,14 @@
-import {
-	Component,
-	EventEmitter,
-	Inject,
-	Input,
-	OnInit,
-	Output,
-} from "@angular/core";
+import { Component, Inject, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { MatButtonModule } from "@angular/material/button";
 
 import {
-	AbstractControl,
-	FormControl,
 	FormGroup,
 	NonNullableFormBuilder,
-	ValidatorFn,
 	Validators,
 	ReactiveFormsModule,
 	FormsModule,
-	MinLengthValidator,
-	FormBuilder,
 } from "@angular/forms";
 import { NzFormModule } from "ng-zorro-antd/form";
 import { NzSelectModule } from "ng-zorro-antd/select";
@@ -56,7 +44,7 @@ export class FormEditComponent implements OnInit {
 		@Inject(MAT_DIALOG_DATA) public data: { id: number },
 		private fb: NonNullableFormBuilder,
 		private userService: UserService,
-		private toastr: ToastrService,
+		private toastr: ToastrService
 	) {
 		this.validateForm = this.fb.group({
 			id: [this.data.id],
@@ -95,12 +83,11 @@ export class FormEditComponent implements OnInit {
 	}
 
 	onSubmit(): void {
-		console.log(this.validateForm.value);
 		this.userService.update(this.validateForm.value).subscribe({
 			next: (res) => {
 				if (res.isSuccess) {
 					this.toastr.success(res.message, "Thành công", {
-						timeOut: 3000,	
+						timeOut: 3000,
 					});
 					this.dialogRef.close(true);
 				} else {
