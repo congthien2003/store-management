@@ -11,5 +11,7 @@ namespace StoreManagement.Domain.Models
         public int IdFood { get; set; }
         [ForeignKey("IdFood")]
         public Food Food { get; set; }
+
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
     }
 }
