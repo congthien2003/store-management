@@ -1,26 +1,18 @@
 <div class="management--wrapper">
 	<div class="management--header">
 		<div class="management--search">
-			<button mat-raised-button  class="btn-search" aria-label="Search">
-				<i class="fa-solid fa-search"></i> 
-			</button>
-			<input aria-label="Search User" type="text" class="form-control"
-			[(ngModel)]="searchTerm"
-			(ngModelChange)="onSearchTerm()" />
+			<input
+				aria-label="Search User"
+				type="text"
+				class="form-control"
+				[(ngModel)]="searchTerm"
+				(ngModelChange)="onSearchTerm()" />
 		</div>
 		<div class="management--action">
-			<button mat-raised-button (click)="openAddDialog()">
+			<button mat-raised-button color="primary" (click)="openAddDialog()">
 				Thêm mới người dùng
 			</button>
 		</div>
-		<!-- <div class="management--filter">
-			<mat-radio-group
-				aria-label="Select an option"
-				class="d-flex gap-4 w-100 group-filter">
-				<mat-radio-button value="1">Đã có quán</mat-radio-button>
-				<mat-radio-button value="2">Chưa có quán</mat-radio-button>
-			</mat-radio-group>
-		</div> -->
 	</div>
 	<div class="management--main">
 		<div class="management--table">
@@ -45,16 +37,14 @@
 
 						<td class="table-actions">
 							<button
-								mat-raised-button
-								class="btn-management-edit"
+								class="btn-management-edit btn btn-sm btn-info"
 								matTooltip="Chỉnh sửa thông tin người dùng"
 								(click)="openEditDialog(item.id)"
 								aria-label="Edit">
 								<i class="fa-solid fa-user-pen"></i>
 							</button>
 							<button
-								mat-raised-button
-								class="btn-management-delete"
+								class="btn-management-delete btn btn-sm btn-danger"
 								matTooltip="Xóa người dùng"
 								(click)="openDeleteDialog(item.id)"
 								aria-label="Delete">

@@ -20,29 +20,19 @@ namespace StoreManagement.Controllers
             _jwtManager = jwtManager;
         }
 
-        [HttpPost("register")]
+/*        [HttpPost("register")]
         [AllowAnonymous]
         public async Task<ActionResult> Register(RegisterDTO request)
         {
             var result = await _authenticationService.Register(request);
-            if (result.errors.Any())
-            {
-                return BadRequest(Result<AuthResult>.Failure(result.errors[0]));
-            }
-
             return Ok(Result<AuthResult>.Success(result, "Register Success"));
-        }
+        }*/
 
         [HttpPost("login")]
         [AllowAnonymous]
         public async Task<ActionResult> Login(LoginDTO request)
         {
             var result = await _authenticationService.Login(request);
-            if (result.errors.Any())
-            {
-                return BadRequest(Result<AuthResult>.Failure(result.errors[0]));
-            }
-
             return Ok(Result<AuthResult>.Success(result, "Login success"));
         }
 
@@ -51,11 +41,6 @@ namespace StoreManagement.Controllers
         public async Task<ActionResult> ChangePassword(ChangePasswordDTO request)
         {
             var result = await _authenticationService.ChangePassword(request);
-            if (result.errors.Any())
-            {
-                return BadRequest(Result<AuthResult>.Failure(result.errors[0]));
-            }
-
             return Ok(Result<AuthResult>.Success(result, "Change password success"));
         }
 
@@ -63,11 +48,6 @@ namespace StoreManagement.Controllers
         public async Task<ActionResult> RestorePassword(RestorePasswordDTO request)
         {
             var result = await _authenticationService.RestorePassword(request);
-            if (result.errors.Any())
-            {
-                return BadRequest(Result<AuthResult>.Failure(result.errors[0]));
-            }
-
             return Ok(Result<AuthResult>.Success(result, "Restore password success"));
         }
 
@@ -91,10 +71,11 @@ namespace StoreManagement.Controllers
                 token
             });
         }
+
         [HttpPost("check-access-token")]
         public async Task<ActionResult> CheckAccessToken([FromBody] TokenDTO req)
         {
-            if(req == null)
+            if (req == null)
             {
                 return BadRequest(Result<CheckToken>.Failure("lấy thông tin thất bại"));
             }

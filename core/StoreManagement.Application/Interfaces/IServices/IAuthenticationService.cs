@@ -9,6 +9,5 @@ namespace StoreManagement.Application.Interfaces.IServices
         Task<AuthResult> ChangePassword(ChangePasswordDTO request);
         Task<AuthResult> RestorePassword(RestorePasswordDTO request);
         Task<CheckToken> CheckAccessToken(string Token);
-
     }
 }

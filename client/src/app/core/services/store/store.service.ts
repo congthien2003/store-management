@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
-import { MasterService } from "../master/master.service";
-import { Observable } from "rxjs";
-import { ApiResponse } from "../../models/common/ApiResponse";
-import { Pagination } from "../../models/common/Pagination";
 import { HttpParams } from "@angular/common/http";
+import { Observable } from "rxjs";
+import { ApiResponse } from "../../models/interfaces/Common/ApiResponse";
+import { Pagination } from "../../models/interfaces/Common/Pagination";
+import { MasterService } from "../master/master.service";
 import { StoreApi } from "../../constant/api/store.api";
 
 @Injectable({
@@ -14,12 +14,14 @@ export class StoreService {
 	constructor(private service: MasterService) {}
 
 	list(
+		idStore: number,
 		pagi: Pagination,
 		searchTerm: string = "",
 		sortColumn: string = "",
 		ascSort: boolean = true
 	): Observable<ApiResponse> {
 		const params = new HttpParams()
+			.set("idStore", idStore)
 			.set("currentPage", pagi.currentPage)
 			.set("pageSize", pagi.pageSize)
 			.set("searchTerm", searchTerm)
@@ -29,24 +31,27 @@ export class StoreService {
 	}
 
 	getById(id: number): Observable<ApiResponse> {
-		return this.service.get(`${this.endpoint.getById}/${id}`);
+		return this.service.get(`${this.endpoint.getById}/${id} `);
 	}
 
-	getByGuid(id: string): Observable<ApiResponse> {
-		return this.service.get(`${this.endpoint.getById}/${id}`);
+	getByGuId(id: string): Observable<ApiResponse> {
+		return this.service.get(`${this.endpoint.getById}/${id} `);
 	}
 
-	create(store: any): Observable<ApiResponse> {
-		return this.service.post(`${this.endpoint.create}`, store);
+	getByIdUser(id: number): Observable<ApiResponse> {
+		return this.service.get(`${this.endpoint.getByIdUser}/${id} `);
 	}
-	update(store: any, id: number): Observable<ApiResponse> {
-		return this.service.put(`${this.endpoint.update}/${id}`, store);
+
+	create(user: any): Observable<ApiResponse> {
+		return this.service.post(`${this.endpoint.create}`, user);
 	}
+
+	update(id: number, user: any): Observable<ApiResponse> {
+		return this.service.put(`${this.endpoint.update}/${id}`, user);
+	}
+
 	deleteById(id: number): Observable<ApiResponse> {
 		const params = new HttpParams().set("id", id);
 		return this.service.delete(`${this.endpoint.delete}/`, { params });
-	}
-	getByIdUser(idUser: number): Observable<ApiResponse> {
-		return this.service.get(`${this.endpoint.getByIdUser}/${idUser}`);
 	}
 }

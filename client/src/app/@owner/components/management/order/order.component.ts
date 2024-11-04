@@ -1,30 +1,26 @@
 import { Component, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { MatRadioModule } from "@angular/material/radio";
-import { MatButtonModule } from "@angular/material/button";
-import { MatTableModule } from "@angular/material/table";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
+import { ToastrService } from "ngx-toastr";
+import { Subject, debounceTime, distinctUntilChanged } from "rxjs";
+import { Pagination } from "src/app/core/models/interfaces/Common/Pagination";
+import { ModalDeleteComponent } from "src/app/shared/components/modal-delete/modal-delete.component";
+import { FormsModule } from "@angular/forms";
+import { PaginationComponent } from "src/app/shared/components/pagination/pagination.component";
+import { SpinnerComponent } from "src/app/shared/components/spinner/spinner.component";
+
+import { MatButtonModule } from "@angular/material/button";
+import { MatRadioModule } from "@angular/material/radio";
+import { MatTableModule } from "@angular/material/table";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { NzButtonModule } from "ng-zorro-antd/button";
-import { PaginationComponent } from "src/app/shared/components/pagination/pagination.component";
-import { TablePagiComponent } from "src/app/shared/components/table-pagi/table-pagi.component";
-import { SpinnerComponent } from "src/app/shared/components/spinner/spinner.component";
-import { RolePipe } from "src/app/core/utils/role.pipe";
-import { Pagination } from "src/app/core/models/common/Pagination";
-import { Subject, debounceTime, distinctUntilChanged, timeout } from "rxjs";
-import { ToastrService } from "ngx-toastr";
-import { OrderService } from "src/app/core/services/store/order.service";
-import { ModalDeleteComponent } from "src/app/shared/components/modal-delete/modal-delete.component";
-import {
-	FormGroup,
-	NonNullableFormBuilder,
-	Validators,
-	FormsModule,
-} from "@angular/forms";
-import { FormDetailComponent } from "./form-detail/form-detail.component";
-import { Order } from "src/app/core/models/interfaces/Order";
 import { Store } from "src/app/core/models/interfaces/Store";
-
+import { FormEditComponent } from "./form-edit/form-edit.component";
+import { Order } from "src/app/core/models/interfaces/Order";
+import { OrderService } from "src/app/core/services/store/order.service";
+import { ApiResponse } from "src/app/core/models/interfaces/Common/ApiResponse";
+import { MatMenuModule } from "@angular/material/menu";
+import { OrderResponse } from "src/app/core/models/interfaces/Response/OrderResponse";
 const MatImport = [
 	MatRadioModule,
 	MatButtonModule,
@@ -32,21 +28,21 @@ const MatImport = [
 	MatDialogModule,
 	MatTooltipModule,
 	NzButtonModule,
+	MatMenuModule,
 ];
 @Component({
 	selector: "app-order",
 	standalone: true,
-	templateUrl: "./order.component.html",
-	styleUrls: ["./order.component.scss"],
 	imports: [
 		CommonModule,
 		MatImport,
 		PaginationComponent,
-		TablePagiComponent,
+		FormEditComponent,
 		SpinnerComponent,
-		RolePipe,
 		FormsModule,
 	],
+	templateUrl: "./order.component.html",
+	styleUrls: ["./order.component.scss"],
 })
 export class OrderComponent implements OnInit {
 	config = {
@@ -57,19 +53,11 @@ export class OrderComponent implements OnInit {
 			},
 			{
 				prop: "idTable",
-				display: "Bàn",
+				display: "Số bàn",
 			},
 			{
 				prop: "total",
-				display: "Số tiền",
-			},
-			{
-				prop: "createdAt",
-				display: "Thời gian bắt đầu",
-			},
-			{
-				prop: "finishedAt",
-				display: "Thời gian kết thúc",
+				display: "Giá tiền",
 			},
 			{
 				prop: "status",
@@ -82,137 +70,140 @@ export class OrderComponent implements OnInit {
 		totalPage: 0,
 		totalRecords: 0,
 		currentPage: 1,
-		pageSize: 10,
+		pageSize: 9,
 		hasNextPage: false,
 		hasPrevPage: false,
 	};
-	validateForm!: FormGroup;
-	total: { [id: number]: number | null } = {};
+	selectedValueStatus: number = 0;
+	filter: boolean = false;
+	status: boolean = false;
+
+	listOrder: OrderResponse[] = [];
+
 	store!: Store;
-	private searchSubject = new Subject<string>();
-	searchTerm: string = "";
-	listOrder!: any[];
+
 	constructor(
 		public dialog: MatDialog,
 		private toastr: ToastrService,
-		private orderService: OrderService,
-		private fb: NonNullableFormBuilder
-	) {
-		this.searchSubject
-			.pipe(debounceTime(1500), distinctUntilChanged())
-			.subscribe((searchTerm) => {
-				this.search(searchTerm);
-			});
-		this.validateForm = this.fb.group({
-			id: [0],
-			status: [null, [Validators.required]],
-			total: [null, [Validators.required]],
-			createdAt: [null, [Validators.required]],
-			finishedAt: [null],
-			idTable: [null],
-		});
+		private orderService: OrderService
+	) {}
+	ngOnInit(): void {
+		this.store = JSON.parse(
+			sessionStorage.getItem("storeInfo") ?? ""
+		) as Store;
+		this.loadListOrder();
 	}
 
-	ngOnInit(): void {
+	handleResponse(res: ApiResponse) {
+		if (res.isSuccess) {
+			this.toastr.success(res.message, "Thành công", {
+				timeOut: 3000,
+			});
+
+			this.loadListOrder();
+		} else {
+			this.toastr.error(res.message, "Thất bại", {
+				timeOut: 3000,
+			});
+		}
+	}
+
+	changeFilter(value: number) {
+		this.selectedValueStatus = value;
+		switch (this.selectedValueStatus) {
+			case 1: {
+				this.filter = true;
+				this.status = true;
+				break;
+			}
+			case 2: {
+				this.filter = true;
+				this.status = false;
+				break;
+			}
+			default: {
+				this.filter = false;
+				this.status = false;
+			}
+		}
 		this.loadListOrder();
 	}
 
 	loadListOrder(): void {
-		this.store = JSON.parse(localStorage.getItem("storeInfo") ?? "");
 		this.orderService
-			.list(this.store.id, this.pagi, this.searchTerm)
+			.list(this.store.id, this.pagi, this.filter, this.status)
 			.subscribe({
 				next: (res) => {
-					this.listOrder = res.data.list;
-					this.pagi = res.data.pagination;
+					if (res.isSuccess) {
+						this.listOrder = res.data.list;
+						this.pagi = res.data.pagination;
+					} else {
+						this.toastr.error(res.message, "Thất bại", {
+							timeOut: 3000,
+						});
+					}
 				},
 				error: (err) => {
-					console.log(err);
+					this.toastr.error(err.error.message, "Thất bại", {
+						timeOut: 3000,
+					});
 				},
 			});
 	}
+
 	onChangePage(currentPage: any): void {
-		console.log(currentPage);
 		this.pagi.currentPage = currentPage;
 		this.loadListOrder();
 	}
-	search(searchTerm: string): void {
-		this.loadListOrder();
-		console.log(searchTerm);
+
+	openEditDialog(id: number): void {
+		const dialogRef = this.dialog.open(FormEditComponent, {
+			data: {
+				idOrder: id,
+				idStore: this.store.id,
+			},
+		});
+		dialogRef.afterClosed().subscribe((result) => {
+			if (result) {
+				this.orderService.aceept(id).subscribe({
+					next: (res) => {
+						if (res.isSuccess) {
+							this.toastr.success(res.message, "Thành công", {
+								timeOut: 3000,
+							});
+							this.loadListOrder();
+						}
+					},
+				});
+			}
+		});
 	}
-	onSearchTerm(): void {
-		this.searchSubject.next(this.searchTerm);
-	}
+
 	openDeleteDialog(id: number): void {
 		const dialogRef = this.dialog.open(ModalDeleteComponent, {
 			data: { id: id },
 		});
 		dialogRef.afterClosed().subscribe((result) => {
 			if (result === true) {
-				this.handDelete(id);
+				this.handleDelete(id);
 			}
 		});
 	}
-	handDelete(id: number): void {
-		this.orderService.delete(id).subscribe({
+
+	handleDelete(id: number): void {
+		this.orderService.deleteById(id).subscribe({
 			next: (res) => {
 				if (res.isSuccess) {
-					this.toastr.success(res.message, "Xóa thành công", {
+					this.toastr.success(res.message, "Thông báo", {
 						timeOut: 3000,
 					});
 					this.loadListOrder();
 				} else {
-					this.toastr.error(res.message, "Xóa không thành công", {
+					this.toastr.error(res.message, "Thông báo", {
 						timeOut: 3000,
 					});
 				}
 			},
-			error: () => {
-				this.toastr.error("", "Có lỗi xảy ra", {
-					timeOut: 3000,
-				});
-			},
 		});
-	}
-	openDetailDialog(id: number): void {
-		const dialogRef = this.dialog.open(FormDetailComponent, {
-			data: { id: id },
-		});
-		dialogRef.afterClosed().subscribe((result) => {
-			if (result) {
-				this.loadListOrder();
-			}
-		});
-	}
-	// calculate(id: number): void {
-	//   this.orderService.calculateTotal(id).subscribe({
-	//     next: (res) => {
-	//       if (res.isSuccess) {
-	//         this.total[id] = res.data;
-	//         this.orderService.getById(id).subscribe({
-	//           next: (res) => {
-	//             const order = res.data as Order;
-	//             this.validateForm.setValue({
-	//               id: order.id,
-
-	//               total: this.total[id],
-	//               createdAt: order.createdAt,
-	//               status: order.status,
-	//               idTable: res.data.tableDTO.id,
-	//             });
-	//             this.orderService.update(id, this.validateForm.value).subscribe({
-	//               next: (res) => {},
-	//             });
-	//           },
-	//         });
-	//       }
-	//     },
-	//     error: (err) => {
-	//       console.log(err);
-	//     },
-	//   });
-	// }
-	calculateTotalPrice(items: { idFood: number; price: number }[]): number {
-		return items.reduce((total, item) => total + item.price, 0);
 	}
 }

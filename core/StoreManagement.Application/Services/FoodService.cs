@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using StoreManagement.Application.Common;
 using StoreManagement.Application.DTOs.Request;
-using StoreManagement.Application.DTOs.Response;
 using StoreManagement.Application.Interfaces.IServices;
 using StoreManagement.Domain.IRepositories;
 using StoreManagement.Domain.Models;
+using System.Collections.Generic;
 
 namespace StoreManagement.Services
 {
@@ -12,20 +12,17 @@ namespace StoreManagement.Services
     {
         private readonly IMapper _mapper;
         private readonly IFoodRepository<Food> _foodRepository;
-        private readonly ICategoryRepository<Category> _categoryRepository;
-        private readonly IProductSellRepository<ProductSell> _productSellRepository;
-        public FoodService(IMapper mapper, IFoodRepository<Food> foodRepository, ICategoryRepository<Category> categoryRepository, IProductSellRepository<ProductSell> productSellRepository)
+
+        public FoodService(IMapper mapper, IFoodRepository<Food> foodRepository) 
         {
             _mapper = mapper;
-            _categoryRepository = categoryRepository;
             _foodRepository = foodRepository;
-            _productSellRepository = productSellRepository;
         }
         public async Task<FoodDTO> CreateAsync(FoodDTO foodDTO)
         {
-            var food = _mapper.Map<Food>(foodDTO);
-            var foodCreated = await _foodRepository.CreateAsync(food);
-            return _mapper.Map<FoodDTO>(foodCreated);
+                var food = _mapper.Map<Food>(foodDTO);
+                var foodCreated = await _foodRepository.CreateAsync(food);
+                return _mapper.Map<FoodDTO>(foodCreated);       
         }
 
         public async Task<bool> DeleteAsync(int id)
@@ -34,135 +31,60 @@ namespace StoreManagement.Services
             return true;
         }
 
-        public async Task<PaginationResult<List<FoodResponse>>> GetAllByIdStoreAsync(int id, string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortColumn = "", string asc = "true", bool incluDeleted = false)
+        public async Task<PaginationResult<List<FoodDTO>>> GetAllByIdStoreAsync(int id, string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortColumn = "", bool asc = false, bool incluDeleted = false)
         {
-
             int _currentPage = int.Parse(currentPage);
             int _pageSize = int.Parse(pageSize);
-            bool _asc = bool.Parse(asc);
-            var list = await _foodRepository.GetAllByIdStoreAsync(id, _currentPage, _pageSize, searchTerm, sortColumn, _asc, incluDeleted);
-            var listFood = new List<FoodResponse>();
-            foreach (var food in list)
-            {
-                var foodResponse = _mapper.Map<FoodResponse>(food);
-                var category = await _categoryRepository.GetByIdAsync(food.IdCategory);
-                if (category != null)
-                {
-                    foodResponse.CategoryDTO = _mapper.Map<CategoryDTO>(category);
-                }
-                listFood.Add(foodResponse);
-            }
-            var totalRecords = await _foodRepository.GetCountAsync(id);
 
-            return PaginationResult<List<FoodResponse>>.Create(listFood,_currentPage,_pageSize,totalRecords);
+            var list = await _foodRepository.GetAllByIdStoreAsync(id);
+            var count = list.Count();
+            list = list.Skip(_currentPage * _pageSize - _pageSize).Take(_pageSize).ToList();
+
+
+            var listFood = _mapper.Map<List<FoodDTO>>(list);
+            return PaginationResult<List<FoodDTO>>.Create(listFood, _currentPage, _pageSize, count);
         }
 
-        public async Task<FoodResponse> GetByIdAsync(int id)
+        public async Task<FoodDTO> GetByIdAsync(int id)
         {
             var food = await _foodRepository.GetByIdAsync(id);
-            var foodResponse = _mapper.Map<FoodResponse>(food);
-
-            if (food.Category != null)
-            {
-                foodResponse.CategoryDTO = new CategoryDTO
-                {
-                    Id = food.Category.Id,
-                    Name = food.Category.Name,
-                    IdStore = food.Category.IdStore,
-                };
-            }
-            return foodResponse;
+            return _mapper.Map<FoodDTO>(food);
         }
 
-        public async Task<List<FoodResponse>> GetByIdCategoryAsync(int id)
+        public async Task<PaginationResult<List<FoodDTO>>> GetByIdCategoryAsync(int id, string currentPage = "1", string pageSize = "5")
         {
-            var listFood = await _foodRepository.GetByIdCategory(id);
-            var listFoodResponse = _mapper.Map<List<FoodResponse>>(listFood);
+            int _currentPage = int.Parse(currentPage);
+            int _pageSize = int.Parse(pageSize);
 
-            for (int i = 0; i < listFood.Count; i++)
-            {
-                if (listFood[i].Category != null)
-                {
-                    listFoodResponse[i].CategoryDTO = new CategoryDTO
-                    {
-                        Id = listFood[i].Category.Id,
-                        Name = listFood[i].Category.Name,
-                        IdStore = listFood[i].Category.IdStore,
-                    };
-                }
-            }
+            var list = await _foodRepository.GetByIdCategory(id);
 
-            return listFoodResponse;
+            var count = list.Count();
+            list = list.Skip(_currentPage * _pageSize - _pageSize).Take(_pageSize).ToList();
+            var listFood = _mapper.Map<List<FoodDTO>>(list);
+            return PaginationResult<List<FoodDTO>>.Create(listFood, _currentPage, _pageSize, count);
+
         }
 
-        public async Task<List<FoodResponse>> GetByNameAsync(int idStore, string name)
+        public async Task<List<FoodDTO>> GetByListId(int[] listId)
+        {
+            List<Food> listFood = new List<Food>();
+            foreach (var id in listId)
+            {
+                listFood.Add(await _foodRepository.GetByIdAsync(id));
+            }
+            return _mapper.Map<List<FoodDTO>>(listFood);
+        }
+
+        public async Task<List<FoodDTO>> GetByNameAsync(int idStore, string name)
         {
             var listFood = await _foodRepository.GetByNameAsync(idStore, name);
-            var listFoodResponse = _mapper.Map<List<FoodResponse>>(listFood);
-
-            // Duyệt qua từng food và kiểm tra category
-            for (int i = 0; i < listFood.Count; i++)
-            {
-                if (listFood[i].Category != null)
-                {
-                    listFoodResponse[i].CategoryDTO = new CategoryDTO
-                    {
-                        Id = listFood[i].Category.Id,
-                        Name = listFood[i].Category.Name,
-                        IdStore = listFood[i].Category.IdStore,
-                    };
-                }
-            }
-
-            return listFoodResponse;
+            return _mapper.Map<List<FoodDTO>>(listFood);
         }
 
         public async Task<int> GetCountList(int idStore, string searchTerm = "", bool incluDeleted = false)
         {
-            var count = await _foodRepository.GetCountAsync(idStore, searchTerm, incluDeleted);
+            var count = await _foodRepository.GetCountAsync(idStore,  searchTerm, incluDeleted);
             return count;
-        }
-
-        public async Task<FoodBestSellerResponse> GetTopFood(int idStore, int idCategory, int currentPage, int pageSize)
-        {
-            var allFoods = idCategory == 0
-                ? await _foodRepository.GetAllByIdStoreAsync(idStore, currentPage, pageSize) 
-                : await _foodRepository.GetAllAsync(idStore, idCategory, currentPage, pageSize);
-            var top4product = idCategory == 0
-                ? await _productSellRepository.GetTopProductsByQuantityByStoreAsync(idStore) 
-                : await _productSellRepository.GetTopProductsByQuantityAsync(idStore, idCategory);
-
-
-            var allFoodDto = _mapper.Map<List<FoodDTO>>(allFoods);
-            var top4productDTO = _mapper.Map<List<ProductSellDTO>>(top4product);
-
-            List<FoodDTO> filteredFoods = new List<FoodDTO>();
-            if (currentPage == 1)
-            {
-                filteredFoods = allFoodDto
-                    .Where(f => !top4productDTO.Any(p => p.FoodId == f.Id))
-                    .Take(6)
-                    .ToList();
-            }
-            else
-            {
-                filteredFoods = allFoodDto
-                    .Where(f => !top4productDTO.Any(p => p.FoodId == f.Id))
-                    .Take(10)
-                    .ToList();
-            }
-            List<FoodDTO> top4ProductsByQuantity = new List<FoodDTO>();
-            foreach (var item in top4productDTO)
-            {
-                Food food = await _foodRepository.GetByIdAsync(item.FoodId);
-                top4ProductsByQuantity.Add(_mapper.Map<FoodDTO>(food));
-            }
-
-            return new FoodBestSellerResponse
-            {
-                Top4ProductsByQuantity = currentPage == 1 ? top4ProductsByQuantity : [],
-                AllFoods = filteredFoods
-            };
         }
 
         public async Task<FoodDTO> UpdateAsync(int id, FoodDTO foodDTO)
@@ -171,7 +93,5 @@ namespace StoreManagement.Services
             var update = await _foodRepository.UpdateAsync(id, foodUpdate);
             return _mapper.Map<FoodDTO>(update);
         }
-
-
     }
 }

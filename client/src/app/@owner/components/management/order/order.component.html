@@ -1,23 +1,35 @@
 <div class="management--wrapper">
-	<h4 class="fw-bold">Quản lý đơn đặt hàng</h4>
-
 	<div class="management--header">
-		<div class="management--search">
-			<button mat-raised-button class="btn-search" aria-label="Search">
-				<i class="fa-solid fa-search"></i>
-			</button>
+		<h4 class="fw-bold">Quản lý đơn đặt hàng</h4>
+
+		<!-- <div class="management--search">
 			<input
-				aria-label="Search Food"
+				aria-label="Search User"
 				type="text"
 				class="form-control"
 				[(ngModel)]="searchTerm"
 				(ngModelChange)="onSearchTerm()" />
+		</div> -->
+		<div class="management--action">
+			<button
+				matTooltip="Lọc"
+				aria-label="Filter"
+				class="btn btn-sm btn-action-filter"
+				[matMenuTriggerFor]="menu">
+				<i class="fa fa-filter" aria-hidden="true"></i>
+			</button>
+			<mat-menu #menu="matMenu">
+				<button mat-menu-item (click)="changeFilter(1)">
+					<span class="filter-label-radio">Đã tiếp nhận</span>
+				</button>
+				<button mat-menu-item (click)="changeFilter(2)">
+					<span class="filter-label-radio">Chưa tiếp nhận</span>
+				</button>
+				<button mat-menu-item (click)="changeFilter(0)">
+					<span class="filter-label-radio">Tất cả</span>
+				</button>
+			</mat-menu>
 		</div>
-		<!-- <div class="management--action">
-            <button mat-raised-button color="warn" (click)="openAddDialog()">
-                Thêm mới đồ ăn
-            </button>
-        </div> -->
 	</div>
 	<div class="management--main">
 		<div class="management--table">
@@ -32,58 +44,40 @@
 						<th>-</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody *ngIf="listOrder != undefined">
 					<tr *ngFor="let item of listOrder">
-						<th scope="row">{{ item.id }}</th>
-
-						<td>{{ item.tableDTO.id }}</td>
+						<th>{{ item.id }}</th>
+						<td>{{ item.table.name }}</td>
+						<td>{{ item.total }}</td>
 						<td>
-							{{
-								item.total !== undefined
-									? item.total
-									: "Đang tính toán..."
-							}}
-							VND
-						</td>
-						<td>{{ item.createdAt }}</td>
-						<td>{{ item.finishedAt }}</td>
-						<td>
-							{{
-								item.status ? "Đã chấp nhận" : "Chưa chấp nhận"
-							}}
+							<span class="badge bg-warning" *ngIf="!item.status">
+								Chưa tiếp nhận
+							</span>
+							<span class="badge bg-success" *ngIf="item.status">
+								Đã tiếp nhận
+							</span>
 						</td>
 
 						<td class="table-actions">
 							<button
-								*ngIf="item.status"
-								mat-raised-button
-								class="btn-management-edit"
-								matTooltip="Chi tiết hóa đơn"
-								(click)="openDetailDialog(item.id)"
-								aria-label="Detail">
-								<i class="fa-solid fa-circle-info"></i>
+								class="btn-management-edit btn btn-sm"
+								matTooltip="Chi tiết đơn đặt hàng"
+								(click)="openEditDialog(item.id)"
+								aria-label="Edit">
+								<i class="fa fa-edit" aria-hidden="true"></i>
 							</button>
-
-							<ng-container *ngIf="!item.status">
-								<button
-									mat-raised-button
-									class="btn-management-edit"
-									matTooltip="Chấp nhận hóa đơn"
-									(click)="openDetailDialog(item.id)"
-									aria-label="Accept">
-									<i class="fa-solid fa-check"></i>
-								</button>
-								<button
-									mat-raised-button
-									class="btn-management-delete"
-									matTooltip="Từ chối hóa đơn"
-									(click)="openDeleteDialog(item.id)"
-									aria-label="Reject">
-									<i class="fa-solid fa-xmark"></i>
-								</button>
-							</ng-container>
+							<button
+								class="btn-management-delete btn btn-sm"
+								matTooltip="Xóa đơn đặt hàng"
+								(click)="openDeleteDialog(item.id)"
+								aria-label="Delete">
+								<i class="fa-solid fa-trash"></i>
+							</button>
 						</td>
 					</tr>
+				</tbody>
+				<tbody *ngIf="listOrder == undefined">
+					<h3 class="text-center">Chưa có dữ liệu</h3>
 				</tbody>
 			</table>
 			<div class="table--pagination">
@@ -92,9 +86,9 @@
 					[_hasPrev]="pagi.hasPrevPage"
 					[_currentPage]="pagi.currentPage"
 					[_totalPage]="pagi.totalPage"
-					(changePage)="onChangePage($event)">
-				</table-pagination>
+					(changePage)="onChangePage($event)"></table-pagination>
 			</div>
 		</div>
+		<app-spinner></app-spinner>
 	</div>
 </div>

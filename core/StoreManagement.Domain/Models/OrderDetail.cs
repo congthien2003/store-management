@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using StoreManagement.Domain.Enum;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StoreManagement.Domain.Models
 {
@@ -11,6 +12,7 @@ namespace StoreManagement.Domain.Models
         public int IdFood { get; set; }
         [ForeignKey("IdFood")]
         public Food Food { get; set; }
+        public int StatusProcess { get; set; } = (int) EStatusProcess.Pending;
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
     }

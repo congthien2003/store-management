@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { Pagination } from "src/app/core/models/interfaces/Common/Pagination";
 import { Store } from "src/app/core/models/interfaces/Store";
 import { ModalDeleteComponent } from "src/app/shared/components/modal-delete/modal-delete.component";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
@@ -17,10 +18,10 @@ import { QrcodeModule } from "qrcode-angular";
 import { LoaderService } from "src/app/core/services/loader.service";
 import { Table } from "src/app/core/models/interfaces/Table";
 import { TableService } from "src/app/core/services/store/table.service";
+import { ApiResponse } from "src/app/core/models/interfaces/Common/ApiResponse";
 import { MatMenuModule } from "@angular/material/menu";
-import { ApiResponse } from "src/app/core/models/common/ApiResponse";
-import { Pagination } from "src/app/core/models/common/Pagination";
-import { TableResponse } from "src/app/core/models/responses/TableResponse";
+import { TemplateQrComponent } from "../../template-qr/template-qr.component";
+import { TableResponse } from "src/app/core/models/interfaces/Response/TableResponse";
 const MatImport = [
 	MatRadioModule,
 	MatButtonModule,
@@ -40,6 +41,7 @@ const MatImport = [
 		MatImport,
 		PaginationComponent,
 		QrcodeModule,
+		TemplateQrComponent,
 	],
 	templateUrl: "./table.component.html",
 	styleUrls: ["./table.component.scss"],
@@ -133,6 +135,7 @@ export class TableComponent implements OnInit {
 	addTable(): void {
 		const newTable: Table = {
 			id: 0,
+			name: `Bàn`,
 			status: true,
 			idStore: this.store.id,
 		};
@@ -160,7 +163,7 @@ export class TableComponent implements OnInit {
 	}
 
 	handleDelete(id: number): void {
-		this.tableService.delete(id).subscribe({
+		this.tableService.deleteById(id).subscribe({
 			next: (res) => {
 				this.handleResponse(res);
 			},

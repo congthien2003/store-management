@@ -2,11 +2,11 @@ import { Injectable } from "@angular/core";
 import { InvoiceApi } from "../../constant/api/invoice.api";
 import { HttpParams } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { ApiResponse } from "../../models/interfaces/Common/ApiResponse";
+import { Pagination } from "../../models/interfaces/Common/Pagination";
 import { Order } from "../../models/interfaces/Order";
 import { MasterService } from "../master/master.service";
 import { Invoice } from "../../models/interfaces/Invoice";
-import { Pagination } from "../../models/common/Pagination";
-import { ApiResponse } from "../../models/common/ApiResponse";
 
 @Injectable({
 	providedIn: "root",

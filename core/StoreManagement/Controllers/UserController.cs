@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using StoreManagement.Application.Common;
 using StoreManagement.Domain.Models;
 using StoreManagement.Application.DTOs.Auth;
+using Azure.Core;
 using StoreManagement.Application.DTOs.Request;
 
 namespace StoreManagement.Controllers
@@ -38,18 +39,6 @@ namespace StoreManagement.Controllers
         public async Task<ActionResult<Result>> GetUserByIdAsync(int id)
         {
             var user = await _userService.GetById(id);
-            if (user == null)
-            {
-                return BadRequest(Result.Failure("Không tìm thấy người dùng"));
-            }
-            return Ok(Result<UserDTO?>.Success(user, "Lấy thông tin thành công"));
-        }
-
-        [HttpGet]
-        [Route("{guid:Guid}")]
-        public async Task<ActionResult<Result>> GetUserByGuidAsync(Guid guid)
-        {
-            var user = await _userService.GetByGuid(guid);
             if (user == null)
             {
                 return BadRequest(Result.Failure("Không tìm thấy người dùng"));

@@ -6,7 +6,6 @@ namespace StoreManagement.Domain.Models
 {
     public class User : DeleteableEntity
     {
-        public Guid Guid { get; set; } = Guid.NewGuid();
         [Required]
         [Column(TypeName = "nvarchar(150)")]
         public string Username { get; set; } = string.Empty;
@@ -17,7 +16,5 @@ namespace StoreManagement.Domain.Models
         public string Password { get; set; }
         public int Role { get; set; } = 1;
         public Store Store { get; set; }
-
-
     }
 }

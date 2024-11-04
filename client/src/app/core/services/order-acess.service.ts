@@ -3,7 +3,7 @@ import { OrderAccessAPI } from "../constant/api/orderaccess.api";
 import { HttpParams } from "@angular/common/http";
 import { OrderAccessToken } from "../models/interfaces/OrderAccessToken";
 import { Observable } from "rxjs";
-import { ApiResponse } from "../models/common/ApiResponse";
+import { ApiResponse } from "../models/interfaces/Common/ApiResponse";
 import { MasterService } from "./master/master.service";
 
 @Injectable({

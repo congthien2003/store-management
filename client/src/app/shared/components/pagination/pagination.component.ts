@@ -22,7 +22,7 @@ export class PaginationComponent implements OnInit, OnChanges {
 	// output when onChangePage
 	@Output() changePage = new EventEmitter();
 	@Output() changePageSize = new EventEmitter();
-
+	@Input() displayEdit: boolean = false;
 	@Input()
 	_totalPage!: number;
 	@Input()
@@ -52,24 +52,20 @@ export class PaginationComponent implements OnInit, OnChanges {
 	convertArrayPage(): any[] {
 		const pagination = [];
 		const visiblePages = 5;
-		// Xác định khoảng trang cần hiển thị
 		let startPage = Math.max(
 			1,
 			this.currentPage - Math.floor(visiblePages / 2) - 1
 		);
 		let endPage = Math.min(this.totalPage, startPage + visiblePages - 1);
 
-		// Nếu trang đầu tiên không được hiển thị, thêm dấu "..."
 		if (startPage > 1) {
 			pagination.push("...");
 		}
 
-		// Tạo mảng các trang cần hiển thị
 		for (let i = startPage; i <= endPage; i++) {
 			pagination.push(i);
 		}
 
-		// Nếu trang cuối cùng không được hiển thị, thêm dấu "..."
 		if (endPage < this.totalPage) {
 			pagination.push("...");
 		}

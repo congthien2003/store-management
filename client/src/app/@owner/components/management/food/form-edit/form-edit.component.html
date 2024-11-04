@@ -1,113 +1,126 @@
 <div class="modal fade show" tabindex="5">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Chỉnh sửa thông tin đồ ăn</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="onNoClick()"
-                    aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form [formGroup]="validateForm" (ngSubmit)="onSubmit()">
-                    <input hidden aria-label="id" nz-input class="form-control" formControlName="id" id="id" />
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Chỉnh sửa</h5>
+				<button
+					type="button"
+					class="btn-close"
+					data-bs-dismiss="modal"
+					(click)="onNoClick()"
+					aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form [formGroup]="validateForm" (ngSubmit)="onSubmit()">
+					<input
+						hidden
+						aria-label="id"
+						nz-input
+						class="form-control"
+						formControlName="id"
+						id="id" />
+					<nz-form-item>
+						<nz-form-label
+							[nzSm]="8"
+							[nzXs]="24"
+							nzRequired
+							nzFor="name"
+							>Tên</nz-form-label
+						>
+						<nz-form-control
+							[nzSm]="14"
+							[nzXs]="24"
+							nzErrorTip="This input is not have enough length!">
+							<input
+								aria-label="name"
+								nz-input
+								class="form-control"
+								formControlName="name"
+								id="name" />
+						</nz-form-control>
+					</nz-form-item>
 
-                    <nz-form-item>
-                        <nz-form-label
-                            [nzSm]="8" 
-                            [nzXs]="24" 
-                            nzRequired 
-                            nzFor="name"
-                            >Tên món
-                        </nz-form-label>
-                        <nz-form-control 
-                            [nzSm]="14"
-                            [nzXs]="24" 
-                            nzErrorTip="The input is not valid name">
-                            <input 
-                                aria-label="name" 
-                                nz-input class="form-control" 
-                                formControlName="name" 
-                                id="name" />
-                        </nz-form-control>
-                    </nz-form-item>
-                    <nz-form-item>
-                        <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired nzFor="price">Giá tiền</nz-form-label>
-                        <nz-form-control [nzSm]="6" [nzXs]="24" nzErrorTip="This input is not have enough length!">
-                            <input aria-label="price" nz-input class="form-control" formControlName="price" id="price" />
-                        </nz-form-control>
-                    </nz-form-item>
-                    <nz-form-item>
-                        <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired nzFor="quantity">Số lượng
-                        </nz-form-label>
-                        <nz-form-control [nzSm]="4" [nzXs]="24" nzErrorTip="The input is not valid name">
-                            <input aria-label="quantity" nz-input class="form-control" formControlName="quantity" id="quantity" />
-                        </nz-form-control>
-                    </nz-form-item>
-                    <nz-form-item>
-                        <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="status" nzRequired>Trạng thái</nz-form-label>
-                        <nz-form-control [nzSm]="14" [nzXs]="24">
-                            <select class="form-select" formControlName="status" aria-label="Select Status">
-                                <option [value]="true">Hết</option>
-                                <option [value]="false">Còn</option>
-                            </select>
-                        </nz-form-control>
-                    </nz-form-item>
-                    <nz-form-item>
-                        <nz-form-label 
-                            [nzSm]="8" 
-                            [nzXs]="24" 
-                            nzFor="categories" 
-                            nzRequired
-                        >
-                            Loại món
-                        </nz-form-label>
-                        <nz-form-control 
-                            [nzSm]="14" 
-                            [nzXs]="24">
-                            <select class="form-select" 
-                                    formControlName="idCategory" 
-                                    aria-label="Select Category">
-                                <option *ngFor="let category of listCategory" 
-                                        [value]="category.id">
-                                    {{ category.name }}
-                                </option>
-                            </select>
-                        </nz-form-control>
-                        <nz-form-item>
-                            <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="fileUpload" nzRequired>
-                                Upload Image
-                            </nz-form-label>
-                            <nz-form-control [nzSm]="14" [nzXs]="24">
-                                <input type="file" id="fileUpload" (change)="onFileSelected($event)" aria-label="Upload Image"
-                                    class="form-control" />
-                                <div *ngIf="imageUrl" class="image-preview">
-                                    <img [src]="imageUrl" alt="Uploaded Image" style="max-width: 100px; max-height: 100px; margin-top: 10px;" />
-                                </div>
-                            </nz-form-control>
-                        </nz-form-item>
+					<nz-form-item>
+						<nz-form-label
+							[nzSm]="8"
+							[nzXs]="24"
+							nzRequired
+							nzFor="price"
+							>Giá</nz-form-label
+						>
+						<nz-form-control
+							[nzSm]="14"
+							[nzXs]="24"
+							nzErrorTip="This input is not have enough length!">
+							<input
+								aria-label="price"
+								nz-input
+								class="form-control"
+								formControlName="price"
+								id="price" />
+						</nz-form-control>
+					</nz-form-item>
 
-                    </nz-form-item>
-                        <nz-form-item>
-                            <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="fileUpload" nzRequired>
-                                Hình ảnh
-                            </nz-form-label>
-                            <nz-form-control [nzSm]="14" [nzXs]="24">
-                                <input type="file" id="fileUpload" (change)="onFileSelected($event)" aria-label="Upload Image"
-                                    class="form-control" />
-                                <div *ngIf="imageUrl" class="image-preview">
-                                    <img [src]="imageUrl" alt="Uploaded Image" />
-                                </div>
-                            </nz-form-control>
-                        </nz-form-item>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" mat-stroked-button (click)="onSubmit()">
-                    Lưu
-                </button>
-                <button type="button" mat-stroked-button data-bs-dismiss="modal" (click)="onNoClick()">
-                    Hủy
-                </button>
-            </div>
-        </div>
-    </div>
+					<nz-form-item>
+						<nz-form-label
+							[nzSm]="8"
+							[nzXs]="24"
+							nzRequired
+							nzFor="image"
+							>Hình ảnh</nz-form-label
+						>
+						<nz-form-control [nzSm]="14" [nzXs]="24">
+							<img
+								width="200px"
+								height="200px"
+								*ngIf="this.food?.imageUrl"
+								[src]="this.food.imageUrl"
+								alt="img" />
+							<input
+								type="file"
+								aria-label="image"
+								accept=".jpg, .jpeg, .png"
+								(change)="handleChange($event)" />
+						</nz-form-control>
+					</nz-form-item>
+
+					<nz-form-item>
+						<nz-form-label
+							[nzSm]="8"
+							[nzXs]="24"
+							nzRequired
+							nzFor="idCategory"
+							>Loại:
+						</nz-form-label>
+
+						<nz-form-control [nzSm]="14" [nzXs]="24">
+							<select formControlName="idCategory">
+								<option
+									*ngFor="let item of this.data.listCategory"
+									[ngValue]="item.id">
+									{{ item.name }}
+								</option>
+							</select>
+						</nz-form-control>
+					</nz-form-item>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button
+					type="button"
+					mat-raised-button
+					color="primary"
+					(click)="onSubmit()">
+					Lưu
+				</button>
+				<button
+					type="button"
+					mat-stroked-button
+					data-bs-dismiss="modal"
+					(click)="onNoClick()">
+					Hủy
+				</button>
+			</div>
+		</div>
+	</div>
 </div>

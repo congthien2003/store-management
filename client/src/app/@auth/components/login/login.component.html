@@ -1,6 +1,6 @@
 <div class="auth--wrapper">
 	<div class="login">
-		<h4 class="text-center">Đăng nhập</h4>
+		<h4 class="text-center fw-bold fs-3 text-black">Đăng nhập</h4>
 		<form #form="ngForm">
 			<div class="form-group">
 				<!-- Email input -->
@@ -51,12 +51,14 @@
 				</div>
 
 				<!-- Submit button -->
-				<a
+				<button
+					mat-raised-button
+					color="primary"
 					type="submit"
 					class="btn mb-4 w-100 btn-auth"
 					(click)="login()">
 					Đăng nhập
-				</a>
+				</button>
 				<!-- Register buttons -->
 				<div class="text-center">
 					<p>

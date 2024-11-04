@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { NotAuthorComponent } from "./shared/components/not-author/not-author.component";
 import { AccessDeninedComponent } from "./shared/components/access-denined/access-denined.component";
+import { NotAuthorComponent } from "./shared/components/not-author/not-author.component";
 
 const routes: Routes = [
 	{

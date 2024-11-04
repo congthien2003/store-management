@@ -1,10 +1,11 @@
 import { Injectable } from "@angular/core";
-import { TableApi } from "../../constant/api/table.api";
-import { MasterService } from "../master/master.service";
-import { Pagination } from "../../models/common/Pagination";
-import { Observable } from "rxjs";
-import { ApiResponse } from "../../models/common/ApiResponse";
+import { TableApi } from "../../constant/api/table";
 import { HttpParams } from "@angular/common/http";
+import { Observable } from "rxjs";
+import { ApiResponse } from "../../models/interfaces/Common/ApiResponse";
+import { Pagination } from "../../models/interfaces/Common/Pagination";
+import { MasterService } from "../master/master.service";
+import { Table } from "../../models/interfaces/Table";
 
 @Injectable({
 	providedIn: "root",
@@ -25,29 +26,30 @@ export class TableService {
 			.set("pageSize", pagi.pageSize)
 			.set("filter", filter)
 			.set("status", status);
-		return (
-			this,
-			this.service.get(`${this.endpoint.getAll}/${idStore}`, { params })
-		);
+		return this.service.get(this.endpoint.getAll, { params });
 	}
 
 	getById(id: number): Observable<ApiResponse> {
-		return this.service.get(`${this.endpoint.getById}/${id}`);
+		return this.service.get(`${this.endpoint.getById}/${id} `);
 	}
 
-	getByGuid(id: string): Observable<ApiResponse> {
-		return this.service.get(`${this.endpoint.getById}/${id}`);
+	getByGuId(guid: string): Observable<ApiResponse> {
+		return this.service.get(`${this.endpoint.getById}/${guid} `);
 	}
 
-	create(table: any): Observable<ApiResponse> {
+	create(table: Table): Observable<ApiResponse> {
 		return this.service.post(`${this.endpoint.create}`, table);
 	}
 
-	update(table: any, id: number): Observable<ApiResponse> {
+	update(id: number, table: any): Observable<ApiResponse> {
 		return this.service.put(`${this.endpoint.update}/${id}`, table);
 	}
 
-	delete(id: number): Observable<ApiResponse> {
+	deleteById(id: number): Observable<ApiResponse> {
 		return this.service.delete(`${this.endpoint.delete}/${id}`);
+	}
+
+	updateOrder(id: number, statusAccess: boolean): Observable<ApiResponse> {
+		return this.service.put(`${this.endpoint.update}/${id}`, statusAccess);
 	}
 }

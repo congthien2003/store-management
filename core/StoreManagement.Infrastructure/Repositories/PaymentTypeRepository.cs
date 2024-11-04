@@ -45,7 +45,7 @@ namespace StoreManagement.Infrastructure.Repositories
 
         public Task<List<PaymentType>> GetAllByIdStore(int idStore, int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortCol = "", bool ascSort = true, bool incluDeleted = false)
         {
-            var payment = _dataContext.PaymentTypes.Include(x=>x.Store).Where(x => x.IdStore == idStore && x.IsDeleted == incluDeleted).AsQueryable();
+            var payment = _dataContext.PaymentTypes.Where(x => x.IdStore == idStore && x.IsDeleted == incluDeleted).AsQueryable();
             if (!string.IsNullOrEmpty(searchTerm))
             {
                 payment = payment.Where(t => t.Name.Contains(searchTerm));
@@ -81,7 +81,7 @@ namespace StoreManagement.Infrastructure.Repositories
         }
         public async Task<PaymentType> GetByIdAsync(int id, bool incluDeleted = false)
         {
-            var payment = await _dataContext.PaymentTypes.Include(x => x.Store).FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == incluDeleted);
+            var payment = await _dataContext.PaymentTypes.FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == incluDeleted);
             if (payment == null)
             {
                 throw new KeyNotFoundException("Không tìm thấy thể loại thanh toán");
@@ -91,7 +91,7 @@ namespace StoreManagement.Infrastructure.Repositories
 
         public async Task<List<PaymentType>> GetByNameAsync(int idStore, string name, bool incluDeleted = false)
         {
-            var Listpayment = await _dataContext.PaymentTypes.Include(x => x.Store).Where(x => x.Name.Contains(name) &&x.IsDeleted == incluDeleted && x.IdStore == idStore).ToListAsync();
+            var Listpayment = await _dataContext.PaymentTypes.Where(x => x.Name.Contains(name) &&x.IsDeleted == incluDeleted && x.IdStore == idStore).ToListAsync();
             if(Listpayment.Count == 0)
             {
                 throw new NullReferenceException("Thể loại thanh toán không tồn tại");

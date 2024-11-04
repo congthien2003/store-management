@@ -1,7 +1,2 @@
 @import "../shared/variable.scss";
-
-.admin {
-	&-sidebar {
-		background-color: grey;
-	}
-}
+@import "../shared/layout.scss";

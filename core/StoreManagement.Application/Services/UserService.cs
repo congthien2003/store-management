@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Win32;
 using StoreManagement.Application.Common;
 using StoreManagement.Application.DTOs.Auth;
 using StoreManagement.Application.DTOs.Request;
@@ -11,8 +12,8 @@ namespace StoreManagement.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository<User> _userRepository;
-        private readonly IJwtManager _jwtManager;
         private readonly IMapper mapper;
+        private readonly IJwtManager _jwtManager;
 
         public UserService(
                            IUserRepository<User> userRepository,
@@ -21,7 +22,7 @@ namespace StoreManagement.Services
         {
             _userRepository = userRepository;
             this.mapper = mapper;
-            _jwtManager = jwtManager;
+            this._jwtManager = jwtManager;
         }
 
         public async Task<bool> Delete(int id)
@@ -57,8 +58,8 @@ namespace StoreManagement.Services
 
         public async Task<UserDTO> Register(RegisterDTO registerDTO)
         {
-           registerDTO.Password = _jwtManager.getHashpassword(registerDTO.Password);
-           var newUser = mapper.Map<User>(registerDTO);
+            registerDTO.Password = _jwtManager.getHashpassword(registerDTO.Password);
+            var newUser = mapper.Map<User>(registerDTO);
            await _userRepository.CreateUser(newUser);
            return mapper.Map<UserDTO>(newUser);
         }
@@ -75,18 +76,13 @@ namespace StoreManagement.Services
             int _pageSize = int.Parse(pageSize);
             bool _asc = bool.Parse(asc);
 
-            var totalRecords = await _userRepository.CountAsync(searchTerm);
-            var list = await _userRepository.GetAll(_currentPage, _pageSize, searchTerm, sortColumn, _asc);
+            var list = await _userRepository.GetAll();
             var count = list.Count();
 
-            var listUser = mapper.Map<List<UserDTO>>(list);
-            return PaginationResult<List<UserDTO>>.Create(listUser, _currentPage, _pageSize, totalRecords);
-        }
+            list = list.Skip(_currentPage * _pageSize - _pageSize).Take(_pageSize).ToList();
 
-        public async Task<UserDTO?> GetByGuid(Guid guid, bool includeDeleted = false)
-        {
-            var user = await _userRepository.GetByGuid(guid, includeDeleted);
-            return mapper.Map<UserDTO>(user) ?? null;
+            var listUser = mapper.Map<List<UserDTO>>(list);
+            return PaginationResult<List<UserDTO>>.Create(listUser, _currentPage, _pageSize, count);
         }
     }
 }

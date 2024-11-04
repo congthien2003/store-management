@@ -11,10 +11,9 @@ namespace StoreManagement.Application.DTOs.Response
     {
         public int Id { get; set; }
         public double Total { get; set; }
-        public string NameUser { get; set; }
-        public string PhoneUser { get; set; }
-        public bool Status { get; set; }
         public DateTime CreatedAt { get; set; }
-        public TableDTO TableDTO { get; set; }
+        public TableDTO Table { get; set; }
+        public int IdStore { get; set; }
+        public bool Status { get; set; }
     }
 }

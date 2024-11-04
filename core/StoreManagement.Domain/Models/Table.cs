@@ -5,7 +5,7 @@ namespace StoreManagement.Domain.Models
 {
     public class Table : DeleteableEntity
     {
-        public Guid Guid { get; set; } = Guid.NewGuid();
+        public string Name { get; set; }
         public bool Status { get; set; }
         public int IdStore { get; set; }
         [ForeignKey("IdStore")]

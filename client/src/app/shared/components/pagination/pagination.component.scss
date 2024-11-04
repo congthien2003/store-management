@@ -1,4 +1,5 @@
 @import "../../variable.scss";
+$mobile-breakpoint: 992px;
 
 .table-pagination {
 	display: flex;
@@ -47,15 +48,20 @@
 		transition: 0.25s ease-in;
 		background-color: transparent;
 		&:hover {
-			background-color: hsl(0, 0%, 60%);
+			background-color: $primary;
 			color: white;
 			border-radius: 8px;
+		}
+
+		@media (max-width: $mobile-breakpoint) {
+			font-size: 14px;
+			padding: 4px 8px;
 		}
 	}
 }
 
 .item-actions {
-	background-color: grey;
+	background-color: $primary;
 	color: white;
 	width: 50px;
 	padding: 8px 16px;
@@ -63,10 +69,16 @@
 	border-radius: 8px;
 	text-align: center;
 	font-size: 20px;
+
+	@media (max-width: $mobile-breakpoint) {
+		font-size: 10px;
+		padding: 4px 8px;
+		width: 30px;
+	}
 }
 
 .page__active {
-	background-color: grey;
+	background-color: $primary;
 	color: white;
 	border-radius: 8px;
 }

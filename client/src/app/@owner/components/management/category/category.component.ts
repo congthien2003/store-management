@@ -1,24 +1,24 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { PaginationComponent } from "src/app/shared/components/pagination/pagination.component";
-import { Pagination } from "src/app/core/models/common/Pagination";
-import { ModalDeleteComponent } from "src/app/shared/components/modal-delete/modal-delete.component";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { ToastrService } from "ngx-toastr";
-import { CategoryService } from "src/app/core/services/store/category.service";
-import { debounce, debounceTime, distinctUntilChanged, Subject } from "rxjs";
-import { FormAddComponent } from "./form-add/form-add.component";
-import { MatRadioModule } from "@angular/material/radio";
+import { Subject, debounceTime, distinctUntilChanged } from "rxjs";
+import { Pagination } from "src/app/core/models/interfaces/Common/Pagination";
+import { ModalDeleteComponent } from "src/app/shared/components/modal-delete/modal-delete.component";
+import { FormsModule } from "@angular/forms";
+import { PaginationComponent } from "src/app/shared/components/pagination/pagination.component";
+import { SpinnerComponent } from "src/app/shared/components/spinner/spinner.component";
+
 import { MatButtonModule } from "@angular/material/button";
+import { MatRadioModule } from "@angular/material/radio";
 import { MatTableModule } from "@angular/material/table";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { NzButtonModule } from "ng-zorro-antd/button";
-import { TablePagiComponent } from "src/app/shared/components/table-pagi/table-pagi.component";
-import { FormEditComponent } from "./form-edit/form-edit.component";
-import { SpinnerComponent } from "src/app/shared/components/spinner/spinner.component";
-import { RolePipe } from "src/app/core/utils/role.pipe";
-import { FormsModule } from "@angular/forms";
+import { CategoryService } from "src/app/core/services/store/category.service";
 import { Category } from "src/app/core/models/interfaces/Category";
+import { FormAddComponent } from "./form-add/form-add.component";
+import { FormEditComponent } from "./form-edit/form-edit.component";
+import { LoaderService } from "src/app/core/services/loader.service";
 import { Store } from "src/app/core/models/interfaces/Store";
 
 const MatImport = [
@@ -33,21 +33,19 @@ const MatImport = [
 @Component({
 	selector: "app-category",
 	standalone: true,
-	templateUrl: "./category.component.html",
-	styleUrls: ["./category.component.scss"],
 	imports: [
 		CommonModule,
 		MatImport,
 		PaginationComponent,
-		TablePagiComponent,
 		FormEditComponent,
 		FormAddComponent,
 		SpinnerComponent,
-		RolePipe,
 		FormsModule,
 	],
+	templateUrl: "./category.component.html",
+	styleUrls: ["./category.component.scss"],
 })
-export class CategoryComponent implements OnInit {
+export class CategoryComponent {
 	config = {
 		displayedColumns: [
 			{
@@ -56,7 +54,7 @@ export class CategoryComponent implements OnInit {
 			},
 			{
 				prop: "name",
-				display: "Tên thể loại",
+				display: "Tên",
 			},
 		],
 		hasAction: true,
@@ -65,38 +63,41 @@ export class CategoryComponent implements OnInit {
 		totalPage: 0,
 		totalRecords: 0,
 		currentPage: 1,
-		pageSize: 5,
+		pageSize: 15,
 		hasNextPage: false,
 		hasPrevPage: false,
 	};
 	searchTerm: string = "";
-	listCategory!: Category[];
+	listCategory: Category[] = [];
 	store!: Store;
-
 	private searchSubject = new Subject<string>();
 	constructor(
 		public dialog: MatDialog,
 		private toastr: ToastrService,
-		private categoryService: CategoryService
+		private categoryService: CategoryService,
+		private loader: LoaderService
 	) {
 		this.searchSubject
-			.pipe(debounceTime(1500), distinctUntilChanged())
+			.pipe(
+				debounceTime(1500), // Đợi 1.5 giây sau khi người dùng ngừng nhập
+				distinctUntilChanged() // Chỉ phát khi giá trị khác với giá trị trước đó
+			)
 			.subscribe((searchTerm) => {
 				this.search(searchTerm);
 			});
 	}
 	ngOnInit(): void {
+		this.store = JSON.parse(
+			sessionStorage.getItem("storeInfo") ?? ""
+		) as Store;
 		this.loadListCategory();
 	}
 
 	loadListCategory(): void {
-		this.store = JSON.parse(sessionStorage.getItem("storeInfo") ?? "");
 		this.categoryService
 			.list(this.store.id, this.pagi, this.searchTerm)
 			.subscribe({
 				next: (res) => {
-					console.log(res.data);
-
 					this.listCategory = res.data.list;
 					this.pagi = res.data.pagination;
 				},
@@ -107,12 +108,15 @@ export class CategoryComponent implements OnInit {
 	}
 
 	onChangePage(currentPage: any): void {
+		console.log(currentPage);
 		this.pagi.currentPage = currentPage;
-		this.loadListCategory();
 	}
+
 	openAddDialog(): void {
 		const dialogRef = this.dialog.open(FormAddComponent, {
-			data: { idStore: this.store.id },
+			data: {
+				idStore: this.store.id,
+			},
 		});
 		dialogRef.afterClosed().subscribe((result) => {
 			if (result) {
@@ -120,6 +124,7 @@ export class CategoryComponent implements OnInit {
 			}
 		});
 	}
+
 	openEditDialog(id: number): void {
 		const dialogRef = this.dialog.open(FormEditComponent, {
 			data: { id: id },
@@ -130,18 +135,20 @@ export class CategoryComponent implements OnInit {
 			}
 		});
 	}
+
 	openDeleteDialog(id: number): void {
 		const dialogRef = this.dialog.open(ModalDeleteComponent, {
 			data: { id: id },
 		});
 		dialogRef.afterClosed().subscribe((result) => {
 			if (result === true) {
-				this.handDelete(id);
+				this.handleDelete(id);
 			}
 		});
 	}
-	handDelete(id: number): void {
-		this.categoryService.delete(id).subscribe({
+
+	handleDelete(id: number): void {
+		this.categoryService.deleteById(id).subscribe({
 			next: (res) => {
 				if (res.isSuccess) {
 					this.toastr.success(res.message, "Xóa thành công", {
@@ -161,6 +168,7 @@ export class CategoryComponent implements OnInit {
 			},
 		});
 	}
+
 	onSearchTerm(): void {
 		this.searchSubject.next(this.searchTerm);
 	}

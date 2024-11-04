@@ -1,17 +1,11 @@
 <div class="management--wrapper">
 	<div class="management--header">
 		<div class="management--search">
-			<button mat-raised-button  class="btn-search" aria-label="Search">
-				<i class="fa-solid fa-search"></i> 
-			</button>
-			<input aria-label="Search Store" type="text" class="form-control"
-			[(ngModel)]="searchTerm"
-			(ngModelChange)="onSearchTerm()" />
-			
+			<input aria-label="Search User" type="text" class="form-control" />
 		</div>
 		<div class="management--action">
 			<button mat-raised-button (click)="openAddDialog()">
-				Thêm mới cửa hàng
+				Thêm mới người dùng
 			</button>
 		</div>
 		<!-- <div class="management--filter">
@@ -37,12 +31,11 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr *ngFor="let item of listStore" >
+					<tr *ngFor="let item of listUser">
 						<th scope="row">{{ item.id }}</th>
-						<td>{{ item.name }}</td>
-						<td>{{ item.address }}</td>
-						<td>{{ item.phone }}</td>
-						<td>{{ item.User.username || '-' }}</td>
+						<td>{{ item.username }}</td>
+						<td>{{ item.email }}</td>
+						<td>{{ item.phones }}</td>
 						<td class="table-actions">
 							<button
 								mat-raised-button

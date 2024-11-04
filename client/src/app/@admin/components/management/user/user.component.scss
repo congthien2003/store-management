@@ -1,46 +1,11 @@
 @import "../../../../shared/variable.scss";
+@import "../../../../shared/layout.scss";
 
-.management--search {
-    display: flex; 
-    align-items: center; 
-
-    .btn-search {
-        background-color: grey; 
-        color: #fff; 
-        border: none; 
-        padding: 8px 12px; 
-        border-radius: 4px;
-        cursor: pointer; 
-        transition: background-color 0.3s; 
-
-        &:hover {
-            background-color: darken(grey, 10%); 
-        }
-    }
-
-    input {
-        flex: 1; 
-        margin-left: 8px; 
-        padding: 8px; 
-        border: 1px solid #ccc; 
-        border-radius: 4px; 
-        transition: border-color 0.3s; 
-        
-       
-    }
-}
-.management--action{
-	button{
-		background-color: grey;
-	}
-}
 .management--table {
-	.table{
-		thead {
-			th {
-				background-color: grey;
-				color: #ececec;
-			}
+	thead {
+		th {
+			background-color: $primary-medium;
+			color: #ececec;
 		}
 	}
 }

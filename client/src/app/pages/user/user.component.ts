@@ -51,10 +51,12 @@ export class UserComponent {
 		private router: Router
 	) {
 		var token = this.auth.getInfoToken();
-		var data = Object.values(token);
-		this.id = data[0];
-		this.initUserForm();
-		this.loadUser();
+		if (token != null) {
+			var data = Object.values(token);
+			this.id = data[0];
+			this.initUserForm();
+			this.loadUser();
+		}
 	}
 
 	initUserForm() {

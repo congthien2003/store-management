@@ -10,7 +10,6 @@ namespace StoreManagement.Application.Interfaces.IServices
         Task<UserDTO> Login(LoginDTO loginDTO);
         Task<UserDTO> Register(RegisterDTO registerDTO);
         Task<UserDTO?> GetById(int id, bool includeDeleted = false);
-        Task<UserDTO?> GetByGuid(Guid guid, bool includeDeleted = false);
         Task<PaginationResult<List<UserDTO>>> GetAll(string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortColumn = "", string asc = "true");
 
         Task<UserDTO> GetByEmail(string email, bool includeDeleted = false);

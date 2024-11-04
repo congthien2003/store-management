@@ -1,4 +1,4 @@
-<!-- <app-spinner></app-spinner> -->
+<app-spinner></app-spinner>
 <div class="order--wrapper" *ngIf="!deninedOrder">
 	<h1 class="store-name" *ngIf="this.store != undefined">{{ store.name }}</h1>
 
@@ -84,7 +84,9 @@
 									mat-raised-button
 									color="primary"
 									class="btn-sm">
-									Add
+									<i
+										class="fa fa-cart-plus"
+										aria-hidden="true"></i>
 								</button>
 							</div>
 						</div>

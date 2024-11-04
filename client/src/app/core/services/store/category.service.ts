@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { Pagination } from "../../models/common/Pagination";
 import { CategoryApi } from "../../constant/api/category.api";
-import { ApiResponse } from "../../models/common/ApiResponse";
 import { HttpParams } from "@angular/common/http";
+import { Observable } from "rxjs";
+import { ApiResponse } from "../../models/interfaces/Common/ApiResponse";
+import { Pagination } from "../../models/interfaces/Common/Pagination";
 import { MasterService } from "../master/master.service";
 
 @Injectable({
@@ -21,30 +21,34 @@ export class CategoryService {
 		ascSort: boolean = true
 	): Observable<ApiResponse> {
 		const params = new HttpParams()
+			.set("idStore", idStore)
 			.set("currentPage", pagi.currentPage)
 			.set("pageSize", pagi.pageSize)
 			.set("searchTerm", searchTerm)
 			.set("sortColumn", sortColumn)
 			.set("ascSrot", ascSort);
-		return this.service.get(`${this.endpoint.getAll}/${idStore}`, {
-			params,
-		});
+		return this.service.get(this.endpoint.getByIdStore, { params });
 	}
 
-	getById(id: number): Observable<ApiResponse> {
-		return this.service.get(`${this.endpoint.getById}/${id}`);
-	}
-	create(catgory: any): Observable<ApiResponse> {
-		return this.service.post(`${this.endpoint.create}`, catgory);
-	}
-	update(category: any, id: number): Observable<ApiResponse> {
-		return this.service.put(`${this.endpoint.update}/${id}`, category);
-	}
-	delete(id: number): Observable<ApiResponse> {
-		return this.service.delete(`${this.endpoint.delete}/${id}`);
-	}
 	getAllByIdStore(idStore: number): Observable<ApiResponse> {
 		const params = new HttpParams().set("idStore", idStore);
 		return this.service.get(this.endpoint.getAllByIdStore, { params });
+	}
+
+	getById(id: number): Observable<ApiResponse> {
+		return this.service.get(`${this.endpoint.getById}/${id} `);
+	}
+
+	create(user: any): Observable<ApiResponse> {
+		return this.service.post(`${this.endpoint.create}`, user);
+	}
+
+	update(id: number, user: any): Observable<ApiResponse> {
+		return this.service.put(`${this.endpoint.update}/${id}`, user);
+	}
+
+	deleteById(id: number): Observable<ApiResponse> {
+		const params = new HttpParams().set("id", id);
+		return this.service.delete(`${this.endpoint.delete}/` + id);
 	}
 }

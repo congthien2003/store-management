@@ -11,18 +11,22 @@ import {
 } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { ToastrService } from "ngx-toastr";
+import { User } from "src/app/core/models/interfaces/User";
+import { UserService } from "src/app/core/services/user/user.service";
 import { MatButtonModule } from "@angular/material/button";
+
+import { CategoryService } from "src/app/core/services/store/category.service";
+
+// Import NZ
 import { NzFormModule } from "ng-zorro-antd/form";
 import { NzSelectModule } from "ng-zorro-antd/select";
-import { FoodService } from "src/app/core/services/store/food.service";
-import { CategoryService } from "src/app/core/services/store/category.service";
-import { Pagination } from "src/app/core/models/common/Pagination";
 import { Category } from "src/app/core/models/interfaces/Category";
-import { FirebaseService } from "src/app/core/services/api-third/firebase.service";
-import { Store } from "src/app/core/models/interfaces/Store";
+import { FoodService } from "src/app/core/services/store/food.service";
+import { FirebaseService } from "src/app/core/services/firebase.service";
 const NzModule = [NzFormModule, NzSelectModule];
+
 @Component({
-	selector: "app-form-add",
+	selector: "form-add-food",
 	standalone: true,
 	imports: [
 		CommonModule,
@@ -35,124 +39,81 @@ const NzModule = [NzFormModule, NzSelectModule];
 	styleUrls: ["./form-add.component.scss"],
 })
 export class FormAddComponent {
+	listCategory!: Category[];
+	selectedCategoryId: string = "";
 	validateForm!: FormGroup;
-	selectedValue: number = 0;
-	store!: Store;
-	searchTerm: string = "";
-	listCategory!: any[];
-	selectedCategory!: number;
-	selectedFile: File | null = null;
-	pagi: Pagination = {
-		totalPage: 0,
-		totalRecords: 0,
-		currentPage: 1,
-		pageSize: 15,
-		hasNextPage: false,
-		hasPrevPage: false,
-	};
-
 	constructor(
+		// contructor dialog
 		public dialogRef: MatDialogRef<FormAddComponent>,
+		@Inject(MAT_DIALOG_DATA) public data: { idStore: number },
+
 		private fb: NonNullableFormBuilder,
-		private FoodService: FoodService,
-		private toast: ToastrService,
-		private categoryService: CategoryService,
-		private firebaseService: FirebaseService
+		private categoryServices: CategoryService,
+		private foodService: FoodService,
+		private firebaseService: FirebaseService,
+		private toastr: ToastrService
 	) {
 		this.validateForm = this.fb.group({
 			id: [0],
-			name: ["", [Validators.required, Validators.minLength(4)]],
-			price: [null, [Validators.required, Validators.min(0)]],
-			quantity: [null, [Validators.required, Validators.min(1)]],
-			status: [
-				null,
-				[Validators.required, Validators.pattern("true|false")],
-			],
-			idCategory: [null, [Validators.required]],
-			imageUrl: [null],
+			name: ["", [Validators.required]],
+			price: [0, [Validators.required]],
+			idCategory: [0, [Validators.required]],
+			status: [Boolean],
+		});
+
+		this.categoryServices.getAllByIdStore(this.data.idStore).subscribe({
+			next: (res) => {
+				this.listCategory = res.data;
+				console.log(res);
+			},
 		});
 	}
-	ngOnInit(): void {
-		this.listCategories();
-	}
-
-	imagePreview: string | ArrayBuffer | null = null;
-	onFileSelected(event: any): void {
-		const fileInput = event.target as HTMLInputElement;
-		if (fileInput.files && fileInput.files[0]) {
-			const file = fileInput.files[0];
-			const reader = new FileReader();
-			reader.onload = () => {
-				this.imagePreview = reader.result;
-			};
-			reader.readAsDataURL(file);
-		}
+	fileImage!: File;
+	handleChange($event: any): void {
+		// imageUrl
+		this.fileImage = $event.target.files[0];
 	}
 
 	onNoClick(): void {
 		this.dialogRef.close(false);
 	}
-	async onSubmit(): Promise<void> {
-		const data = { ...this.validateForm.value };
 
-		const uploadImage = this.selectedFile
-			? await this.firebaseService.saveFile(
-					`foods/${this.selectedFile.name}`,
-					this.selectedFile
-			  )
-			: null;
+	onSubmit(): void {
+		console.log(this.fileImage);
+		if (this.fileImage) {
+			this.firebaseService.uploadFileImage(this.fileImage).subscribe(
+				(imageUrl: string) => {
+					this.onCreateFood(imageUrl);
+				},
+				(error) => {
+					console.error("Lỗi upload file:", error);
+				}
+			);
+		}
+	}
 
-		const payload = {
-			...data,
-			status: data.status === "true",
-			price: Number(data.price),
-			quantity: Number(data.quantity),
-			idCategory: Number(data.idCategory),
-			imageUrl: uploadImage,
-		};
-
-		this.FoodService.create(payload).subscribe({
+	onCreateFood(imageUrl: string) {
+		const data = { ...this.validateForm.value, imageUrl };
+		this.foodService.create(data).subscribe({
 			next: (res) => {
 				if (res.isSuccess) {
-					this.toast.success(res.message, "Thành công", {
+					this.toastr.success(res.message, "Thành công", {
 						timeOut: 3000,
 					});
-					this.dialogRef.close(true);
+					this.dialogRef.close(res.data);
 				} else {
-					this.toast.error(res.message, "Thất bại", {
+					this.toastr.error(res.message, "Thất bại", {
 						timeOut: 3000,
 					});
-					this.dialogRef.close(false);
+					this.dialogRef.close(null);
 				}
 			},
 			error: (err) => {
-				this.toast.error(err.message, "Thất bại", {
+				this.toastr.error(err.error.message, "Thất bại", {
 					timeOut: 3000,
 				});
-				this.dialogRef.close(false);
+				this.dialogRef.close(null);
 			},
 		});
-	}
-
-	onCategoryChange(categoryId: number): void {
-		this.selectedCategory = categoryId;
-		this.validateForm.patchValue({
-			idCategory: categoryId,
-		});
-	}
-
-	listCategories(): void {
-		this.store = JSON.parse(sessionStorage.getItem("storeInfo") ?? "");
-		this.categoryService
-			.list(this.store.id, this.pagi, this.searchTerm)
-			.subscribe({
-				next: (res) => {
-					this.listCategory = res.data.list;
-					this.pagi = res.data.pagination;
-				},
-				error: (err) => {
-					console.log(err);
-				},
-			});
 	}
 }

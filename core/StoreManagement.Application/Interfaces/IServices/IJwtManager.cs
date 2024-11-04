@@ -7,6 +7,7 @@ namespace StoreManagement.Application.Interfaces.IServices
     {
         string CreateToken(UserDTO user);
         string getHashpassword(string password);
+
         ClaimsPrincipal ValidateToken(string token);
     }
 }
