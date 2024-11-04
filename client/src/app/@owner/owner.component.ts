@@ -1,16 +1,20 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
 
 import { MatButtonModule } from "@angular/material/button";
 import { MatCommonModule } from "@angular/material/core";
 import { MatMenuModule } from "@angular/material/menu";
 import { Router, RouterOutlet } from "@angular/router";
-import { StoreService } from "../core/services/store/store.service";
-import { AuthenticationService } from "../core/services/auth/authentication.service";
-import { QrService } from "../core/services/api-third/qr.service";
-import { Store } from "../core/models/interfaces/Store";
-import { ToastrService } from "ngx-toastr";
 import { NotfoundStoreComponent } from "./components/notfound-store/notfound-store.component";
+import { AuthenticationService } from "../core/services/auth/authentication.service";
+import { UserService } from "../core/services/user/user.service";
+import { StoreService } from "../core/services/store/store.service";
+import { ToastrService } from "ngx-toastr";
+import { SpinnerComponent } from "../shared/components/spinner/spinner.component";
+import { HubService } from "../core/services/hubStore.service";
+import { Store } from "../core/models/interfaces/Store";
+import { OrderAccessToken } from "../core/models/interfaces/OrderAccessToken";
+import { Subscription } from "rxjs";
 const MatModuleImport = [MatButtonModule, MatCommonModule, MatMenuModule];
 
 @Component({
@@ -21,38 +25,51 @@ const MatModuleImport = [MatButtonModule, MatCommonModule, MatMenuModule];
 		MatModuleImport,
 		RouterOutlet,
 		NotfoundStoreComponent,
+		SpinnerComponent,
 	],
 	templateUrl: "./owner.component.html",
 	styleUrls: ["./owner.component.scss"],
 })
-export class OwnerComponent implements OnInit {
+export class OwnerComponent implements OnInit, OnDestroy {
 	currentURL: string = "dashboard";
 	activeIndex: number = 0;
-	id!: number;
-	idUser!: number;
-	idStore!: number;
-	nameStore!: string;
+	idUser: number = 0;
+
 	haveStore: boolean = false;
 	store!: Store;
-
+	private subscription: Subscription | undefined;
 	constructor(
 		private router: Router,
-		private storeService: StoreService,
 		private authService: AuthenticationService,
-		private qrService: QrService,
-		private toastr: ToastrService
+		private userService: UserService,
+		private storeService: StoreService,
+		private toastr: ToastrService,
+		private hub: HubService
 	) {
 		const savedIndex = sessionStorage.getItem("selectedNavIndex");
 		if (savedIndex !== null) {
 			this.activeIndex = parseInt(savedIndex, 10);
-			this.swithRoute(this.activeIndex);
 		}
-		console.log(qrService.getQR("MB", "3000017112003", 5000));
+		setTimeout(() => {
+			this.hub.startConnectionStoreByTable(
+				"3d487deb-e1d1-489f-a266-c72fa02b1dc2"
+			);
+		}, 1000);
+
+		this.hub.onReloadData((message) => {
+			console.log(message);
+		});
 	}
 
 	ngOnInit(): void {
 		this.idUser = this.authService.getIdFromToken();
 		this.loadStore();
+	}
+
+	ngOnDestroy(): void {
+		if (this.subscription) {
+			this.subscription.unsubscribe();
+		}
 	}
 
 	loadStore(): void {
@@ -84,6 +101,7 @@ export class OwnerComponent implements OnInit {
 
 	swithRoute(index: number) {
 		this.activeIndex = index;
+		this.statusNavbar = false;
 		sessionStorage.setItem("selectedNavIndex", index.toString());
 		switch (index) {
 			case 0: {
@@ -95,15 +113,15 @@ export class OwnerComponent implements OnInit {
 				break;
 			}
 			case 2: {
-				this.router.navigate(["/owner/category"]);
+				this.router.navigate(["/owner/table"]);
 				break;
 			}
 			case 3: {
-				this.router.navigate(["/owner/food"]);
+				this.router.navigate(["/owner/category"]);
 				break;
 			}
 			case 4: {
-				this.router.navigate(["/owner/table"]);
+				this.router.navigate(["/owner/food"]);
 				break;
 			}
 			case 5: {
@@ -122,12 +140,12 @@ export class OwnerComponent implements OnInit {
 				this.router.navigate(["/owner/analytics"]);
 				break;
 			}
-			case 9: {
-				this.authService.logout();
-				this.router.navigate(["/auth/login"]);
-				break;
-			}
 		}
+	}
+
+	statusNavbar: boolean = false;
+	openNavbar(): void {
+		this.statusNavbar = !this.statusNavbar;
 	}
 
 	bindActiveMenu(url: string) {
@@ -149,5 +167,10 @@ export class OwnerComponent implements OnInit {
 				break;
 			}
 		}
+	}
+
+	logOut(): void {
+		this.router.navigate(["/auth/login"]);
+		localStorage.clear();
 	}
 }

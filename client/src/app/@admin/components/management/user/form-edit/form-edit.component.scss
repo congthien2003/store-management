@@ -2,10 +2,7 @@
 
 .modal-footer {
 	button:nth-child(1) {
-		background-color: grey;
+		background-color: $primary-dark;
 		color: white;
 	}
-}
-.modal-header{
-	background-color: grey;
 }

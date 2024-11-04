@@ -10,13 +10,11 @@ import { StaffComponent } from "./components/management/staff/staff.component";
 import { AnalyticsComponent } from "./components/management/analytics/analytics.component";
 import { OwnerDashboardComponent } from "./components/owner-dashboard/owner-dashboard.component";
 import { TableComponent } from "./components/management/table/table.component";
-import { ownerGuard } from "../@auth/guards/owner.guard";
 
 const routes: Routes = [
 	{
 		path: "",
 		component: OwnerComponent,
-		canActivate: [ownerGuard],
 		children: [
 			{
 				path: "dashboard",
@@ -27,16 +25,16 @@ const routes: Routes = [
 				component: MyStoreComponent,
 			},
 			{
+				path: "table",
+				component: TableComponent,
+			},
+			{
 				path: "category",
 				component: CategoryComponent,
 			},
 			{
 				path: "food",
 				component: FoodComponent,
-			},
-			{
-				path: "table",
-				component: TableComponent,
 			},
 			{
 				path: "order",

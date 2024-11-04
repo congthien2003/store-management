@@ -1,8 +1,8 @@
 import { HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { ApiResponse } from "../../models/common/ApiResponse";
-import { Pagination } from "../../models/common/Pagination";
+import { ApiResponse } from "../../models/interfaces/Common/ApiResponse";
+import { Pagination } from "../../models/interfaces/Common/Pagination";
 import { MasterService } from "../master/master.service";
 import { OrderDetailApi } from "../../constant/api/orderDetail.api";
 import { OrderDetail } from "../../models/interfaces/OrderDetail";

@@ -65,7 +65,7 @@ namespace StoreManagement.Services
         public string getHashpassword(string password)
         {
             byte[] bytes = Encoding.Unicode.GetBytes(password);
-            var hashstring = new SHA256Managed();
+            SHA256Managed hashstring = new SHA256Managed();
             byte[] hash = hashstring.ComputeHash(bytes);
             string hashString = string.Empty;
             foreach (byte x in hash)
@@ -74,6 +74,7 @@ namespace StoreManagement.Services
             }
             return hashString;
         }
+
         public ClaimsPrincipal ValidateToken(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -89,12 +90,12 @@ namespace StoreManagement.Services
                     ValidateAudience = true,
                     ValidIssuer = _configuration.GetSection("JwtSettings:Issuer").Value,
                     ValidAudience = _configuration.GetSection("JwtSettings:Audience").Value,
-                    ClockSkew = TimeSpan.Zero 
+                    ClockSkew = TimeSpan.Zero
                 };
 
                 var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out SecurityToken validatedToken);
 
-                return principal; 
+                return principal;
             }
             catch (SecurityTokenException)
             {
@@ -106,6 +107,5 @@ namespace StoreManagement.Services
                 return null;
             }
         }
-
     }
 }

@@ -9,7 +9,6 @@ namespace StoreManagement.Application.DTOs.Response
 {
     public class TableResponse
     {
-        public Guid Guid { get; set; }
         public int Id { get; set; }
         public bool Status { get; set; }
         public StoreDTO StoreDTO { get; set; }

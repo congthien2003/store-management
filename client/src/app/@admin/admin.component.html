@@ -1,84 +1,54 @@
 <div class="layout-common">
 	<div class="row g-0">
-		<div class="col-2">
-			<div
-				class="navbar-nav admin-sidebar layout-common-sidebar sidebar sidebar-dark accordion"
-				id="accordionSidebar">
+		<div class="col-lg-2 col-0">
+			<div class="owner-sidebar admin-sidebar layout-common-sidebar">
 				<!-- Sidebar - Brand -->
-				<a
-					class="sidebar-brand d-flex align-items-center justify-content-center"
-					href="/pages">
-					<div class="sidebar-brand-icon rotate-n-15">
-						<i class="fa-solid fa-hippo"></i>
-					</div>
-					<div class="sidebar-brand-text mx-3">
-						Admin <sup>2</sup>
-					</div>
-				</a>
-
-				<!-- Divider -->
-				<hr class="sidebar-divider my-0" />
-
-				<!-- Nav Item - Dashboard -->
-				<li
-					class="nav-item"
-					[class.active]="0 == activeIndex"
-					(click)="swithRoute(0)">
-					<button class="nav-link">
-						<i class="fas fa-fw fa-tachometer-alt"></i>
-						<span>Dashboard</span>
-					</button>
-				</li>
+				<div class="sidebar-brand-text">Admin</div>
 
 				<!-- Divider -->
 				<hr class="sidebar-divider" />
 
 				<!-- Heading -->
-				<div class="sidebar-heading">Management</div>
+				<div class="sidebar-heading">Quản lý</div>
 
-				<!-- Nav Item - Pages Collapse Menu -->
-				<li
-					class="nav-item"
-					[class.active]="1 == activeIndex"
-					(click)="swithRoute(1)">
-					<button class="nav-link">
-						<i class="fa-solid fa-user"></i>
-						<span>User</span>
-					</button>
-				</li>
-				<li
-					class="nav-item"
-					[class.active]="2 == activeIndex"
-					(click)="swithRoute(2)">
-					<button class="nav-link">
-						<i class="fa-solid fa-store"></i>
-						<span>Store</span>
-					</button>
-				</li>
-				<li class="nav-item dropdown mt-auto">
+				<ul class="sidebar-nav">
+					<li
+						class="nav-item"
+						[class.active]="1 == activeIndex"
+						(click)="swithRoute(1)">
+						<button class="nav-link">
+							<i class="fa-solid fa-circle-info"></i>
+							<span>Người dùng</span>
+						</button>
+					</li>
+					<li
+						class="nav-item"
+						[class.active]="2 == activeIndex"
+						(click)="swithRoute(2)">
+						<button class="nav-link">
+							<i class="fa-solid fa-list"></i>
+							<span>Cửa hàng</span>
+						</button>
+					</li>
+				</ul>
+				<!-- Divider -->
+				<hr class="sidebar-divider" />
+				<div
+					class="logout d-flex align-items-center justify-content-center mt-auto px-2 py-2">
 					<button
-						class="nav-link dropdown-toggle"
-						id="dropdownMenuLink"
-						data-bs-toggle="dropdown"
-						aria-expanded="false">
-						<i class="fa-solid fa-cog"></i>
-						<span>Cài đặt</span>
+						(click)="logOut()"
+						mat-stroked-button
+						class="w-75 logout-button bg-white">
+						Đăng xuất
 					</button>
-					<ul
-						class="dropdown-menu"
-						aria-labelledby="dropdownMenuLink">
-						<li>
-							<a class="dropdown-item" (click)="logOut()">
-								<span class="text-dropdown">Đăng xuất</span>
-							</a>
-						</li>
-					</ul>
-				</li>
+				</div>
 			</div>
 		</div>
-		<div class="col-10">
-			<div class="admin-content layout-common-content">
-				<router-outlet></router-outlet>
+		<div class="col-lg-10 col-12">
+			<div class="container">
+				<div class="owner-content layout-common-content">
+					<router-outlet></router-outlet>
+				</div>
 			</div>
 		</div>
 	</div>

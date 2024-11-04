@@ -1,6 +1,6 @@
 export interface OrderDetail {
+	quantity: number;
 	idOrder: number;
 	idFood: number;
-	quantity: number;
 	statusProcess: number;
 }

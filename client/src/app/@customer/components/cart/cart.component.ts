@@ -15,7 +15,7 @@ import { CartItem } from "src/app/core/models/interfaces/CartItem";
 import { FoodService } from "src/app/core/services/store/food.service";
 import { map } from "rxjs";
 import { PricePipe } from "src/app/core/utils/price.pipe";
-import { OrderDetailResponse } from "src/app/core/models/responses/OrderDetailResponse";
+import { OrderDetailResponse } from "src/app/core/models/interfaces/Response/OrderDetailResponse";
 const MatImport = [MatButtonModule];
 
 @Component({

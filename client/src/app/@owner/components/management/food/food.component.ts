@@ -1,26 +1,31 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { Pagination } from "src/app/core/models/common/Pagination";
-import { MatDialog } from "@angular/material/dialog";
+import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { ToastrService } from "ngx-toastr";
-import { FormAddComponent } from "./form-add/form-add.component";
-import { FoodService } from "src/app/core/services/store/food.service";
-import { debounce, debounceTime, distinctUntilChanged, Subject } from "rxjs";
-import { FormEditComponent } from "./form-edit/form-edit.component";
+import { Subject, debounceTime, distinctUntilChanged } from "rxjs";
+import { Pagination } from "src/app/core/models/interfaces/Common/Pagination";
 import { ModalDeleteComponent } from "src/app/shared/components/modal-delete/modal-delete.component";
-import { MatRadioModule } from "@angular/material/radio";
+import { FormsModule } from "@angular/forms";
+import { PaginationComponent } from "src/app/shared/components/pagination/pagination.component";
+import { SpinnerComponent } from "src/app/shared/components/spinner/spinner.component";
+
 import { MatButtonModule } from "@angular/material/button";
+import { MatRadioModule } from "@angular/material/radio";
 import { MatTableModule } from "@angular/material/table";
-import { MatDialogModule } from "@angular/material/dialog";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { NzButtonModule } from "ng-zorro-antd/button";
-import { PaginationComponent } from "src/app/shared/components/pagination/pagination.component";
-import { TablePagiComponent } from "src/app/shared/components/table-pagi/table-pagi.component";
-import { SpinnerComponent } from "src/app/shared/components/spinner/spinner.component";
-import { RolePipe } from "src/app/core/utils/role.pipe";
-import { FormsModule } from "@angular/forms";
+import { LoaderService } from "src/app/core/services/loader.service";
+import { Food } from "src/app/core/models/interfaces/Food";
+import { FoodService } from "src/app/core/services/store/food.service";
+import { CategoryPipe } from "src/app/core/utils/category.pipe";
+import { Category } from "src/app/core/models/interfaces/Category";
 import { CategoryService } from "src/app/core/services/store/category.service";
-import { FirebaseService } from "src/app/core/services/api-third/firebase.service";
+import { Store } from "src/app/core/models/interfaces/Store";
+import { FormAddComponent } from "./form-add/form-add.component";
+import { FormEditComponent } from "./form-edit/form-edit.component";
+import { FirebaseService } from "src/app/core/services/firebase.service";
+import { ChangeDetectorRef } from "@angular/core";
+import { PricePipe } from "src/app/core/utils/price.pipe";
 const MatImport = [
 	MatRadioModule,
 	MatButtonModule,
@@ -29,25 +34,24 @@ const MatImport = [
 	MatTooltipModule,
 	NzButtonModule,
 ];
-
 @Component({
 	selector: "app-food",
 	standalone: true,
-	templateUrl: "./food.component.html",
-	styleUrls: ["./food.component.scss"],
 	imports: [
 		CommonModule,
 		MatImport,
 		PaginationComponent,
-		TablePagiComponent,
 		FormEditComponent,
 		FormAddComponent,
 		SpinnerComponent,
-		RolePipe,
 		FormsModule,
+		CategoryPipe,
+		PricePipe,
 	],
+	templateUrl: "./food.component.html",
+	styleUrls: ["./food.component.scss"],
 })
-export class FoodComponent implements OnInit {
+export class FoodComponent {
 	config = {
 		displayedColumns: [
 			{
@@ -55,28 +59,21 @@ export class FoodComponent implements OnInit {
 				display: "STT",
 			},
 			{
-				prop: "name",
-				display: "Tên món ăn",
-			},
-			{
-				prop: "price",
-				display: "Giá tiền",
-			},
-			{
-				prop: "quantity",
-				display: "Số lượng",
-			},
-			{
-				prop: "idCategory",
-				display: "Thể loại",
-			},
-			{
-				prop: "imageUrl",
+				prop: "images",
 				display: "Hình ảnh",
 			},
 			{
-				display: "Hành động",
+				prop: "name",
+				display: "Tên",
 			},
+			{
+				prop: "price",
+				display: "Giá",
+			},
+			// {
+			// 	prop: "idCateogry",
+			// 	display: "Loại món ăn",
+			// },
 		],
 		hasAction: true,
 	};
@@ -89,18 +86,19 @@ export class FoodComponent implements OnInit {
 		hasPrevPage: false,
 	};
 	searchTerm: string = "";
-	listFood!: any[];
-	listCategory!: any[];
-	idCategory!: number;
-	idStore!: number;
-	private searchSubject = new Subject<string>();
+	listFood!: Food[];
+	listCategory!: Category[];
 
+	store!: Store;
+
+	private searchSubject = new Subject<string>();
 	constructor(
 		public dialog: MatDialog,
 		private toastr: ToastrService,
 		private foodService: FoodService,
 		private categoryService: CategoryService,
-		private firebaseService: FirebaseService
+		private firebaseSerivce: FirebaseService,
+		private loader: LoaderService
 	) {
 		this.searchSubject
 			.pipe(debounceTime(1500), distinctUntilChanged())
@@ -109,71 +107,109 @@ export class FoodComponent implements OnInit {
 			});
 	}
 	ngOnInit(): void {
-		this.loadlistFood();
-		this.listCategories();
+		this.store = JSON.parse(
+			sessionStorage.getItem("storeInfo") ?? ""
+		) as Store;
+
+		this.loadListCategory();
+		this.loadListFood();
 	}
-	loadlistFood(): void {
-		this.idStore = JSON.parse(localStorage.getItem("idStore") ?? "");
+
+	loadListFood(): void {
+		console.log("Load list food");
+
 		this.foodService
-			.getByIdStore(this.idStore, this.pagi, this.searchTerm)
+			.list(this.store.id, this.pagi, this.searchTerm)
 			.subscribe({
 				next: (res) => {
+					console.log(res);
+
 					this.listFood = res.data.list;
 					this.pagi = res.data.pagination;
-					for (const food of this.listFood) {
-						const imageRef =
-							this.firebaseService.getImageRefFromUrl(
-								food.imageUrl
-							);
-					}
 				},
 				error: (err) => {
 					console.log(err);
 				},
 			});
 	}
+
+	getCategoryName(id: number): string {
+		return this.listCategory.find((e) => e.id === id)?.name ?? "Unknown";
+	}
+
+	loadListCategory(): void {
+		this.categoryService.getAllByIdStore(this.store.id).subscribe({
+			next: (res) => {
+				this.listCategory = res.data;
+			},
+			error: (err) => {
+				console.log(err);
+			},
+		});
+	}
+
 	onChangePage(currentPage: any): void {
 		this.pagi.currentPage = currentPage;
-		this.loadlistFood();
+		this.loadListFood();
 	}
+
 	openAddDialog(): void {
 		const dialogRef = this.dialog.open(FormAddComponent, {
-			data: { idStore: this.idStore },
+			data: { idStore: this.store.id },
 		});
 		dialogRef.afterClosed().subscribe((result) => {
-			if (result) {
-				this.loadlistFood();
+			if (result != null) {
+				this.loadListFood();
 			}
 		});
 	}
+
 	openEditDialog(id: number): void {
 		const dialogRef = this.dialog.open(FormEditComponent, {
-			data: { id: id },
+			data: {
+				id: id,
+				listCategory: this.listCategory,
+			},
 		});
 		dialogRef.afterClosed().subscribe((result) => {
 			if (result) {
-				this.loadlistFood();
+				this.loadListFood();
 			}
 		});
 	}
+
 	openDeleteDialog(id: number): void {
 		const dialogRef = this.dialog.open(ModalDeleteComponent, {
 			data: { id: id },
 		});
 		dialogRef.afterClosed().subscribe((result) => {
 			if (result === true) {
-				this.handDelete(id);
+				this.handleDelete(id);
 			}
 		});
 	}
-	handDelete(id: number): void {
-		this.foodService.delete(id).subscribe({
+
+	async handleDelete(id: number): Promise<void> {
+		try {
+			const food = this.listFood.find((e) => {
+				return e.id == id;
+			});
+			if (food) {
+				await this.firebaseSerivce.deleteFileFromFirebase(
+					food?.imageUrl
+				);
+				console.log("Xóa ảnh thành công !");
+			}
+		} catch (error) {
+			console.log(error);
+		}
+		this.foodService.deleteById(id).subscribe({
 			next: (res) => {
 				if (res.isSuccess) {
 					this.toastr.success(res.message, "Xóa thành công", {
 						timeOut: 3000,
 					});
-					this.loadlistFood();
+					this.loadListFood();
 				} else {
 					this.toastr.error(res.message, "Xóa không thành công", {
 						timeOut: 3000,
@@ -193,30 +229,7 @@ export class FoodComponent implements OnInit {
 	}
 
 	search(searchTerm: string): void {
-		this.loadlistFood();
+		this.loadListFood();
 		console.log(searchTerm);
-	}
-
-	listCategories(): void {
-		this.idStore = JSON.parse(localStorage.getItem("idStore") ?? "");
-		this.categoryService
-			.list(this.idStore, this.pagi, this.searchTerm)
-			.subscribe({
-				next: (res) => {
-					this.listCategory = res.data.list;
-					this.pagi = res.data.pagination;
-				},
-				error: (err) => {
-					console.log(err);
-				},
-			});
-	}
-
-	getNameCategory(idCategory: number): string {
-		if (!this.listCategory) {
-			return "Unknown";
-		}
-		const category = this.listCategory.find((x) => x.id === idCategory);
-		return category ? category.name : "Unknown";
 	}
 }

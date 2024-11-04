@@ -1,50 +1,45 @@
-@import "../../../../shared/variable.scss";
-
-.management--table {
-    thead {
-        th {
-            background-color: $owner-primary;
-            color: #ececec;
-        }
-    }
-}
-.store-name {
-    text-align: center;
-    font-size: 36px;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-.store-input-container {
-    display: flex;
-    align-items: center;
-    flex-wrap: nowrap;
-    margin-bottom: 15px; 
-
-    label {
-        margin-right: 10px;
-        white-space: nowrap; 
-        font-size: 1.05rem; 
-        width: 150px; 
-    }
-
-    input {
-        flex: 0.5; 
-        min-width: 0; 
-    }
+@import "../../../../shared/color.scss";
+@import "../../../../shared/layout.scss";
+.store-info {
+	width: 400px;
+	padding: 20px;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	background-color: #f9f9f9;
 }
 
-.table-actions {
-    float: left;
-    
-        .edit-button {
-            background-color: #4693b8;
-            color: white;
-    
-            &:hover {
-                background-color: #5d97a1;
-            }
-        }
+h2 {
+	text-align: center;
+	color: rgb(34, 34, 34);
 }
-.table--edit {
 
+.store-field {
+	margin-bottom: 15px;
+	height: 40px;
+}
+
+label {
+	font-weight: bold;
+	margin-right: 10px;
+	display: inline-block;
+	width: 100px;
+	color: rgb(34, 34, 34);
+}
+
+span {
+	color: #2c2c2c;
+	padding: 5px;
+}
+
+input {
+	padding: 5px;
+	font-size: 14px;
+	width: calc(100% - 120px);
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
+button {
+	display: block;
+	margin-left: auto;
 }

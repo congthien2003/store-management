@@ -7,6 +7,7 @@ using StoreManagement.Domain.IRepositories;
 
 namespace StoreManagement.Infrastructure.Repositories
 {
+
     public class OrderDetailRepository : IOrderDetailRepository<OrderDetail>
     {
         private readonly DataContext _dataContext;
@@ -27,9 +28,22 @@ namespace StoreManagement.Infrastructure.Repositories
             {
                 throw new InvalidOperationException("Đồ ăn không tồn tại");
             }
-            var create = await _dataContext.OrderDetails.AddAsync(orderDetail);
-            await _dataContext.SaveChangesAsync();
-            return create.Entity;
+
+            var item = await _dataContext.OrderDetails.FirstOrDefaultAsync(x => x.IdFood == orderDetail.IdFood);
+            if (item == null)
+            {
+                var create = await _dataContext.OrderDetails.AddAsync(orderDetail);
+                await _dataContext.SaveChangesAsync();
+                return create.Entity;
+            }
+            else
+            {
+                item.Quantity += orderDetail.Quantity;
+                item.StatusProcess = 1;
+                await _dataContext.SaveChangesAsync();
+                return item;
+            }
+            
         }
 
         public async Task<OrderDetail> DeleteAsync(int idOrder, int idFood)
@@ -44,23 +58,14 @@ namespace StoreManagement.Infrastructure.Repositories
             return orderDetail;
         }
 
-        public Task<List<OrderDetail>> GetAllByIdOrderAsync(int idOrder, int currentPage = 1, int pageSize = 5, string sortCol = "", bool ascSort = true)
+        public async Task<List<OrderDetail>> GetAllByIdOrderAsync(int idOrder)
         {
-            var listOrderDetails = _dataContext.OrderDetails.Include(x=>x.Order).Include(x=>x.Food).Where(x => x.IdOrder == idOrder).AsQueryable();
-            if (!string.IsNullOrEmpty(sortCol))
+            var exists = await _dataContext.OrderDetails.Where(x => x.IdOrder == idOrder).Include("Food").ToListAsync();
+            if (exists.Count == 0)
             {
-                if (ascSort)
-                {
-                    listOrderDetails = listOrderDetails.OrderByDescending(GetSortColumnExpression(sortCol.ToLower()));
-                }
-                else
-                {
-                    listOrderDetails = listOrderDetails.OrderBy(GetSortColumnExpression(sortCol.ToLower()));
-
-                }
+                throw new KeyNotFoundException("Không tìm thấy");
             }
-            var list = listOrderDetails.Skip(currentPage * pageSize - pageSize).Take(pageSize).ToListAsync();
-            return list;
+            return exists;
         }
         public Expression<Func<OrderDetail, object>> GetSortColumnExpression(string sortColumn)
         {
@@ -85,26 +90,28 @@ namespace StoreManagement.Infrastructure.Repositories
                 throw new KeyNotFoundException("Không tìm thấy chi tiết ");
             }
             orderUpdate.Quantity = orderDetail.Quantity;
+            orderUpdate.StatusProcess = 1;
             _dataContext.OrderDetails.Update(orderUpdate);
             return orderUpdate;
         }
 
-        public async Task<List<OrderDetail>> GetByOrderIdAsync(int idOrder)
+        public async Task<OrderDetail> GetByID(int idFood)
         {
-            return await _dataContext.OrderDetails
-                .Where(od => od.IdOrder == idOrder)
-                .ToListAsync();
-        }
-        public async Task<OrderDetail> GetByOrderIdAndFoodIdAsync(int orderId, int foodId)
-        {
-            return await _dataContext.OrderDetails
-                .FirstOrDefaultAsync(od => od.IdOrder == orderId && od.IdFood == foodId);
+            var exists = await _dataContext.OrderDetails.FirstOrDefaultAsync(x => x.IdFood == idFood);
+            return null;
         }
 
-        public async Task<bool> ExistsAsync(int orderId, int foodId)
+        public async Task<OrderDetail> UpdateStatusAsync(int idFood, int statusProcess)
         {
-            return await _dataContext.OrderDetails
-                .AnyAsync(od => od.IdOrder == orderId && od.IdFood == foodId);
+            var exists = await _dataContext.OrderDetails.FirstOrDefaultAsync(x => x.IdFood == idFood);
+            if(exists == null)
+            {
+                throw new KeyNotFoundException("Không tìm thấy chi tiết ");
+
+            }
+            exists.StatusProcess = statusProcess;
+            await _dataContext.SaveChangesAsync();
+            return exists;
         }
     }
 }

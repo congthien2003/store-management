@@ -69,7 +69,7 @@ namespace StoreManagement.Infrastructure.Repositories
 
         public async Task<Store> GetByIdAsync(int id, bool includeDeleted = false)
         {
-            var store = await _dataContext.Stores.Include(s => s.User).FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == includeDeleted);
+            var store = await _dataContext.Stores.FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == includeDeleted);
             if(store == null)
             {
                 throw new KeyNotFoundException("Cửa hàng không tồn tại");
@@ -77,9 +77,9 @@ namespace StoreManagement.Infrastructure.Repositories
             return store;
         }
 
-        public async Task<Store> GetByIdUserAsync(int idUser, bool includeDeleted = false)
+        public async Task<Store> GetByIdAsync(Guid id, bool includeDeleted = false)
         {
-            var store = await _dataContext.Stores.Include(s => s.User).FirstOrDefaultAsync(x => x.IdUser == idUser && x.IsDeleted == includeDeleted);
+            var store = await _dataContext.Stores.FirstOrDefaultAsync(x => x.Guid == id && x.IsDeleted == includeDeleted);
             if (store == null)
             {
                 throw new KeyNotFoundException("Cửa hàng không tồn tại");
@@ -87,9 +87,19 @@ namespace StoreManagement.Infrastructure.Repositories
             return store;
         }
 
+        public async Task<Store> GetByIdUserAsync(int id, bool includeDeleted = false)
+        {
+            var store = await _dataContext.Stores.FirstOrDefaultAsync(x => x.IdUser == id && x.IsDeleted == includeDeleted);
+            if (store == null)
+            {
+                throw new KeyNotFoundException("Người dùng chưa có cửa hàng");
+            }
+            return store;
+        }
+
         public async Task<List<Store>> GetByNameAsync(string name, bool includeDeleted = false)
         {
-            var listStores = await _dataContext.Stores.Include(s => s.User).Where(x=>x.Name.Contains(name)).ToListAsync();
+            var listStores = await _dataContext.Stores.Where(x=>x.Name.Contains(name)).ToListAsync();
             if(listStores.Count == 0)
             {
                 throw new KeyNotFoundException("Cửa hàng không tồn tại");
@@ -122,9 +132,9 @@ namespace StoreManagement.Infrastructure.Repositories
                     return x => x.Id;
             }
         }
-        public async Task<Store> UpdateAsync( Store store, bool includeDeleted = false)
+        public async Task<Store> UpdateAsync(int id, Store store, bool includeDeleted = false)
         {
-            var storeUpdate = await _dataContext.Stores.FirstOrDefaultAsync(x => x.Id == store.Id && x.IsDeleted == false);
+            var storeUpdate = await _dataContext.Stores.FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false);
             if (storeUpdate == null)
             {
                 throw new KeyNotFoundException("Không tìm thấy cửa hàng");
@@ -135,26 +145,6 @@ namespace StoreManagement.Infrastructure.Repositories
             _dataContext.Stores.Update(storeUpdate);
             await _dataContext.SaveChangesAsync();
             return storeUpdate;
-        }
-        public async Task<int> CountAsync(string searchTerm)
-        {
-            var query = _dataContext.Stores.AsQueryable();
-            if (!string.IsNullOrEmpty(searchTerm))
-            {
-                query = query.Where(t => t.Name.Contains(searchTerm));
-            }
-
-            return await query.CountAsync();
-        }
-
-        public async Task<Store> GetByGuidAsync(Guid guid, bool includeDeleted = false)
-        {
-            var store = await _dataContext.Stores.FirstOrDefaultAsync(x => x.Guid == guid && x.IsDeleted == includeDeleted);
-            if (store == null)
-            {
-                throw new KeyNotFoundException("Cửa hàng không tồn tại");
-            }
-            return store;
         }
     }
 }

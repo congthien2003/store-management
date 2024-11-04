@@ -14,37 +14,6 @@ namespace StoreManagement.Infrastructure.Repositories
         {
             _dataContext = dataContext;
         }
-
-        public async Task<double> CaculateTotal(int id, bool incluDeleted = false)
-        {
-            var exitsId = await _dataContext.Orders.FirstOrDefaultAsync(o => o.Id == id && o.IsDeleted == incluDeleted);
-            if (exitsId == null)
-            {
-                throw new KeyNotFoundException("Order không tồn tại");
-            }
-            var listOrderDetail = await _dataContext.OrderDetails.Where(x => x.IdOrder == id).ToListAsync();
-            if (listOrderDetail.Count == 0)
-            {
-                throw new KeyNotFoundException("Chi tiết Order không tồn tại");
-            }
-            double total = 0;
-            foreach (var order in listOrderDetail)
-            {
-                var food = await _dataContext.Foods.FindAsync(order.IdFood);
-                if (food != null)
-                {
-                    total += order.Quantity * (double)food.Price;
-                }
-            }
-            return total;
-        }
-
-        public async Task<bool> CheckOrderDetailExists(int orderId, int foodId)
-        {
-            return await _dataContext.OrderDetails
-           .AnyAsync(od => od.IdOrder == orderId && od.IdFood == foodId);
-        }
-
         public async Task<Order> CreateAsync(Order order)
         {
             var newOrder = await _dataContext.Orders.AddAsync(order);
@@ -68,9 +37,9 @@ namespace StoreManagement.Infrastructure.Repositories
             return order;
         }
 
-        public Task<List<Order>> GetAllByIdStoreAsync(int idStore, int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortCol = "", bool ascSort = true, bool incluDeleted = false)
+        public Task<List<Order>> GetAllByIdStoreAsync(int idStore, string sortCol = "", bool ascSort = true, bool incluDeleted = false)
         {
-            var order = _dataContext.Orders.Where(x => x.Table.IdStore == idStore && x.IsDeleted == incluDeleted).AsQueryable();
+            var order = _dataContext.Orders.Include("Table").Where(x => x.Table.IdStore == idStore && x.IsDeleted == incluDeleted).AsQueryable();
             if (!incluDeleted)
             {
                 order = order.Where(t => t.IsDeleted == incluDeleted);
@@ -87,28 +56,18 @@ namespace StoreManagement.Infrastructure.Repositories
 
                 }
             }
-            var list = order.Skip(currentPage * pageSize - pageSize).Take(pageSize).ToListAsync();
+            var list = order.ToListAsync();
             return list;
         }
 
         public async Task<Order> GetByIdAsync(int id, bool incluDeleted = false)
         {
-            var order = await _dataContext.Orders.Include(x=>x.Table).FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false);
+            var order = await _dataContext.Orders.Include("Table").FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false);
             if (order == null)
             {
                 throw new KeyNotFoundException("Order không tồn tại");
             }
             return order;
-        }
-
-        public async Task<List<Order>> GetByNameUser(string name, bool incluDeleted = false)
-        {
-            var listOrders = await _dataContext.Orders.Where(x => x.IsDeleted == incluDeleted).ToListAsync();
-            if(listOrders.Count == 0)
-            {
-                throw new InvalidOperationException("Tên khách hàng order không tồn tại");
-            }
-            return listOrders;
         }
 
         public async Task<int> GetCountAsync(int idStore, string searchTerm = "", bool incluDeleted = false)
@@ -121,20 +80,11 @@ namespace StoreManagement.Infrastructure.Repositories
             var searchFood = await order.ToListAsync();
             return searchFood.Count();
         }
-
-        public async Task<List<OrderDetail>> GetOrderDetailsByOrderIdAsync(int orderId)
-        {
-            return await _dataContext.OrderDetails
-           .Where(od => od.IdOrder == orderId)
-           .ToListAsync();
-        }
-
         public Expression<Func<Order, object>> GetSortColumnExpression(string sortColumn)
         {
             switch (sortColumn)
             {
-                case "name":
-                    return x => x.CreatedAt;
+                
                 default:
                     return x => x.Id;
             }
@@ -149,11 +99,9 @@ namespace StoreManagement.Infrastructure.Repositories
             orderUpdate.Total = order.Total;
             orderUpdate.IdTable = order.IdTable;
             orderUpdate.CreatedAt = order.CreatedAt;
-            orderUpdate.Status = order.Status;
             _dataContext.Orders.Update(orderUpdate);
             await _dataContext.SaveChangesAsync();
             return orderUpdate;
         }
     }
-
 }

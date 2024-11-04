@@ -1,11 +1,8 @@
 @import "../shared/variable.scss";
+@import "../shared/layout.scss";
 
 .owner {
 	&-sidebar {
-		background-color: $owner-primary;
-		height: 100%;
+		background-color: $primary;
 	}
-}
-.text-dropdown{
-	color: #5da19f;
 }

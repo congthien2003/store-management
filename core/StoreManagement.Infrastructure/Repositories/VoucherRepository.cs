@@ -1,4 +1,4 @@
-﻿using StoreManagement.Infrastructure.Data;
+﻿/*using StoreManagement.Infrastructure.Data;
 using StoreManagement.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
@@ -128,3 +128,4 @@ namespace StoreManagement.Infrastructure.Repositories
         }
     }
 }
+*/

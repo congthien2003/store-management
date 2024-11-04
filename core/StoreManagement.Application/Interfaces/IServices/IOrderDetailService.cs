@@ -1,15 +1,18 @@
-using StoreManagement.Application.Common;
+﻿using StoreManagement.Application.Common;
 using StoreManagement.Application.DTOs.Request;
 using StoreManagement.Application.DTOs.Response;
 
 namespace StoreManagement.Application.Interfaces.IServices
 {
-        public interface IOrderDetailService
-        {
-                Task<OrderDetailDTO> CreateAsync(OrderDetailDTO orderDetailDTO);
-                Task<OrderDetailDTO> UpdateAsync(OrderDetailDTO orderDetailDTO);
-                Task<bool> DeleteAsync(int idOrder, int idFood);
-                Task<int> GetCountAsync(int idOrder);
-                Task<PaginationResult<List<OrderDetailResponse>>> GetAllByIdOrderAsync(int idOrder, string currentPage = "1", string pageSize = "5", string sortCol = "", string ascSort = "true");
-        }
+    public interface IOrderDetailService
+    {
+        Task<List<OrderDetailDTO>> CreateByListAsync(List<OrderDetailDTO> orderDetailDTO);
+        Task<OrderDetailDTO> UpdateAsync(OrderDetailDTO orderDetailDTO);
+        Task<OrderDetailDTO> UpdateStatusAsync(int idFood, int statusProcess);
+        Task<bool> DeleteAsync(int idOrder, int idFood);
+        Task<int> GetCountAsync(int idOrder);
+        Task<PaginationResult<List<OrderDetaiResponse>>> GetAllByIdOrderAsync(int idOrder, string currentPage = "1", string pageSize = "10");
+        Task<List<OrderDetaiResponse>> GetAllByIdOrderAsync(int idOrder);
+
+    }
 }

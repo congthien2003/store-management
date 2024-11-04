@@ -1,10 +1,9 @@
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StoreManagement.Application.Common;
+using StoreManagement.Application.DTOs.Request;
 using StoreManagement.Application.DTOs.Response;
 using StoreManagement.Application.Interfaces.IServices;
-using StoreManagement.Application.Services;
-using StoreManagement.Services;
 
 namespace StoreManagement.Controllers
 {
@@ -12,23 +11,18 @@ namespace StoreManagement.Controllers
     [ApiController]
     public class ProductSellController : ControllerBase
     {
-        private readonly IProductSellService productSellService;
+        private readonly IProductSellService _productSellService;
 
         public ProductSellController(IProductSellService productSellService)
         {
-            this.productSellService = productSellService;
+            _productSellService = productSellService;
         }
 
-        [HttpGet]
-        [Route("getall")]
-        public async Task<ActionResult<Result>> GetAllStore(string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortColumn = "", string asc = "true")
+        [HttpGet("idStore:int")]
+        public async Task<ActionResult<Result>> GetAllAnalyst(int idStore)
         {
-            var productsell = await productSellService.GetAllAsync(currentPage, pageSize, searchTerm, sortColumn, asc);
-            if (productsell == null)
-            {
-                return BadRequest(Result.Failure("không tìm thấy cửa hàng"));
-            }
-            return Ok(Result<PaginationResult<List<ProductSellResponse>>>.Success(productsell, "lấy thông tin thành công"));
+            var result = await _productSellService.GetByIdStoreAsync(idStore);
+            return Result<List<ProductSellResponse>>.Success(result, "Lấy thông tin thành công");
         }
     }
 }

@@ -7,7 +7,7 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using Serilog;
 using StoreManagement.Middleware;
-
+using StoreManagement.Application.RealTime;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -75,11 +75,14 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddCors(options => options.AddPolicy(name: "NgOrigins",
     policy =>
     {
-        policy.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+        policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader().AllowCredentials(); ;
     }));
 
 // add automapper
 builder.Services.AddAutoMapper(typeof(Program));
+
+//
+builder.Services.AddSignalR();
 
 // Serilog
 builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));
@@ -98,12 +101,16 @@ app.UseCors("NgOrigins");
 
 app.UseHttpsRedirection();
 
+app.UseMiddleware<ExceptionHandlingMiddleware>();
+
+app.MapControllers();
+
 app.UseAuthentication();
 
 app.UseAuthorization();
 
-app.UseMiddleware<ExceptionHandlingMiddleware>();
+app.UseRouting();
 
-app.MapControllers();
+app.MapHub<OrderHub>("/orderHub");
 
 app.Run();

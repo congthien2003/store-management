@@ -8,7 +8,7 @@ namespace StoreManagement.Domain.IRepositories
         public Task<TInvoice> UpdateAsync(int id, TInvoice invoice, bool incluDeleted = false);
         public Task<TInvoice> DeleteAsync(int id, bool incluDeleted = false);
         public Task<TInvoice> GetByIdAsync(int id, bool incluDeleted = false);
-        public Task<List<TInvoice>> GetAllByIdStoreAsync(int idStore, int currentPage = 1, int pageSize = 5, string sortCol = "", bool ascSort = true, bool incluDeleted = false);
+        public Task<List<TInvoice>> GetAllByIdStoreAsync(int idStore, string sortCol = "", bool ascSort = true, bool incluDeleted = false);
         Task<int> GetCountAsync(int idStore, bool incluDeleted = false);
     }
 }

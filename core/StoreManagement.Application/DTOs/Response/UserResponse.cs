@@ -8,7 +8,6 @@ namespace StoreManagement.Application.DTOs.Response
 {
     public class UserResponse
     {
-        public Guid Guid { get; set; }
         public int Id { get; set; }
         public string Email { get; set; }
         public string Username { get; set; }

@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using StoreManagement.Application.Common;
 using StoreManagement.Application.DTOs.Request;
-using StoreManagement.Application.DTOs.Response;
 using StoreManagement.Application.Interfaces.IServices;
 using StoreManagement.Domain.IRepositories;
 using StoreManagement.Domain.Models;
@@ -12,12 +10,10 @@ namespace StoreManagement.Services
     {
         private readonly IMapper _mapper;
         private readonly IStoreRepository<Store> _storeRepository;
-        private readonly IUserRepository<User> _userRepository;
-        public StoreService(IMapper mapper, IStoreRepository<Store> storeRepository, IUserRepository<User> userRepository)
+        public StoreService(IMapper mapper, IStoreRepository<Store> storeRepository)
         {
             _mapper = mapper;
             _storeRepository = storeRepository;
-            _userRepository = userRepository;
         }
 
         public async Task<StoreDTO> CreateAsync(StoreDTO storeDTO)
@@ -33,112 +29,34 @@ namespace StoreManagement.Services
             return true;
         }
 
-        public async Task<PaginationResult<List<StoreResponse>>> GetAllAsync(string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortColumn = "", string asc = "true")
+        public async Task<List<StoreDTO>> GetAllAsync(int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortColumn = "", bool ascSort = true, bool incluDeleted = false)
         {
-            int _currentPage = int.Parse(currentPage);
-            int _pageSize = int.Parse(pageSize);
-            bool _asc = bool.Parse(asc);
-            var totalRecords = await _storeRepository.CountAsync(searchTerm);
-            var list = await _storeRepository.GetAllAsync(_currentPage, _pageSize, searchTerm, sortColumn, _asc);
-            var count = list.Count();
-
-            //var listStore = _mapper.Map<List<StoreResponse>>(list);
-            var listStore = new List<StoreResponse>();
-            foreach (var store in list)
-            {
-                var storeResponse = _mapper.Map<StoreResponse>(store);
-                var user = await _userRepository.GetById(store.IdUser);
-                if (user != null)
-                {
-                    storeResponse.UserDTO = _mapper.Map<UserDTO>(user);
-                }
-                listStore.Add(storeResponse);
-            }
-
-
-            return PaginationResult<List<StoreResponse>>.Create(listStore, _currentPage, _pageSize, totalRecords);
+            var listStore = await _storeRepository.GetAllAsync(currentPage,pageSize,searchTerm,sortColumn,ascSort,incluDeleted);
+            return _mapper.Map<List<StoreDTO>>(listStore);
         }
 
-        public async Task<StoreResponse> GetByGuidAsync(Guid guid)
-        {
-            var store = await _storeRepository.GetByGuidAsync(guid);
-
-
-            var storeResponse = _mapper.Map<StoreResponse>(store);
-
-            if (store.User != null)
-            {
-                storeResponse.UserDTO = new UserDTO
-                {
-                    Id = store.User.Id,
-                    Email = store.User.Email,
-                    Username = store.User.Username,
-                    Phones = store.User.Phones,
-                    Role = store.User.Role
-                };
-            }
-            return storeResponse;
-        }
-
-        public async Task<StoreResponse> GetByIdAsync(int id)
+        public async Task<StoreDTO> GetByIdAsync(int id)
         {
             var store = await _storeRepository.GetByIdAsync(id);
-
-
-            var storeResponse = _mapper.Map<StoreResponse>(store);
-
-            if (store.User != null)
-            {
-                storeResponse.UserDTO = new UserDTO
-                {
-                    Id = store.User.Id,
-                    Email = store.User.Email,
-                    Username = store.User.Username,
-                    Phones = store.User.Phones,
-                    Role = store.User.Role
-                };
-            }
-            return storeResponse;
+            return _mapper.Map<StoreDTO>(store);
         }
 
-        public async Task<StoreResponse> GetByIdUserAsync(int idUser)
+        public async Task<StoreDTO> GetByIdAsync(Guid id)
         {
-            var store = await _storeRepository.GetByIdUserAsync(idUser);
-            var storeResponse = _mapper.Map<StoreResponse>(store);
-
-            if (store.User != null)
-            {
-                storeResponse.UserDTO = new UserDTO
-                {
-                    Id = store.User.Id,
-                    Email = store.User.Email,
-                    Username = store.User.Username,
-                    Phones = store.User.Phones,
-                    Role = store.User.Role
-                };
-            }
-            return storeResponse;
+            var store = await _storeRepository.GetByIdAsync(id);
+            return _mapper.Map<StoreDTO>(store);
         }
 
-        public async Task<List<StoreResponse>> GetByNameAsync(string name)
+        public async Task<StoreDTO> GetByIdUserAsync(int id)
+        {
+            var store = await _storeRepository.GetByIdUserAsync(id);
+            return _mapper.Map<StoreDTO>(store);
+        }
+
+        public async Task<List<StoreDTO>> GetByNameAsync(string name)
         {
             var store = await _storeRepository.GetByNameAsync(name);
-            var storeResponse = _mapper.Map<List<StoreResponse>>(store);
-            for (int i = 0; i < store.Count; i++)
-            {
-                if (store[i].User != null)
-                {
-                    storeResponse[i].UserDTO = new UserDTO
-                    {
-                        Id = store[i].User.Id,
-                        Email = store[i].User.Email,
-                        Username = store[i].User.Username,
-                        Phones = store[i].User.Phones,
-                        Role = store[i].User.Role
-                    };
-                }
-            }
-            return storeResponse;
+            return _mapper.Map<List<StoreDTO>>(store);
         }
 
         public async Task<int> GetCountList(string searchTerm = "", bool incluDeleted = false)
@@ -147,10 +65,10 @@ namespace StoreManagement.Services
             return count;
         }
 
-        public async Task<StoreDTO> UpdateAsync(StoreDTO storeDTO)
+        public async Task<StoreDTO> UpdateAsync(int id,StoreDTO storeDTO)
         {
-            var storeUpdate = _mapper.Map<Store>(storeDTO);
-            var update = await _storeRepository.UpdateAsync(storeUpdate);
+            var storeUpdate = _mapper.Map<Store>(storeDTO); 
+            var update = await _storeRepository.UpdateAsync(id, storeUpdate);
             return _mapper.Map<StoreDTO>(update);
         }
     }

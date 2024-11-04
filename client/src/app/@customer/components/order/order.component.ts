@@ -1,6 +1,17 @@
-import { Component, OnInit } from "@angular/core";
+import {
+	AfterContentInit,
+	AfterViewInit,
+	Component,
+	HostListener,
+	OnInit,
+} from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { ActivatedRoute, Resolve, Router } from "@angular/router";
+import {
+	ActivatedRoute,
+	ActivatedRouteSnapshot,
+	Resolve,
+	Router,
+} from "@angular/router";
 import { StoreService } from "src/app/core/services/store/store.service";
 import { OrderService } from "src/app/core/services/store/order.service";
 import { FoodService } from "src/app/core/services/store/food.service";
@@ -10,6 +21,8 @@ import { Store } from "src/app/core/models/interfaces/Store";
 import { Category } from "src/app/core/models/interfaces/Category";
 import { Food } from "src/app/core/models/interfaces/Food";
 import { FormsModule } from "@angular/forms";
+import { Pagination } from "src/app/core/models/interfaces/Common/Pagination";
+import { CategoryPipe } from "src/app/core/utils/category.pipe";
 import { PricePipe } from "src/app/core/utils/price.pipe";
 // Import Mat
 import { MatChipsModule } from "@angular/material/chips";
@@ -21,16 +34,15 @@ import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { CartComponent } from "../cart/cart.component";
 import { Order } from "src/app/core/models/interfaces/Order";
 import { PaginationComponent } from "src/app/shared/components/pagination/pagination.component";
+import { HubService } from "src/app/core/services/hubStore.service";
 import { TableService } from "src/app/core/services/store/table.service";
 import { SpinnerComponent } from "src/app/shared/components/spinner/spinner.component";
 import { LoaderService } from "src/app/core/services/loader.service";
 import { Observable, catchError, forkJoin, of } from "rxjs";
-import { OrderAccessToken } from "src/app/core/models/interfaces/OrderAccessToken";
-import { OrderDetailResponse } from "src/app/core/models/responses/OrderDetailResponse";
-import { OrderAcessService } from "src/app/core/services/order-acess.service";
 import { OrderHubService } from "src/app/core/services/order-hub.service";
-import { Pagination } from "src/app/core/models/common/Pagination";
-import { CategoryPipe } from "src/app/core/utils/category.pipe";
+import { OrderAcessService } from "src/app/core/services/order-acess.service";
+import { OrderAccessToken } from "src/app/core/models/interfaces/OrderAccessToken";
+import { OrderDetailResponse } from "src/app/core/models/interfaces/Response/OrderDetailResponse";
 
 const MatImport = [
 	MatButtonModule,
@@ -49,13 +61,14 @@ const MatImport = [
 		CategoryPipe,
 		PricePipe,
 		PaginationComponent,
+		SpinnerComponent,
 	],
 	templateUrl: "./order.component.html",
 	styleUrls: ["./order.component.scss"],
 })
 export class OrderComponent implements OnInit {
-	idStore: number = 0;
-	idTable: number = 0;
+	idStore: string = "";
+	idTable: string = "";
 
 	store!: Store;
 	listCategory: Category[] = [];
@@ -103,13 +116,11 @@ export class OrderComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		this.idStore = Number.parseInt(
-			this.activeRoute.snapshot.params["idStore"]
-		);
+		this.idStore = this.activeRoute.snapshot.params["idStore"];
 		this.idTable = this.activeRoute.snapshot.params["idTable"];
 		forkJoin({
-			store: this.storeService.getById(this.idStore),
-			table: this.tableService.getById(this.idTable),
+			store: this.storeService.getByGuId(this.idStore),
+			table: this.tableService.getByGuId(this.idTable),
 		}).subscribe({
 			next: (res) => {
 				if (res.store.isSuccess && res.table.isSuccess) {
@@ -118,35 +129,28 @@ export class OrderComponent implements OnInit {
 					this.order.idTable = res.table.data.id;
 
 					setTimeout(
-						() =>
-							this.requestAccess(
-								this.idTable.toString(),
-								this.idStore.toString()
-							),
+						() => this.requestAccess(this.idTable, this.idStore),
 						2000
 					);
 
 					this.orderHub.onAccessGranted((tableId) => {
-						if (this.idTable.toString() === tableId) {
+						if (this.idTable === tableId) {
 							this.deninedOrder = false;
 							console.log("Cho phép truy cập vào bàn", tableId);
 							setTimeout(() => {
 								this.orderHub.startConnectionStoreByTable(
-									this.idTable.toString()
+									this.idTable
 								);
 							}, 1000);
 
 							this.loadCategory();
 							this.loadListFood();
-							this.loadToken(
-								this.idTable.toString(),
-								this.idStore.toString()
-							);
+							this.loadToken(this.idTable, this.idStore);
 						}
 					});
 
 					this.orderHub.onAccessDenied((tableId) => {
-						if (this.idTable.toString() === tableId) {
+						if (this.idTable === tableId) {
 							this.deninedOrder = true;
 							console.log("Không cho truy cập vào bàn", tableId);
 							this.router.navigateByUrl("/order/denied");
@@ -158,7 +162,7 @@ export class OrderComponent implements OnInit {
 
 						this.loadListOrdered();
 					});
-					this.orderHub.ping(this.idTable.toString());
+					this.orderHub.ping(this.idTable);
 				} else {
 					this.router.navigateByUrl("/order/denied");
 				}
@@ -278,9 +282,7 @@ export class OrderComponent implements OnInit {
 									timeOut: 2500,
 								});
 								// Khi tạo order thành công -> Tạo token
-								this.createOrderAccessToken(
-									this.idTable.toString()
-								);
+								this.createOrderAccessToken(this.idTable);
 
 								this.orderDetailService
 									.create(this.listOrderDetail)
