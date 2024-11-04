@@ -5,12 +5,12 @@ import { MyStoreComponent } from "./components/management/my-store/my-store.comp
 import { CategoryComponent } from "./components/management/category/category.component";
 import { FoodComponent } from "./components/management/food/food.component";
 import { OrderComponent } from "./components/management/order/order.component";
-import { InvoiceComponent } from "./components/management/invoice/invoice.component";
 import { StaffComponent } from "./components/management/staff/staff.component";
 import { AnalyticsComponent } from "./components/management/analytics/analytics.component";
 import { OwnerDashboardComponent } from "./components/owner-dashboard/owner-dashboard.component";
 import { TableComponent } from "./components/management/table/table.component";
 import { ownerGuard } from "../@auth/guards/owner.guard";
+import { InvoiceComponent } from "./components/invoice/invoice.component";
 
 const routes: Routes = [
 	{

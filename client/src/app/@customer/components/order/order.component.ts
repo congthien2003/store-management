@@ -49,6 +49,7 @@ const MatImport = [
 		CategoryPipe,
 		PricePipe,
 		PaginationComponent,
+		SpinnerComponent,
 	],
 	templateUrl: "./order.component.html",
 	styleUrls: ["./order.component.scss"],
@@ -58,8 +59,45 @@ export class OrderComponent implements OnInit {
 	idTable: string = "";
 
 	store!: Store;
-	listCategory: Category[] = [];
-	listFood: Food[] = [];
+	listCategory: Category[] = [
+		{
+			id: 1,
+			name: "Cà phê",
+			idStore: 1,
+		},
+	];
+	listFood: Food[] = [
+		{
+			id: 1,
+			name: "Cà phê sữa đá",
+			price: 50000,
+			status: false,
+			quantity: 0,
+			idCategory: 1,
+			imageUrl:
+				"https://bizweb.dktcdn.net/100/487/455/products/phin-sua-da-1698982829291.jpg?v=1724205217697",
+		},
+		{
+			id: 1,
+			name: "Cà phê sữa đá",
+			price: 50000,
+			status: false,
+			quantity: 0,
+			idCategory: 1,
+			imageUrl:
+				"https://bizweb.dktcdn.net/100/487/455/products/phin-sua-da-1698982829291.jpg?v=1724205217697",
+		},
+		{
+			id: 1,
+			name: "Cà phê sữa đá",
+			price: 50000,
+			status: false,
+			quantity: 0,
+			idCategory: 1,
+			imageUrl:
+				"https://bizweb.dktcdn.net/100/487/455/products/phin-sua-da-1698982829291.jpg?v=1724205217697",
+		},
+	];
 
 	pagiFood: Pagination = {
 		totalPage: 0,
@@ -176,24 +214,24 @@ export class OrderComponent implements OnInit {
 	}
 
 	loadListFood(): void {
-		this.foodService.list(this.store.id, this.pagiFood).subscribe({
-			next: (res) => {
-				if (res.isSuccess) {
-					this.listFood = res.data.list;
-					this.pagiFood = res.data.pagination;
-				}
-			},
-		});
+		// this.foodService.list(this.store.id, this.pagiFood).subscribe({
+		// 	next: (res) => {
+		// 		if (res.isSuccess) {
+		// 			this.listFood = res.data.list;
+		// 			this.pagiFood = res.data.pagination;
+		// 		}
+		// 	},
+		// });
 	}
 
 	loadCategory(): void {
-		this.categoryService.getAllByIdStore(this.store.id).subscribe({
-			next: (res) => {
-				if (res.isSuccess) {
-					this.listCategory = res.data;
-				}
-			},
-		});
+		// this.categoryService.getAllByIdStore(this.store.id).subscribe({
+		// 	next: (res) => {
+		// 		if (res.isSuccess) {
+		// 			this.listCategory = res.data;
+		// 		}
+		// 	},
+		// });
 	}
 
 	onChangePage(currentPage: any): void {

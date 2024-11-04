@@ -25,6 +25,7 @@ namespace StoreManagement.Infrastructure
             services.AddScoped<IPaymentTypeRepository<PaymentType>, PaymentTypeRepository>();
             services.AddScoped<IOrderRepository<Order>, OrderRepositoy>();
             services.AddScoped<IOrderDetailRepository<OrderDetail>, OrderDetailRepository>();
+            services.AddScoped<IOrderAccessTokenRepository<OrderAccessToken>, OrderAccessTokenRepository>();
             services.AddScoped<IInvoiceRepository<Invoice>, InvoiceRepository>();
             services.AddScoped<IProductSellRepository<ProductSell>, ProductSellRepository>();
             return services; 

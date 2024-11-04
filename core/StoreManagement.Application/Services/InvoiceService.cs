@@ -12,11 +12,19 @@ namespace StoreManagement.Services
     {
         private readonly IMapper _mapper;
         private readonly IInvoiceRepository<Invoice> _InvoiceRepository;
+        private readonly ITableRepository<Table> _TableRepository;
+        private readonly IPaymentTypeRepository<PaymentType> _PaymentTypeRepository;
 
-        public InvoiceService(IInvoiceRepository<Invoice> invoiceRepository, IMapper mapper)
+
+        public InvoiceService(IInvoiceRepository<Invoice> invoiceRepository,
+                              IMapper mapper,
+                              ITableRepository<Table> tableRepository,
+                              IPaymentTypeRepository<PaymentType> paymentTypeRepository)
         {
             _mapper = mapper;
             _InvoiceRepository = invoiceRepository;
+            _TableRepository = tableRepository;
+            _PaymentTypeRepository = paymentTypeRepository;
         }
         public async Task<InvoiceDTO> CreateAsync(InvoiceDTO invoiceDTO)
         {
@@ -79,6 +87,17 @@ namespace StoreManagement.Services
             }
             var totalRecords = await _InvoiceRepository.GetCountAsync(idStore);
             return PaginationResult<List<InvoiceResponse>>.Create(responseList,_currentPage,_pageSize, totalRecords);
+        }
+
+        public async Task<bool> Accept(int id)
+        {
+            var result = await _InvoiceRepository.GetByIdAsync(id);
+            var table = await _TableRepository.GetByIdAsync(result.Order.IdTable);
+            result.Status = true;
+            table.Status = false;
+            result = await _InvoiceRepository.UpdateAsync(id, result);
+            await _TableRepository.UpdateAsync(table.Id, table);
+            return true;
         }
 
         public async Task<InvoiceResponse> GetByIdAsync(int id)

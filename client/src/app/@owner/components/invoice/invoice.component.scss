@@ -1,0 +1,12 @@
+@import "../../../shared/variable.scss";
+@import "../../../shared/layout.scss";
+@import "../../../shared/color.scss";
+
+.management--table {
+	thead {
+		th {
+			background-color: $owner-primary;
+			color: #ececec;
+		}
+	}
+}

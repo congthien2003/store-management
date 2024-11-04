@@ -13,6 +13,7 @@ namespace StoreManagement.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
+            services.AddSignalR();
             // add scoped services
             services.AddTransient<IJwtManager, JwtManager>();
             services.AddTransient<IJwtManager, JwtManager>();
@@ -26,6 +27,7 @@ namespace StoreManagement.Application
             services.AddTransient<IPaymentTypeService, PaymentTypeService>();
             services.AddTransient<IOrderSerivce, OrderService>();
             services.AddTransient<IOrderDetailService, OrderDetailService>();
+            services.AddTransient<IOrderAccessService, OrderAccessService>();
             services.AddTransient<IInvoiceService, InvoiceService>();
             services.AddTransient<IProductSellService, ProductSellService>();
             return services; 

@@ -1,5 +1,5 @@
-import { Order } from "../Order";
-import { PaymentType } from "../PaymentType";
+import { Order } from "../interfaces/Order";
+import { PaymentType } from "../interfaces/PaymentType";
 
 export interface InvoiceResponse {
 	id: number;

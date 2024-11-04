@@ -1,3 +1,4 @@
+@import "../../../../shared/color.scss";
 @import "../../../../shared/variable.scss";
 
 .management--search {
@@ -40,9 +41,6 @@
 		}
 	}
 }
-
-@import "../../../../shared/variable.scss";
-@import "../../../../shared/layout.scss";
 
 .table {
 	&-card {

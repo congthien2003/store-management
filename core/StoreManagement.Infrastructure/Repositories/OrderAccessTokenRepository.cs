@@ -1,4 +1,4 @@
-﻿/*using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using StoreManagement.Domain.IRepositories;
 using StoreManagement.Domain.Models;
@@ -91,4 +91,3 @@ namespace StoreManagement.Infrastructure.Repositories
         }
     }
 }
-*/

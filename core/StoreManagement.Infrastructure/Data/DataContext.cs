@@ -18,6 +18,8 @@ namespace StoreManagement.Infrastructure.Data
         public DbSet<Invoice> Invoices { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<ProductSell> ProductSells { get; set; }
+        public DbSet<OrderAccessToken> OrderAccessTokens { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
