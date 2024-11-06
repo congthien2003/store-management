@@ -55,7 +55,6 @@ vs/
 # IDE files
 /.vscode
 /.idea
-/core/.vs
 
 # Logs
 logs
