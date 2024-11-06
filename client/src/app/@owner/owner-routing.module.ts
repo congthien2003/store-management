@@ -10,11 +10,14 @@ import { StaffComponent } from "./components/management/staff/staff.component";
 import { AnalyticsComponent } from "./components/management/analytics/analytics.component";
 import { OwnerDashboardComponent } from "./components/owner-dashboard/owner-dashboard.component";
 import { TableComponent } from "./components/management/table/table.component";
+import { ownerGuard } from "../@auth/guards/owner.guard";
+import { authGuard } from "../@auth/guards/auth.guard";
 
 const routes: Routes = [
 	{
 		path: "",
 		component: OwnerComponent,
+		canActivate: [authGuard, ownerGuard],
 		children: [
 			{
 				path: "dashboard",
