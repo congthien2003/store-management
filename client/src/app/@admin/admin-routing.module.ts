@@ -5,13 +5,10 @@ import { AdminComponent } from "./admin.component";
 import { AdminDashboardComponent } from "./components/admin-dashboard/admin-dashboard.component";
 import { UserComponent } from "./components/management/user/user.component";
 import { StoreComponent } from "./components/management/store/store.component";
-import { authGuard } from "../@auth/guards/auth.guard";
-import { adminGuard } from "../@auth/guards/admin.guard";
 const routes: Routes = [
 	{
 		path: "",
 		component: AdminComponent,
-		canActivate: [authGuard, adminGuard],
 		children: [
 			{
 				path: "dashboard",
