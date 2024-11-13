@@ -24,9 +24,10 @@ namespace StoreManagement.Controllers
         }
 
         [HttpGet("getall")]
-        public async Task<ActionResult<Result>> GetAll(string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortColumn = "", string asc = "true")
+        public async Task<ActionResult<Result>> GetAll(string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortColumn = "", bool filter = false,
+        int? role = null, string asc = "true")
         {
-            var user = await _userService.GetAll(currentPage, pageSize, searchTerm, sortColumn, asc);
+            var user = await _userService.GetAll(currentPage, pageSize, searchTerm, sortColumn, filter, role, asc);
             if (user == null)
             {
                 return BadRequest(Result.Failure("Không tìm thấy người dùng"));

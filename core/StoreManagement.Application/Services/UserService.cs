@@ -70,13 +70,15 @@ namespace StoreManagement.Services
             return mapper.Map<UserDTO>(user);
         }
 
-        public async Task<PaginationResult<List<UserDTO>>> GetAll(string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortColumn = "", string asc = "true")
+        public async Task<PaginationResult<List<UserDTO>>> GetAll(string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortColumn = "", bool filter = false,
+        int? role = null, string asc = "true")
         {
             int _currentPage = int.Parse(currentPage);
             int _pageSize = int.Parse(pageSize);
             bool _asc = bool.Parse(asc);
 
-            var list = await _userRepository.GetAll();
+            var list = await _userRepository.GetAll(searchTerm, sortColumn, _asc, role, filter);
+
             var count = list.Count();
 
             list = list.Skip(_currentPage * _pageSize - _pageSize).Take(_pageSize).ToList();

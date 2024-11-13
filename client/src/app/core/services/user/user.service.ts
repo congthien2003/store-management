@@ -17,14 +17,20 @@ export class UserService {
 		pagi: Pagination,
 		searchTerm: string = "",
 		sortColumn: string = "",
-		ascSort: boolean = true
+		filter: boolean = false,
+		ascSort: boolean = true,
+		role: number | null 
 	): Observable<ApiResponse> {
-		const params = new HttpParams()
+		let params = new HttpParams()
 			.set("currentPage", pagi.currentPage)
 			.set("pageSize", pagi.pageSize)
 			.set("searchTerm", searchTerm)
 			.set("sortColumn", sortColumn)
+			.set("filter", filter)
 			.set("ascSrot", ascSort);
+		if (role !== null) {
+			params = params.set("role", role);
+		}
 		return this.service.get(this.endpoint.getAll, { params });
 	}
 

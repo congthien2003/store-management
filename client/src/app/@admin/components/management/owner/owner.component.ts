@@ -37,10 +37,10 @@ const MatImport = [
 ];
 
 @Component({
-	selector: "app-user",
+	selector: "app-owner",
 	standalone: true,
-	templateUrl: "./user.component.html",
-	styleUrls: ["./user.component.scss"],
+	templateUrl: "./owner.component.html",
+	styleUrls: ["./owner.component.scss"],
 	imports: [
 		CommonModule,
 		MatImport,
@@ -52,7 +52,7 @@ const MatImport = [
 		FormsModule,
 	],
 })
-export class UserComponent implements OnInit {
+export class OwnerComponent implements OnInit {
 	config = {
 		displayedColumns: [
 			{
@@ -117,7 +117,7 @@ export class UserComponent implements OnInit {
 			"",            
 			this.filter,
 			true,          
-			this.role).subscribe({
+			1).subscribe({
 			next: (res) => {
 				this.listUser = res.data.list;
 				this.pagi = res.data.pagination;

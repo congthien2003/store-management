@@ -12,24 +12,6 @@
 			<button mat-raised-button color="primary" (click)="openAddDialog()">
 				Thêm mới người dùng
 			</button>
-			<button
-				matTooltip="Lọc"
-				aria-label="Filter"
-				class="btn btn-sm btn-action-filter"
-				[matMenuTriggerFor]="menu">
-				<i class="fa fa-filter" aria-hidden="true"></i>
-			</button>
-			<mat-menu #menu="matMenu">
-				<button mat-menu-item (click)="changeFilter(2)">
-					<span class="filter-label-radio">Owner</span>
-				</button>
-				<button mat-menu-item (click)="changeFilter(1)">
-					<span class="filter-label-radio">Admin</span>
-				</button>
-				<button mat-menu-item (click)="changeFilter(0)">
-					<span class="filter-label-radio">Tất cả</span>
-				</button>
-			</mat-menu>
 		</div>
 	</div>
 	<div class="management--main">

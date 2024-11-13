@@ -28,6 +28,10 @@ export class AdminComponent {
 				break;
 			}
 			case 2: {
+				this.router.navigate(["/admin/owner"]);
+				break;
+			}
+			case 3: {
 				this.router.navigate(["/admin/store"]);
 				break;
 			}
