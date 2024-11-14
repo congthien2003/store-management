@@ -1,3 +1,5 @@
+import { Store } from "./Store";
+
 export interface User {
 	id: number;
 	username: string;
@@ -5,4 +7,5 @@ export interface User {
 	password: string;
 	phones: string;
 	role: number;
+	store?: Store | null;
 }

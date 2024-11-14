@@ -37,10 +37,10 @@ const MatImport = [
 ];
 
 @Component({
-	selector: "app-user",
+	selector: "app-owner",
 	standalone: true,
-	templateUrl: "./user.component.html",
-	styleUrls: ["./user.component.scss"],
+	templateUrl: "./owner.component.html",
+	styleUrls: ["./owner.component.scss"],
 	imports: [
 		CommonModule,
 		MatImport,
@@ -52,7 +52,7 @@ const MatImport = [
 		FormsModule,
 	],
 })
-export class UserComponent implements OnInit {
+export class OwnerComponent implements OnInit {
 	config = {
 		displayedColumns: [
 			{
@@ -64,8 +64,16 @@ export class UserComponent implements OnInit {
 				display: "Tên người dùng",
 			},
 			{
+				prop:"name",
+				display: "Tên quán",
+			},
+			{
 				prop: "email",
 				display: "Email",
+			},
+			{
+				prop: "address",
+				display:"Địa chỉ"
 			},
 			{
 				prop: "phones",
@@ -112,14 +120,17 @@ export class UserComponent implements OnInit {
 
 	loadListUser(): void {
 		this.userService
-		.list( this.pagi,
-			this.searchTerm,
-			"",            
-			this.filter,
-			true,          
-			this.role).subscribe({
+		.listRes( this.pagi,
+				this.searchTerm,
+				"", 
+				true        
+			).subscribe({
 			next: (res) => {
+				console.log(res);
 				this.listUser = res.data.list;
+				this.listUser.forEach(user => {
+					(user as any).store = (user as any).store || { id: null, name: 'Chưa có quán', address: 'Chưa có địa chỉ', phone: 'Chưa có số điện thoại', idUser: null };
+				  });
 				this.pagi = res.data.pagination;
 				if (this.pagi.currentPage > this.pagi.totalPage) {
 					this.pagi.currentPage = 1;
