@@ -25,6 +25,11 @@ const routes: Routes = [
 			import("./@owner/owner.module").then((m) => m.OwnerModule),
 	},
 	{
+		path: "staff",
+		loadChildren: () =>
+			import("./@staff/staff.module").then((m) => m.StaffModule),
+	},
+	{
 		path: "",
 		loadChildren: () =>
 			import("./@customer/customer.module").then((m) => m.CustomerModule),
