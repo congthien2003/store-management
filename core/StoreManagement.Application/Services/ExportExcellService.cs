@@ -28,7 +28,7 @@ namespace StoreManagement.Application.Services
             var storeName = store.Name;
 
             int totalQuantitySold = 0;
-            int totalFoods = foodSalesReport.Count;
+            int totalFoods = foodSalesReport.Count();
 
             using var workbook = new XLWorkbook();
             var worksheet = workbook.Worksheets.Add("Food Sales Report");
