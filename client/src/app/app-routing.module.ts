@@ -30,6 +30,12 @@ const routes: Routes = [
 			import("./@customer/customer.module").then((m) => m.CustomerModule),
 	},
 	{
+		path:"staff",
+		loadChildren: () =>
+			import("./@staff/staff.module").then((m) => m.StaffModule),
+		
+	},
+	{
 		path: "not-authorized",
 		component: NotAuthorComponent,
 	},

@@ -66,6 +66,32 @@ namespace StoreManagement.Infrastructure.Repositories
             var list = store.Skip(currentPage * pageSize - pageSize).Take(pageSize).ToListAsync();
             return list;
         }
+        public Task<List<Store>> GetAllStoreResponse(int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortCol = "", bool ascSort = true, bool incluDeleted = false)
+        {
+            var store = _dataContext.Stores.Include("User").AsQueryable();
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                store = store.Where(t => t.Name.Contains(searchTerm));
+            }
+            if (!incluDeleted)
+            {
+                store = store.Where(t => t.IsDeleted == incluDeleted);
+            }
+            if (!string.IsNullOrEmpty(sortCol))
+            {
+                if (ascSort)
+                {
+                    store = store.OrderByDescending(GetSortColumnExpression(sortCol.ToLower()));
+                }
+                else
+                {
+                    store = store.OrderBy(GetSortColumnExpression(sortCol.ToLower()));
+
+                }
+            }
+            var list = store.Skip(currentPage * pageSize - pageSize).Take(pageSize).ToListAsync();
+            return list;
+        }
 
         public async Task<Store> GetByIdAsync(int id, bool includeDeleted = false)
         {

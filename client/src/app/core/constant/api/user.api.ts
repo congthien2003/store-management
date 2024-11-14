@@ -4,4 +4,5 @@ export const UserApi = {
 	getById: "User",
 	delete: "User/delete",
 	update: "User/update",
+	getAllUserRes: "User/Res-All",
 };

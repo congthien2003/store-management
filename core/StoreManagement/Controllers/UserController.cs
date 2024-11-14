@@ -8,6 +8,7 @@ using StoreManagement.Domain.Models;
 using StoreManagement.Application.DTOs.Auth;
 using Azure.Core;
 using StoreManagement.Application.DTOs.Request;
+using StoreManagement.Application.DTOs.Response;
 
 namespace StoreManagement.Controllers
 {
@@ -33,6 +34,26 @@ namespace StoreManagement.Controllers
                 return BadRequest(Result.Failure("Không tìm thấy người dùng"));
             }
             return Ok(Result<PaginationResult<List<UserDTO>>>.Success(user, "Lấy thông tin thành công"));
+        }
+        [HttpGet("Res-All")]
+        public async Task<ActionResult<Result>> GetAllUserResponse(string currentPage = "1",
+        string pageSize = "5",
+        string searchTerm = "",
+        string sortCol = "",
+        string asc = "true",
+        bool incluDeleted = false)
+        {
+            var list = await _userService.GetAllUserResponses(currentPage,
+            pageSize,
+            searchTerm,
+            sortCol,
+            asc,
+            incluDeleted);
+            if(list == null)
+            {
+                return BadRequest(Result.Failure("Không tìm thấy người dùng"));
+            }
+            return Ok(Result<PaginationResult<List<UserResponse>>>.Success(list, "Lấy thông tin thành công"));
         }
 
         [HttpGet]

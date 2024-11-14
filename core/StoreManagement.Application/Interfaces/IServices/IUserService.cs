@@ -1,6 +1,7 @@
 ﻿using StoreManagement.Application.Common;
 using StoreManagement.Application.DTOs.Auth;
 using StoreManagement.Application.DTOs.Request;
+using StoreManagement.Application.DTOs.Response;
 using StoreManagement.Domain.Models;
 
 namespace StoreManagement.Application.Interfaces.IServices
@@ -17,5 +18,6 @@ namespace StoreManagement.Application.Interfaces.IServices
         Task<bool> Delete(int id);
         Task<UserDTO> Edit(UserDTO user);
         Task<UserDTO> UpdatePassword(int id, string password, bool includeDeleted = false);
+        Task<PaginationResult<List<UserResponse>>> GetAllUserResponses(string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortCol = "", string asc = "true", bool incluDeleted = false);
     }
 }

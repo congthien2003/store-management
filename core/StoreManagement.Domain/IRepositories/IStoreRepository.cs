@@ -13,5 +13,6 @@ namespace StoreManagement.Domain.IRepositories
         Task<TStore> GetByIdUserAsync(int id, bool includeDeleted = false);
         Task<List<TStore>> GetByNameAsync(string name, bool includeDeleted = false);
         Task<List<TStore>> GetAllAsync(int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortCol = "", bool ascSort = true, bool incluDeleted = false);
+        Task<List<TStore>> GetAllStoreResponse(int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortCol = "", bool ascSort = true, bool incluDeleted = false);
     }
 }

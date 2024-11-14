@@ -12,5 +12,6 @@ namespace StoreManagement.Domain.IRepositories
         Task<TUser> GetById(int id, bool includeDeleted = false);
         Task<TUser> Edit(TUser user);
         Task<TUser> UpdatePassword(int id, string password, bool includeDeleted = false);
+        Task<List<TUser>> GetAllUserResponse(string searchTerm = "", string sortCol = "", bool ascSort = true, int? role = 1, bool incluDeleted = false);
     }
 }

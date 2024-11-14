@@ -34,6 +34,21 @@ export class UserService {
 		return this.service.get(this.endpoint.getAll, { params });
 	}
 
+	listRes(
+		pagi: Pagination,
+		searchTerm: string = "",
+		sortColumn: string = "",
+		ascSort: boolean = true,
+	): Observable<ApiResponse> {
+		let params = new HttpParams()
+			.set("currentPage", pagi.currentPage)
+			.set("pageSize", pagi.pageSize)
+			.set("searchTerm", searchTerm)
+			.set("sortColumn", sortColumn)
+			.set("ascSrot", ascSort);
+		return this.service.get(this.endpoint.getAllUserRes, { params });
+	}
+
 	getById(id: number): Observable<ApiResponse> {
 		return this.service.get(`${this.endpoint.getById}/${id} `);
 	}

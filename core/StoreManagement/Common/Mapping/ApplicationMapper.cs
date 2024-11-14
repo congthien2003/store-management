@@ -26,7 +26,7 @@ namespace StoreManagement.Application.Helper
             CreateMap<Order, OrderResponse>().ReverseMap();
             CreateMap<Invoice, InvoiceResponse>().ReverseMap();
             CreateMap<Table, TableResponse>().ReverseMap();
-
+            CreateMap<Store, StoreResponse>().ReverseMap();
             CreateMap<OrderAccessToken, OrderAccessTokenResponse>().ReverseMap();
 
         }
