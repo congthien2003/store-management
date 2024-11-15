@@ -3,124 +3,104 @@
   "WorkspaceRootPath": "C:\\Code_Project\\DACN\\store-management\\core\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.application\\services\\orderdetailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|solutionrelative:storemanagement.application\\services\\orderdetailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8BAFCF77-4501-4E51-9842-6B28B902F3B0}|StoreManagement.Infrastructure\\StoreManagement.Infrastructure.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.infrastructure\\repositories\\invoicerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BAFCF77-4501-4E51-9842-6B28B902F3B0}|StoreManagement.Infrastructure\\StoreManagement.Infrastructure.csproj|solutionrelative:storemanagement.infrastructure\\repositories\\invoicerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8BAFCF77-4501-4E51-9842-6B28B902F3B0}|StoreManagement.Infrastructure\\StoreManagement.Infrastructure.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.infrastructure\\repositories\\orderdetailrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BAFCF77-4501-4E51-9842-6B28B902F3B0}|StoreManagement.Infrastructure\\StoreManagement.Infrastructure.csproj|solutionrelative:storemanagement.infrastructure\\repositories\\orderdetailrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{085F9A87-01F5-41A9-B418-42F6C4A4E8BB}|StoreManagement.Domain\\StoreManagement.Domain.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.domain\\irepositories\\iinvoicerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{085F9A87-01F5-41A9-B418-42F6C4A4E8BB}|StoreManagement.Domain\\StoreManagement.Domain.csproj|solutionrelative:storemanagement.domain\\irepositories\\iinvoicerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{085F9A87-01F5-41A9-B418-42F6C4A4E8BB}|StoreManagement.Domain\\StoreManagement.Domain.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.domain\\irepositories\\iorderdetailrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{085F9A87-01F5-41A9-B418-42F6C4A4E8BB}|StoreManagement.Domain\\StoreManagement.Domain.csproj|solutionrelative:storemanagement.domain\\irepositories\\iorderdetailrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{47B389F7-5BD6-4DE3-AA9F-A92476BD403F}|StoreManagement\\StoreManagement.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement\\controllers\\orderaccesscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{47B389F7-5BD6-4DE3-AA9F-A92476BD403F}|StoreManagement\\StoreManagement.csproj|solutionrelative:storemanagement\\controllers\\orderaccesscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.application\\services\\exportexcellservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|solutionrelative:storemanagement.application\\services\\exportexcellservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.application\\services\\orderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|solutionrelative:storemanagement.application\\services\\orderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.application\\interfaces\\iservices\\iorderdetailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|solutionrelative:storemanagement.application\\interfaces\\iservices\\iorderdetailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.application\\common\\iresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|solutionrelative:storemanagement.application\\common\\iresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{47B389F7-5BD6-4DE3-AA9F-A92476BD403F}|StoreManagement\\StoreManagement.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement\\controllers\\salescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{47B389F7-5BD6-4DE3-AA9F-A92476BD403F}|StoreManagement\\StoreManagement.csproj|solutionrelative:storemanagement\\controllers\\salescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.application\\services\\invoiceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|solutionrelative:storemanagement.application\\services\\invoiceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{47B389F7-5BD6-4DE3-AA9F-A92476BD403F}|StoreManagement\\StoreManagement.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{47B389F7-5BD6-4DE3-AA9F-A92476BD403F}|StoreManagement\\StoreManagement.csproj|solutionrelative:storemanagement\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{47B389F7-5BD6-4DE3-AA9F-A92476BD403F}|StoreManagement\\StoreManagement.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{47B389F7-5BD6-4DE3-AA9F-A92476BD403F}|StoreManagement\\StoreManagement.csproj|solutionrelative:storemanagement\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{47B389F7-5BD6-4DE3-AA9F-A92476BD403F}|StoreManagement\\StoreManagement.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement\\controllers\\invoicecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{47B389F7-5BD6-4DE3-AA9F-A92476BD403F}|StoreManagement\\StoreManagement.csproj|solutionrelative:storemanagement\\controllers\\invoicecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{085F9A87-01F5-41A9-B418-42F6C4A4E8BB}|StoreManagement.Domain\\StoreManagement.Domain.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.domain\\enum\\erole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{085F9A87-01F5-41A9-B418-42F6C4A4E8BB}|StoreManagement.Domain\\StoreManagement.Domain.csproj|solutionrelative:storemanagement.domain\\enum\\erole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.application\\interfaces\\iservices\\iinvoiceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|solutionrelative:storemanagement.application\\interfaces\\iservices\\iinvoiceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.application\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|solutionrelative:storemanagement.application\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8BAFCF77-4501-4E51-9842-6B28B902F3B0}|StoreManagement.Infrastructure\\StoreManagement.Infrastructure.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.infrastructure\\repositories\\tablerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BAFCF77-4501-4E51-9842-6B28B902F3B0}|StoreManagement.Infrastructure\\StoreManagement.Infrastructure.csproj|solutionrelative:storemanagement.infrastructure\\repositories\\tablerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{47B389F7-5BD6-4DE3-AA9F-A92476BD403F}|StoreManagement\\StoreManagement.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement\\controllers\\tablecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{47B389F7-5BD6-4DE3-AA9F-A92476BD403F}|StoreManagement\\StoreManagement.csproj|solutionrelative:storemanagement\\controllers\\tablecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8BAFCF77-4501-4E51-9842-6B28B902F3B0}|StoreManagement.Infrastructure\\StoreManagement.Infrastructure.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.infrastructure\\repositories\\foodrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BAFCF77-4501-4E51-9842-6B28B902F3B0}|StoreManagement.Infrastructure\\StoreManagement.Infrastructure.csproj|solutionrelative:storemanagement.infrastructure\\repositories\\foodrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.application\\interfaces\\iservices\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|solutionrelative:storemanagement.application\\interfaces\\iservices\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8BAFCF77-4501-4E51-9842-6B28B902F3B0}|StoreManagement.Infrastructure\\StoreManagement.Infrastructure.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.infrastructure\\repositories\\orderaccesstokenrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BAFCF77-4501-4E51-9842-6B28B902F3B0}|StoreManagement.Infrastructure\\StoreManagement.Infrastructure.csproj|solutionrelative:storemanagement.infrastructure\\repositories\\orderaccesstokenrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8BAFCF77-4501-4E51-9842-6B28B902F3B0}|StoreManagement.Infrastructure\\StoreManagement.Infrastructure.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.infrastructure\\repositories\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BAFCF77-4501-4E51-9842-6B28B902F3B0}|StoreManagement.Infrastructure\\StoreManagement.Infrastructure.csproj|solutionrelative:storemanagement.infrastructure\\repositories\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{085F9A87-01F5-41A9-B418-42F6C4A4E8BB}|StoreManagement.Domain\\StoreManagement.Domain.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.domain\\models\\orderaccesstoken.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{085F9A87-01F5-41A9-B418-42F6C4A4E8BB}|StoreManagement.Domain\\StoreManagement.Domain.csproj|solutionrelative:storemanagement.domain\\models\\orderaccesstoken.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.application\\dtos\\response\\userresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|solutionrelative:storemanagement.application\\dtos\\response\\userresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{47B389F7-5BD6-4DE3-AA9F-A92476BD403F}|StoreManagement\\StoreManagement.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement\\controllers\\storecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{47B389F7-5BD6-4DE3-AA9F-A92476BD403F}|StoreManagement\\StoreManagement.csproj|solutionrelative:storemanagement\\controllers\\storecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.application\\dtos\\response\\storeresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|solutionrelative:storemanagement.application\\dtos\\response\\storeresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.application\\services\\storeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|solutionrelative:storemanagement.application\\services\\storeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{085F9A87-01F5-41A9-B418-42F6C4A4E8BB}|StoreManagement.Domain\\StoreManagement.Domain.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.domain\\irepositories\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{085F9A87-01F5-41A9-B418-42F6C4A4E8BB}|StoreManagement.Domain\\StoreManagement.Domain.csproj|solutionrelative:storemanagement.domain\\irepositories\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8BAFCF77-4501-4E51-9842-6B28B902F3B0}|StoreManagement.Infrastructure\\StoreManagement.Infrastructure.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.infrastructure\\repositories\\storerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BAFCF77-4501-4E51-9842-6B28B902F3B0}|StoreManagement.Infrastructure\\StoreManagement.Infrastructure.csproj|solutionrelative:storemanagement.infrastructure\\repositories\\storerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{085F9A87-01F5-41A9-B418-42F6C4A4E8BB}|StoreManagement.Domain\\StoreManagement.Domain.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.domain\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{085F9A87-01F5-41A9-B418-42F6C4A4E8BB}|StoreManagement.Domain\\StoreManagement.Domain.csproj|solutionrelative:storemanagement.domain\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8BAFCF77-4501-4E51-9842-6B28B902F3B0}|StoreManagement.Infrastructure\\StoreManagement.Infrastructure.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.infrastructure\\repositories\\orderrepositoy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BAFCF77-4501-4E51-9842-6B28B902F3B0}|StoreManagement.Infrastructure\\StoreManagement.Infrastructure.csproj|solutionrelative:storemanagement.infrastructure\\repositories\\orderrepositoy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{47B389F7-5BD6-4DE3-AA9F-A92476BD403F}|StoreManagement\\StoreManagement.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{47B389F7-5BD6-4DE3-AA9F-A92476BD403F}|StoreManagement\\StoreManagement.csproj|solutionrelative:storemanagement\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{47B389F7-5BD6-4DE3-AA9F-A92476BD403F}|StoreManagement\\StoreManagement.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement\\common\\mapping\\applicationmapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{47B389F7-5BD6-4DE3-AA9F-A92476BD403F}|StoreManagement\\StoreManagement.csproj|solutionrelative:storemanagement\\common\\mapping\\applicationmapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{085F9A87-01F5-41A9-B418-42F6C4A4E8BB}|StoreManagement.Domain\\StoreManagement.Domain.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.domain\\irepositories\\ifoodrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{085F9A87-01F5-41A9-B418-42F6C4A4E8BB}|StoreManagement.Domain\\StoreManagement.Domain.csproj|solutionrelative:storemanagement.domain\\irepositories\\ifoodrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.application\\services\\foodservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|solutionrelative:storemanagement.application\\services\\foodservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.application\\services\\tableservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|solutionrelative:storemanagement.application\\services\\tableservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.application\\interfaces\\iservices\\ifoodservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|solutionrelative:storemanagement.application\\interfaces\\iservices\\ifoodservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{085F9A87-01F5-41A9-B418-42F6C4A4E8BB}|StoreManagement.Domain\\StoreManagement.Domain.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.domain\\irepositories\\istorerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{085F9A87-01F5-41A9-B418-42F6C4A4E8BB}|StoreManagement.Domain\\StoreManagement.Domain.csproj|solutionrelative:storemanagement.domain\\irepositories\\istorerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{47B389F7-5BD6-4DE3-AA9F-A92476BD403F}|StoreManagement\\StoreManagement.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement\\controllers\\foodcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{47B389F7-5BD6-4DE3-AA9F-A92476BD403F}|StoreManagement\\StoreManagement.csproj|solutionrelative:storemanagement\\controllers\\foodcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.application\\interfaces\\iservices\\istoreservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|solutionrelative:storemanagement.application\\interfaces\\iservices\\istoreservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8BAFCF77-4501-4E51-9842-6B28B902F3B0}|StoreManagement.Infrastructure\\StoreManagement.Infrastructure.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.infrastructure\\repositories\\orderdetailrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BAFCF77-4501-4E51-9842-6B28B902F3B0}|StoreManagement.Infrastructure\\StoreManagement.Infrastructure.csproj|solutionrelative:storemanagement.infrastructure\\repositories\\orderdetailrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.application\\services\\categoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|solutionrelative:storemanagement.application\\services\\categoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{085F9A87-01F5-41A9-B418-42F6C4A4E8BB}|StoreManagement.Domain\\StoreManagement.Domain.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.domain\\models\\orderdetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{085F9A87-01F5-41A9-B418-42F6C4A4E8BB}|StoreManagement.Domain\\StoreManagement.Domain.csproj|solutionrelative:storemanagement.domain\\models\\orderdetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.application\\services\\orderdetailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|solutionrelative:storemanagement.application\\services\\orderdetailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.application\\services\\orderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|solutionrelative:storemanagement.application\\services\\orderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.application\\services\\orderaccessservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|solutionrelative:storemanagement.application\\services\\orderaccessservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{47B389F7-5BD6-4DE3-AA9F-A92476BD403F}|StoreManagement\\StoreManagement.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{47B389F7-5BD6-4DE3-AA9F-A92476BD403F}|StoreManagement\\StoreManagement.csproj|solutionrelative:storemanagement\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{47B389F7-5BD6-4DE3-AA9F-A92476BD403F}|StoreManagement\\StoreManagement.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{47B389F7-5BD6-4DE3-AA9F-A92476BD403F}|StoreManagement\\StoreManagement.csproj|solutionrelative:storemanagement\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.application\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FFB06EC9-CAEC-45DE-A696-EF436D75C558}|StoreManagement.Application\\StoreManagement.Application.csproj|solutionrelative:storemanagement.application\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BAFCF77-4501-4E51-9842-6B28B902F3B0}|StoreManagement.Infrastructure\\StoreManagement.Infrastructure.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement.infrastructure\\repositories\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BAFCF77-4501-4E51-9842-6B28B902F3B0}|StoreManagement.Infrastructure\\StoreManagement.Infrastructure.csproj|solutionrelative:storemanagement.infrastructure\\repositories\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{47B389F7-5BD6-4DE3-AA9F-A92476BD403F}|StoreManagement\\StoreManagement.csproj|c:\\code_project\\dacn\\store-management\\core\\storemanagement\\controllers\\tablecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{47B389F7-5BD6-4DE3-AA9F-A92476BD403F}|StoreManagement\\StoreManagement.csproj|solutionrelative:storemanagement\\controllers\\tablecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -130,7 +110,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 704,
-          "SelectedChildIndex": 12,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Bookmark",
@@ -158,380 +138,182 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "OrderDetailRepository.cs",
-              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Infrastructure\\Repositories\\OrderDetailRepository.cs",
-              "RelativeDocumentMoniker": "StoreManagement.Infrastructure\\Repositories\\OrderDetailRepository.cs",
-              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Infrastructure\\Repositories\\OrderDetailRepository.cs",
-              "RelativeToolTip": "StoreManagement.Infrastructure\\Repositories\\OrderDetailRepository.cs",
-              "ViewState": "AgIAAHAAAAAAAAAAAAAuwHwAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-14T02:34:25.57Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "IOrderDetailRepository.cs",
-              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Domain\\IRepositories\\IOrderDetailRepository.cs",
-              "RelativeDocumentMoniker": "StoreManagement.Domain\\IRepositories\\IOrderDetailRepository.cs",
-              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Domain\\IRepositories\\IOrderDetailRepository.cs",
-              "RelativeToolTip": "StoreManagement.Domain\\IRepositories\\IOrderDetailRepository.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAgwA4AAABqAAAAAAAAAA==",
+              "Title": "OrderAccessController.cs",
+              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement\\Controllers\\OrderAccessController.cs",
+              "RelativeDocumentMoniker": "StoreManagement\\Controllers\\OrderAccessController.cs",
+              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement\\Controllers\\OrderAccessController.cs",
+              "RelativeToolTip": "StoreManagement\\Controllers\\OrderAccessController.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAowAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-14T02:33:53.163Z",
+              "WhenOpened": "2024-11-15T14:55:40.788Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "IOrderDetailService.cs",
-              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\Interfaces\\IServices\\IOrderDetailService.cs",
-              "RelativeDocumentMoniker": "StoreManagement.Application\\Interfaces\\IServices\\IOrderDetailService.cs",
-              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\Interfaces\\IServices\\IOrderDetailService.cs",
-              "RelativeToolTip": "StoreManagement.Application\\Interfaces\\IServices\\IOrderDetailService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAYAAAAVAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "IInvoiceRepository.cs",
+              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Domain\\IRepositories\\IInvoiceRepository.cs",
+              "RelativeDocumentMoniker": "StoreManagement.Domain\\IRepositories\\IInvoiceRepository.cs",
+              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Domain\\IRepositories\\IInvoiceRepository.cs",
+              "RelativeToolTip": "StoreManagement.Domain\\IRepositories\\IInvoiceRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAYAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-14T02:31:30.257Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "IResult.cs",
-              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\Common\\IResult.cs",
-              "RelativeDocumentMoniker": "StoreManagement.Application\\Common\\IResult.cs",
-              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\Common\\IResult.cs",
-              "RelativeToolTip": "StoreManagement.Application\\Common\\IResult.cs",
-              "ViewState": "AgIAAC8AAAAAAAAAAAAWwDgAAAAgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-14T02:24:20.782Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "SalesController.cs",
-              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement\\Controllers\\SalesController.cs",
-              "RelativeDocumentMoniker": "StoreManagement\\Controllers\\SalesController.cs",
-              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement\\Controllers\\SalesController.cs",
-              "RelativeToolTip": "StoreManagement\\Controllers\\SalesController.cs",
-              "ViewState": "AgIAAAEAAAAAAAAAAAAlwA0AAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-14T02:19:55.226Z",
+              "WhenOpened": "2024-11-15T11:45:12.251Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "ExportExcellService.cs",
-              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\Services\\ExportExcellService.cs",
-              "RelativeDocumentMoniker": "StoreManagement.Application\\Services\\ExportExcellService.cs",
-              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\Services\\ExportExcellService.cs",
-              "RelativeToolTip": "StoreManagement.Application\\Services\\ExportExcellService.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAowA4AAAAsAAAAAAAAAA==",
+              "Title": "InvoiceService.cs",
+              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\Services\\InvoiceService.cs",
+              "RelativeDocumentMoniker": "StoreManagement.Application\\Services\\InvoiceService.cs",
+              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\Services\\InvoiceService.cs",
+              "RelativeToolTip": "StoreManagement.Application\\Services\\InvoiceService.cs",
+              "ViewState": "AgIAACkAAAAAAAAAAAAwwDUAAACUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-14T02:19:47.002Z",
+              "WhenOpened": "2024-11-15T11:44:47.192Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "OrderDetailService.cs",
-              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\Services\\OrderDetailService.cs",
-              "RelativeDocumentMoniker": "StoreManagement.Application\\Services\\OrderDetailService.cs",
-              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\Services\\OrderDetailService.cs",
-              "RelativeToolTip": "StoreManagement.Application\\Services\\OrderDetailService.cs",
-              "ViewState": "AgIAAE0AAAAAAAAAAIAywFMAAAAUAAAAAAAAAA==",
+              "Title": "InvoiceRepository.cs",
+              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Infrastructure\\Repositories\\InvoiceRepository.cs",
+              "RelativeDocumentMoniker": "StoreManagement.Infrastructure\\Repositories\\InvoiceRepository.cs",
+              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Infrastructure\\Repositories\\InvoiceRepository.cs",
+              "RelativeToolTip": "StoreManagement.Infrastructure\\Repositories\\InvoiceRepository.cs",
+              "ViewState": "AgIAABwAAAAAAAAAAAAgwAwAAAA6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T11:13:29.235Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement\\appsettings.json",
-              "RelativeDocumentMoniker": "StoreManagement\\appsettings.json",
-              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement\\appsettings.json",
-              "RelativeToolTip": "StoreManagement\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAIwBYAAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-11-14T02:17:45.416Z",
+              "WhenOpened": "2024-11-15T11:07:59.698Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement\\appsettings.json",
+              "RelativeDocumentMoniker": "StoreManagement\\appsettings.json",
+              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement\\appsettings.json",
+              "RelativeToolTip": "StoreManagement\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-11-15T14:44:26.517Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "IInvoiceService.cs",
+              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\Interfaces\\IServices\\IInvoiceService.cs",
+              "RelativeDocumentMoniker": "StoreManagement.Application\\Interfaces\\IServices\\IInvoiceService.cs",
+              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\Interfaces\\IServices\\IInvoiceService.cs",
+              "RelativeToolTip": "StoreManagement.Application\\Interfaces\\IServices\\IInvoiceService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAACQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-15T11:43:46.844Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "InvoiceController.cs",
+              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement\\Controllers\\InvoiceController.cs",
+              "RelativeDocumentMoniker": "StoreManagement\\Controllers\\InvoiceController.cs",
+              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement\\Controllers\\InvoiceController.cs",
+              "RelativeToolTip": "StoreManagement\\Controllers\\InvoiceController.cs",
+              "ViewState": "AgIAACkAAAAAAAAAAAAIwDgAAAB5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-15T11:42:38.908Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "OrderDetail.cs",
+              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Domain\\Models\\OrderDetail.cs",
+              "RelativeDocumentMoniker": "StoreManagement.Domain\\Models\\OrderDetail.cs",
+              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Domain\\Models\\OrderDetail.cs",
+              "RelativeToolTip": "StoreManagement.Domain\\Models\\OrderDetail.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-15T11:13:45.243Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
               "Title": "OrderService.cs",
               "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\Services\\OrderService.cs",
               "RelativeDocumentMoniker": "StoreManagement.Application\\Services\\OrderService.cs",
               "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\Services\\OrderService.cs",
               "RelativeToolTip": "StoreManagement.Application\\Services\\OrderService.cs",
-              "ViewState": "AgIAAEAAAAAAAAAAAAArwDkAAAAwAAAAAAAAAA==",
+              "ViewState": "AgIAABYAAAAAAAAAAAAUwCoAAABBAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T11:13:22.708Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "UserController.cs",
-              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement\\Controllers\\UserController.cs",
-              "RelativeDocumentMoniker": "StoreManagement\\Controllers\\UserController.cs",
-              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement\\Controllers\\UserController.cs",
-              "RelativeToolTip": "StoreManagement\\Controllers\\UserController.cs",
-              "ViewState": "AgIAACwAAAAAAAAAAAAgwDcAAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T11:53:34.034Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "ERole.cs",
-              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Domain\\Enum\\ERole.cs",
-              "RelativeDocumentMoniker": "StoreManagement.Domain\\Enum\\ERole.cs",
-              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Domain\\Enum\\ERole.cs",
-              "RelativeToolTip": "StoreManagement.Domain\\Enum\\ERole.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-14T01:32:19.006Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "UserRepository.cs",
-              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Infrastructure\\Repositories\\UserRepository.cs",
-              "RelativeDocumentMoniker": "StoreManagement.Infrastructure\\Repositories\\UserRepository.cs",
-              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Infrastructure\\Repositories\\UserRepository.cs",
-              "RelativeToolTip": "StoreManagement.Infrastructure\\Repositories\\UserRepository.cs",
-              "ViewState": "AgIAAIwAAAAAAAAAAAAkwI8AAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T11:35:56.493Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "IUserService.cs",
-              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\Interfaces\\IServices\\IUserService.cs",
-              "RelativeDocumentMoniker": "StoreManagement.Application\\Interfaces\\IServices\\IUserService.cs",
-              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\Interfaces\\IServices\\IUserService.cs",
-              "RelativeToolTip": "StoreManagement.Application\\Interfaces\\IServices\\IUserService.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAIwBQAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T11:34:14.681Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "UserService.cs",
-              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\Services\\UserService.cs",
-              "RelativeDocumentMoniker": "StoreManagement.Application\\Services\\UserService.cs",
-              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\Services\\UserService.cs",
-              "RelativeToolTip": "StoreManagement.Application\\Services\\UserService.cs",
-              "ViewState": "AgIAAE4AAAAAAAAAAAAjwFsAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T11:33:15.732Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "IUserRepository.cs",
-              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Domain\\IRepositories\\IUserRepository.cs",
-              "RelativeDocumentMoniker": "StoreManagement.Domain\\IRepositories\\IUserRepository.cs",
-              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Domain\\IRepositories\\IUserRepository.cs",
-              "RelativeToolTip": "StoreManagement.Domain\\IRepositories\\IUserRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAuwA4AAACXAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T11:35:58.398Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "StoreController.cs",
-              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement\\Controllers\\StoreController.cs",
-              "RelativeDocumentMoniker": "StoreManagement\\Controllers\\StoreController.cs",
-              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement\\Controllers\\StoreController.cs",
-              "RelativeToolTip": "StoreManagement\\Controllers\\StoreController.cs",
-              "ViewState": "AgIAADAAAAAAAAAAAAAkwEgAAAALAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T06:39:11.171Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "UserResponse.cs",
-              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\DTOs\\Response\\UserResponse.cs",
-              "RelativeDocumentMoniker": "StoreManagement.Application\\DTOs\\Response\\UserResponse.cs",
-              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\DTOs\\Response\\UserResponse.cs",
-              "RelativeToolTip": "StoreManagement.Application\\DTOs\\Response\\UserResponse.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAkAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T11:32:53.147Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "TableController.cs",
-              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement\\Controllers\\TableController.cs",
-              "RelativeDocumentMoniker": "StoreManagement\\Controllers\\TableController.cs",
-              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement\\Controllers\\TableController.cs",
-              "RelativeToolTip": "StoreManagement\\Controllers\\TableController.cs",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAowD4AAAAwAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T06:40:38.252Z"
+              "WhenOpened": "2024-11-15T06:46:42.768Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 20,
-              "Title": "StoreRepository.cs",
-              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Infrastructure\\Repositories\\StoreRepository.cs",
-              "RelativeDocumentMoniker": "StoreManagement.Infrastructure\\Repositories\\StoreRepository.cs",
-              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Infrastructure\\Repositories\\StoreRepository.cs",
-              "RelativeToolTip": "StoreManagement.Infrastructure\\Repositories\\StoreRepository.cs",
-              "ViewState": "AgIAAIAAAAAAAAAAAAAIwIMAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T11:02:51.739Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "StoreService.cs",
-              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\Services\\StoreService.cs",
-              "RelativeDocumentMoniker": "StoreManagement.Application\\Services\\StoreService.cs",
-              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\Services\\StoreService.cs",
-              "RelativeToolTip": "StoreManagement.Application\\Services\\StoreService.cs",
-              "ViewState": "AgIAADAAAAAAAAAAAAAowAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T12:01:53.966Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "StoreResponse.cs",
-              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\DTOs\\Response\\StoreResponse.cs",
-              "RelativeDocumentMoniker": "StoreManagement.Application\\DTOs\\Response\\StoreResponse.cs",
-              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\DTOs\\Response\\StoreResponse.cs",
-              "RelativeToolTip": "StoreManagement.Application\\DTOs\\Response\\StoreResponse.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T12:04:16.66Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "User.cs",
-              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Domain\\Models\\User.cs",
-              "RelativeDocumentMoniker": "StoreManagement.Domain\\Models\\User.cs",
-              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Domain\\Models\\User.cs",
-              "RelativeToolTip": "StoreManagement.Domain\\Models\\User.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T11:29:52.999Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
               "Title": "OrderController.cs",
               "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement\\Controllers\\OrderController.cs",
               "RelativeDocumentMoniker": "StoreManagement\\Controllers\\OrderController.cs",
               "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement\\Controllers\\OrderController.cs",
               "RelativeToolTip": "StoreManagement\\Controllers\\OrderController.cs",
-              "ViewState": "AgIAACsAAAAAAAAAAAA5wEEAAAA/AAAAAAAAAA==",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAcwBoAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T11:17:04.426Z"
+              "WhenOpened": "2024-11-14T12:06:12.506Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 24,
-              "Title": "ApplicationMapper.cs",
-              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement\\Common\\Mapping\\ApplicationMapper.cs",
-              "RelativeDocumentMoniker": "StoreManagement\\Common\\Mapping\\ApplicationMapper.cs",
-              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement\\Common\\Mapping\\ApplicationMapper.cs",
-              "RelativeToolTip": "StoreManagement\\Common\\Mapping\\ApplicationMapper.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAAABwAAAA7AAAAAAAAAA==",
+              "Title": "TableController.cs",
+              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement\\Controllers\\TableController.cs",
+              "RelativeDocumentMoniker": "StoreManagement\\Controllers\\TableController.cs",
+              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement\\Controllers\\TableController.cs",
+              "RelativeToolTip": "StoreManagement\\Controllers\\TableController.cs",
+              "ViewState": "AgIAACkAAAAAAAAAAAAIwEgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T11:14:35.196Z"
+              "WhenOpened": "2024-11-14T09:40:12.544Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 22,
-              "Title": "OrderRepositoy.cs",
-              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Infrastructure\\Repositories\\OrderRepositoy.cs",
-              "RelativeDocumentMoniker": "StoreManagement.Infrastructure\\Repositories\\OrderRepositoy.cs",
-              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Infrastructure\\Repositories\\OrderRepositoy.cs",
-              "RelativeToolTip": "StoreManagement.Infrastructure\\Repositories\\OrderRepositoy.cs",
-              "ViewState": "AgIAAB0AAAAAAAAAAAAgwCcAAAA1AAAAAAAAAA==",
+              "Title": "UserService.cs",
+              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\Services\\UserService.cs",
+              "RelativeDocumentMoniker": "StoreManagement.Application\\Services\\UserService.cs",
+              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\Services\\UserService.cs",
+              "RelativeToolTip": "StoreManagement.Application\\Services\\UserService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T11:13:48.517Z"
+              "WhenOpened": "2024-11-14T09:38:50.92Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "IStoreService.cs",
-              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\Interfaces\\IServices\\IStoreService.cs",
-              "RelativeDocumentMoniker": "StoreManagement.Application\\Interfaces\\IServices\\IStoreService.cs",
-              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\Interfaces\\IServices\\IStoreService.cs",
-              "RelativeToolTip": "StoreManagement.Application\\Interfaces\\IServices\\IStoreService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAuwBAAAAAwAAAAAAAAAA==",
+              "DocumentIndex": 23,
+              "Title": "UserRepository.cs",
+              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Infrastructure\\Repositories\\UserRepository.cs",
+              "RelativeDocumentMoniker": "StoreManagement.Infrastructure\\Repositories\\UserRepository.cs",
+              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Infrastructure\\Repositories\\UserRepository.cs",
+              "RelativeToolTip": "StoreManagement.Infrastructure\\Repositories\\UserRepository.cs",
+              "ViewState": "AgIAAG8AAAAAAAAAAAAkwIkAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T06:39:28.073Z"
+              "WhenOpened": "2024-11-14T09:38:44.437Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
-              "Title": "TableService.cs",
-              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\Services\\TableService.cs",
-              "RelativeDocumentMoniker": "StoreManagement.Application\\Services\\TableService.cs",
-              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\Services\\TableService.cs",
-              "RelativeToolTip": "StoreManagement.Application\\Services\\TableService.cs",
-              "ViewState": "AgIAADgAAAAAAAAAAAAswCwAAAAZAAAAAAAAAA==",
+              "DocumentIndex": 21,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "StoreManagement\\Controllers\\UserController.cs",
+              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement\\Controllers\\UserController.cs",
+              "RelativeToolTip": "StoreManagement\\Controllers\\UserController.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAowBwAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T06:41:58.046Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "FoodService.cs",
-              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\Services\\FoodService.cs",
-              "RelativeDocumentMoniker": "StoreManagement.Application\\Services\\FoodService.cs",
-              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\Services\\FoodService.cs",
-              "RelativeToolTip": "StoreManagement.Application\\Services\\FoodService.cs",
-              "ViewState": "AgIAAC4AAAAAAAAAAAAkwFcAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T06:42:54.202Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "IStoreRepository.cs",
-              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Domain\\IRepositories\\IStoreRepository.cs",
-              "RelativeDocumentMoniker": "StoreManagement.Domain\\IRepositories\\IStoreRepository.cs",
-              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Domain\\IRepositories\\IStoreRepository.cs",
-              "RelativeToolTip": "StoreManagement.Domain\\IRepositories\\IStoreRepository.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAnwA8AAACzAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T11:05:29.416Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
-              "Title": "CategoryService.cs",
-              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\Services\\CategoryService.cs",
-              "RelativeDocumentMoniker": "StoreManagement.Application\\Services\\CategoryService.cs",
-              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\Services\\CategoryService.cs",
-              "RelativeToolTip": "StoreManagement.Application\\Services\\CategoryService.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAAYwC4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T06:43:10.348Z"
+              "WhenOpened": "2024-11-14T09:35:26.404Z"
             }
           ]
         },
         {
-          "DockedWidth": 678,
-          "SelectedChildIndex": -1,
+          "DockedWidth": 704,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Bookmark",
@@ -568,11 +350,144 @@
             {
               "$type": "Bookmark",
               "Name": "ST:7:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "TableRepository.cs",
+              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Infrastructure\\Repositories\\TableRepository.cs",
+              "RelativeDocumentMoniker": "StoreManagement.Infrastructure\\Repositories\\TableRepository.cs",
+              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Infrastructure\\Repositories\\TableRepository.cs",
+              "RelativeToolTip": "StoreManagement.Infrastructure\\Repositories\\TableRepository.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAIwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-15T11:47:33.384Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "OrderAccessToken.cs",
+              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Domain\\Models\\OrderAccessToken.cs",
+              "RelativeDocumentMoniker": "StoreManagement.Domain\\Models\\OrderAccessToken.cs",
+              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Domain\\Models\\OrderAccessToken.cs",
+              "RelativeToolTip": "StoreManagement.Domain\\Models\\OrderAccessToken.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-15T11:47:21.741Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "IFoodRepository.cs",
+              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Domain\\IRepositories\\IFoodRepository.cs",
+              "RelativeDocumentMoniker": "StoreManagement.Domain\\IRepositories\\IFoodRepository.cs",
+              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Domain\\IRepositories\\IFoodRepository.cs",
+              "RelativeToolTip": "StoreManagement.Domain\\IRepositories\\IFoodRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwA0AAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-14T09:40:03.211Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "FoodRepository.cs",
+              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Infrastructure\\Repositories\\FoodRepository.cs",
+              "RelativeDocumentMoniker": "StoreManagement.Infrastructure\\Repositories\\FoodRepository.cs",
+              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Infrastructure\\Repositories\\FoodRepository.cs",
+              "RelativeToolTip": "StoreManagement.Infrastructure\\Repositories\\FoodRepository.cs",
+              "ViewState": "AgIAADUAAAAAAAAAAAAAAC0AAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-14T09:40:33.351Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "OrderAccessTokenRepository.cs",
+              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Infrastructure\\Repositories\\OrderAccessTokenRepository.cs",
+              "RelativeDocumentMoniker": "StoreManagement.Infrastructure\\Repositories\\OrderAccessTokenRepository.cs",
+              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Infrastructure\\Repositories\\OrderAccessTokenRepository.cs",
+              "RelativeToolTip": "StoreManagement.Infrastructure\\Repositories\\OrderAccessTokenRepository.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-15T11:07:41.818Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "FoodService.cs",
+              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\Services\\FoodService.cs",
+              "RelativeDocumentMoniker": "StoreManagement.Application\\Services\\FoodService.cs",
+              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\Services\\FoodService.cs",
+              "RelativeToolTip": "StoreManagement.Application\\Services\\FoodService.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAqwCYAAABBAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-14T09:42:08.529Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "IFoodService.cs",
+              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\Interfaces\\IServices\\IFoodService.cs",
+              "RelativeDocumentMoniker": "StoreManagement.Application\\Interfaces\\IServices\\IFoodService.cs",
+              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\Interfaces\\IServices\\IFoodService.cs",
+              "RelativeToolTip": "StoreManagement.Application\\Interfaces\\IServices\\IFoodService.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAmwA4AAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-14T09:37:58.038Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "FoodController.cs",
+              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement\\Controllers\\FoodController.cs",
+              "RelativeDocumentMoniker": "StoreManagement\\Controllers\\FoodController.cs",
+              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement\\Controllers\\FoodController.cs",
+              "RelativeToolTip": "StoreManagement\\Controllers\\FoodController.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAAAIwEAAAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-14T09:32:25.864Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "OrderDetailRepository.cs",
+              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Infrastructure\\Repositories\\OrderDetailRepository.cs",
+              "RelativeDocumentMoniker": "StoreManagement.Infrastructure\\Repositories\\OrderDetailRepository.cs",
+              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Infrastructure\\Repositories\\OrderDetailRepository.cs",
+              "RelativeToolTip": "StoreManagement.Infrastructure\\Repositories\\OrderDetailRepository.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAwAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-15T11:13:56.378Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "OrderAccessService.cs",
+              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\Services\\OrderAccessService.cs",
+              "RelativeDocumentMoniker": "StoreManagement.Application\\Services\\OrderAccessService.cs",
+              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\Services\\OrderAccessService.cs",
+              "RelativeToolTip": "StoreManagement.Application\\Services\\OrderAccessService.cs",
+              "ViewState": "AgIAACwAAAAAAAAAAAAIwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-15T11:07:29.871Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "OrderDetailService.cs",
+              "DocumentMoniker": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\Services\\OrderDetailService.cs",
+              "RelativeDocumentMoniker": "StoreManagement.Application\\Services\\OrderDetailService.cs",
+              "ToolTip": "C:\\Code_Project\\DACN\\store-management\\core\\StoreManagement.Application\\Services\\OrderDetailService.cs",
+              "RelativeToolTip": "StoreManagement.Application\\Services\\OrderDetailService.cs",
+              "ViewState": "AgIAAE4AAAAAAAAAAAAmwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-15T11:07:19.905Z"
             }
           ]
         },
         {
-          "DockedWidth": 1498,
+          "DockedWidth": 678,
           "SelectedChildIndex": -1,
           "Children": [
             {

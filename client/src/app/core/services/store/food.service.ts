@@ -18,15 +18,19 @@ export class FoodService {
 		pagi: Pagination,
 		searchTerm: string = "",
 		sortColumn: string = "",
-		ascSort: boolean = true
+		filter: boolean = false,
+		ascSort: boolean = true,
+		categoryId?: number
 	): Observable<ApiResponse> {
-		const params = new HttpParams()
+		let params = new HttpParams()
 			.set("idStore", idStore)
 			.set("currentPage", pagi.currentPage)
 			.set("pageSize", pagi.pageSize)
 			.set("searchTerm", searchTerm)
 			.set("sortColumn", sortColumn)
-			.set("ascSrot", ascSort);
+			.set("filter", filter)
+			.set("ascSrot", ascSort)
+			.set("categoryId", categoryId?.toString() ?? '');
 		return this.service.get(this.endpoint.getByIdStore, { params });
 	}
 
