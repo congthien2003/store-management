@@ -11,12 +11,13 @@ import { Food } from "src/app/core/models/interfaces/Food";
 
 // Mat Import
 import { MatButtonModule } from "@angular/material/button";
+import { MatTabsModule } from "@angular/material/tabs";
 import { CartItem } from "src/app/core/models/interfaces/CartItem";
 import { FoodService } from "src/app/core/services/store/food.service";
 import { map } from "rxjs";
 import { PricePipe } from "src/app/core/utils/price.pipe";
 import { OrderDetailResponse } from "src/app/core/models/interfaces/Response/OrderDetailResponse";
-const MatImport = [MatButtonModule];
+const MatImport = [MatButtonModule, MatTabsModule];
 
 @Component({
 	selector: "app-cart",
@@ -59,6 +60,8 @@ export class CartComponent implements OnInit {
 	updateOrder: boolean = false;
 	ngOnInit(): void {
 		console.log(this.data);
+		this.loadCartItem();
+		this.loadTotalOrdered();
 	}
 	constructor(
 		private foodService: FoodService,
@@ -70,9 +73,7 @@ export class CartComponent implements OnInit {
 			submitOrderStatus: boolean;
 			listOrdered: OrderDetailResponse[];
 		}
-	) {
-		this.loadCartItem();
-	}
+	) {}
 
 	loadCartItem(): void {
 		if (this.data.submitOrderStatus) {
@@ -101,6 +102,14 @@ export class CartComponent implements OnInit {
 				this.totalOrder += e.total;
 			});
 		}
+	}
+
+	totalOrdered: number = 0;
+	loadTotalOrdered() {
+		this.listOrdered.forEach((e) => {
+			this.totalOrdered += e.total;
+		});
+		return this.totalOrdered;
 	}
 
 	convertDetailToCart(): void {

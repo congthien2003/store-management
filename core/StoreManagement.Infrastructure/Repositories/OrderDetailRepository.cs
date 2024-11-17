@@ -29,7 +29,7 @@ namespace StoreManagement.Infrastructure.Repositories
                 throw new InvalidOperationException("Đồ ăn không tồn tại");
             }
 
-            var item = await _dataContext.OrderDetails.FirstOrDefaultAsync(x => x.IdFood == orderDetail.IdFood);
+            var item = await _dataContext.OrderDetails.FirstOrDefaultAsync(x => x.IdFood == orderDetail.IdFood && x.IdOrder == orderDetail.IdOrder);
             if (item == null)
             {
                 var create = await _dataContext.OrderDetails.AddAsync(orderDetail);
@@ -103,7 +103,7 @@ namespace StoreManagement.Infrastructure.Repositories
 
         public async Task<OrderDetail> UpdateStatusAsync(int idFood, int statusProcess)
         {
-            var exists = await _dataContext.OrderDetails.FirstOrDefaultAsync(x => x.IdFood == idFood);
+            var exists = await _dataContext.OrderDetails.Include("Order").FirstOrDefaultAsync(x => x.IdFood == idFood);
             if(exists == null)
             {
                 throw new KeyNotFoundException("Không tìm thấy chi tiết ");

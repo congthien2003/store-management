@@ -6,6 +6,7 @@ namespace StoreManagement.Application.RealTime
     public class OrderHub : Hub
     {
         private static Dictionary<string, string> ActiveUsers = new Dictionary<string, string>();
+        // Invoke từ Front end
         public async Task NotifyOwner(string orderId, string storeId)
         {
             await Clients.Group(storeId).SendAsync("ReceiveOrderNotification", orderId);
@@ -31,6 +32,7 @@ namespace StoreManagement.Application.RealTime
             await Clients.Group(tableID).SendAsync("ReloadData","Có thay đổi");
         }
 
+        // Create Connection
         public async Task<bool> RequestAccess(string tableId, string storeId)
         {
             if (!ActiveUsers.ContainsKey(tableId))

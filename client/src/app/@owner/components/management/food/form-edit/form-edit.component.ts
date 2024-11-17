@@ -17,6 +17,7 @@ import { Category } from "src/app/core/models/interfaces/Category";
 import { FoodService } from "src/app/core/services/store/food.service";
 import { Food } from "src/app/core/models/interfaces/Food";
 import { FirebaseService } from "src/app/core/services/firebase.service";
+import { NgxImageCompressService } from "ngx-image-compress";
 
 const NzModule = [NzFormModule];
 
@@ -44,7 +45,8 @@ export class FormEditComponent {
 		private categoryService: CategoryService,
 		private foodService: FoodService,
 		private toastr: ToastrService,
-		private firebase: FirebaseService
+		private firebase: FirebaseService,
+		private imageCompress: NgxImageCompressService
 	) {
 		this.validateForm = this.fb.group({
 			id: [0],
@@ -74,9 +76,26 @@ export class FormEditComponent {
 	}
 
 	fileImage!: File;
+	compressedImage: string = "";
 	handleChange($event: any): void {
 		// imageUrl
 		this.fileImage = $event.target.files[0];
+		if (this.fileImage) {
+			const reader = new FileReader();
+			reader.onload = (e: any) => {
+				const imageBase64 = e.target.result;
+				this.imageCompress
+					.compressFile(imageBase64, -1, 50, 50)
+					.then((result: string) => {
+						this.compressedImage = result; // Dữ liệu base64 đã nén
+						console.log(
+							"Compressed image size:",
+							this.imageCompress.byteCount(result)
+						);
+					});
+			};
+			reader.readAsDataURL(this.fileImage);
+		}
 	}
 
 	onNoClick(): void {
@@ -86,8 +105,11 @@ export class FormEditComponent {
 	async onSubmit(): Promise<void> {
 		if (this.fileImage) {
 			await this.firebase.deleteFileFromFirebase(this.food.imageUrl);
-
-			this.firebase.uploadFileImage(this.fileImage).subscribe({
+			const image = await this.firebase.convertBase64ToFile(
+				this.compressedImage,
+				this.fileImage.name
+			);
+			this.firebase.uploadFileImage(image).subscribe({
 				next: (imageUrl: string) => {
 					const dataEdit = { ...this.validateForm.value, imageUrl };
 					this.foodService

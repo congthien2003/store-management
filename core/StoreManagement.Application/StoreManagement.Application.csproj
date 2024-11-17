@@ -21,8 +21,4 @@
     <ProjectReference Include="..\StoreManagement.Domain\StoreManagement.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Interfaces\IUnitOfWork\" />
-  </ItemGroup>
-
 </Project>

@@ -2,6 +2,7 @@
 using StoreManagement.Application.DTOs.Auth;
 using StoreManagement.Application.DTOs.Request;
 using StoreManagement.Application.DTOs.Response;
+using StoreManagement.Application.DTOs.Response.KPI;
 using StoreManagement.Domain.Models;
 
 namespace StoreManagement.Application.Helper
@@ -21,12 +22,10 @@ namespace StoreManagement.Application.Helper
             CreateMap<Invoice, InvoiceDTO>().ReverseMap();
             CreateMap<ProductSell, ProductSellDTO>().ReverseMap();
             CreateMap<OrderAccessToken, OrderAccessTokenDTO>().ReverseMap();
-
-
             CreateMap<Order, OrderResponse>().ReverseMap();
             CreateMap<Invoice, InvoiceResponse>().ReverseMap();
             CreateMap<Table, TableResponse>().ReverseMap();
-
+            CreateMap<KPI, KPIResponse>().ReverseMap();
             CreateMap<OrderAccessToken, OrderAccessTokenResponse>().ReverseMap();
 
         }

@@ -3,6 +3,29 @@
 .modal-body {
 	max-height: 50vh;
 	overflow-y: scroll;
+	padding: 8px;
+
+	// For Firefox
+	scrollbar-width: thin; // Makes scrollbar thinner
+	scrollbar-color: #888 #f1f1f1; // Thumb and track colors
+
+	// For Webkit-based browsers (Chrome, Safari, Edge)
+	&::-webkit-scrollbar {
+		width: 8px; // Width of the scrollbar
+	}
+
+	&::-webkit-scrollbar-track {
+		background: #f1f1f1; // Background of the track
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background: #888; // Color of the thumb
+		border-radius: 4px; // Rounded corners for the thumb
+
+		&:hover {
+			background: #555; // Darker color on hover
+		}
+	}
 }
 
 .modal-footer {
@@ -15,7 +38,7 @@
 .list-cart-item {
 	display: flex;
 	flex-direction: column;
-
+	overflow: hidden;
 	h5 {
 		color: $text-color-black;
 		font-size: 14px;
@@ -71,7 +94,7 @@
 			position: absolute;
 			content: "";
 			top: 0;
-			right: -4px;
+			right: 0px;
 		}
 	}
 }
@@ -85,6 +108,21 @@
 	margin-top: 8px;
 	p {
 		font-size: 14px;
+		font-weight: 450;
+		color: $text-color-black;
+		margin-bottom: 0;
+	}
+}
+
+.total-ordered {
+	border-top: 1px solid #cecece;
+	display: flex;
+	align-items: center;
+	flex-direction: row-reverse;
+	padding: 4px 1rem;
+	margin-top: 8px;
+	p {
+		font-size: 12px;
 		font-weight: 450;
 		color: $text-color-black;
 		margin-bottom: 0;
