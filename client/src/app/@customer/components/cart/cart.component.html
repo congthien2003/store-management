@@ -11,172 +11,171 @@
 					aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
-				<ul class="list-cart-item" *ngIf="this.listOrdered.length > 0">
-					<h5 class="text-center fw-6">Món đã đặt trước đó</h5>
-					<div class="container px-1 py-1">
-						<div class="row">
-							<div class="col-5">
-								<h5 class="">Món ăn</h5>
+				<mat-tab-group>
+					<mat-tab label="Cart">
+						<h4
+							class="text-center text-bold"
+							*ngIf="listCartItem.length == 0">
+							Giỏ hàng đang trống, hãy đặt món đi nào !
+						</h4>
+						<ul
+							class="list-cart-item"
+							*ngIf="listCartItem.length > 0">
+							<div class="container px-1 py-1">
+								<div class="row">
+									<div class="col-5">
+										<h5 class="">Món ăn</h5>
+									</div>
+									<div class="col-3">
+										<h5 class="">Số lượng</h5>
+									</div>
+									<div class="col-4">
+										<h5 class="">Thành tiền</h5>
+									</div>
+								</div>
 							</div>
-							<div class="col-3">
-								<h5 class="">Số lượng</h5>
-							</div>
-							<div class="col-4">
-								<h5 class="">Thành tiền</h5>
-							</div>
-						</div>
-					</div>
 
-					<li class="cart-item" *ngFor="let item of data.listOrdered">
-						<div class="container px-1 py-1">
-							<div class="row">
-								<div class="col-5">
-									<div class="cart-item-name">
-										{{ item.food.name }}
-									</div>
-									<div class="cart-item-price">
-										{{ item.food.price | price }}
-									</div>
-									<div class="cart-item-status">
-										<span
-											class="text-warning"
-											*ngIf="item.statusProcess === 1">
-											<i
-												class="fa fa-spinner"
-												aria-hidden="true"></i>
-											Đang xử lý</span
-										>
-										<span
-											class="text-success"
-											*ngIf="item.statusProcess === 2">
-											<i
-												class="fa fa-check"
-												aria-hidden="true"></i>
-											Đã xong</span
-										>
-									</div>
-								</div>
-								<div class="col-3">
-									<div class="cart-item-quantity">
-										<span
-											class="quantity-edit"
-											(click)="
-												changeQuantity(item.food.id, -1)
-											"
-											>-</span
-										>
-										{{ item.quantity }}
-										<span
-											class="quantity-edit"
-											(click)="
-												changeQuantity(item.food.id, 1)
-											"
-											>+</span
-										>
-									</div>
-								</div>
-								<div class="col-4">
-									<div class="cart-item-total">
-										{{ item.total | price }}
-									</div>
-									<div class="cart-action">
-										<button
-											(click)="
-												deleteCartItem(
-													item.food.id ?? -1
-												)
-											"
-											class="btn-sm btn btn-danger"
-											matTooltip="Xóa món ăn"
-											aria-label="Delete">
-											<i class="fa-solid fa-trash"></i>
-										</button>
+							<li
+								class="cart-item"
+								*ngFor="let item of listCartItem">
+								<div class="container px-1 py-1">
+									<div class="row">
+										<div class="col-5">
+											<div class="cart-item-name">
+												{{ item.Food?.name }}
+											</div>
+											<div class="cart-item-price">
+												{{ item.Food!.price | price }}
+											</div>
+										</div>
+										<div class="col-3">
+											<div class="cart-item-quantity">
+												<span
+													class="quantity-edit"
+													(click)="
+														changeQuantity(
+															item.Food!.id,
+															-1
+														)
+													"
+													>-</span
+												>
+												{{ item.quantity }}
+												<span
+													class="quantity-edit"
+													(click)="
+														changeQuantity(
+															item.Food!.id,
+															1
+														)
+													"
+													>+</span
+												>
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="cart-item-total">
+												{{ item.price | price }}
+											</div>
+											<div class="cart-action">
+												<button
+													(click)="
+														deleteCartItem(
+															item.Food?.id ?? -1
+														)
+													"
+													class="btn-sm btn btn-danger"
+													matTooltip="Xóa món ăn"
+													aria-label="Delete">
+													<i
+														class="fa-solid fa-trash"></i>
+												</button>
+											</div>
+										</div>
 									</div>
 								</div>
+							</li>
+						</ul>
+					</mat-tab>
+					<mat-tab label="History ({{ data.listOrdered.length }})">
+						<ul
+							class="list-cart-item"
+							*ngIf="this.listOrdered.length > 0">
+							<div class="container px-1 py-1">
+								<div class="row">
+									<div class="col-5">
+										<h5 class="">Món ăn</h5>
+									</div>
+									<div class="col-3">
+										<h5 class="">Số lượng</h5>
+									</div>
+									<div class="col-4">
+										<h5 class="">Thành tiền</h5>
+									</div>
+								</div>
 							</div>
-						</div>
-					</li>
-				</ul>
-				<hr *ngIf="this.listOrdered.length > 0" />
-				<h4
-					class="text-center text-bold"
-					*ngIf="listCartItem.length == 0">
-					Giỏ hàng đang trống, hãy đặt món đi nào !
-				</h4>
-				<ul class="list-cart-item" *ngIf="listCartItem.length > 0">
-					<div class="container px-1 py-1">
-						<div class="row">
-							<div class="col-5">
-								<h5 class="">Món ăn</h5>
-							</div>
-							<div class="col-3">
-								<h5 class="">Số lượng</h5>
-							</div>
-							<div class="col-4">
-								<h5 class="">Thành tiền</h5>
-							</div>
-						</div>
-					</div>
 
-					<li class="cart-item" *ngFor="let item of listCartItem">
-						<div class="container px-1 py-1">
-							<div class="row">
-								<div class="col-5">
-									<div class="cart-item-name">
-										{{ item.Food?.name }}
-									</div>
-									<div class="cart-item-price">
-										{{ item.Food!.price | price }}
-									</div>
-								</div>
-								<div class="col-3">
-									<div class="cart-item-quantity">
-										<span
-											class="quantity-edit"
-											(click)="
-												changeQuantity(
-													item.Food!.id,
-													-1
-												)
-											"
-											>-</span
-										>
-										{{ item.quantity }}
-										<span
-											class="quantity-edit"
-											(click)="
-												changeQuantity(item.Food!.id, 1)
-											"
-											>+</span
-										>
-									</div>
-								</div>
-								<div class="col-4">
-									<div class="cart-item-total">
-										{{ item.price | price }}
-									</div>
-									<div class="cart-action">
-										<button
-											(click)="
-												deleteCartItem(
-													item.Food?.id ?? -1
-												)
-											"
-											class="btn-sm btn btn-danger"
-											matTooltip="Xóa món ăn"
-											aria-label="Delete">
-											<i class="fa-solid fa-trash"></i>
-										</button>
+							<li
+								class="cart-item"
+								*ngFor="let item of data.listOrdered">
+								<div class="container px-1 py-1">
+									<div class="row">
+										<div class="col-5">
+											<div class="cart-item-name">
+												{{ item.food.name }}
+											</div>
+											<div class="cart-item-price">
+												{{ item.food.price | price }}
+											</div>
+											<div class="cart-item-status">
+												<span
+													class="text-warning"
+													*ngIf="
+														item.statusProcess === 1
+													">
+													<i
+														class="fa fa-spinner"
+														aria-hidden="true"></i>
+													Đang xử lý</span
+												>
+												<span
+													class="text-success"
+													*ngIf="
+														item.statusProcess === 2
+													">
+													<i
+														class="fa fa-check"
+														aria-hidden="true"></i>
+													Đã xong</span
+												>
+											</div>
+										</div>
+										<div class="col-3">
+											<div class="cart-item-quantity">
+												{{ item.quantity }}
+											</div>
+										</div>
+										<div class="col-4">
+											<div class="cart-item-total">
+												{{ item.total | price }}
+											</div>
+										</div>
 									</div>
 								</div>
-							</div>
+							</li>
+						</ul>
+						<div class="total-ordered">
+							<p>
+								Total ordered:
+								<span> {{ totalOrdered | price }} </span>
+							</p>
 						</div>
-					</li>
-				</ul>
+					</mat-tab>
+				</mat-tab-group>
 			</div>
 			<div class="total-order">
 				<p>
-					Tổng tiền: <span> {{ totalOrder | price }} </span>
+					Total bill: <span> {{ totalOrder | price }} </span>
 				</p>
 			</div>
 			<div class="modal-footer">

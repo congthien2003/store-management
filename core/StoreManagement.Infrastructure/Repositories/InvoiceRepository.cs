@@ -27,7 +27,7 @@ namespace StoreManagement.Infrastructure.Repositories
                 throw new InvalidOperationException("Thể loại thanh toán không tồn tại");
             }
             var existsInvoice = await _dataContext.Invoices.FirstOrDefaultAsync(x => x.IdOrder == invoice.IdOrder);
-            if (existsInvoice == null)
+            if (existsInvoice != null)
             {
                 throw new InvalidOperationException("Đơn đặt hàng này đã được tạo hóa đơn");
             }
