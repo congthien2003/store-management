@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using StoreManagement.Application.Common;
 using StoreManagement.Application.DTOs.Request;
+using StoreManagement.Application.DTOs.Response;
 using StoreManagement.Application.Interfaces.IServices;
 using StoreManagement.Domain.IRepositories;
 using StoreManagement.Domain.Models;
@@ -33,6 +35,29 @@ namespace StoreManagement.Services
         {
             var listStore = await _storeRepository.GetAllAsync(currentPage,pageSize,searchTerm,sortColumn,ascSort,incluDeleted);
             return _mapper.Map<List<StoreDTO>>(listStore);
+        }
+
+        public async Task<List<StoreResponse>> GetAllResponseAsync(int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortColumn = "", bool ascSort = true, bool incluDeleted = false)
+        {
+            var listStore = await _storeRepository.GetAllStoreResponse(currentPage, pageSize, searchTerm, sortColumn, ascSort, incluDeleted);
+
+            var storeResponse = listStore.Select(store => new StoreResponse
+            {
+                Id = store.Id,
+                Name = store.Name,
+                Address = store.Address,
+                Phone = store.Phone,
+                UserDTO = store.User != null ? new UserDTO
+                {
+                    Id = store.User.Id,
+                    Username = store.User.Username,
+                    Email = store.User.Email,
+                    Phones = store.User.Phones,
+                    Role = store.User.Role,
+                } : null
+            }).ToList();
+
+            return _mapper.Map<List<StoreResponse>>(storeResponse);
         }
 
         public async Task<StoreDTO> GetByIdAsync(int id)

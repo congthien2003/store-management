@@ -110,5 +110,14 @@ namespace StoreManagement.Infrastructure.Repositories
             await _dataContext.SaveChangesAsync();
             return invoiceUpdate;
         }
+
+        public async Task<double> GetDailyRevenueService(int idStore, DateTime dateTime, bool incluDeleted = false)
+        {
+            var invoice = _dataContext.Invoices.Where(x => x.Order.Table.IdStore == idStore && x.CreatedAt.Date == dateTime.Date && x.IsDeleted == incluDeleted)
+                                                .Include(x => x.Order)
+                                                .ThenInclude(x => x.Table);
+            double totalRevenue = await invoice.SumAsync(i => (double)i.Total);
+            return totalRevenue;
+        }
     }
 }
