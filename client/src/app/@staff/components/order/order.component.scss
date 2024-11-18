@@ -1,0 +1,15 @@
+@import "../../../shared/variable.scss";
+@import "../../../shared/layout.scss";
+
+.header-default {
+    color: black;
+  }
+  
+  .header-confirmed {
+    color: green;
+  }
+  
+  .header-unconfirmed {
+    color: red;
+  }
+
