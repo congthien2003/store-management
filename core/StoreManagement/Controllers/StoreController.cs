@@ -48,6 +48,30 @@ namespace StoreManagement.Controllers
             };
             return Ok(result);
         }
+        //[HttpGet]
+        //[Route("store-res")]
+        //public async Task<ActionResult<Result>> GetAllStoreResponse(string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortColumn = "", string asc = "true")
+        //{
+        //    int _currentPage = int.Parse(currentPage);
+        //    int _pageSize = int.Parse(pageSize);
+        //    bool _asc = bool.Parse(asc);
+
+        //    var list = await storeService.GetAllResponseAsync(_currentPage, _pageSize, searchTerm, sortColumn, _asc);
+        //    var count = await storeService.GetCountList(searchTerm);
+        //    var _totalPage = count % _pageSize == 0 ? count / _pageSize : count / _pageSize + 1;
+        //    var result = new
+        //    {
+        //        list,
+        //        _currentPage,
+        //        _pageSize,
+        //        _totalPage,
+        //        _totalRecords = count,
+        //        _hasNext = _currentPage < _totalPage,
+        //        _hasPre = _currentPage > 1,
+        //    };
+        //    return Ok(result);
+        //}
+
         [HttpGet]
         [Route("{id:int}")]
         public async Task<ActionResult<Result>> GetStoreById(int id)

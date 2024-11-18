@@ -99,5 +99,11 @@ namespace StoreManagement.Infrastructure.Repositories
             var searchTable = await table.ToListAsync();
             return searchTable.Count();
         }
+
+        public async Task<int> GetCountTableFree(int idStore, bool incluDeleted = false)
+        {
+            var tables = await _dataContext.Tables.Where(x => x.Status == true).ToListAsync();
+            return tables.Count();
+        }
     }
 }

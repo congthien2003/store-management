@@ -12,5 +12,6 @@ namespace StoreManagement.Domain.IRepositories
 
         Task<List<TTable>> GetAllByIdStore(int id, bool incluDeleted = false);
         Task<int> GetCountAsync(int id, bool incluDeleted = false);
+        Task<int> GetCountTableFree(int idStore,bool incluDeleted = false);
     }
 }

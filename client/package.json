@@ -25,6 +25,11 @@
     "@microsoft/signalr": "^8.0.7",
     "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.2.3",
+<<<<<<< HEAD
+    "chart.js": "^4.4.6",
+    "client": "file:",
+=======
+>>>>>>> main
     "crypto-js": "^4.2.0",
     "firebase": "^10.13.1",
     "jwt-decode": "^4.0.0",

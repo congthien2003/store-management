@@ -81,6 +81,18 @@ namespace StoreManagement.Services
             return count;
         }
 
+        public async Task<Dictionary<string, int>> GetFoodSalesReport(int idStore, DateTime startDate, DateTime endDate)
+        {
+            var orderDetails = await _orderDetailRepo.GetAllOrderDetailsByDay(idStore, startDate, endDate);
+
+            var foodSales = orderDetails
+                .Where(od => od.Food != null)
+                .GroupBy(od => od.Food.Name)
+                .ToDictionary(g => g.Key, g => g.Sum(od => od.Quantity));
+
+            return foodSales;
+        }
+
         public async Task<OrderDetailDTO> UpdateAsync(OrderDetailDTO orderDetailDTO)
         {
             var orderUpdate = _mapper.Map<OrderDetail>(orderDetailDTO);

@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using StoreManagement.Application.DTOs.Auth;
 using StoreManagement.Domain.IRepositories;
 using System.Linq.Expressions;
+using System.Data;
 
 namespace StoreManagement.Infrastructure.Repositories
 {
@@ -96,7 +97,7 @@ namespace StoreManagement.Infrastructure.Repositories
             }
         }
 
-        public async Task<List<User>> GetAll(string searchTerm = "", string sortCol = "", bool ascSort = true, bool incluDeleted = false)
+        public async Task<List<User>> GetAll(string searchTerm = "", string sortCol = "", bool ascSort = true, int? role = null, bool incluDeleted = false)
         {
             var users = _dataContext.Users.AsQueryable();
             if (!string.IsNullOrEmpty(searchTerm))
@@ -107,6 +108,43 @@ namespace StoreManagement.Infrastructure.Repositories
             {
                 users = users.Where(t => t.IsDeleted == incluDeleted);
             }
+            if (role.HasValue)
+            {
+                users = users.Where(t => t.Role == role.Value); //filter role
+            }
+
+            if (!string.IsNullOrEmpty(sortCol))
+            {
+                if (ascSort)
+                {
+                    users = users.OrderByDescending(GetSortColumnExpression(sortCol.ToLower()));
+                }
+                else
+                {
+                    users = users.OrderBy(GetSortColumnExpression(sortCol.ToLower()));
+
+                }
+            }
+            var list = await users.ToListAsync();
+            return list;
+        }
+
+        public async Task<List<User>> GetAllUserResponse(string searchTerm = "", string sortCol = "", bool ascSort = true, int? role = 1, bool incluDeleted = false)
+        {
+            var users = _dataContext.Users.Include(u => u.Store).AsQueryable();
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                users = users.Where(t => t.Username.Contains(searchTerm));
+            }
+            if (!incluDeleted)
+            {
+                users = users.Where(t => t.IsDeleted == incluDeleted);
+            }
+            if (role.HasValue)
+            {
+                users = users.Where(t => t.Role == role.Value); //filter role
+            }
+
             if (!string.IsNullOrEmpty(sortCol))
             {
                 if (ascSort)
