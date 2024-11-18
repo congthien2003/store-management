@@ -27,6 +27,7 @@
     "@supabase/supabase-js": "^2.46.1",
     "bootstrap": "^5.2.3",
     "chart.js": "^4.4.6",
+    "client": "file:",
     "crypto-js": "^4.2.0",
     "firebase": "^10.13.1",
     "jwt-decode": "^4.0.0",

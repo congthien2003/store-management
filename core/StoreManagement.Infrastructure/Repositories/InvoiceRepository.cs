@@ -27,7 +27,7 @@ namespace StoreManagement.Infrastructure.Repositories
                 throw new InvalidOperationException("Thể loại thanh toán không tồn tại");
             }
             var existsInvoice = await _dataContext.Invoices.FirstOrDefaultAsync(x => x.IdOrder == invoice.IdOrder);
-            if (existsInvoice == null)
+            if (existsInvoice != null)
             {
                 throw new InvalidOperationException("Đơn đặt hàng này đã được tạo hóa đơn");
             }
@@ -109,6 +109,15 @@ namespace StoreManagement.Infrastructure.Repositories
             _dataContext.Invoices.Update(invoiceUpdate);
             await _dataContext.SaveChangesAsync();
             return invoiceUpdate;
+        }
+
+        public async Task<double> GetDailyRevenueService(int idStore, DateTime dateTime, bool incluDeleted = false)
+        {
+            var invoice = _dataContext.Invoices.Where(x => x.Order.Table.IdStore == idStore && x.CreatedAt.Date == dateTime.Date && x.IsDeleted == incluDeleted)
+                                                .Include(x => x.Order)
+                                                .ThenInclude(x => x.Table);
+            double totalRevenue = await invoice.SumAsync(i => (double)i.Total);
+            return totalRevenue;
         }
     }
 }
