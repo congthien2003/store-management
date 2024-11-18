@@ -31,12 +31,12 @@ namespace StoreManagement.Services
             return true;
         }
 
-        public async Task<PaginationResult<List<FoodDTO>>> GetAllByIdStoreAsync(int id, string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortColumn = "", bool asc = false, bool incluDeleted = false)
+        public async Task<PaginationResult<List<FoodDTO>>> GetAllByIdStoreAsync(int id, string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortColumn = "", bool asc = false, bool filter = false, int? categoryId = null, bool incluDeleted = false)
         {
             int _currentPage = int.Parse(currentPage);
-            int _pageSize = int.Parse(pageSize);
+            int _pageSize = int.Parse(pageSize);;
 
-            var list = await _foodRepository.GetAllByIdStoreAsync(id);
+            var list = await _foodRepository.GetAllByIdStoreAsync(id, searchTerm, sortColumn,asc,categoryId );
             var count = list.Count();
             list = list.Skip(_currentPage * _pageSize - _pageSize).Take(_pageSize).ToList();
 

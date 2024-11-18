@@ -53,12 +53,16 @@ namespace StoreManagement.Infrastructure.Repositories
                     return x => x.Id;
             }
         }
-        public Task<List<Food>> GetAllByIdStoreAsync(int id, string searchTerm = "", string sortCol = "", bool ascSort = true, bool incluDeleted = false)
+        public Task<List<Food>> GetAllByIdStoreAsync(int id, string searchTerm = "", string sortCol = "", bool ascSort = true, int? categoryId = null, bool incluDeleted = false)
         {
             var food = _dataContext.Foods.Where(x => x.Category.IdStore == id).AsQueryable();
             if (food.Count() == 0)
             {
                 throw new KeyNotFoundException("Không tìm thấy món ăn của quán này");
+            }
+            if (categoryId.HasValue)
+            {
+                food = food.Where(x => x.IdCategory == categoryId.Value);
             }
             if (!string.IsNullOrEmpty(searchTerm))
             {

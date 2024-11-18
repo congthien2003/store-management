@@ -59,10 +59,10 @@ namespace StoreManagement.Controllers
             return Ok(result);
         }
         [HttpGet("Store")]
-        public async Task<ActionResult> GetAllFoodByIdStore(int idStore, string currentPage = "1", string pageSize = "5", string searchTerm = "")
+        public async Task<ActionResult> GetAllFoodByIdStore(int idStore, string currentPage = "1", string pageSize = "5", string searchTerm = "", string filter = "false", int? categoryId = null)
         {
 
-            var list = await _foodService.GetAllByIdStoreAsync(idStore, currentPage, pageSize, searchTerm);
+            var list = await _foodService.GetAllByIdStoreAsync(idStore, currentPage, pageSize, searchTerm, filter, categoryId: categoryId);
             if (list == null)
             {
                 return BadRequest(Result.Failure("Không tìm thấy người dùng"));
