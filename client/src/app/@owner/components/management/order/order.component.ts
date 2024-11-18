@@ -161,6 +161,7 @@ export class OrderComponent implements OnInit {
 			data: {
 				idOrder: id,
 				idStore: this.store.id,
+				
 			},
 		});
 		dialogRef.afterClosed().subscribe((result) => {

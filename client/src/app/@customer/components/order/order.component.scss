@@ -13,6 +13,11 @@
 			background-color: $primary-medium;
 			padding: 8px 12px;
 			margin-bottom: 0;
+			border-bottom-left-radius: 16px;
+			border-bottom-right-radius: 16px;
+			box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+			background-color: $primary-medium;
+			transition: all 0.1s ease-out;
 		}
 		.container {
 			padding: 16px 1.5rem;
@@ -42,6 +47,7 @@
 
 	&--main {
 		margin-top: 12px;
+		width: 100%;
 		h4 {
 			color: $text-color-black;
 			font-weight: 550;
@@ -59,7 +65,12 @@
 					overflow: hidden;
 					display: flex;
 					gap: 8px;
-					margin-top: 8px;
+					margin-top: 12px;
+					transition: all 0.15s ease-in-out;
+					opacity: 0;
+					transform: translateX(-100%);
+					animation: slideIn 0.5s ease-out forwards;
+					box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 				}
 				&-img {
 					display: flex;
@@ -108,10 +119,126 @@
 				}
 			}
 		}
+
+		.list-best-seller {
+			display: flex;
+			align-items: center;
+			overflow-x: scroll; /* Thêm scroll ngang */
+			white-space: nowrap; /* Tránh xuống dòng */
+			padding: 8px 0px;
+			gap: 12px; /* Khoảng cách giữa các item */
+			scroll-behavior: smooth;
+			width: 100%; /* Tạo hiệu ứng cuộn mượt */
+			border-radius: 16px;
+
+			.best-seller {
+				&__card {
+					border: 1px solid #cecece;
+					overflow: hidden;
+					display: flex;
+					flex-direction: column;
+					gap: 8px;
+					margin-top: 8px;
+					min-width: 120px;
+					border-radius: 16px;
+					background: #e0e0e0;
+					box-shadow: 15px 15px 30px #bebebe, -15px -15px 30px #ffffff;
+					transition: all 0.15s ease-in-out;
+					opacity: 0;
+					transform: translateX(-100%);
+					animation: slideIn 0.5s ease-out forwards;
+				}
+				&__img {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					min-width: 100%;
+					overflow: hidden;
+					img {
+						max-width: 100%;
+						max-height: 100%;
+						object-fit: cover;
+					}
+				}
+				&__description {
+					display: flex;
+					flex-direction: column;
+					gap: 4px;
+					padding: 4px 8px;
+					p {
+						margin-bottom: 0;
+					}
+				}
+				&__name {
+					font-weight: 450;
+					font-size: 16px;
+					color: $text-color-black;
+				}
+				&__price {
+					font-weight: 450;
+					color: $text-color-black;
+				}
+				&__button {
+					.btn {
+						outline: 0;
+						display: inline-flex;
+						align-items: center;
+						justify-content: space-between;
+						background: $owner-primary-light;
+						border: 0;
+						border-bottom-left-radius: 4px;
+						border-bottom-right-radius: 4px;
+						box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+						box-sizing: border-box;
+						padding: 8px 12px;
+						width: 100%;
+						color: #fff;
+						font-size: 12px;
+						font-weight: 600;
+						letter-spacing: 1.2px;
+						text-transform: uppercase;
+						overflow: hidden;
+						cursor: pointer;
+					}
+
+					.btn:hover {
+						opacity: 0.95;
+					}
+
+					.btn .animation {
+						border-radius: 100%;
+						animation: ripple 0.6s linear infinite;
+					}
+
+					@keyframes ripple {
+						0% {
+							box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.1),
+								0 0 0 20px rgba(255, 255, 255, 0.1),
+								0 0 0 40px rgba(255, 255, 255, 0.1),
+								0 0 0 60px rgba(255, 255, 255, 0.1);
+						}
+
+						100% {
+							box-shadow: 0 0 0 20px rgba(255, 255, 255, 0.1),
+								0 0 0 40px rgba(255, 255, 255, 0.1),
+								0 0 0 60px rgba(255, 255, 255, 0.1),
+								0 0 0 80px rgba(255, 255, 255, 0);
+						}
+					}
+				}
+			}
+		}
 	}
 
 	&--footer {
 		margin-top: 24px;
 		border-top: 1px solid #cecece;
+	}
+}
+
+@keyframes slideIn {
+	to {
+		opacity: 1;
+		transform: translateX(0); /* Kết thúc ở vị trí ban đầu */
 	}
 }

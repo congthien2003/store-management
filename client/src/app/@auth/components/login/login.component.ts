@@ -12,7 +12,7 @@ import { Route, Router } from "@angular/router";
 import { User } from "src/app/core/models/interfaces/User";
 import { JwtManager } from "src/app/core/utils/JwtManager";
 import { MatButtonModule } from "@angular/material/button";
-import { SupabaseService } from "src/app/core/services/third-party/supabase/supabase.service";
+
 @Component({
 	selector: "app-login",
 	templateUrl: "./login.component.html",
@@ -34,8 +34,7 @@ export class LoginComponent implements OnInit {
 	constructor(
 		private service: AuthenticationService,
 		private toastr: ToastrService,
-		private route: Router,
-		private supbase: SupabaseService
+		private route: Router
 	) {
 		this.jwtManager = new JwtManager();
 	}

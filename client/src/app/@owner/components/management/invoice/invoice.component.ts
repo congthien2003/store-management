@@ -23,7 +23,7 @@ import { InvoiceResponse } from "src/app/core/models/interfaces/Response/Invoice
 import { Table } from "src/app/core/models/interfaces/Table";
 import { map, Observable } from "rxjs";
 import { LoaderService } from "src/app/core/services/loader.service";
-
+import { ButtonDownloadComponent } from "src/app/shared/components/button-download/button-download.component";
 const MatImport = [
 	MatRadioModule,
 	MatButtonModule,
@@ -32,6 +32,7 @@ const MatImport = [
 	MatTooltipModule,
 	NzButtonModule,
 	MatMenuModule,
+	ButtonDownloadComponent,
 ];
 
 @Component({

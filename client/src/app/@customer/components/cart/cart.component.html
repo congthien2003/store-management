@@ -12,7 +12,7 @@
 			</div>
 			<div class="modal-body">
 				<mat-tab-group>
-					<mat-tab label="Cart">
+					<mat-tab label="Giỏ hàng">
 						<h4
 							class="text-center text-bold"
 							*ngIf="listCartItem.length == 0">
@@ -97,7 +97,7 @@
 							</li>
 						</ul>
 					</mat-tab>
-					<mat-tab label="History ({{ data.listOrdered.length }})">
+					<mat-tab label="Lịch sử ({{ data.listOrdered.length }})">
 						<ul
 							class="list-cart-item"
 							*ngIf="this.listOrdered.length > 0">
@@ -166,7 +166,7 @@
 						</ul>
 						<div class="total-ordered">
 							<p>
-								Total ordered:
+								Tổng:
 								<span> {{ totalOrdered | price }} </span>
 							</p>
 						</div>
@@ -175,7 +175,7 @@
 			</div>
 			<div class="total-order">
 				<p>
-					Total bill: <span> {{ totalOrder | price }} </span>
+					Tổng hóa đơn: <span> {{ totalOrder | price }} </span>
 				</p>
 			</div>
 			<div class="modal-footer">
