@@ -23,6 +23,7 @@ import { NzSelectModule } from "ng-zorro-antd/select";
 import { Category } from "src/app/core/models/interfaces/Category";
 import { FoodService } from "src/app/core/services/store/food.service";
 import { FirebaseService } from "src/app/core/services/firebase.service";
+import { NgxImageCompressService } from "ngx-image-compress";
 const NzModule = [NzFormModule, NzSelectModule];
 
 @Component({
@@ -51,7 +52,8 @@ export class FormAddComponent {
 		private categoryServices: CategoryService,
 		private foodService: FoodService,
 		private firebaseService: FirebaseService,
-		private toastr: ToastrService
+		private toastr: ToastrService,
+		private imageCompress: NgxImageCompressService
 	) {
 		this.validateForm = this.fb.group({
 			id: [0],
@@ -69,9 +71,26 @@ export class FormAddComponent {
 		});
 	}
 	fileImage!: File;
+	compressedImage: string = "";
 	handleChange($event: any): void {
 		// imageUrl
 		this.fileImage = $event.target.files[0];
+		if (this.fileImage) {
+			const reader = new FileReader();
+			reader.onload = (e: any) => {
+				const imageBase64 = e.target.result;
+				this.imageCompress
+					.compressFile(imageBase64, -1, 50, 50)
+					.then((result: string) => {
+						this.compressedImage = result; // Dữ liệu base64 đã nén
+						console.log(
+							"Compressed image size:",
+							this.imageCompress.byteCount(result)
+						);
+					});
+			};
+			reader.readAsDataURL(this.fileImage);
+		}
 	}
 
 	onNoClick(): void {
@@ -81,7 +100,12 @@ export class FormAddComponent {
 	onSubmit(): void {
 		console.log(this.fileImage);
 		if (this.fileImage) {
-			this.firebaseService.uploadFileImage(this.fileImage).subscribe(
+			// Convert base64 sang file
+			const imageFile = this.firebaseService.convertBase64ToFile(
+				this.compressedImage,
+				this.fileImage.name
+			);
+			this.firebaseService.uploadFileImage(imageFile).subscribe(
 				(imageUrl: string) => {
 					this.onCreateFood(imageUrl);
 				},

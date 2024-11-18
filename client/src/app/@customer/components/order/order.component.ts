@@ -159,6 +159,11 @@ export class OrderComponent implements OnInit {
 
 					this.orderHub.onReloadData((message) => {
 						console.log(message);
+						this.toastr.info(message);
+						this.loadListOrdered();
+					});
+					this.orderHub.onReceiveUpdateStatusOrder((message) => {
+						console.log("Update status order ", message);
 
 						this.loadListOrdered();
 					});

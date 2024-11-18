@@ -28,6 +28,8 @@ namespace StoreManagement.Infrastructure
             services.AddScoped<IProductSellRepository<ProductSell>, ProductSellRepository>();
             services.AddScoped<IOrderAccessTokenRepository<OrderAccessToken>, OrderAccessTokenRepository>();
             /*services.AddScoped<IVoucherRepository<Voucher>, VoucherRepository>();*/
+            services.AddScoped<IKPIRepository<KPI>, KPIRepository>();
+
 
             return services; 
         }

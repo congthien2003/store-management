@@ -39,6 +39,10 @@ export class OrderHubService {
 		return this.hubConnection.invoke("NotiTableGroup", tableId);
 	}
 
+	updateStatusOrder(tableId: string) {
+		return this.hubConnection.invoke("UpdateStatusOrder", tableId);
+	}
+
 	requestAccess(tableId: string, storeId: string) {
 		return this.hubConnection.invoke("RequestAccess", tableId, storeId);
 	}
@@ -63,5 +67,10 @@ export class OrderHubService {
 
 	onReloadData(callback: (message: string) => void) {
 		this.hubConnection.on("ReloadData", callback);
+	}
+
+	// On update status events
+	onReceiveUpdateStatusOrder(callback: (message: string) => void) {
+		this.hubConnection.on("ReceiveUpdateStatusOrder", callback);
 	}
 }

@@ -6,6 +6,8 @@ using StoreManagement.Application.Common;
 using StoreManagement.Domain.Models;
 using StoreManagement.Application.DTOs.Response;
 using StoreManagement.Application.DTOs.Request;
+using StoreManagement.Application.RealTime;
+using Microsoft.AspNetCore.SignalR;
 
 namespace StoreManagement.Controllers
 {
@@ -15,12 +17,21 @@ namespace StoreManagement.Controllers
     {
         private readonly IOrderDetailService _orderDetailService;
         private readonly IProductSellService _productSellService;
+        private readonly IOrderSerivce _orderService;
+        private readonly ITableService _tableService;
+        private readonly IHubContext<OrderHub> _hubContext;
 
         public OrderDetailController(IOrderDetailService orderDetailService,
-                                    IProductSellService productSellService)
+                                    IProductSellService productSellService,
+                                    IHubContext<OrderHub> hubContext,
+                                    IOrderSerivce orderService,
+                                    ITableService tableService)
         {
             _orderDetailService = orderDetailService;
             _productSellService = productSellService;
+            _hubContext = hubContext;
+            _orderService = orderService;
+            _tableService = tableService;
         }
         [HttpPost("Create")]
         public async Task<ActionResult<Result>> CreateAsync(List<OrderDetailDTO> orderDetailDTO)
@@ -50,6 +61,11 @@ namespace StoreManagement.Controllers
         public async Task<ActionResult<Result>> UpdateStatusAsync(int idFood, [FromBody] int statusProcess)
         {
             var result = await _orderDetailService.UpdateStatusAsync(idFood, statusProcess);
+            var order = await _orderService.GetByIdAsync(result.IdOrder);
+            var table = await _tableService.GetByIdAsync(order.IdTable);
+            Console.WriteLine(table.Guid);
+            // Send Event to FE
+            await _hubContext.Clients.Group(table.Guid).SendAsync("ReceiveUpdateStatusOrder", "Cập nhật trạng thái đơn hàng của bạn");
             return Ok(Result<OrderDetailDTO?>.Success(result, "Cập nhật thành công"));
         }
 

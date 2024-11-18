@@ -41,12 +41,6 @@ namespace StoreManagement.Controllers
         public async Task RequestAccess(string idTable, string idStore)
         {
             await _hubContext.Clients.Group(idStore).SendAsync("RequestAccess", idTable);
-            // sau khi truy cập, sẽ tạo
-            /*OrderAccessTokenDTO orderAccessTokenDTO = new OrderAccessTokenDTO();
-            orderAccessTokenDTO.QRURL = idTable;
-            orderAccessTokenDTO.IdOrder = null;
-            orderAccessTokenDTO.IsActive = true;
-            await _orderAccessService.Create(orderAccessTokenDTO);*/
         }
 
         [HttpPost]
