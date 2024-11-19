@@ -73,12 +73,67 @@ export class OrderComponent implements OnInit {
 	store!: Store;
 	listCategory: Category[] = [];
 	listFood: Food[] = [];
-
+	listBestSeller: Food[] = [
+		{
+			id: 1,
+			name: "Cà phê sữa đá abcas",
+			status: false,
+			price: 45000,
+			imageUrl:
+				"https://firebasestorage.googleapis.com/v0/b/storemanagement-5e1b4.appspot.com/o/imagesClient%2Fstore_1%2Ffoods%2F1730692999491_cfsua.jpg?alt=media&token=6810e95e-6561-48ff-adc6-9dfe32fc1445",
+			idCategory: 2,
+		},
+		{
+			id: 2,
+			name: "Cà phê đen",
+			status: false,
+			price: 45000,
+			imageUrl:
+				"https://firebasestorage.googleapis.com/v0/b/storemanagement-5e1b4.appspot.com/o/imagesClient%2Fstore_1%2Ffoods%2F1730693016115_cfden.jpg?alt=media&token=1a518d5b-a533-40a7-9023-cd6f77eabe4d",
+			idCategory: 2,
+		},
+		{
+			id: 3,
+			name: "Cà phê muối",
+			status: false,
+			price: 50000,
+			imageUrl:
+				"https://firebasestorage.googleapis.com/v0/b/storemanagement-5e1b4.appspot.com/o/imagesClient%2Fstore_1%2Ffoods%2F1730693029979_cfmuoi.png?alt=media&token=9114ee90-a973-4516-a3ab-6d0aa9e1cbaa",
+			idCategory: 2,
+		},
+		{
+			id: 3,
+			name: "Cà phê muối",
+			status: false,
+			price: 50000,
+			imageUrl:
+				"https://firebasestorage.googleapis.com/v0/b/storemanagement-5e1b4.appspot.com/o/imagesClient%2Fstore_1%2Ffoods%2F1730693029979_cfmuoi.png?alt=media&token=9114ee90-a973-4516-a3ab-6d0aa9e1cbaa",
+			idCategory: 2,
+		},
+		{
+			id: 3,
+			name: "Cà phê muối",
+			status: false,
+			price: 50000,
+			imageUrl:
+				"https://firebasestorage.googleapis.com/v0/b/storemanagement-5e1b4.appspot.com/o/imagesClient%2Fstore_1%2Ffoods%2F1730693029979_cfmuoi.png?alt=media&token=9114ee90-a973-4516-a3ab-6d0aa9e1cbaa",
+			idCategory: 2,
+		},
+		{
+			id: 3,
+			name: "Cà phê muối",
+			status: false,
+			price: 50000,
+			imageUrl:
+				"https://firebasestorage.googleapis.com/v0/b/storemanagement-5e1b4.appspot.com/o/imagesClient%2Fstore_1%2Ffoods%2F1730693029979_cfmuoi.png?alt=media&token=9114ee90-a973-4516-a3ab-6d0aa9e1cbaa",
+			idCategory: 2,
+		},
+	];
 	pagiFood: Pagination = {
 		totalPage: 0,
 		totalRecords: 0,
 		currentPage: 1,
-		pageSize: 10,
+		pageSize: 5,
 		hasNextPage: false,
 		hasPrevPage: false,
 	};
