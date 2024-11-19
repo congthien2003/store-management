@@ -1,0 +1,19 @@
+@import "../../../shared/variable.scss";
+@import "../../../shared/layout.scss";
+
+th{
+    padding: 10px 15px;
+}
+
+.table-actions {
+	display: flex;
+	align-items: center;
+}
+
+.btn-management-confirm{
+    background-color: #28a745; 
+    color: whitesmoke;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

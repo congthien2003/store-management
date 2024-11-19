@@ -22,6 +22,7 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { FormAddComponent } from "./form-add/form-add.component";
 import { NzButtonModule } from "ng-zorro-antd/button";
+import { MatMenuModule } from "@angular/material/menu";
 
 import { debounceTime, distinctUntilChanged, Subject, timeout } from "rxjs";
 import { LoaderService } from "src/app/core/services/loader.service";
@@ -32,6 +33,7 @@ const MatImport = [
 	MatDialogModule,
 	MatTooltipModule,
 	NzButtonModule,
+	MatMenuModule,
 ];
 
 @Component({
@@ -80,12 +82,15 @@ export class UserComponent implements OnInit {
 		totalPage: 0,
 		totalRecords: 0,
 		currentPage: 1,
-		pageSize: 15,
+		pageSize: 5,
 		hasNextPage: false,
 		hasPrevPage: false,
 	};
+	selectedValueStatus: number = 0;
 	searchTerm: string = "";
 	listUser!: User[];
+	filter: boolean = false;
+	role: number | null = null;
 	private searchSubject = new Subject<string>();
 	constructor(
 		public dialog: MatDialog,
@@ -106,20 +111,50 @@ export class UserComponent implements OnInit {
 	}
 
 	loadListUser(): void {
-		this.userService.list(this.pagi, this.searchTerm).subscribe({
+		this.userService
+		.list( this.pagi,
+			this.searchTerm,
+			"",            
+			this.filter,
+			true,          
+			this.role).subscribe({
 			next: (res) => {
 				this.listUser = res.data.list;
 				this.pagi = res.data.pagination;
+				if (this.pagi.currentPage > this.pagi.totalPage) {
+					this.pagi.currentPage = 1;
+					this.loadListUser();
+				}
 			},
 			error: (err) => {
 				console.log(err);
 			},
 		});
 	}
+	changeFilter(value: number){
+		this.selectedValueStatus = value;
+		switch (this.selectedValueStatus) {
+			case 1:
+				this.role = 0; 
+				this.filter = false;
+				break;
+			case 2:
+				this.role = 1; 
+				this.filter = false;
+				break;
+			default:
+				this.role = null; 
+				this.filter = true;
+				break;
+		}
+		this.loadListUser(); 
+	}
+	
 
 	onChangePage(currentPage: any): void {
 		console.log(currentPage);
 		this.pagi.currentPage = currentPage;
+		this.loadListUser();
 	}
 
 	openAddDialog(): void {

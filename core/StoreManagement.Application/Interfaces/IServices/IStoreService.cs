@@ -1,4 +1,5 @@
 ﻿using StoreManagement.Application.DTOs.Request;
+using StoreManagement.Application.DTOs.Response;
 
 namespace StoreManagement.Application.Interfaces.IServices
 {
@@ -13,5 +14,7 @@ namespace StoreManagement.Application.Interfaces.IServices
         Task<List<StoreDTO>> GetByNameAsync(string name);
         Task<List<StoreDTO>> GetAllAsync(int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortColumn = "", bool ascSort = true, bool incluDeleted = false);
         Task<int> GetCountList(string searchTerm = "", bool incluDeleted = false);
+        Task<List<StoreResponse>> GetAllResponseAsync(int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortColumn = "", bool ascSort = true, bool incluDeleted = false);
+
     }
 }

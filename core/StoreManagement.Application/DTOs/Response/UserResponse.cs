@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StoreManagement.Application.DTOs.Request;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,5 +14,6 @@ namespace StoreManagement.Application.DTOs.Response
         public string Username { get; set; }
         public string Phones { get; set; }
         public int Role { get; set; }
+        public StoreDTO Store { get; set; }
     }
 }

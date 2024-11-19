@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { CommonModule } from "@angular/common";
+
 import { NgChartsModule } from "ng2-charts";
 import { ChartOptions, ChartType, ChartDataset, ChartData } from "chart.js";
 import { BaseChartDirective } from "ng2-charts";
@@ -31,7 +32,6 @@ export class AnalyticsComponent {
 		responsive: true,
 	};
 	public lineChartType: ChartType = "line";
-
 	// Dữ liệu cho biểu đồ tròn
 	public pieChartData: ChartData<"pie", number[], string> = {
 		labels: ["Download Sales", "In-Store Sales", "Mail Sales"],

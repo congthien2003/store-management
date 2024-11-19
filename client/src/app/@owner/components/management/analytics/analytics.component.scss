@@ -1,3 +1,5 @@
+@import "../../../../shared/layout.scss";
+@import "../../../../shared/variable.scss";
 .content {
 	flex-grow: 1;
 	padding: 20px;
@@ -8,7 +10,6 @@
 		align-items: center;
 		margin-bottom: 20px;
 	}
-
 	.main-content {
 		.row {
 			.card {
@@ -17,12 +18,10 @@
 				background-color: #f8f9fa;
 				border: 1px solid #ddd;
 				border-radius: 5px;
-
 				.card-title {
 					font-size: 1.2rem;
 					color: #007bff;
 				}
-
 				.card-text {
 					font-size: 1rem;
 					color: #6c757d;

@@ -13,6 +13,7 @@ namespace StoreManagement.Application.Interfaces.IServices
         Task<int> GetCountAsync(int idOrder);
         Task<PaginationResult<List<OrderDetaiResponse>>> GetAllByIdOrderAsync(int idOrder, string currentPage = "1", string pageSize = "10");
         Task<List<OrderDetaiResponse>> GetAllByIdOrderAsync(int idOrder);
+        Task<Dictionary<string, int>> GetFoodSalesReport(int idStore, DateTime startDate, DateTime endDate);
 
     }
 }

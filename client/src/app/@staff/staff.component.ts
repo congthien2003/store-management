@@ -31,7 +31,6 @@ export class StaffComponent {
 	currentURL: string = "dashboard";
 	activeIndex: number = 0;
 	idUser: number = 0;
-
 	haveStore: boolean = false;
 	store!: Store;
 	private subscription: Subscription | undefined;
@@ -52,26 +51,21 @@ export class StaffComponent {
 				"3d487deb-e1d1-489f-a266-c72fa02b1dc2"
 			);
 		}, 1000);
-
 		this.hub.onReloadData((message) => {
 			console.log(message);
 		});
 	}
-
 	ngOnInit(): void {
 		this.idUser = this.authService.getIdFromToken();
 		this.loadStore();
 	}
-
 	ngOnDestroy(): void {
 		if (this.subscription) {
 			this.subscription.unsubscribe();
 		}
 	}
-
 	loadStore(): void {
 		const dataStore = sessionStorage.getItem("storeInfo");
-
 		if (dataStore) {
 			this.haveStore = true;
 			this.store = JSON.parse(dataStore);
@@ -81,7 +75,6 @@ export class StaffComponent {
 					if (res.isSuccess) {
 						this.haveStore = true;
 						this.store = res.data;
-
 						sessionStorage.setItem(
 							"storeInfo",
 							JSON.stringify(res.data)
@@ -95,7 +88,6 @@ export class StaffComponent {
 			});
 		}
 	}
-
 	swithRoute(index: number) {
 		this.activeIndex = index;
 		this.statusNavbar = false;
@@ -123,12 +115,10 @@ export class StaffComponent {
 			}
 		}
 	}
-
 	statusNavbar: boolean = false;
 	openNavbar(): void {
 		this.statusNavbar = !this.statusNavbar;
 	}
-
 	bindActiveMenu(url: string) {
 		switch (url) {
 			case "/pages": {
@@ -149,7 +139,6 @@ export class StaffComponent {
 			}
 		}
 	}
-
 	logOut(): void {
 		this.router.navigate(["/auth/login"]);
 		localStorage.clear();
