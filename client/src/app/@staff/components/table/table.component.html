@@ -1,6 +1,5 @@
 <div class="management--wrapper">
 	<h4 class="fw-bold">Danh sách bàn</h4>
-
 	<div class="management--header">
 		<div class="management--action">
 			<!-- <button class="btn btn-sm btn-action-add" (click)="addTable()">
@@ -65,7 +64,6 @@
 					</div>
 				</div>
 			</div>
-
 			<div class="table--pagination" *ngIf="listTable.length > 0">
 				<table-pagination
 					[_hasNext]="pagi.hasNextPage"
@@ -74,7 +72,6 @@
 					[_totalPage]="pagi.totalPage"
 					(changePage)="onChangePage($event)"></table-pagination>
 			</div>
-
 			<h4 *ngIf="listTable.length == 0" class="text-center fw-bold">
 				Không tìm thấy danh sách bàn
 				<i class="fa fa-smile-o" aria-hidden="true"></i>

@@ -74,6 +74,7 @@ export class AuthenticationService {
 
 	logout(): void {
 		localStorage.clear();
+		sessionStorage.clear();
 	}
 
 	register(

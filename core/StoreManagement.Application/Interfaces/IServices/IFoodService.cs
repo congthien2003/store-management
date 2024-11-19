@@ -12,7 +12,7 @@ namespace StoreManagement.Application.Interfaces.IServices
         Task<List<FoodDTO>> GetByListId(int[] id);
         Task<List<FoodDTO>> GetByNameAsync(int idStore, string name);
         Task<PaginationResult<List<FoodDTO>>> GetByIdCategoryAsync(int id, string currentPage = "1", string pageSize = "5");
-        Task<PaginationResult<List<FoodDTO>>> GetAllByIdStoreAsync(int id, string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortColumn = "", bool asc = false, bool incluDeleted = false);
+        Task<PaginationResult<List<FoodDTO>>> GetAllByIdStoreAsync(int id, string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortColumn = "", bool asc = false, bool filter = false, int? categoryId = null, bool incluDeleted = false);
         Task<int> GetCountList(int idStore, string searchTerm = "", bool incluDeleted = false);
     }
 }

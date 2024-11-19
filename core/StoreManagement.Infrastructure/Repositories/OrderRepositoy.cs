@@ -60,6 +60,17 @@ namespace StoreManagement.Infrastructure.Repositories
             return list;
         }
 
+        public Task<int> GetCountOrderInDay(int idStore, DateTime date, bool incluDeleted = false)
+        {
+            var order = _dataContext.Orders.Include("Table").Where(x => x.Table.IdStore == idStore && x.IsDeleted == incluDeleted && x.CreatedAt.Date == date.Date).AsQueryable();
+            if (!incluDeleted)
+            {
+                order = order.Where(t => t.IsDeleted == incluDeleted);
+            }
+            var countOrder = order.CountAsync();
+            return countOrder;
+        }
+
         public async Task<Order> GetByIdAsync(int id, bool incluDeleted = false)
         {
             var order = await _dataContext.Orders.Include("Table").FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false);
@@ -80,6 +91,17 @@ namespace StoreManagement.Infrastructure.Repositories
             var searchFood = await order.ToListAsync();
             return searchFood.Count();
         }
+
+        public async Task<int> GetDailyFoodSaleAsync(int idStore, DateTime dateTime, bool incluDeleted = false)
+        {
+            var orders = await _dataContext.Orders
+                                .Where(x => x.Table.IdStore == idStore && x.CreatedAt.Date == dateTime.Date && x.IsDeleted == incluDeleted)
+                                .Include(x => x.OrderDetails)
+                                .ToListAsync();
+            int totalQuantity = orders.SelectMany(x => x.OrderDetails).Sum(x => x.Quantity);
+            return totalQuantity;
+        }
+
         public Expression<Func<Order, object>> GetSortColumnExpression(string sortColumn)
         {
             switch (sortColumn)
@@ -103,5 +125,7 @@ namespace StoreManagement.Infrastructure.Repositories
             await _dataContext.SaveChangesAsync();
             return orderUpdate;
         }
+
+        
     }
 }

@@ -6,7 +6,6 @@ import { Router } from "@angular/router";
 import { User } from "src/app/core/models/interfaces/User";
 import { JwtManager } from "src/app/core/utils/JwtManager";
 import { MatButtonModule } from "@angular/material/button";
-
 @Component({
 	selector: "app-login",
 	templateUrl: "./login.component.html",

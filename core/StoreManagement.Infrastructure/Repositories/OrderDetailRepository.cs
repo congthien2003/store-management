@@ -113,5 +113,18 @@ namespace StoreManagement.Infrastructure.Repositories
             await _dataContext.SaveChangesAsync();
             return exists;
         }
+
+        public async Task<List<OrderDetail>> GetAllOrderDetailsByDay(int idStore, DateTime startDate, DateTime endDate)
+        {
+            endDate = endDate.Date.AddDays(1);
+            var listOrderDetail = await _dataContext.OrderDetails
+                .Include(od => od.Order)
+                .ThenInclude(o => o.Table)
+                .Include(od => od.Food)
+                .Where(od => od.Order.Table.IdStore == idStore && od.StatusProcess == 1 && od.Order.CreatedAt >= startDate && od.Order.CreatedAt < endDate)
+                .ToListAsync();
+
+            return listOrderDetail;
+        }
     }
 }

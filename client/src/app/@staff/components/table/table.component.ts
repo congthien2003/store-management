@@ -54,25 +54,20 @@ export class TableComponent {
 	filter: boolean = false;
 	status: boolean = false;
 	store!: Store;
-
 	sizeQR: number = 120;
 	listTable: TableResponse[] = [];
-
 	constructor(
 		public dialog: MatDialog,
 		private toastr: ToastrService,
 		private loader: LoaderService,
 		private tableService: TableService
 	) {}
-
 	ngOnInit(): void {
 		this.store = JSON.parse(
 			sessionStorage.getItem("storeInfo") ?? ""
 		) as Store;
-
 		this.loadListTable();
 	}
-
 	loadListTable(): void {
 		this.tableService
 			.list(this.store.id, this.pagi, this.filter, this.status)
@@ -80,14 +75,12 @@ export class TableComponent {
 				next: (res) => {
 					if (res.isSuccess) {
 						console.log(res.data.list);
-
 						this.listTable = res.data.list;
 						this.pagi = res.data.pagination;
 					}
 				},
 			});
 	}
-
 	changeFilter(value: number) {
 		this.selectedValueStatus = value;
 		switch (this.selectedValueStatus) {
@@ -108,15 +101,12 @@ export class TableComponent {
 		}
 		this.loadListTable();
 	}
-
 	onChangePage(currentPage: any): void {
 		this.pagi.currentPage = currentPage;
 		this.loadListTable();
 	}
-
 	downloadQR(qrcode: any, idTable: number): void {
 		console.log(qrcode);
-
 		const canvasEl = qrcode.canvas.nativeElement;
 		if (canvasEl) {
 			const imageUrl = canvasEl.toDataURL("image/png");
@@ -126,7 +116,6 @@ export class TableComponent {
 			downloadLink.click();
 		}
 	}
-
 	addTable(): void {
 		const newTable: Table = {
 			id: 0,
@@ -145,7 +134,6 @@ export class TableComponent {
 			},
 		});
 	}
-
 	openDeleteDialog(id: number): void {
 		const dialogRef = this.dialog.open(ModalDeleteComponent, {
 			data: { id: id },
@@ -156,7 +144,6 @@ export class TableComponent {
 			}
 		});
 	}
-
 	handleDelete(id: number): void {
 		this.tableService.deleteById(id).subscribe({
 			next: (res) => {
@@ -169,13 +156,11 @@ export class TableComponent {
 			},
 		});
 	}
-
 	handleResponse(res: ApiResponse) {
 		if (res.isSuccess) {
 			this.toastr.success(res.message, "Thành công", {
 				timeOut: 3000,
 			});
-
 			this.loadListTable();
 		} else {
 			this.toastr.error(res.message, "Thất bại", {

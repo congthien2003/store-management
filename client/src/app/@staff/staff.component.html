@@ -8,13 +8,10 @@
 				<div class="sidebar-brand-text">
 					<span *ngIf="haveStore">{{ store.name }}</span>
 				</div>
-
 				<!-- Divider -->
 				<hr class="sidebar-divider" />
-
 				<!-- Heading -->
 				<div class="sidebar-heading">Quản lý</div>
-
 				<ul class="sidebar-nav">
 					<li
 						class="nav-item"
@@ -25,7 +22,6 @@
 							<span>Bàn</span>
 						</button>
 					</li>
-
 					<li
 						class="nav-item"
 						[class.active]="2 == activeIndex"
@@ -55,7 +51,6 @@
 					</li>
 				</ul>
 				<hr class="sidebar-divider" />
-
 				<div class="sidebar-heading">Người dùng</div>
 				<!-- Nav Item - Dashboard -->
 				<ul class="sidebar-nav">
@@ -95,7 +90,6 @@
 			<div class="container">
 				<div class="owner-content layout-common-content">
 					<notfound-store *ngIf="!haveStore"></notfound-store>
-
 					<router-outlet *ngIf="haveStore"></router-outlet>
 				</div>
 			</div>

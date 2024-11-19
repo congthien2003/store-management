@@ -25,7 +25,8 @@ namespace StoreManagement.Application
             services.AddTransient<IInvoiceService, InvoiceService>();
             services.AddTransient<IProductSellService, ProductSellService>();
             services.AddTransient<IOrderAccessService, OrderAccessService>();
-            /* services.AddTransient<IVoucherService, VoucherService>();*/
+            services.AddTransient<IAnalystReportService, AnalystReportService>();
+           /* services.AddTransient<IVoucherService, VoucherService>();*/
             services.AddTransient<IKPIService, KPIService>();
             services.AddTransient<IBankInfoService, BankInfoService>();
             return services; 
