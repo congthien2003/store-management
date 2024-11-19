@@ -1,4 +1,4 @@
-﻿using StoreManagement.Application.DTOs.Request;
+﻿using StoreManagement.Application.DTOs.Request.Store;
 
 namespace StoreManagement.Application.DTOs.Response
 {

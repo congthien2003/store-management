@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using StoreManagement.Application.Common;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
-using StoreManagement.Application.DTOs.Request;
+using StoreManagement.Application.DTOs.Request.Store;
 
 namespace StoreManagement.Controllers
 {
@@ -90,5 +90,6 @@ namespace StoreManagement.Controllers
             var result = await storeService.DeleteAsync(id);
             return Ok(Result<bool>.Success(result, "Cập nhật thành công"));
         }
+
     }
 }

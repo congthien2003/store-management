@@ -1,4 +1,4 @@
-﻿namespace StoreManagement.Application.DTOs.Request
+﻿namespace StoreManagement.Application.DTOs.Request.Store
 {
     public class StoreDTO
     {

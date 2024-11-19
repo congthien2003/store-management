@@ -5,12 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StoreManagement.Application.DTOs.Response
+namespace StoreManagement.Application.DTOs.Response.BankInfo
 {
-    public class PaymentTypeResponse
+    public class BankInfoResponse
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
         public StoreDTO StoreDTO { get; set; }
+        public string BankId { get; set; }
+        public string AccountName { get; set; }
+        public string AccountId { get; set; }
     }
 }

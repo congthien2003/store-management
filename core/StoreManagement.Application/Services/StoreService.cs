@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using StoreManagement.Application.DTOs.Request;
+using StoreManagement.Application.DTOs.Request.Store;
 using StoreManagement.Application.Interfaces.IServices;
 using StoreManagement.Domain.IRepositories;
 using StoreManagement.Domain.Models;

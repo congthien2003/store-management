@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StoreManagement.Application.DTOs.ApiClient.QR
+namespace StoreManagement.Application.DTOs.Request
 {
-    public class QRRequest
+    public class BankInfoDTO
     {
+        public int IdStore { get; set; }
         public string BankId { get; set; }
-        public string AccountNo { get; set; }
         public string AccountName { get; set; }
-        public double Amount { get; set; }
+        public string AccountId { get; set; }
 
     }
 }
