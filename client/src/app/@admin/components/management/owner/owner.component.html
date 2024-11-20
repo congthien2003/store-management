@@ -38,20 +38,22 @@
 						<td>{{ item.role | roleName }}</td>
 
 						<td class="table-actions">
-							<button
-								class="btn-management-edit btn btn-sm btn-info"
-								matTooltip="Chỉnh sửa thông tin người dùng"
-								(click)="openEditDialog(item.id)"
-								aria-label="Edit">
-								<i class="fa-solid fa-user-pen"></i>
-							</button>
-							<button
-								class="btn-management-delete btn btn-sm btn-danger"
-								matTooltip="Xóa người dùng"
-								(click)="openDeleteDialog(item.id)"
-								aria-label="Delete">
-								<i class="fa-solid fa-trash"></i>
-							</button>
+							<div class="button-group">
+								<button
+									class="btn-management-edit btn btn-sm btn-info"
+									matTooltip="Chỉnh sửa thông tin người dùng"
+									(click)="openEditDialog(item.id)"
+									aria-label="Edit">
+									<i class="fa-solid fa-user-pen"></i>
+								</button>
+								<button
+									class="btn-management-delete btn btn-sm btn-danger"
+									matTooltip="Xóa người dùng"
+									(click)="openDeleteDialog(item.id)"
+									aria-label="Delete">
+									<i class="fa-solid fa-trash"></i>
+								</button>
+							</div>
 						</td>
 					</tr>
 				</tbody>

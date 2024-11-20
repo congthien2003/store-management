@@ -4,6 +4,7 @@ using StoreManagement.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using StoreManagement.Domain.IRepositories;
+using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace StoreManagement.Infrastructure.Repositories
 {
@@ -146,6 +147,40 @@ namespace StoreManagement.Infrastructure.Repositories
             _dataContext.Foods.Update(foodUpdate);
             await _dataContext.SaveChangesAsync();
             return foodUpdate;
+        }
+
+        public async Task<List<Food>> GetAllByIdStoreNoPagin(int idStore)
+        {
+            return await _dataContext.Foods
+            .Where(x => x.Category.IdStore == idStore && !x.IsDeleted)
+            .ToListAsync();
+        }
+
+        public async Task<List<Food>> GetAllByStoreAndByCateAsync(int idStore, int idCategory, int currentPage, int pageSize)
+        {
+            if (idCategory == 0)
+            {
+                return await _dataContext.Foods.Where(x => x.Category.IdStore == idStore)
+                    .Skip((currentPage - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+            }
+            else
+            {
+                return await _dataContext.Foods.Where(x => x.Category.IdStore == idStore && x.Category.Id == idCategory)
+                     .Skip((currentPage - 1) * pageSize)
+                     .Take(pageSize)
+                     .ToListAsync();
+            }
+        }
+
+        public async Task<List<Food>> GetAllByStoreAsync(int idStore, int currentPage, int pageSize)
+        {
+            return await _dataContext.Foods
+                .Where(x => x.Category.IdStore == idStore)
+                .Skip((currentPage - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
         }
     }
 }

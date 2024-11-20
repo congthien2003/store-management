@@ -303,37 +303,37 @@ h6 {
 		}
 
 		.table-actions {
-			.btn-management {
-				&-edit {
-					background-color: $primary-dark;
-					color: white;
-					height: 25px;
-					display: flex;
-					align-items: center;
-					justify-content: center;
-					@media (max-width: $mobile-breakpoint) {
-						height: 20px;
-						i {
-							font-size: 10px;
+				.btn-management {
+					&-edit {
+						background-color: $primary-dark ; 
+						color: white;
+						height: 25px;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						@media (max-width: $mobile-breakpoint) {
+							height: 20px;
+							i {
+								font-size: 10px;
+							}
 						}
 					}
-				}
 
-				&-delete {
-					background-color: #ef5350;
-					color: whitesmoke;
-					height: 25px;
-					display: flex;
-					align-items: center;
-					justify-content: center;
-					margin-top: 8px;
-					@media (max-width: $mobile-breakpoint) {
-						height: 20px;
-						i {
-							font-size: 10px;
+					&-delete {
+						background-color: #ef5350;
+						color: whitesmoke;
+						height: 25px;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						@media (max-width: $mobile-breakpoint) {
+							height: 20px;
+							i {
+								font-size: 10px;
+							}
 						}
 					}
-				}
+				
 			}
 		}
 	}

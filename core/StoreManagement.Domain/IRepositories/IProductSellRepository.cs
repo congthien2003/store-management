@@ -14,5 +14,13 @@ namespace StoreManagement.Domain.IRepositories
         Task<TProductSell> GetByIdAsync(int id, bool incluDeleted = false);
         Task<TProductSell?> GetByIdFoodAsync(int idFood, bool incluDeleted = false);
         Task<TProductSell> DeleteAsync(int id, bool incluDeleted = false);
+
+        Task<TProductSell> GetByFoodIdAsync(int foodId);
+        Task<int> CountAsync(string searchTerm);
+        Task<List<TProductSell>> GetAll(int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortCol = "", bool ascSort = true, bool incluDeleted = false);
+        Task<TProductSell> UpdateQuantityAsync(int id, int quantity);
+        Task UpdateProductSellQuantityAsync(int foodId, int orderId, int orderQuantity);
+        Task<List<TProductSell>> GetTopProductsByQuantityAsync(int idStore, int idCategory);
+        Task<List<TProductSell>> GetTopProductsByQuantityByStoreAsync(int idStore);
     }
 }

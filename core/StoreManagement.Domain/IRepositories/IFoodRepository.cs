@@ -12,5 +12,8 @@ namespace StoreManagement.Domain.IRepositories
         Task<List<TFood>> GetByIdCategory(int id, bool incluDeleted = false);
         Task<int> GetCountAsync(int idStore, string searchTerm = "", bool incluDeleted = false);
         Task<List<TFood>> GetAllByIdStoreAsync(int id, string searchTerm = "", string sortCol = "", bool ascSort = true, int? categoryId = null, bool incluDeleted = false);
+        Task<List<TFood>> GetAllByIdStoreNoPagin(int idStore);
+        Task<List<TFood>> GetAllByStoreAndByCateAsync(int idStore, int idCategory, int currentPage, int pageSize);
+        Task<List<TFood>> GetAllByStoreAsync(int idStore, int currentPage, int pageSize);
     }
 }

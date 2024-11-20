@@ -110,7 +110,7 @@ export class StaffComponent {
 				break;
 			}
 			case 5: {
-				this.router.navigate([`/staff/${this.idUser}`]);
+				this.router.navigate(["/staff/infor-user"]);
 				break;
 			}
 		}
