@@ -10,21 +10,67 @@
 		align-items: center;
 		margin-bottom: 20px;
 	}
+
 	.main-content {
 		.row {
-			.card {
-				padding: 20px;
-				margin: 10px 0;
-				background-color: #f8f9fa;
-				border: 1px solid #ddd;
-				border-radius: 5px;
-				.card-title {
-					font-size: 1.2rem;
-					color: #007bff;
+				display: flex;
+				flex-wrap: wrap;
+		
+				.col-md-3,
+				.col-md-12 {
+					.card {
+						position: relative;
+						padding: 15px;
+						margin: 10px 0;
+						background: linear-gradient(135deg, #ffffff, #f8f9fa);
+						border: 1px solid #ddd;
+						border-radius: 10px;
+						text-align: center;
+						box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+						transition: transform 0.2s ease, box-shadow 0.2s ease;
+		
+						&:hover {
+							transform: translateY(-5px);
+							box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
+							border-color: #4a90e2;
+						}
+		
+						.card-title {
+							display: flex;
+							align-items: center;
+							justify-content: center;
+							gap: 8px; // Khoảng cách giữa biểu tượng và chữ
+							font-size: 1rem;
+							font-weight: bold;
+							color: #4a90e2;
+		
+							i {
+								font-size: 1.2rem;
+								color: #6c757d; // Màu biểu tượng
+								transition: color 0.3s ease;
+		
+								&:hover {
+									color: #007bff;
+								}
+							}
+						}
+		
+						.card-text {
+							font-size: 0.9rem;
+							color: #6c757d;
+						}
+					}
 				}
-				.card-text {
-					font-size: 1rem;
-					color: #6c757d;
+
+			.col-md-12 {
+				.card {
+					padding: 20px;
+					margin-top: 20px;
+
+					.card-title {
+						font-size: 1.2rem;
+						color: #007bff;
+					}
 				}
 			}
 		}
