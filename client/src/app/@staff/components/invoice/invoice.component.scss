@@ -1,14 +1,7 @@
 @import "../../../shared/variable.scss";
 @import "../../../shared/layout.scss";
 
-th{
-    padding: 10px 15px;
-}
 
-.table-actions {
-	display: flex;
-	align-items: center;
-}
 
 .btn-management-confirm{
     background-color: #28a745; 
@@ -16,4 +9,22 @@ th{
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 25px;
+    @media (max-width: $mobile-breakpoint) {
+        height: 20px;
+        i {
+            font-size: 10px;
+        }
+    }
+}
+
+.button-group{
+    display: flex;
+    align-items: center; 
+    .btn-management {
+        &-edit {
+          margin-right: 7px;
+        }
+    
+      }
 }

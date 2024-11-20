@@ -14,6 +14,8 @@ namespace StoreManagement.Controllers
     public class OrderController : ControllerBase
     {
         private readonly IOrderSerivce _OrderService;
+        private readonly ITableService _tableService;
+        
         private readonly IHubContext<OrderHub> _hubContext;
 
         public OrderController(IOrderSerivce orderSerivce, IHubContext<OrderHub> hubContext)
@@ -25,11 +27,12 @@ namespace StoreManagement.Controllers
         [HttpPost("create")]
         public async Task<ActionResult<Result>> CreateAsync(OrderDTO orderDTO)
         {   
-            var result = await _OrderService.CreateAsync(orderDTO);
-            if (result != null) {
-                await _hubContext.Clients.Group(orderDTO.IdStore.ToString()).SendAsync("ReceiveNotification", "Có đơn đặt hàng vừa được tạo");
+            var order = await _OrderService.CreateAsync(orderDTO);
+            var table = await _tableService.GetByIdAsync(order.IdTable);
+            if (order != null) {
+                await _hubContext.Clients.Group(table.IdStore.ToString()).SendAsync("ReceiveNotification", "Có đơn đặt hàng vừa được tạo");
             }
-            return Ok(Result<OrderDTO?>.Success(result,"Tạo mới thành công"));
+            return Ok(Result<OrderDTO?>.Success(order, "Tạo mới thành công"));
 
         }
 

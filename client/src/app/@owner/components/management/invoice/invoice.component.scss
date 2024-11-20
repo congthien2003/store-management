@@ -1,2 +1,14 @@
 @import "../../../../shared/variable.scss";
 @import "../../../../shared/layout.scss";
+
+
+.button-group{
+    display: flex;
+    align-items: center; 
+    .btn-management {
+        &-edit {
+          margin-right: 7px;
+        }
+    
+      }
+}

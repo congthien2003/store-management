@@ -12,7 +12,9 @@ namespace StoreManagement.Domain.IRepositories
         Task<List<TOrder>> GetAllByIdStoreAsync(int idStore, string sortCol = "", bool ascSort = true, bool incluDeleted = false);
         Task<int> GetCountOrderInDay(int idStore, DateTime date, bool incluDeleted = false);
         Task<int> GetDailyFoodSaleAsync(int idStore, DateTime dateTime, bool incluDeleted = false);
+        Task<List<OrderDetail>> GetOrderDetailsByOrderIdAsync(int orderId);
+        Task<bool> CheckOrderDetailExists(int orderId, int foodId);
 
-        
+
     }
 }

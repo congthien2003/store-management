@@ -60,23 +60,25 @@
 						</td>
 
 						<td class="table-actions">
-							<button
-								class="btn btn-sm btn-management-edit"
-								matTooltip="Chi tiết đơn đặt hàng"
-								(click)="openEditDialog(item.id)"
-								aria-label="Edit">
-								<i
-									class="fa fa-info-circle"
-									aria-hidden="true"></i>
+							<div class="button-group">
+								<button
+									class="btn btn-sm btn-management-edit"
+									matTooltip="Chi tiết đơn đặt hàng"
+									(click)="openEditDialog(item.id)"
+									aria-label="Edit">
+									<i
+										class="fa fa-info-circle"
+										aria-hidden="true"></i>
+								</button>
+								<button
+									*ngIf="item.status"
+									class="btn btn-sm btn-management-confirm"
+									matTooltip="Xác nhận"
+									(click)="confirmInvoice(item.id)"
+									aria-label="Confirm">
+									<i class="fa fa-check-circle" aria-hidden="true"></i>
 							</button>
-                            <button
-                                *ngIf="item.status"
-                                class="btn btn-sm btn-management-confirm"
-                                matTooltip="Xác nhận"
-                                (click)="confirmInvoice(item.id)"
-                                aria-label="Confirm">
-                                <i class="fa fa-check-circle" aria-hidden="true"></i>
-                          </button>
+						  </div>
 						</td>
 					</tr>
 				</tbody>

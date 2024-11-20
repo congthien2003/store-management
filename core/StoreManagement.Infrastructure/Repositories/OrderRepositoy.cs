@@ -126,6 +126,17 @@ namespace StoreManagement.Infrastructure.Repositories
             return orderUpdate;
         }
 
-        
+        public async Task<List<OrderDetail>> GetOrderDetailsByOrderIdAsync(int orderId)
+        {
+            return await _dataContext.OrderDetails
+                .Where(od => od.IdOrder == orderId)
+                .ToListAsync();
+        }
+
+        public async Task<bool> CheckOrderDetailExists(int orderId, int foodId)
+        {
+            return await _dataContext.OrderDetails
+           .AnyAsync(od => od.IdOrder == orderId && od.IdFood == foodId);
+        }
     }
 }
