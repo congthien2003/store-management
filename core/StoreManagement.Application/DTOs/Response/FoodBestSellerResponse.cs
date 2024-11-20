@@ -7,11 +7,9 @@ using System.Threading.Tasks;
 
 namespace StoreManagement.Application.DTOs.Response
 {
-    public class ProductSellResponse
+    public class FoodBestSellerResponse
     {
-        public int Quantity { get; set; }
-        public int FoodId { get; set; }
-        public DateTime UpdatedAt { get; set; }
-        public FoodDTO FoodDTO { get; set; }
+        public List<FoodDTO> ListFood { get; set; }
+        public List<FoodDTO> Top4BestSeller { get; set; }
     }
 }

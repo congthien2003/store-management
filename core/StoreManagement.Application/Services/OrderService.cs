@@ -13,16 +13,19 @@ namespace StoreManagement.Services
         private readonly IMapper _mapper;
         private readonly IOrderRepository<Order> _orderRepository;
         private readonly ITableRepository<Table> _tableRepository;
+        private readonly IProductSellRepository<ProductSell> _productSellRepository;
         private readonly IOrderAccessTokenRepository<OrderAccessToken> _orderAccessTokenRepository;
 
         public OrderService(IMapper mapper, 
             IOrderRepository<Order> orderRepository, 
             ITableRepository<Table> tableRepository,
+            IProductSellRepository<ProductSell> productSellRepository,
             IOrderAccessTokenRepository<OrderAccessToken> orderAccessTokenRepository)
         {
             _mapper = mapper;
             _orderRepository = orderRepository;
             _tableRepository = tableRepository;
+            _productSellRepository = productSellRepository;
             _orderAccessTokenRepository = orderAccessTokenRepository;
         }
 
@@ -34,6 +37,13 @@ namespace StoreManagement.Services
             table.Status = false;
             order = await _orderRepository.UpdateAsync(id, order);
             await _tableRepository.UpdateAsync(table.Id, table);
+            var orderDetails = await _orderRepository.GetOrderDetailsByOrderIdAsync(order.Id);
+            foreach (var detail in orderDetails)
+            {
+                await _productSellRepository.UpdateProductSellQuantityAsync(detail.IdFood, detail.IdOrder, detail.Quantity);
+            }
+
+            // Map the updated order to DTO and return
             return _mapper.Map<OrderDTO>(order);
         }
 
@@ -84,8 +94,17 @@ namespace StoreManagement.Services
         public async Task<OrderDTO> UpdateAsync(int id, OrderDTO orderDTO)
         {
             var orderUpdate = _mapper.Map<Order>(orderDTO);
-            var update = await _orderRepository.UpdateAsync(id, orderUpdate);
-            return _mapper.Map<OrderDTO>(update);
+            var updatedOrder = await _orderRepository.UpdateAsync(id, orderUpdate);
+            if (updatedOrder.Status == true)
+            {
+                var latestOrderDetails = await _orderRepository.GetOrderDetailsByOrderIdAsync(updatedOrder.Id);
+                var firstOrderDetail = latestOrderDetails.FirstOrDefault();
+                if (firstOrderDetail != null)
+                {
+                    await _productSellRepository.UpdateProductSellQuantityAsync(firstOrderDetail.IdFood, firstOrderDetail.IdOrder, firstOrderDetail.Quantity);
+                }
+            }
+            return _mapper.Map<OrderDTO>(updatedOrder);
         }
     }
 }

@@ -14,5 +14,10 @@ namespace StoreManagement.Domain.IRepositories
         Task<TOrderDetail> GetByID(int id);
         Task<List<TOrderDetail>> GetAllOrderDetailsByDay(int idStore, DateTime startDate, DateTime endDate);
 
+        Task<List<TOrderDetail>> GetByOrderIdAsync(int idOrder);
+        Task<TOrderDetail> GetByOrderIdAndFoodIdAsync(int orderId, int foodId);
+        Task<bool> ExistsAsync(int orderId, int foodId);
+
+
     }
 }

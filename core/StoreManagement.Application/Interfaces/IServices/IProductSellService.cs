@@ -1,4 +1,5 @@
-﻿using StoreManagement.Application.DTOs.Request;
+﻿using StoreManagement.Application.Common;
+using StoreManagement.Application.DTOs.Request;
 using StoreManagement.Application.DTOs.Response;
 using StoreManagement.Domain.Models;
 using System;
@@ -15,7 +16,7 @@ namespace StoreManagement.Application.Interfaces.IServices
         Task<ProductSellDTO> UpdateAsync(int id, ProductSellDTO productSellDTO);
         Task<bool> DeleteAsync(int id);
         Task<ProductSellDTO> GetByIdAsync(int id);
-        Task<List<ProductSellResponse>> GetByIdStoreAsync(int idStore);
+        Task<PaginationResult<List<ProductSellResponse>>> GetAllAsync(string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortColumn = "", string asc = "true");
 
     }
 }
