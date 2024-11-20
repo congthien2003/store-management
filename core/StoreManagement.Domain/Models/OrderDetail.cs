@@ -13,7 +13,7 @@ namespace StoreManagement.Domain.Models
         [ForeignKey("IdFood")]
         public Food Food { get; set; }
         public int StatusProcess { get; set; } = (int) EStatusProcess.Pending;
-        //public bool IsHoliday { get; set;} = false;
+	
         public DateTime CreatedAt { get; set; } = DateTime.Now;
     }
 }

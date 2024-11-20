@@ -1,0 +1,89 @@
+<div class="container">
+    <h2 class="header">Thông tin cá nhân</h2>
+  
+    <!-- Form -->
+    <form class="form-container" (ngSubmit)="toggleEdit()" #userForm="ngForm">
+      <!-- User Name -->
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Tên người dùng</mat-label>
+        <input
+          matInput
+          type="text"
+          [(ngModel)]="user.username"
+          name="username"
+          [readonly]="!isEditing"
+          required
+          [disabled]="!isEditing"
+        />
+      </mat-form-field>
+  
+      <!-- User Email -->
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Email</mat-label>
+        <input
+          matInput
+          type="email"
+          [(ngModel)]="user.email"
+          name="email"
+          [readonly]="!isEditing"
+          required
+          [disabled]="!isEditing"
+        />
+      </mat-form-field>
+  
+      <!-- User Phone -->
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Số điện thoại</mat-label>
+        <input
+          matInput
+          type="tel"
+          [(ngModel)]="user.phones"
+          name="phone"
+          [readonly]="!isEditing"
+          required
+          [disabled]="!isEditing"
+        />
+      </mat-form-field>
+  
+      <!-- User Role (Non-editable) -->
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Vai trò</mat-label>
+        <input
+          matInput
+          [value]="user.role"
+          readonly
+          disabled
+        />
+      </mat-form-field>
+  
+      <!-- Buttons -->
+      <div class="button-group">
+        <button
+          mat-raised-button
+          color="primary"
+          type="button"
+          (click)="toggleEdit()"
+          *ngIf="!isEditing"
+        >
+          Chỉnh sửa
+        </button>
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          *ngIf="isEditing"
+        >
+          Lưu
+        </button>
+        <button
+          mat-stroked-button
+          color="warn"
+          type="button"
+          (click)="isEditing = false"
+          *ngIf="isEditing"
+        >
+          Hủy
+        </button>
+      </div>
+    </form>
+  </div>

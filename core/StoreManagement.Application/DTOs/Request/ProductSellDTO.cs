@@ -9,6 +9,7 @@ namespace StoreManagement.Application.DTOs.Request
     public class ProductSellDTO
     {
         public int Id { get; set; }
+        public DateTime UpdatedAt { get; set; }
         public int Quantity { get; set; }
         public int FoodId { get; set; }
     }

@@ -5,6 +5,7 @@ import { StaffComponent } from "./staff.component";
 import { FoodComponent } from "./components/food/food.component";
 import { OrderComponent } from "./components/order/order.component";
 import { InvoiceComponent } from "./components/invoice/invoice.component";
+import { InforUserComponent } from "./components/infor-user/infor-user.component";
 
 const routes: Routes = [
 	{
@@ -26,6 +27,10 @@ const routes: Routes = [
 			{
 				path: "invoice",
 				component: InvoiceComponent,
+			},
+			{
+				path: "infor-user",
+				component: InforUserComponent
 			},
 		],
 	},

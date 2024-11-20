@@ -13,7 +13,9 @@ namespace StoreManagement.Domain.IRepositories
         Task<int> GetCountOrderInDay(int idStore, DateTime date, bool incluDeleted = false);
         Task<List<int>> GetMonthOrder(int idStore, int year, bool incluDeleted = false);
         Task<int> GetDailyFoodSaleAsync(int idStore, DateTime dateTime, bool incluDeleted = false);
+        Task<List<OrderDetail>> GetOrderDetailsByOrderIdAsync(int orderId);
+        Task<bool> CheckOrderDetailExists(int orderId, int foodId);
 
-        
+
     }
 }

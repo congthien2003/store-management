@@ -126,5 +126,24 @@ namespace StoreManagement.Infrastructure.Repositories
 
             return listOrderDetail;
         }
+
+        public async Task<List<OrderDetail>> GetByOrderIdAsync(int idOrder)
+        {
+            return await _dataContext.OrderDetails
+                .Where(od => od.IdOrder == idOrder)
+                .ToListAsync();
+        }
+
+        public async Task<OrderDetail> GetByOrderIdAndFoodIdAsync(int orderId, int foodId)
+        {
+            return await _dataContext.OrderDetails
+                .FirstOrDefaultAsync(od => od.IdOrder == orderId && od.IdFood == foodId);
+        }
+
+        public async Task<bool> ExistsAsync(int orderId, int foodId)
+        {
+            return await _dataContext.OrderDetails
+                .AnyAsync(od => od.IdOrder == orderId && od.IdFood == foodId);
+        }
     }
 }

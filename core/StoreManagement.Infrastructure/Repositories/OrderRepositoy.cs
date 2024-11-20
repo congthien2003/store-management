@@ -126,7 +126,19 @@ namespace StoreManagement.Infrastructure.Repositories
             return orderUpdate;
         }
 
-        public async Task<List<int>> GetMonthOrder(int idStore, int year, bool incluDeleted = false)
+        public async Task<List<OrderDetail>> GetOrderDetailsByOrderIdAsync(int orderId)
+        {
+            return await _dataContext.OrderDetails
+                .Where(od => od.IdOrder == orderId)
+                .ToListAsync();
+        }
+
+        public async Task<bool> CheckOrderDetailExists(int orderId, int foodId)
+        {
+            return await _dataContext.OrderDetails
+           .AnyAsync(od => od.IdOrder == orderId && od.IdFood == foodId);
+        }
+		public async Task<List<int>> GetMonthOrder(int idStore, int year, bool incluDeleted = false)
         {
            List<int> OrderAllMonth = new List<int>();
             for (int month = 1; month <= 12; month++)
@@ -141,6 +153,14 @@ namespace StoreManagement.Infrastructure.Repositories
                 OrderAllMonth.Add(totalOrder);
             }
             return OrderAllMonth; 
+        }<<<<<<< .mine
+            }
+            return OrderAllMonth; 
         }
+=======
+
+
+
+>>>>>>> .theirs
     }
 }
