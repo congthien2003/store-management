@@ -9,6 +9,6 @@ namespace StoreManagement.Application.Interfaces.IApiClientServices
 {
     public interface IQRServices
     {
-        Task<QRResponse> GetQR(string BankID, string BankName, string BankType, double Amount);
+        Task<QRResponse> GetQR(string BankID, string AccountNo, string AccountName, double Amount);
     }
 }

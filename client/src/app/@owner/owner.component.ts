@@ -15,6 +15,7 @@ import { HubService } from "../core/services/hubStore.service";
 import { Store } from "../core/models/interfaces/Store";
 import { OrderAccessToken } from "../core/models/interfaces/OrderAccessToken";
 import { Subscription } from "rxjs";
+import { BankInfoService } from "../core/services/store/bank-info.service";
 const MatModuleImport = [MatButtonModule, MatCommonModule, MatMenuModule];
 
 @Component({

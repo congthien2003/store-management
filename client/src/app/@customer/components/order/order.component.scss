@@ -37,7 +37,9 @@
 			}
 			.order--actions {
 				width: 60px;
-
+				display: flex;
+				gap: 12px;
+				align-items: center;
 				button {
 					height: 30px;
 				}
@@ -241,4 +243,8 @@
 		opacity: 1;
 		transform: translateX(0); /* Kết thúc ở vị trí ban đầu */
 	}
+}
+
+.custom-dialog {
+	border-radius: 16px;
 }

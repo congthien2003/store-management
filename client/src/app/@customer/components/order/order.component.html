@@ -5,7 +5,7 @@
 	<div class="container">
 		<div class="order--header">
 			<div class="row">
-				<div class="col-9 col-lg-11">
+				<div class="col-6 col-lg-11">
 					<div class="order--search">
 						<input
 							aria-label="search"
@@ -14,18 +14,27 @@
 							[value]="search" />
 					</div>
 				</div>
-				<div class="col-3 col-lg-1">
-					<div class="order--actions" (click)="openCart()">
+				<div class="col-6 col-lg-1">
+					<div class="order--actions">
 						<button
 							[matBadge]="listOrderDetail.length"
 							matBadgeColor="accent"
 							aria-label="cart"
 							mat-raised-button
 							color="primary"
-							class="btn btn-sm w-100">
+							class="btn btn-sm"
+							(click)="openCart()">
 							<i
 								class="fa fa-shopping-cart"
 								aria-hidden="true"></i>
+						</button>
+						<button
+							aria-label="qr"
+							mat-raised-button
+							color="accent"
+							(click)="reviewQR()"
+							class="btn btn-sm">
+							QR
 						</button>
 					</div>
 				</div>

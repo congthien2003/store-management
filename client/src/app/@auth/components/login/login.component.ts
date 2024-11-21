@@ -1,14 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import {
-	FormBuilder,
-	FormGroup,
-	Validators,
-	FormsModule,
-} from "@angular/forms";
+import { FormsModule } from "@angular/forms";
 import { AuthenticationService } from "src/app/core/services/auth/authentication.service";
 import { ToastrService } from "ngx-toastr";
-import { animate, style, transition, trigger } from "@angular/animations";
-import { Route, Router } from "@angular/router";
+import { Router } from "@angular/router";
 import { User } from "src/app/core/models/interfaces/User";
 import { JwtManager } from "src/app/core/utils/JwtManager";
 import { MatButtonModule } from "@angular/material/button";

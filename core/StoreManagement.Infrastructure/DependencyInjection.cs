@@ -5,6 +5,8 @@ using StoreManagement.Domain.Models;
 using StoreManagement.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using StoreManagement.Application.Interfaces.IApiClientServices;
+using StoreManagement.Infrastructure.ApiClient;
 namespace StoreManagement.Infrastructure
 {
     public static class DependencyInjection
@@ -29,6 +31,11 @@ namespace StoreManagement.Infrastructure
             services.AddScoped<IOrderAccessTokenRepository<OrderAccessToken>, OrderAccessTokenRepository>();
             /*services.AddScoped<IVoucherRepository<Voucher>, VoucherRepository>();*/
             services.AddScoped<IKPIRepository<KPI>, KPIRepository>();
+            services.AddScoped<IBankInfoRepository<BankInfo>, BankInfoRepository>();
+
+
+            // Register Client Service
+            services.AddTransient<IQRServices, QRService>();
 
 
             return services; 

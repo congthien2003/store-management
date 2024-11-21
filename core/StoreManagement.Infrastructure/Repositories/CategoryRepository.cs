@@ -11,8 +11,8 @@ namespace StoreManagement.Infrastructure.Repositories
     {
         private readonly DataContext _dataContext;
 
-        public CategoryRepository(DataContext dataContext,
-                                    IMapper mapper)
+        public CategoryRepository(DataContext dataContext
+                                   )
         {
             _dataContext = dataContext;
         }
