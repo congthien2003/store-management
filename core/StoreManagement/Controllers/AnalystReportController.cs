@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using StoreManagement.Application.Common;
 using StoreManagement.Application.DTOs.Response.Analyst;
-using StoreManagement.Application.Interfaces.IApiClientServices;
+using StoreManagement.Application.Interfaces.IServices;
 using System.Globalization;
 
 namespace StoreManagement.Controllers

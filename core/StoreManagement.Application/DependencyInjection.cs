@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using StoreManagement.Application.Interfaces.IApiClientServices;
 using StoreManagement.Application.Interfaces.IServices;
 using StoreManagement.Application.Services;
 using StoreManagement.Services;
@@ -26,7 +25,6 @@ namespace StoreManagement.Application
             services.AddTransient<IProductSellService, ProductSellService>();
             services.AddTransient<IOrderAccessService, OrderAccessService>();
             services.AddTransient<IAnalystReportService, AnalystReportService>();
-           /* services.AddTransient<IVoucherService, VoucherService>();*/
             services.AddTransient<IKPIService, KPIService>();
             services.AddTransient<IBankInfoService, BankInfoService>();
             return services; 

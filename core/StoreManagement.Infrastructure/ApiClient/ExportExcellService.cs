@@ -1,14 +1,8 @@
-﻿using StoreManagement.Application.Interfaces.IApiClientServices;
-using StoreManagement.Application.Interfaces.IServices;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using ClosedXML.Excel;
-namespace StoreManagement.Application.Services
+using StoreManagement.Application.Interfaces.IApiClientServices;
+using StoreManagement.Application.Interfaces.IServices;
+namespace StoreManagement.Infrastructure.Services
 {
     public class ExportExcellService : IExportExcellService
     {

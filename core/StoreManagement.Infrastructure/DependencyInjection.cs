@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using StoreManagement.Application.Interfaces.IApiClientServices;
 using StoreManagement.Infrastructure.ApiClient;
+using StoreManagement.Infrastructure.Services;
 namespace StoreManagement.Infrastructure
 {
     public static class DependencyInjection
@@ -36,7 +37,7 @@ namespace StoreManagement.Infrastructure
 
             // Register Client Service
             services.AddTransient<IQRServices, QRService>();
-
+            services.AddTransient<IExportExcellService, ExportExcellService>();
 
             return services; 
         }

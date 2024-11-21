@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StoreManagement.Application.Interfaces.IApiClientServices
+namespace StoreManagement.Application.Interfaces.IServices
 {
     public interface IAnalystReportService
     {
@@ -14,7 +14,7 @@ namespace StoreManagement.Application.Interfaces.IApiClientServices
         Task<int> GetCountFoodSaleInDay(int idStore, DateTime dateTime);
         Task<double> GetDailyRevenueInDay(int idStore, DateTime dateTime);
         Task<List<RevenueByMonth>> GetMonthRevenue(int idStore, int year);
-        Task<List<OrderByMonth>> GetMonthOrder (int idStore, int year);
-        
+        Task<List<OrderByMonth>> GetMonthOrder(int idStore, int year);
+
     }
 }

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using DocumentFormat.OpenXml.VariantTypes;
 using StoreManagement.Application.DTOs.Response.Analyst;
-using StoreManagement.Application.Interfaces.IApiClientServices;
+using StoreManagement.Application.Interfaces.IServices;
 using StoreManagement.Domain.IRepositories;
 using StoreManagement.Domain.Models;
 using System;

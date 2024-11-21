@@ -153,14 +153,6 @@ namespace StoreManagement.Infrastructure.Repositories
                 OrderAllMonth.Add(totalOrder);
             }
             return OrderAllMonth; 
-        }<<<<<<< .mine
-            }
-            return OrderAllMonth; 
         }
-=======
-
-
-
->>>>>>> .theirs
     }
 }
