@@ -28,6 +28,7 @@ namespace StoreManagement.Application
             services.AddTransient<IAnalystReportService, AnalystReportService>();
            /* services.AddTransient<IVoucherService, VoucherService>();*/
             services.AddTransient<IKPIService, KPIService>();
+            services.AddTransient<IBankInfoService, BankInfoService>();
             return services; 
         }
     }

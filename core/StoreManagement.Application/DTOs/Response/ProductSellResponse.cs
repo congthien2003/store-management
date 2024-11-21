@@ -9,8 +9,9 @@ namespace StoreManagement.Application.DTOs.Response
 {
     public class ProductSellResponse
     {
-        public int Id { get; set; }
         public int Quantity { get; set; }
-        public FoodDTO Food { get; set; }
+        public int FoodId { get; set; }
+        public DateTime UpdatedAt { get; set; }
+        public FoodDTO FoodDTO { get; set; }
     }
 }

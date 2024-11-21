@@ -15,6 +15,7 @@ import { HubService } from "../core/services/hubStore.service";
 import { Store } from "../core/models/interfaces/Store";
 import { OrderAccessToken } from "../core/models/interfaces/OrderAccessToken";
 import { Subscription } from "rxjs";
+import { BankInfoService } from "../core/services/store/bank-info.service";
 const MatModuleImport = [MatButtonModule, MatCommonModule, MatMenuModule];
 
 @Component({
@@ -138,6 +139,10 @@ export class OwnerComponent implements OnInit, OnDestroy {
 			}
 			case 8: {
 				this.router.navigate(["/owner/analytics"]);
+				break;
+			}
+			case 9: {
+				this.router.navigate(["/owner/infor-user"]);
 				break;
 			}
 		}

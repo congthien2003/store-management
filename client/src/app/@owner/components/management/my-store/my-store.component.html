@@ -1,43 +1,85 @@
-<div class="container d-flex align-items-center justify-content-center">
-	<div class="store-info">
-		<h2>Thông tin quán của bạn</h2>
+<div
+	class="container d-flex align-items-center justify-content-center flex-column">
+	<div class="my-store">
+		<div class="store-info">
+			<h2>Thông tin quán của bạn</h2>
 
-		<!-- Thông tin tên store -->
-		<div class="store-field">
-			<label for="store-name">Tên Quán</label>
-			<span *ngIf="!isEditing">{{ store.name }}</span>
-			<input
-				*ngIf="isEditing"
-				id="store-name"
-				type="text"
-				[(ngModel)]="store.name" />
+			<!-- Thông tin tên store -->
+			<div class="store-field">
+				<label for="store-name">Tên Quán</label>
+				<span *ngIf="!isEditing">{{ store.name }}</span>
+				<input
+					*ngIf="isEditing"
+					id="store-name"
+					type="text"
+					[(ngModel)]="store.name" />
+			</div>
+
+			<!-- Thông tin địa chỉ store -->
+			<div class="store-field">
+				<label for="store-phone">Số điện thoại</label>
+				<span *ngIf="!isEditing">{{ store.phone }}</span>
+				<input
+					*ngIf="isEditing"
+					id="store-phone"
+					type="text"
+					[(ngModel)]="store.phone" />
+			</div>
+
+			<!-- Thông tin địa chỉ store -->
+			<div class="store-field">
+				<label for="store-address">Địa chỉ quán</label>
+				<span *ngIf="!isEditing">{{ store.address }}</span>
+				<input
+					*ngIf="isEditing"
+					id="store-address"
+					type="text"
+					[(ngModel)]="store.address" />
+			</div>
+
+			<!-- Nút Chỉnh sửa hoặc Lưu -->
+			<button mat-raised-button color="primary" (click)="toggleEdit()">
+				{{ isEditing ? "Lưu" : "Chỉnh sửa" }}
+			</button>
 		</div>
-
-		<!-- Thông tin địa chỉ store -->
-		<div class="store-field">
-			<label for="store-phone">Số điện thoại</label>
-			<span *ngIf="!isEditing">{{ store.phone }}</span>
-			<input
-				*ngIf="isEditing"
-				id="store-phone"
-				type="text"
-				[(ngModel)]="store.phone" />
+		<div class="list-bank">
+			<h4>List Bank Account</h4>
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">ID Account</th>
+						<th scope="col">Account Name</th>
+						<th scope="col">Bank ID</th>
+						<th scope="col">-</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let item of listBankInfo; index as i">
+						<td>{{ i + 1 }}</td>
+						<td>{{ item.accountId }}</td>
+						<td>{{ item.accountName }}</td>
+						<td>{{ item.bankId }}</td>
+						<td>
+							<div class="d-flex gap-2">
+								<button
+									mat-stroked-button
+									color="primary"
+									(click)="reviewQR(item)">
+									View QR
+								</button>
+								<button
+									class="btn btn-sm btn-danger"
+									color="warn">
+									<i
+										class="fa fa-trash"
+										aria-hidden="true"></i>
+								</button>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
-
-		<!-- Thông tin địa chỉ store -->
-		<div class="store-field">
-			<label for="store-address">Địa chỉ quán</label>
-			<span *ngIf="!isEditing">{{ store.address }}</span>
-			<input
-				*ngIf="isEditing"
-				id="store-address"
-				type="text"
-				[(ngModel)]="store.address" />
-		</div>
-
-		<!-- Nút Chỉnh sửa hoặc Lưu -->
-		<button mat-raised-button color="primary" (click)="toggleEdit()">
-			{{ isEditing ? "Lưu" : "Chỉnh sửa" }}
-		</button>
 	</div>
 </div>

@@ -8,6 +8,10 @@ namespace StoreManagement.Application.DTOs.ApiClient.QR
 {
     public class QRRequest
     {
-        string code;
+        public string BankId { get; set; }
+        public string AccountNo { get; set; }
+        public string AccountName { get; set; }
+        public double Amount { get; set; }
+
     }
 }

@@ -20,6 +20,8 @@ namespace StoreManagement.Infrastructure.Data
         public DbSet<OrderAccessToken> OrderAccessTokens { get; set; }
 
         public DbSet<KPI> KPIs { get; set; }
+        public DbSet<BankInfo> BankInfos { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -5,7 +5,7 @@
 	<div class="container">
 		<div class="order--header">
 			<div class="row">
-				<div class="col-9 col-lg-11">
+				<div class="col-6 col-lg-11">
 					<div class="order--search">
 						<input
 							aria-label="search"
@@ -14,18 +14,27 @@
 							[value]="search" />
 					</div>
 				</div>
-				<div class="col-3 col-lg-1">
-					<div class="order--actions" (click)="openCart()">
+				<div class="col-6 col-lg-1">
+					<div class="order--actions">
 						<button
 							[matBadge]="listOrderDetail.length"
 							matBadgeColor="accent"
 							aria-label="cart"
 							mat-raised-button
 							color="primary"
-							class="btn btn-sm w-100">
+							class="btn btn-sm"
+							(click)="openCart()">
 							<i
 								class="fa fa-shopping-cart"
 								aria-hidden="true"></i>
+						</button>
+						<button
+							aria-label="qr"
+							mat-raised-button
+							color="accent"
+							(click)="reviewQR()"
+							class="btn btn-sm">
+							QR
 						</button>
 					</div>
 				</div>
@@ -51,6 +60,44 @@
 					>
 				</mat-chip-listbox>
 			</div>
+			<h4>
+				Món ăn nổi bật
+				<img
+					width="20px"
+					height="20px"
+					src="../../../../assets/images/fire-flame.gif"
+					alt="GIF" />
+			</h4>
+			<h5
+				class="text-center fw-bold fs-4 mt-2"
+				*ngIf="listBestSeller.length == 0">
+				Không tìm thấy dữ liệu
+			</h5>
+			<div class="list-best-seller" *ngIf="listBestSeller.length > 0">
+				<div
+					class="best-seller__card"
+					*ngFor="let food of listBestSeller">
+					<div class="best-seller__img">
+						<img height="100px" [src]="food.imageUrl" alt="" />
+					</div>
+					<div class="best-seller__description">
+						<p class="best-seller__name">{{ food.name }}</p>
+						<p class="best-seller__price">
+							{{ food.price | price }}
+						</p>
+					</div>
+					<div class="best-seller__button">
+						<button class="btn" (click)="addToCart(food.id)">
+							<i class="animation"></i>
+							<i
+								class="fa fa-cart-arrow-down"
+								aria-hidden="true"></i>
+							<i class="animation"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+
 			<div class="list-food">
 				<h4>Danh sách món ăn</h4>
 				<h5
