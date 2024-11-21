@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using DocumentFormat.OpenXml.VariantTypes;
+using StoreManagement.Application.DTOs.Response.Analyst;
 using StoreManagement.Application.Interfaces.IApiClientServices;
 using StoreManagement.Domain.IRepositories;
 using StoreManagement.Domain.Models;
@@ -45,6 +47,41 @@ namespace StoreManagement.Application.Services
         {
             var totalRevenue = await _invoiceRepository.GetDailyRevenueService(idStore, dateTime);
             return totalRevenue;
+        }
+
+        public async Task<List<OrderByMonth>> GetMonthOrder(int idStore, int year)
+        {
+            var listOrder = await _orderRepository.GetMonthOrder(idStore, year);
+            List<OrderByMonth> orders = new List<OrderByMonth>();
+            for (int i = 0; i < listOrder.Count; i++)
+            {
+                var order = new OrderByMonth
+                {
+                    Month = i + 1,
+                    Year = year,
+                    total = listOrder[i]
+                };
+                orders.Add(order);
+            }
+            return orders;
+        }
+
+        public async Task<List<RevenueByMonth>> GetMonthRevenue(int idStore, int year)
+        {
+            var listRevenue = await _invoiceRepository.GetMonthRevenue(idStore, year);
+            List<RevenueByMonth> list = new List<RevenueByMonth>();
+            
+            for(int i=0; i < listRevenue.Count; i++)
+            {
+                var revenue = new RevenueByMonth
+                {
+                    Month = i + 1,
+                    Year = year,
+                    Total = listRevenue[i],
+                };
+                list.Add(revenue);
+            }
+            return list;
         }
 
         public async Task<int> GetTableFree(int idStore)

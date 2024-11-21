@@ -138,5 +138,29 @@ namespace StoreManagement.Infrastructure.Repositories
             return await _dataContext.OrderDetails
            .AnyAsync(od => od.IdOrder == orderId && od.IdFood == foodId);
         }
+		public async Task<List<int>> GetMonthOrder(int idStore, int year, bool incluDeleted = false)
+        {
+           List<int> OrderAllMonth = new List<int>();
+            for (int month = 1; month <= 12; month++)
+            {
+                DateTime startDate = new DateTime(year, month, 1);
+                DateTime endDate = startDate.AddMonths(1).AddDays(-1);
+                var monthlyOrders = await _dataContext.Orders.Where(x => x.Table.IdStore == idStore &&
+                                                                    x.CreatedAt >= startDate &&
+                                                                    x.CreatedAt<= endDate && 
+                                                                    x.IsDeleted == incluDeleted).ToListAsync();
+                int totalOrder = monthlyOrders.Count;
+                OrderAllMonth.Add(totalOrder);
+            }
+            return OrderAllMonth; 
+        }<<<<<<< .mine
+            }
+            return OrderAllMonth; 
+        }
+=======
+
+
+
+>>>>>>> .theirs
     }
 }

@@ -1,8 +1,7 @@
 ﻿using StoreManagement.Domain.Models;
-
 namespace StoreManagement.Domain.IRepositories
 {
-    public interface IInvoiceRepository<TInvoice> where TInvoice : Invoice
+    public interface IInvoiceRepository<TInvoice> where TInvoice : Invoice 
     {
         public Task<TInvoice> CreateAsync(TInvoice invoice);
         public Task<TInvoice> UpdateAsync(int id, TInvoice invoice, bool incluDeleted = false);
@@ -11,5 +10,7 @@ namespace StoreManagement.Domain.IRepositories
         public Task<List<TInvoice>> GetAllByIdStoreAsync(int idStore, string sortCol = "", bool ascSort = true, bool incluDeleted = false);
         Task<int> GetCountAsync(int idStore, bool incluDeleted = false);
         Task<double> GetDailyRevenueService(int idStore, DateTime dateTime, bool incluDeleted = false);
+        Task<List<double>> GetMonthRevenue(int idStore, int year, bool incluDeleted = false);
+
     }
 }

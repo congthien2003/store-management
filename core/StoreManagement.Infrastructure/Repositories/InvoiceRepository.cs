@@ -119,5 +119,27 @@ namespace StoreManagement.Infrastructure.Repositories
             double totalRevenue = await invoice.SumAsync(i => (double)i.Total);
             return totalRevenue;
         }
+
+        public async Task<List<double>> GetMonthRevenue(int idStore, int year, bool incluDeleted = false)
+        {
+            List<double> RevenueAllMonth = new List<double>();
+
+            for (int month = 1; month <= 12; month++)
+            {
+                DateTime startDate = new DateTime(year, month, 1);
+                DateTime endDate = startDate.AddMonths(1).AddDays(-1);
+
+                var monthlyInvoices = await _dataContext.Invoices
+                    .Where(x => x.Order.Table.IdStore == idStore &&
+                    x.CreatedAt >= startDate && x.CreatedAt <= endDate && x.IsDeleted == incluDeleted)
+                    .ToListAsync();
+
+                double totalRevenue = monthlyInvoices.Sum(invoice => (double)invoice.Total);
+
+                RevenueAllMonth.Add(totalRevenue);
+            }
+            return RevenueAllMonth;
+
+        }
     }
 }
