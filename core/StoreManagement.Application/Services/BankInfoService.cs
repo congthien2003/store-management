@@ -50,12 +50,6 @@ namespace StoreManagement.Application.Services
 
             var listBankInfo = _mapper.Map<List<BankInfoResponse>>(list);
 
-            for(var i = 0; i < list.Count; i++)
-            {
-                BankInfoResponse res = new BankInfoResponse();
-                var storeDTO = _mapper.Map<StoreDTO>(list[i].Store);
-                listBankInfo[i].StoreDTO = storeDTO;
-            }
             return listBankInfo;
         }
 

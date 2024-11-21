@@ -9,9 +9,13 @@ namespace StoreManagement.Application.DTOs.Response.BankInfo
 {
     public class BankInfoResponse
     {
-        public StoreDTO StoreDTO { get; set; }
         public string BankId { get; set; }
+        public string BankName { get; set; }
+
         public string AccountName { get; set; }
         public string AccountId { get; set; }
+
+        public int IdStore { get; set; }
+        public int Id {  get; set; }
     }
 }

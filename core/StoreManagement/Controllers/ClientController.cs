@@ -16,10 +16,10 @@ namespace StoreManagement.Controllers
             this.qRServices = qRServices;
         }
 
-        [HttpPost("get-qr")]
+        /*[HttpPost("get-qr")]
         public async Task<ActionResult> GetQR(QRRequest req)
         {
             return Ok(Result<QRResponse>.Success(await qRServices.GetQR(req.BankId, req.AccountNo, req.AccountName, req.Amount), "Success"));
-        }
+        }*/
     }
 }

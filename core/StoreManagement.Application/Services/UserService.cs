@@ -3,6 +3,7 @@ using Microsoft.Win32;
 using StoreManagement.Application.Common;
 using StoreManagement.Application.DTOs.Auth;
 using StoreManagement.Application.DTOs.Request;
+using StoreManagement.Application.DTOs.Request.Store;
 using StoreManagement.Application.DTOs.Response;
 using StoreManagement.Application.Interfaces.IServices;
 using StoreManagement.Domain.IRepositories;

@@ -10,6 +10,8 @@ namespace StoreManagement.Domain.Models
     public class BankInfo : DeleteableEntity
     {
         public string BankId { get; set; }
+        public string BankName { get; set; }
+
         public string AccountName { get; set; }
         public string AccountId { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;

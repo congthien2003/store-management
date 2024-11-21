@@ -43,6 +43,9 @@ import { OrderHubService } from "src/app/core/services/order-hub.service";
 import { OrderAcessService } from "src/app/core/services/order-acess.service";
 import { OrderAccessToken } from "src/app/core/models/interfaces/OrderAccessToken";
 import { OrderDetailResponse } from "src/app/core/models/interfaces/Response/OrderDetailResponse";
+import { BankInfo } from "src/app/core/models/interfaces/BankInfo";
+import { ViewQrComponent } from "src/app/shared/components/view-qr/view-qr.component";
+import { BankInfoService } from "src/app/core/services/store/bank-info.service";
 
 const MatImport = [
 	MatButtonModule,
@@ -167,7 +170,8 @@ export class OrderComponent implements OnInit {
 		private toastr: ToastrService,
 		private dialog: MatDialog,
 		private router: Router,
-		private orderHub: OrderHubService
+		private orderHub: OrderHubService,
+		private bankInfoService: BankInfoService
 	) {}
 
 	ngOnInit(): void {
@@ -468,6 +472,31 @@ export class OrderComponent implements OnInit {
 			next: (res) => {
 				if (res.isSuccess) {
 					console.log("Tạo thành công !");
+				}
+			},
+		});
+	}
+
+	bankInfos: BankInfo[] = [];
+	reviewQR() {
+		this.bankInfoService.getAllByIdStore(this.store.id).subscribe({
+			next: (res) => {
+				if (res.isSuccess) {
+					console.log(res.data);
+					this.bankInfos = res.data;
+					const url = this.bankInfoService.generateQR(
+						this.bankInfos[0],
+						500000
+					);
+					console.log(url);
+					const dialogQRRef = this.dialog.open(ViewQrComponent, {
+						data: {
+							url: url,
+						},
+					});
+					dialogQRRef.afterClosed().subscribe((result) => {});
+				} else {
+					console.log("Error");
 				}
 			},
 		});

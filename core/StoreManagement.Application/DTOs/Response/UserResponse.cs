@@ -1,4 +1,5 @@
 ﻿using StoreManagement.Application.DTOs.Request;
+using StoreManagement.Application.DTOs.Request.Store;
 using System;
 using System.Collections.Generic;
 using System.Linq;
