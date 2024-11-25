@@ -37,7 +37,7 @@ namespace StoreManagement.Controllers
         }
 
         [HttpPost("change-password")]
-        [Authorize]
+        [AllowAnonymous]
         public async Task<ActionResult> ChangePassword(ChangePasswordDTO request)
         {
             var result = await _authenticationService.ChangePassword(request);
