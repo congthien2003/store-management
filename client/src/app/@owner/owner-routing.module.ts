@@ -12,6 +12,7 @@ import { OwnerDashboardComponent } from "./components/owner-dashboard/owner-dash
 import { TableComponent } from "./components/management/table/table.component";
 import { ownerGuard } from "../@auth/guards/owner.guard";
 import { InforUserComponent } from "./components/management/infor-user/infor-user.component";
+import { ChangePasswordComponent } from "../@auth/components";
 
 const routes: Routes = [
 	{
@@ -58,6 +59,10 @@ const routes: Routes = [
 			{
 				path: "infor-user",
 				component: InforUserComponent,
+			},
+			{
+				path: "change-password",
+				component:	ChangePasswordComponent,
 			},
 		],
 	},
