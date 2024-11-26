@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DocumentFormat.OpenXml.Bibliography;
 using DocumentFormat.OpenXml.VariantTypes;
 using StoreManagement.Application.DTOs.Response.Analyst;
 using StoreManagement.Application.Interfaces.IServices;
@@ -18,17 +19,20 @@ namespace StoreManagement.Application.Services
         private readonly IOrderRepository<Order> _orderRepository;
         private readonly IInvoiceRepository<Invoice> _invoiceRepository;
         private readonly ITableRepository<Table> _tableRepository;  
+        private readonly IProductSellRepository<ProductSell> _productSellRepository;
 
         public AnalystReportService(IMapper mapper, 
                                     IOrderRepository<Order> orderRepository,
                                     IInvoiceRepository<Invoice> invoiceRepository,
-                                    ITableRepository<Table> tableRepository
+                                    ITableRepository<Table> tableRepository,
+                                    IProductSellRepository<ProductSell> productSellRepository
                                     )
         {
             _mapper = mapper;
             _orderRepository = orderRepository;
             _invoiceRepository = invoiceRepository;
             _tableRepository = tableRepository;
+            _productSellRepository = productSellRepository;
         }
 
         public async Task<int> GetCountFoodSaleInDay(int idStore, DateTime dateTime)
@@ -90,6 +94,16 @@ namespace StoreManagement.Application.Services
             return totalTable;
         }
 
-        
+        public async Task<List<DataByMonth>> GetTotalProductSell(int idStore, int year)
+        {
+            List<DataByMonth> list = new List<DataByMonth>();
+            for (var i = 1; i < 13; i++)
+            {
+                var total = await _productSellRepository.GetTotalProductSellByMonth(1, year);
+                DataByMonth temp = new DataByMonth { Month = i, Year = year, total = total};
+                list.Add(temp);
+            }
+            return list;
+        }
     }
 }

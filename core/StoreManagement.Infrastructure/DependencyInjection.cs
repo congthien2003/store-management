@@ -38,7 +38,7 @@ namespace StoreManagement.Infrastructure
             // Register Client Service
             services.AddTransient<IQRServices, QRService>();
             services.AddTransient<IExportExcellService, ExportExcellService>();
-
+            services.AddTransient<IGoogleAPI, GoogleAPI>();
             return services; 
         }
     }

@@ -46,6 +46,7 @@ import { OrderDetailResponse } from "src/app/core/models/interfaces/Response/Ord
 import { BankInfo } from "src/app/core/models/interfaces/BankInfo";
 import { ViewQrComponent } from "src/app/shared/components/view-qr/view-qr.component";
 import { BankInfoService } from "src/app/core/services/store/bank-info.service";
+import { PopupSubmitOrderComponent } from "src/app/shared/components/popup-submit-order/popup-submit-order.component";
 
 const MatImport = [
 	MatButtonModule,
@@ -342,9 +343,21 @@ export class OrderComponent implements OnInit {
 								this.listOrderDetail.forEach((e) => {
 									e.idOrder = this.order.id;
 								});
-								this.toastr.success(res.message, "Thông báo", {
-									timeOut: 2500,
-								});
+
+								const dialogSuccessRef = this.dialog.open(
+									PopupSubmitOrderComponent,
+									{
+										data: {},
+									}
+								);
+
+								dialogSuccessRef
+									.afterClosed()
+									.subscribe((result) => {
+										if (result == "history") {
+										}
+									});
+
 								// Khi tạo order thành công -> Tạo token
 								this.createOrderAccessToken(this.idTable);
 

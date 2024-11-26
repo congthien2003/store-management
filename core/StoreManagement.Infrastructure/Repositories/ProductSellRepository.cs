@@ -204,5 +204,10 @@ namespace StoreManagement.Infrastructure.Repositories
                 .Where(od => od.IdOrder == orderId)
                 .ToListAsync();
         }
+
+        public async Task<int> GetTotalProductSellByMonth(int month, int year)
+        {
+            return await _dataContext.ProductSells.Where(x => x.UpdatedAt.Month == month && x.UpdatedAt.Year == year).CountAsync();
+        }
     }
 }

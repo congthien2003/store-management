@@ -15,6 +15,8 @@ namespace StoreManagement.Application.Interfaces.IServices
         Task<double> GetDailyRevenueInDay(int idStore, DateTime dateTime);
         Task<List<RevenueByMonth>> GetMonthRevenue(int idStore, int year);
         Task<List<OrderByMonth>> GetMonthOrder(int idStore, int year);
+        Task<List<DataByMonth>> GetTotalProductSell(int idStore, int year);
+
 
     }
 }

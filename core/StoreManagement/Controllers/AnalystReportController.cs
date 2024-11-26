@@ -56,5 +56,11 @@ namespace StoreManagement.Controllers
             var list = await _analystReportService.GetMonthOrder(idStore, year);
             return Ok(Result<List<OrderByMonth>>.Success(list, "Tính toán thành công")); ;
         }
+        [HttpGet("month-productsell/{idStore:int}/{year:int}")]
+        public async Task<ActionResult<Result>> GetProductSell(int idStore, int year)
+        {
+            var list = await _analystReportService.GetTotalProductSell(idStore, year);
+            return Ok(Result<List<DataByMonth>>.Success(list, "Tính toán thành công")); ;
+        }
     }
 }

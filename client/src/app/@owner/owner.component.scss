@@ -5,4 +5,297 @@
 	&-sidebar {
 		background-color: $primary;
 	}
+
+	&-content {
+		position: relative;
+		min-height: 100vh;
+	}
+}
+
+.chat-button {
+	position: absolute;
+	content: "";
+	bottom: 20px;
+	right: 20px;
+	/* From Uiverse.io by vinodjangid07 */
+	.Btn {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		width: 45px;
+		height: 45px;
+		border: none;
+		border-radius: 50%;
+		cursor: pointer;
+		position: relative;
+		overflow: hidden;
+		transition-duration: 0.3s;
+		box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+		background-color: $primary-light;
+	}
+
+	/* plus sign */
+	.sign {
+		width: 100%;
+		transition-duration: 0.3s;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.sign i {
+		width: 17px;
+		color: white;
+	}
+
+	/* text */
+	.text {
+		position: absolute;
+		right: 0%;
+		width: 0%;
+		opacity: 0;
+		color: white;
+		font-size: 1.2em;
+		font-weight: 600;
+		transition-duration: 0.3s;
+	}
+	/* hover effect on button width */
+	.Btn:hover {
+		width: 125px;
+		border-radius: 40px;
+		transition-duration: 0.3s;
+	}
+
+	.Btn:hover .sign {
+		width: 30%;
+		transition-duration: 0.3s;
+		padding-left: 20px;
+	}
+	/* hover effect button's text */
+	.Btn:hover .text {
+		opacity: 1;
+		width: 70%;
+		transition-duration: 0.3s;
+		padding-right: 10px;
+	}
+	/* button click effect*/
+	.Btn:active {
+		transform: translate(2px, 2px);
+	}
+}
+
+.chat {
+	position: absolute;
+	content: "";
+	bottom: 70px;
+	right: 70px;
+	width: 350px;
+	height: 450px;
+	border-radius: 8px;
+	overflow: hidden;
+	border: 1px solid #afafaf;
+	display: flex;
+	flex-direction: column;
+	animation: slideUp 0.5s ease-in-out;
+	background-color: white;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.199);
+	&-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 8px;
+		color: $primary;
+		font-weight: bold;
+		background-color: #e7e7e7;
+
+		&-title {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+
+			img {
+				transform: translateY(-2px);
+			}
+		}
+
+		&-icon {
+			cursor: pointer;
+			transition: 0.2s ease-in;
+			&:hover {
+				transform: scale(110%);
+			}
+		}
+	}
+
+	&-body {
+		flex: 1;
+		overflow-y: auto;
+		background-color: #f7f7f7;
+		scrollbar-width: thin;
+		scrollbar-color: #888 #f1f1f1;
+		padding: 10px;
+		&::-webkit-scrollbar {
+			width: 8px; /* Width of the scrollbar */
+		}
+
+		&::-webkit-scrollbar-thumb {
+			background-color: #888; /* Color of the scrollbar thumb */
+			border-radius: 10px; /* Rounded edges for the thumb */
+			border: 2px solid transparent; /* Adds some space around the thumb */
+			background-clip: content-box; /* Prevents thumb from sticking to the scrollbar */
+		}
+		&::-webkit-scrollbar-thumb:hover {
+			background-color: #555; /* Darker color on hover */
+		}
+		&::-webkit-scrollbar-track {
+			background: #f1f1f1; /* Background color for the track */
+			border-radius: 10px; /* Rounded edges for the track */
+		}
+		&::-webkit-scrollbar-track:hover {
+			background: #e0e0e0; /* Darker color for the track when hovered */
+		}
+		.message {
+			display: flex;
+			flex-direction: column;
+			padding: 0 8px;
+			margin-bottom: 8px;
+
+			&-owner {
+				align-items: flex-end;
+				margin-bottom: 0;
+				.chat-item-content {
+					background-color: #f2f2f2;
+				}
+			}
+
+			.chat-item-content {
+				padding: 4px 10px;
+				border-radius: 5px;
+				background-color: #fff;
+				color: #333;
+				font-size: 0.9rem;
+				max-width: 200px;
+				overflow: hidden;
+				word-wrap: break-word; /* Bọc văn bản nếu quá dài */
+				word-break: normal; /* Không tách từ */
+				white-space: pre-wrap; /* Bảo toàn xuống dòng và khoảng trắng */
+				overflow-wrap: break-word; /* Tự động bọc khi gặp từ dài */
+				line-height: 1.5;
+			}
+			.chat-item-time {
+				color: #888;
+				font-size: 0.8rem;
+				padding: 2px 4px;
+			}
+		}
+
+		.loading-text {
+			display: inline-block;
+			font-size: 16px;
+			font-weight: bold;
+			color: #333;
+			position: relative;
+			margin-left: 10px;
+			transform: translateY(430%);
+		}
+
+		.loading-text::after {
+			content: "";
+			display: inline-block;
+			width: 1ch;
+			animation: typing 1.5s steps(3, end) infinite;
+		}
+
+		@keyframes typing {
+			0%,
+			20% {
+				content: ".";
+			}
+			40% {
+				content: "..";
+			}
+			60% {
+				content: "...";
+			}
+			80%,
+			100% {
+				content: "....";
+			}
+		}
+	}
+	&-footer {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 8px;
+		padding: 10px;
+		margin-top: auto;
+		border-top: 1px solid #eee;
+		/* From Uiverse.io by satyamchaudharydev */
+		.form {
+			--width-of-input: 100%;
+			--border-height: 1px;
+			--border-before-color: rgba(221, 221, 221, 0.39);
+			--border-after-color: #5891ff;
+			--input-hovered-color: #4985e01f;
+			position: relative;
+			width: var(--width-of-input);
+		}
+		/* styling of Input */
+		.input {
+			color: #2b2b2b;
+			font-size: 0.9rem;
+			background-color: transparent;
+			width: 100%;
+			box-sizing: border-box;
+			padding-inline: 0.5em;
+			padding-block: 0.7em;
+			border: none;
+			border-bottom: var(--border-height) solid var(--border-before-color);
+		}
+		/* styling of animated border */
+		.input-border {
+			position: absolute;
+			background: var(--border-after-color);
+			width: 0%;
+			height: 2px;
+			bottom: 0;
+			left: 0;
+			transition: 0.3s;
+		}
+		/* Hover on Input */
+		// input:hover {
+		// 	background: var(--input-hovered-color);
+		// }
+
+		input:focus {
+			outline: none;
+		}
+		/* here is code of animated border */
+		input:focus ~ .input-border {
+			width: 100%;
+		}
+
+		button {
+			border-radius: 8px;
+			padding: 6px 12px;
+			background-color: $primary-medium;
+			border: none;
+			color: white;
+			transition: 0.2s ease-in;
+			&:hover {
+				transform: scale(115%);
+			}
+		}
+	}
+}
+@keyframes slideUp {
+	from {
+		transform: translateX(20%);
+		opacity: 0;
+	}
+	to {
+		transform: translateX(0);
+		opacity: 1;
+	}
 }

@@ -86,6 +86,15 @@ namespace StoreManagement.Infrastructure.Repositories
             }
             return invoice;
         }
+        public async Task<Invoice> GetByIdOrderAsync(int id, bool incluDeleted = false)
+        {
+            var invoice = await _dataContext.Invoices.Include("Order").Include("PaymentType").FirstOrDefaultAsync(x => x.IdOrder == id && x.IsDeleted == incluDeleted);
+            if (invoice == null)
+            {
+                throw new KeyNotFoundException("Không tìm thấy hóa đơn");
+            }
+            return invoice;
+        }
 
         public async Task<int> GetCountAsync(int idStore, bool incluDeleted = false)
         {
