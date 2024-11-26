@@ -54,7 +54,32 @@ namespace StoreManagement.Controllers
         public async Task<ActionResult<Result>> GetMonthOrder(int idStore, int year)
         {
             var list = await _analystReportService.GetMonthOrder(idStore, year);
-            return Ok(Result<List<OrderByMonth>>.Success(list, "Tính toán thành công")); ;
+            return Ok(Result<List<OrderByMonth>>.Success(list, "Tính toán thành công")); 
         }
+        [HttpGet("month-food/{idStore:int}/{year:int}")]
+        public async Task<ActionResult<Result>> GetMonthFood(int idStore, int year)
+        {
+            var list = await _analystReportService.GetMonthFood(idStore, year);
+            return Ok(Result<List<FoodByMonth>>.Success(list, "Tính toán thành công"));
+        }
+        [HttpGet("food-per-order-one-month/{idStore:int}")]
+        public async Task<ActionResult<Result>> GetFoodPerOrderOneMonth(int idStore, int month, int year)
+        {
+            var result = await _analystReportService.GetAvgFoodPerOrderOneMonth(idStore, month, year);
+            return Ok(Result<AvgFoodOneMonth>.Success(result, "Tính toán thành công"));
+        }
+        [HttpGet("three-monthly-report/{idStore:int}")]
+        public async Task<ActionResult<Result>> GetMonthlyReport(int idStore)
+        {
+            var result = await _analystReportService.monthlyReports(idStore);
+            return Ok(Result<List<MonthlyReport>>.Success(result, "Lấy thông tin thành công"));
+        }
+        [HttpGet("monthlysummaryreport/{idStore:int}")]
+        public async Task<ActionResult<Result>> GetMonthlySummaryReport(int idStore)
+        {
+            var result = await _analystReportService.monthlySummaryReports(idStore);
+            return Ok(Result<List<MonthlySummaryReport>>.Success(result, "Lấy thông tin thành công"));
+        }
+
     }
 }
