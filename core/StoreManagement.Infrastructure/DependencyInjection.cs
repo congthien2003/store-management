@@ -1,12 +1,12 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using StoreManagement.Domain.IRepositories;
-using StoreManagement.Infrastructure.Repositories;
-using StoreManagement.Domain.Models;
-using StoreManagement.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using StoreManagement.Application.Interfaces.IApiClientServices;
+using StoreManagement.Domain.IRepositories;
+using StoreManagement.Domain.Models;
 using StoreManagement.Infrastructure.ApiClient;
+using StoreManagement.Infrastructure.Data;
+using StoreManagement.Infrastructure.Repositories;
 using StoreManagement.Infrastructure.Services;
 namespace StoreManagement.Infrastructure
 {
@@ -34,12 +34,11 @@ namespace StoreManagement.Infrastructure
             services.AddScoped<IKPIRepository<KPI>, KPIRepository>();
             services.AddScoped<IBankInfoRepository<BankInfo>, BankInfoRepository>();
 
-
             // Register Client Service
             services.AddTransient<IQRServices, QRService>();
             services.AddTransient<IExportExcellService, ExportExcellService>();
 
-            return services; 
+            return services;
         }
     }
 }
