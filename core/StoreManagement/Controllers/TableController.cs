@@ -1,8 +1,8 @@
-﻿using StoreManagement.Application.Interfaces.IServices;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using StoreManagement.Application.Common;
 using StoreManagement.Application.DTOs.Request;
 using StoreManagement.Application.DTOs.Response;
+using StoreManagement.Application.Interfaces.IServices;
 namespace StoreManagement.Controllers
 {
     [Route("api/[controller]")]
@@ -22,7 +22,7 @@ namespace StoreManagement.Controllers
         public async Task<ActionResult<Result>> CreateAsync(TableDTO tableDTO)
         {
             var result = await _tableService.CreateAsync(tableDTO);
-            return Ok(Result<TableDTO?>.Success(result,"Tạo mới thành công"));
+            return Ok(Result<TableDTO?>.Success(result, "Tạo mới thành công"));
         }
 
         [HttpPut("update/{id:int}")]
@@ -30,7 +30,7 @@ namespace StoreManagement.Controllers
         {
 
             var result = await _tableService.UpdateAsync(id, tableDTO);
-            return Ok(Result<TableResponse?>.Success(result,"Cập nhật thành công"));
+            return Ok(Result<TableResponse?>.Success(result, "Cập nhật thành công"));
         }
 
         [HttpDelete("delete/{id:int}")]
@@ -53,7 +53,7 @@ namespace StoreManagement.Controllers
         public async Task<ActionResult<Result>> GetByIdAsync(Guid guid)
         {
 
-            var result = await _tableService.GetByIdAsync(guid);
+            var result = await _tableService.GetByGuIdAsync(guid);
             return Ok(Result<TableResponse?>.Success(result, "Lấy thông tin thành công"));
         }
 

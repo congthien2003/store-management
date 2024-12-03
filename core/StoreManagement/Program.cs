@@ -1,4 +1,4 @@
-using Amazon.Extensions.NETCore.Setup;
+using Amazon.S3;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -94,14 +94,11 @@ builder.Services.AddHostedService<WorkerGetDataRevenue>();
 
 // Register AWS
 
-AWSOptions awsOptions = builder.Configuration.GetAWSOptions();
-
-// Configure AWS service clients to use these credentials
-builder.Services.AddDefaultAWSOptions(awsOptions);
+builder.Services.AddDefaultAWSOptions(builder.Configuration.GetAWSOptions());
 
 // These AWS service clients will be singleton by default
-/*builder.Services.AddAWSService<IAmazonS3>();
-*/
+builder.Services.AddAWSService<IAmazonS3>();
+
 // Serilog
 builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));
 var app = builder.Build();

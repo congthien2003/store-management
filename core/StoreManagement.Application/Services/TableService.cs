@@ -13,7 +13,7 @@ namespace StoreManagement.Services
         private readonly ITableRepository<Table> _tableRepository;
         private readonly IMapper _mapper;
 
-        public TableService(IMapper mapper, ITableRepository<Table> tableRepository) 
+        public TableService(IMapper mapper, ITableRepository<Table> tableRepository)
         {
             _tableRepository = tableRepository;
             _mapper = mapper;
@@ -36,7 +36,7 @@ namespace StoreManagement.Services
             return _mapper.Map<TableResponse>(table);
         }
 
-        public async Task<TableResponse> GetByIdAsync(Guid id)
+        public async Task<TableResponse> GetByGuIdAsync(Guid id)
         {
             var table = await _tableRepository.GetByIdAsync(id);
             return _mapper.Map<TableResponse>(table);
