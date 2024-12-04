@@ -1,3 +1,4 @@
+import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { Component } from "@angular/core";
 import { RouterOutlet } from "@angular/router";
 import { NZ_I18N, en_US } from "ng-zorro-antd/i18n";

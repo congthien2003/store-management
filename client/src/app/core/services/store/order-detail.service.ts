@@ -49,8 +49,9 @@ export class OrderDetailService {
 
 	updateStatusProcessItem(
 		id: number,
-		status: number
+		status: number,
+		idOrder: number,
 	): Observable<ApiResponse> {
-		return this.service.put(`${this.endpoint.updateStatus}/${id}`, status);
+		return this.service.put(`${this.endpoint.updateStatus}/${id}`, {statusProcess: status, idOrder: idOrder});
 	}
 }

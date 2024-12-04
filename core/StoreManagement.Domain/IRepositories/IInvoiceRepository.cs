@@ -12,7 +12,8 @@ namespace StoreManagement.Domain.IRepositories
         public Task<List<TInvoice>> GetAllByIdStoreAsync(int idStore, string sortCol = "", bool ascSort = true, bool incluDeleted = false);
         Task<int> GetCountAsync(int idStore, bool incluDeleted = false);
         Task<double> GetDailyRevenueService(int idStore, DateTime dateTime, bool incluDeleted = false);
-        Task<List<double>> GetMonthRevenue(int idStore, int year, bool incluDeleted = false);
+        Task<double> GetMonthRevenueAsync(int idStore,int month,int year, bool incluDeleted = false);
+
 
     }
 }

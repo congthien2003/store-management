@@ -16,7 +16,10 @@ namespace StoreManagement.Application.Interfaces.IServices
         Task<List<RevenueByMonth>> GetMonthRevenue(int idStore, int year);
         Task<List<OrderByMonth>> GetMonthOrder(int idStore, int year);
         Task<List<DataByMonth>> GetTotalProductSell(int idStore, int year);
-
+        Task<List<FoodByMonth>> GetMonthFood(int idStore, int year);
+        Task<AvgFoodOneMonth> GetAvgFoodPerOrderOneMonth(int idStore, int month, int year);
+        Task<List<MonthlyReport>> monthlyReports(int idStore);
+        Task<List<MonthlySummaryReport>> monthlySummaryReports(int idStore);
 
     }
 }

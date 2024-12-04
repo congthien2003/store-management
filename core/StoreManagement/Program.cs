@@ -1,13 +1,16 @@
-
-using StoreManagement.Application;
-using StoreManagement.Infrastructure;
+using Amazon.S3;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Text;
 using Serilog;
-using StoreManagement.Middleware;
+using StoreManagement.Application;
+using StoreManagement.Application.Interfaces.IWorkerService;
 using StoreManagement.Application.RealTime;
+using StoreManagement.Infrastructure;
+using StoreManagement.Middleware;
+using StoreManagement.Worker.Worker;
+using StoreManagement.Worker.WorkerService;
+using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -21,6 +24,7 @@ builder.Services.AddControllers(options => options.SuppressImplicitRequiredAttri
 
 builder.Services.AddApplication()
                 .AddInfrastructure(builder.Configuration);
+
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSwaggerGen(opt =>
@@ -64,7 +68,7 @@ builder.Services.AddAuthentication(options =>
         options.TokenValidationParameters = new TokenValidationParameters
         {
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
-                .GetBytes(builder.Configuration.GetSection("JwtSettings:Secret").Value)),
+                 .GetBytes(builder.Configuration.GetSection("JwtSettings:Secret").Value)),
             ValidateIssuer = false,
             ValidateAudience = false,
             ValidateLifetime = true,
@@ -81,8 +85,19 @@ builder.Services.AddCors(options => options.AddPolicy(name: "NgOrigins",
 // add automapper
 builder.Services.AddAutoMapper(typeof(Program));
 
-//
+// register SignalR
 builder.Services.AddSignalR();
+
+// register Worker
+builder.Services.AddTransient<IGetRevenue, GetRevenue>();
+builder.Services.AddHostedService<WorkerGetDataRevenue>();
+
+// Register AWS
+
+builder.Services.AddDefaultAWSOptions(builder.Configuration.GetAWSOptions());
+
+// These AWS service clients will be singleton by default
+builder.Services.AddAWSService<IAmazonS3>();
 
 // Serilog
 builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));

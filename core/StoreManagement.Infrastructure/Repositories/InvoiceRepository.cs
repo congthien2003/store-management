@@ -3,6 +3,7 @@ using StoreManagement.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using StoreManagement.Domain.IRepositories;
+using DocumentFormat.OpenXml.Bibliography;
 
 namespace StoreManagement.Infrastructure.Repositories
 {
@@ -129,26 +130,21 @@ namespace StoreManagement.Infrastructure.Repositories
             return totalRevenue;
         }
 
-        public async Task<List<double>> GetMonthRevenue(int idStore, int year, bool incluDeleted = false)
+        public async Task<double> GetMonthRevenueAsync(int idStore,int month, int year, bool incluDeleted = false)
         {
-            List<double> RevenueAllMonth = new List<double>();
+            DateTime startDate = new DateTime(year, month, 1);
+            DateTime endDate = startDate.AddMonths(1).AddDays(-1);
 
-            for (int month = 1; month <= 12; month++)
-            {
-                DateTime startDate = new DateTime(year, month, 1);
-                DateTime endDate = startDate.AddMonths(1).AddDays(-1);
+            var monthlyInvoices = await _dataContext.Invoices
+                .Where(x => x.Order.Table.IdStore == idStore &&
+                            x.CreatedAt >= startDate &&
+                            x.CreatedAt <= endDate &&
+                            x.IsDeleted == incluDeleted)
+                .ToListAsync();
 
-                var monthlyInvoices = await _dataContext.Invoices
-                    .Where(x => x.Order.Table.IdStore == idStore &&
-                    x.CreatedAt >= startDate && x.CreatedAt <= endDate && x.IsDeleted == incluDeleted)
-                    .ToListAsync();
+            double totalRevenue = monthlyInvoices.Sum(invoice => (double)invoice.Total);
 
-                double totalRevenue = monthlyInvoices.Sum(invoice => (double)invoice.Total);
-
-                RevenueAllMonth.Add(totalRevenue);
-            }
-            return RevenueAllMonth;
-
+            return totalRevenue;
         }
     }
 }

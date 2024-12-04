@@ -1,13 +1,10 @@
-﻿using StoreManagement.Application.Interfaces.IServices;
-using StoreManagement.Services;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using StoreManagement.Application.Common;
-using StoreManagement.Domain.Models;
-using StoreManagement.Application.DTOs.Response;
-using StoreManagement.Application.DTOs.Request;
-using StoreManagement.Application.RealTime;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using StoreManagement.Application.Common;
+using StoreManagement.Application.DTOs.Request;
+using StoreManagement.Application.DTOs.Response;
+using StoreManagement.Application.Interfaces.IServices;
+using StoreManagement.Application.RealTime;
 
 namespace StoreManagement.Controllers
 {
@@ -37,7 +34,7 @@ namespace StoreManagement.Controllers
         public async Task<ActionResult<Result>> CreateAsync(List<OrderDetailDTO> orderDetailDTO)
         {
             var result = await _orderDetailService.CreateByListAsync(orderDetailDTO);
-            
+
             //foreach (OrderDetailDTO orderDetail in result)
             //{
             //    ProductSellDTO productSellDTO = new ProductSellDTO();
@@ -46,9 +43,9 @@ namespace StoreManagement.Controllers
             //    productSellDTO.UpdatedAt = DateTime.Now;
             //    await _productSellService.CreateAsync(productSellDTO);
             //}
-            
-            
-            return Ok(Result<List<OrderDetailDTO>>.Success(result,"Tạo mới thành công"));
+
+
+            return Ok(Result<List<OrderDetailDTO>>.Success(result, "Tạo mới thành công"));
         }
 
         [HttpPut("update/{id:int}")]

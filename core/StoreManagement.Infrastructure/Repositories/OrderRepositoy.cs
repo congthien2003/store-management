@@ -3,6 +3,9 @@ using StoreManagement.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using StoreManagement.Domain.IRepositories;
+using DocumentFormat.OpenXml.Bibliography;
+using StoreManagement.Application.DTOs.Response.Analyst;
+using DocumentFormat.OpenXml.Office2010.Drawing;
 
 namespace StoreManagement.Infrastructure.Repositories
 {
@@ -138,21 +141,70 @@ namespace StoreManagement.Infrastructure.Repositories
             return await _dataContext.OrderDetails
            .AnyAsync(od => od.IdOrder == orderId && od.IdFood == foodId);
         }
-		public async Task<List<int>> GetMonthOrder(int idStore, int year, bool incluDeleted = false)
+		public async Task<int> GetMonthOrderAsync(int idStore,int month ,int year, bool incluDeleted = false)
         {
-           List<int> OrderAllMonth = new List<int>();
-            for (int month = 1; month <= 12; month++)
-            {
-                DateTime startDate = new DateTime(year, month, 1);
-                DateTime endDate = startDate.AddMonths(1).AddDays(-1);
-                var monthlyOrders = await _dataContext.Orders.Where(x => x.Table.IdStore == idStore &&
+            DateTime startDate = new DateTime(year, month, 1);
+            DateTime endDate = startDate.AddMonths(1).AddDays(-1);
+
+            // Truy vấn tổng số đơn hàng trong tháng
+            int totalOrder = await _dataContext.Orders
+                .Where(x => x.Table.IdStore == idStore &&
+                            x.CreatedAt >= startDate &&
+                            x.CreatedAt <= endDate &&
+                            x.IsDeleted == incluDeleted)
+                .CountAsync();
+
+            return totalOrder;
+        }
+
+        public async Task<int> GetMonthFoodAsync(int idStore,int month, int year, bool incluDeleted = false)
+        {
+            DateTime startDate = new DateTime(year, month, 1);
+            DateTime endDate = startDate.AddMonths(1).AddDays(-1);
+
+            // Lấy tất cả các đơn hàng trong tháng
+            var monthlyFoods = await _dataContext.Orders
+                .Where(x => x.Table.IdStore == idStore &&
+                            x.CreatedAt >= startDate &&
+                            x.CreatedAt <= endDate &&
+                            x.IsDeleted == incluDeleted)
+                .Include(x => x.OrderDetails)
+                .ToListAsync();
+
+            // Tính tổng số món ăn đã bán trong tháng
+            int totalQuantity = monthlyFoods.SelectMany(x => x.OrderDetails).Sum(x => x.Quantity);
+
+            return totalQuantity;
+        }
+
+        public async Task<double> GetAVGFoodPerOrderOneMonthAsync(int idStore, int month, int year, bool incluDeleted = false)
+        {
+            DateTime startDate = new DateTime(year, month, 1);
+            DateTime endDate = startDate.AddMonths(1).AddDays(-1);
+            var monthlyFood = await _dataContext.Orders.Where(x => x.Table.IdStore == idStore &&
                                                                     x.CreatedAt >= startDate &&
-                                                                    x.CreatedAt<= endDate && 
+                                                                    x.CreatedAt <= endDate &&
+                                                                    x.IsDeleted == incluDeleted)
+                                                            .Include(x => x.OrderDetails)
+                                                            .ToListAsync();
+            int totalFood = monthlyFood.SelectMany(x => x.OrderDetails).Sum(x => x.Quantity);
+            var monthlyOrders = await _dataContext.Orders.Where(x => x.Table.IdStore == idStore &&
+                                                                    x.CreatedAt >= startDate &&
+                                                                    x.CreatedAt <= endDate &&
                                                                     x.IsDeleted == incluDeleted).ToListAsync();
-                int totalOrder = monthlyOrders.Count;
-                OrderAllMonth.Add(totalOrder);
+            int totalOrder = monthlyOrders.Count;
+            if (totalOrder == 0)
+            {
+                
+                return 0;
             }
-            return OrderAllMonth; 
+            else
+            {
+                double AvgFoodPerMonth = totalFood / totalOrder;
+                AvgFoodPerMonth = Math.Round(AvgFoodPerMonth, 2);
+                return AvgFoodPerMonth;
+            }
+            
         }
     }
 }

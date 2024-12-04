@@ -4,12 +4,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoreManagement", "StoreManagement\StoreManagement.csproj", "{47B389F7-5BD6-4DE3-AA9F-A92476BD403F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E70A7976-2F13-4D18-AF44-53170A590BBA} = {E70A7976-2F13-4D18-AF44-53170A590BBA}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoreManagement.Domain", "StoreManagement.Domain\StoreManagement.Domain.csproj", "{085F9A87-01F5-41A9-B418-42F6C4A4E8BB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoreManagement.Application", "StoreManagement.Application\StoreManagement.Application.csproj", "{FFB06EC9-CAEC-45DE-A696-EF436D75C558}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoreManagement.Infrastructure", "StoreManagement.Infrastructure\StoreManagement.Infrastructure.csproj", "{8BAFCF77-4501-4E51-9842-6B28B902F3B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreManagement.Worker", "StoreManagement.Worker\StoreManagement.Worker.csproj", "{E70A7976-2F13-4D18-AF44-53170A590BBA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8BAFCF77-4501-4E51-9842-6B28B902F3B0} = {8BAFCF77-4501-4E51-9842-6B28B902F3B0}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +41,10 @@ Global
 		{8BAFCF77-4501-4E51-9842-6B28B902F3B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BAFCF77-4501-4E51-9842-6B28B902F3B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BAFCF77-4501-4E51-9842-6B28B902F3B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E70A7976-2F13-4D18-AF44-53170A590BBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E70A7976-2F13-4D18-AF44-53170A590BBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E70A7976-2F13-4D18-AF44-53170A590BBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E70A7976-2F13-4D18-AF44-53170A590BBA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
