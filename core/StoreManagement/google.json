@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "store-management-442403",
+  "private_key_id": "49ae70cb47e2545166e03aa2ebf06093569cadca",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCry4uolGPb+n6R\nj39BVYVsVU7neXnH/hL2IY7C2PPcGbKm5Yi0QzLL64tjNp0/wH4PE6/Vfif1Ggta\nWlUb9WpQA7E5TR6ge5v8VE9cBoe2Suh5E0w3cyNooRB8vvmpj9y+dO7YuepAp89m\nL81pJAzrlC25dmxESd1tj1FxFCch1sGsHcvApyBR/MhJQrqFEv7JS0U+XqFLXZ4V\n0ajzNHVIuiPcn8VgOl/vKXf5CcoJlpUErGNSY61023Flo9fN9JxgiFt+FKV2Tdf/\nfS22yQ8YhBRiXcTIy/AmD1FmoWRh5AUAGfkWn6MWbtqUI5r8WJDOk4J3Xx7cGOrv\nqPdJlYKzAgMBAAECggEADPYT6NmdOR0KjI/fgX3izZwYEmW7Vufn5VL90tyMdXgo\n3uelazhArlrsjsUxkvxCZn/NPdXBTQA0iBIVpsDazwOgTNrxKxl4WM7BmAdUGOBI\n7s2SbAKPUtcIB+leq7jTZjkrRgWs00j14FdN75dNND7fPkVdgL9z6c6szdO/6hEK\nncNS4NfLGvu7R9aK+vutmqcRVNrNfhKD3kfD9GjpZGU+9aQ6k5yBQTINZuNufllT\n/vrZH0jtbF1+8HldlndnIqJn9+STtcuBJH0W3bDq6lRV+VsZeW359G0FOFzcS5zy\nEC5asr6eaxZeSWFHP/kqSUj076rKi0b93FeAJdz+vQKBgQDg7mRdYbq9zh2eePJB\norbx6ebrDa+canhKzbvlSEQXoQnDbwvL/Ku7vb7iVRg/ZeVTDPLkJT/wOyqRdDdZ\nDrMhzGEsl+99KRWycg7IgZGuYZEBSi9vfhkxHqIEY6CJkiEy50JW2/LfQp+h7w4l\n1ZsACpmhIu9SFG87bwZRa6gWZwKBgQDDhkA4IM+MirblFEccQgfwEZrEsdrGzp5y\n5o95dyvQPg+6L3BKRO2hBj8JdqY3KgFV1U1wDR1ITYz6qQ2Jf8EtBK7nvr4EUymM\nqYHK4P12V/tRIvJB5pGJ6cmHpxK8FauXMl8bw+MlVZgClEeRnUh2rHUyMgvqZDpI\n/0iPezzJ1QKBgENkqgWgpocAHrfAnTU1P4M0BdAfhaJj9C7VfZqxEFXUFkzMFMjF\np97Ud0DxJha4vQEpPA1Ha+TalWKHY533XYye4+6sh0EE8k9JBUzmJXQOH5g3Vgcd\nzQZ+mySdhRgzBGdwCtxjgl2KZLHsIl0LpylYA7fX88SwArPYDBiRHQe5AoGALcTG\nUZ00mFR8PaGCh9XZH9QvI23ypWkGZCUeXrOLuQJeEho6sdfyvCfHJ8LzY6RcjagR\nqXIYca1dm+totNAH+y7Gdo8K0d5ZsoiXTlNeYY500OhaRxze4qasOynb09VKxmjP\nJKO1Dy87Fxd4rVhg9w6lnGtkqKhvkFjZtmSFtUUCgYEAguixdFlgBl49EcgrCvTf\nV0P1m1eAdHpThra7BcqhfCLvJQFdfNwKuACmB8E0Q26mSSZV7CJ93S9vN6J4BlAt\nEIexf3jE7T5Ys4CqRS4AyYzylGQaTBX7RHfBK9VtaIcjgcY9W/K2T0o+Af0KiSEZ\nVnWKgarx5bmfFbKYD0R6yTc=\n-----END PRIVATE KEY-----\n",
+  "client_email": "chatgemini@store-management-442403.iam.gserviceaccount.com",
+  "client_id": "112532071848276374668",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/chatgemini%40store-management-442403.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

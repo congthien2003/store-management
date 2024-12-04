@@ -142,8 +142,63 @@
 					<notfound-store *ngIf="!haveStore"></notfound-store>
 
 					<router-outlet *ngIf="haveStore"></router-outlet>
+					<div class="chat-button">
+						<button class="Btn" (click)="openChatBox()">
+							<div class="sign">
+								<i class="fa-solid fa-message"></i>
+							</div>
 
-					
+							<div class="text">Chat</div>
+						</button>
+					</div>
+					<div class="chat" *ngIf="showChatBox">
+						<div class="chat-header">
+							<div class="chat-header-title">
+								Chat with
+								<img
+									width="45px"
+									src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Google_Gemini_logo.svg/2560px-Google_Gemini_logo.svg.png"
+									alt="logo" />
+							</div>
+							<div
+								class="chat-header-icon"
+								(click)="openChatBox()">
+								<i class="fa fa-close" aria-hidden="true"></i>
+							</div>
+						</div>
+						<div class="chat-body" #scrollContainer>
+							<div
+								class="message"
+								[ngClass]="{ 'message-owner': item.role == 1 }"
+								*ngFor="let item of message">
+								<div
+									class="chat-item-content"
+									[innerHTML]="item.text | formatText"></div>
+								<div class="chat-item-time">
+									{{ item.timeline }}
+								</div>
+							</div>
+							<span
+								class="loading-text"
+								*ngIf="this.loadingMessage"
+								>Loading...</span
+							>
+						</div>
+						<div class="chat-footer">
+							<div class="form">
+								<input
+									class="input"
+									placeholder="Type your text"
+									[(ngModel)]="messageText"
+									(keypress)="(messageText)"
+									type="text" />
+								<span class="input-border"></span>
+							</div>
+							<button type="button" (click)="submitChatBox()">
+								<i class="fa-solid fa-share"></i>
+							</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

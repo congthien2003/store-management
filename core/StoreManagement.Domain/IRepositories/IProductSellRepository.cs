@@ -22,5 +22,7 @@ namespace StoreManagement.Domain.IRepositories
         Task UpdateProductSellQuantityAsync(int foodId, int orderId, int orderQuantity);
         Task<List<TProductSell>> GetTopProductsByQuantityAsync(int idStore, int idCategory);
         Task<List<TProductSell>> GetTopProductsByQuantityByStoreAsync(int idStore);
+
+        Task<int> GetTotalProductSellByMonth(int month, int year);
     }
 }

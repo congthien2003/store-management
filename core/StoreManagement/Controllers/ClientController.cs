@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StoreManagement.Application.Common;
+using StoreManagement.Application.DTOs.ApiClient.Chat;
 using StoreManagement.Application.DTOs.ApiClient.QR;
 using StoreManagement.Application.Interfaces.IApiClientServices;
 
@@ -11,15 +12,18 @@ namespace StoreManagement.Controllers
     public class ClientController : ControllerBase
     {
         private readonly IQRServices qRServices;
-        public ClientController(IQRServices qRServices)
+        private readonly IGoogleAPI googleAPI;
+        public ClientController(IQRServices qRServices, IGoogleAPI googleAPI)
         {
             this.qRServices = qRServices;
+            this.googleAPI = googleAPI;
         }
 
-        /*[HttpPost("get-qr")]
-        public async Task<ActionResult> GetQR(QRRequest req)
+        [HttpPost("ChatGemini")]
+        public async Task<dynamic> ChatBox(ChatReq req)
         {
-            return Ok(Result<QRResponse>.Success(await qRServices.GetQR(req.BankId, req.AccountNo, req.AccountName, req.Amount), "Success"));
-        }*/
+            var result = await googleAPI.Gemini(req.promt);
+            return Ok(Result<dynamic>.Success(result, "Success"));
+        }
     }
 }

@@ -78,6 +78,12 @@ namespace StoreManagement.Services
             return _mapper.Map<InvoiceResponse>(result);
         }
 
+        public async Task<InvoiceResponse> GetByIdOrderAsync(int id)
+        {
+            var result = await _InvoiceRepository.GetByIdOrderAsync(id);
+            return _mapper.Map<InvoiceResponse>(result);
+        }
+
         public async Task<int> GetCountAsync(int idStore)
         {
             var count = await _InvoiceRepository.GetCountAsync(idStore);

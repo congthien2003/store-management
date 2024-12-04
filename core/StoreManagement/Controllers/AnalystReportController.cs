@@ -68,6 +68,13 @@ namespace StoreManagement.Controllers
             var list = await _analystReportService.GetMonthFood(idStore, year);
             return Ok(Result<List<FoodByMonth>>.Success(list, "Tính toán thành công"));
         }
+        
+        [HttpGet("month-productsell/{idStore:int}/{year:int}")]
+        public async Task<ActionResult<Result>> GetProductSell(int idStore, int year)
+        {
+            var list = await _analystReportService.GetTotalProductSell(idStore, year);
+            return Ok(Result<List<DataByMonth>>.Success(list, "Tính toán thành công")); ;
+        }
 
         [HttpGet("food-per-order-one-month/{idStore:int}")]
         public async Task<ActionResult<Result>> GetFoodPerOrderOneMonth(int idStore, int month, int year)

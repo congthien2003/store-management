@@ -42,7 +42,7 @@ $mobile-breakpoint: 992px;
 	cursor: pointer;
 
 	&--btn {
-		padding: 10px 16px;
+		padding: 4px 8px;
 		outline: none;
 		border: none;
 		transition: 0.25s ease-in;
@@ -63,12 +63,12 @@ $mobile-breakpoint: 992px;
 .item-actions {
 	background-color: $primary;
 	color: white;
-	width: 50px;
-	padding: 8px 16px;
+	width: 35px;
+	padding: 4px;
 	margin: 0 8px;
 	border-radius: 8px;
 	text-align: center;
-	font-size: 20px;
+	font-size: 14px;
 
 	@media (max-width: $mobile-breakpoint) {
 		font-size: 10px;
