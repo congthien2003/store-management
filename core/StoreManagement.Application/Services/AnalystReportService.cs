@@ -1,15 +1,8 @@
 ﻿using AutoMapper;
-using DocumentFormat.OpenXml.Bibliography;
-using DocumentFormat.OpenXml.VariantTypes;
 using StoreManagement.Application.DTOs.Response.Analyst;
 using StoreManagement.Application.Interfaces.IServices;
 using StoreManagement.Domain.IRepositories;
 using StoreManagement.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StoreManagement.Application.Services
 {
@@ -18,10 +11,10 @@ namespace StoreManagement.Application.Services
         private readonly IMapper _mapper;
         private readonly IOrderRepository<Order> _orderRepository;
         private readonly IInvoiceRepository<Invoice> _invoiceRepository;
-        private readonly ITableRepository<Table> _tableRepository;  
+        private readonly ITableRepository<Table> _tableRepository;
         private readonly IProductSellRepository<ProductSell> _productSellRepository;
 
-        public AnalystReportService(IMapper mapper, 
+        public AnalystReportService(IMapper mapper,
                                     IOrderRepository<Order> orderRepository,
                                     IInvoiceRepository<Invoice> invoiceRepository,
                                     ITableRepository<Table> tableRepository,
@@ -69,7 +62,7 @@ namespace StoreManagement.Application.Services
         {
             List<FoodByMonth> foods = new List<FoodByMonth>();
 
-           
+
             for (int month = 1; month <= 12; month++)
             {
                 int totalFood = await _orderRepository.GetMonthFoodAsync(idStore, month, year);
@@ -89,7 +82,7 @@ namespace StoreManagement.Application.Services
         {
             var ordersByMonth = new List<OrderByMonth>();
 
-            
+
             for (int month = 1; month <= 12; month++)
             {
                 int totalOrders = await _orderRepository.GetMonthOrderAsync(idStore, month, year);
@@ -140,18 +133,18 @@ namespace StoreManagement.Application.Services
             for (var i = 1; i < 13; i++)
             {
                 var total = await _productSellRepository.GetTotalProductSellByMonth(1, year);
-                DataByMonth temp = new DataByMonth { Month = i, Year = year, total = total};
+                DataByMonth temp = new DataByMonth { Month = i, Year = year, total = total };
                 list.Add(temp);
             }
             return list;
-            
+        }
         public async Task<List<MonthlyReport>> monthlyReports(int idStore)
         {
             var reports = new List<MonthlyReport>();
 
 
             DateTime now = DateTime.Now;
-            for(int i=1;i<=3;i++)
+            for (int i = 1; i <= 3; i++)
             {
                 DateTime monthDate = now.AddMonths(-i);
                 int month = monthDate.Month;
@@ -175,7 +168,7 @@ namespace StoreManagement.Application.Services
                     AvgOrderValue = avgFoodPerOrder,
                     TotalDay = totalDays
                 });
-                
+
             }
             return reports;
         }

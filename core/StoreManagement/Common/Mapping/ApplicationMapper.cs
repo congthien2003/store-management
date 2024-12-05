@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using StoreManagement.Application.DTOs.Auth;
 using StoreManagement.Application.DTOs.Request;
+using StoreManagement.Application.DTOs.Request.OrderDetail;
 using StoreManagement.Application.DTOs.Request.Store;
 using StoreManagement.Application.DTOs.Response;
 using StoreManagement.Application.DTOs.Response.BankInfo;

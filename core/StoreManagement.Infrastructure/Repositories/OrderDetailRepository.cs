@@ -1,9 +1,8 @@
-﻿using StoreManagement.Infrastructure.Data;
-using StoreManagement.Domain.Models;
-using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
-using System.Net.WebSockets;
+﻿using Microsoft.EntityFrameworkCore;
 using StoreManagement.Domain.IRepositories;
+using StoreManagement.Domain.Models;
+using StoreManagement.Infrastructure.Data;
+using System.Linq.Expressions;
 
 namespace StoreManagement.Infrastructure.Repositories
 {
@@ -12,10 +11,10 @@ namespace StoreManagement.Infrastructure.Repositories
     {
         private readonly DataContext _dataContext;
 
-        public OrderDetailRepository(DataContext dataContext) 
+        public OrderDetailRepository(DataContext dataContext)
         {
             _dataContext = dataContext;
-        } 
+        }
         public async Task<OrderDetail> CreateAsync(OrderDetail orderDetail)
         {
             var existOrder = await _dataContext.Orders.FirstOrDefaultAsync(x => x.Id == orderDetail.IdOrder && x.IsDeleted == false);
@@ -43,13 +42,13 @@ namespace StoreManagement.Infrastructure.Repositories
                 await _dataContext.SaveChangesAsync();
                 return item;
             }
-            
+
         }
 
         public async Task<OrderDetail> DeleteAsync(int idOrder, int idFood)
         {
             var orderDetail = await _dataContext.OrderDetails.FirstOrDefaultAsync(x => x.IdFood == idFood && x.IdOrder == idOrder);
-            if(orderDetail == null)
+            if (orderDetail == null)
             {
                 throw new KeyNotFoundException("Không tìm thấy chi tiết order");
             }
@@ -85,7 +84,7 @@ namespace StoreManagement.Infrastructure.Repositories
         public async Task<OrderDetail> UpdateAsync(OrderDetail orderDetail)
         {
             var orderUpdate = await _dataContext.OrderDetails.FirstOrDefaultAsync(x => x.IdOrder == orderDetail.IdOrder && x.IdFood == orderDetail.IdFood);
-            if(orderUpdate == null)
+            if (orderUpdate == null)
             {
                 throw new KeyNotFoundException("Không tìm thấy chi tiết ");
             }
@@ -101,12 +100,12 @@ namespace StoreManagement.Infrastructure.Repositories
             return null;
         }
 
-        public async Task<OrderDetail> UpdateStatusAsync(int idFood, int statusProcess)
+        public async Task<OrderDetail> UpdateStatusAsync(int idOrder, int idFood, int statusProcess)
         {
-            var exists = await _dataContext.OrderDetails.Include("Order").FirstOrDefaultAsync(x => x.IdFood == idFood);
-            if(exists == null)
+            var exists = await _dataContext.OrderDetails.Include("Order").FirstOrDefaultAsync(x => x.IdFood == idFood && x.IdOrder == idOrder);
+            if (exists == null)
             {
-                throw new KeyNotFoundException("Không tìm thấy chi tiết ");
+                throw new KeyNotFoundException("Không tìm thấy");
 
             }
             exists.StatusProcess = statusProcess;
