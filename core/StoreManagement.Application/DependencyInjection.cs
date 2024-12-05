@@ -1,7 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using StoreManagement.Application.Interfaces.IServices;
 using StoreManagement.Application.Services;
+using StoreManagement.Infrastructure.ApiClient;
 using StoreManagement.Services;
+using Amazon;
+using Microsoft.Extensions.Options;
+using StoreManagement.Domain.Enum;
+using StoreManagement.Application.Interfaces.IApiClientServices;
 namespace StoreManagement.Application
 {
     public static class DependencyInjection
@@ -27,7 +32,23 @@ namespace StoreManagement.Application
             services.AddTransient<IAnalystReportService, AnalystReportService>();
             services.AddTransient<IKPIService, KPIService>();
             services.AddTransient<IBankInfoService, BankInfoService>();
+            services.AddTransient<IEmailService>(provider =>
+            {
+                var awsSesConfig = provider.GetRequiredService<IOptions<AwsSesConfig>>().Value;
+                var exportExcellService = provider.GetRequiredService<IExportExcellService>();
+                var storeService = provider.GetRequiredService<IStoreService>();
+                return new AwsSesEmailService(
+                    awsAccessKey: awsSesConfig.AccessKey,
+                    awsSecretKey: awsSesConfig.SecretKey,
+                    senderEmail: awsSesConfig.SenderEmail,
+                    region: RegionEndpoint.GetBySystemName(awsSesConfig.Region),
+                    exportExcellService,
+                    storeService
+                );
+            });
+            
             return services;
+            
         }
     }
 }
