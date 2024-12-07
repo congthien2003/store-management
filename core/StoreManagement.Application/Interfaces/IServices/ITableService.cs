@@ -8,6 +8,8 @@ namespace StoreManagement.Application.Interfaces.IServices
     {
         Task<TableDTO> CreateAsync(TableDTO tableDTO);
         Task<TableResponse> UpdateAsync(int id, TableDTO tableDTO);
+        Task<TableResponse> UpdateStatusAsync(int id, bool status);
+
         Task<bool> DeleteAsync(int id);
         Task<TableResponse> GetByIdAsync(int id);
         Task<TableResponse> GetByGuIdAsync(Guid id);

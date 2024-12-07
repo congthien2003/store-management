@@ -32,7 +32,7 @@ namespace StoreManagement.Services
             var result = await _InvoiceRepository.GetByIdAsync(id);
             var table = await _TableRepository.GetByIdAsync(result.Order.IdTable);
             result.Status = true;
-            table.Status = false;
+            table.Status = true;
             result = await _InvoiceRepository.UpdateAsync(id, result);
             await _TableRepository.UpdateAsync(table.Id, table);
             return true;
@@ -56,7 +56,7 @@ namespace StoreManagement.Services
             int _currentPage = int.Parse(currentPage);
             int _pageSize = int.Parse(pageSize);
 
-            
+
             var list = await _InvoiceRepository.GetAllByIdStoreAsync(idStore, sortCol, ascSort);
             if (filter)
             {
@@ -65,7 +65,8 @@ namespace StoreManagement.Services
             var count = list.Count();
             list = list.Skip(_currentPage * _pageSize - _pageSize).Take(_pageSize).ToList();
             var listInvoices = _mapper.Map<List<InvoiceResponse>>(list);
-            foreach(var item in listInvoices) {
+            foreach (var item in listInvoices)
+            {
                 Table table = await _TableRepository.GetByIdAsync(item.Order.IdTable);
                 item.TableName = table.Name;
             }
@@ -93,7 +94,7 @@ namespace StoreManagement.Services
         public async Task<InvoiceDTO> UpdateAsync(int id, InvoiceDTO invoiceDTO)
         {
             var invoiceUpdate = _mapper.Map<Invoice>(invoiceDTO);
-            var update = await _InvoiceRepository.UpdateAsync(id,invoiceUpdate);
+            var update = await _InvoiceRepository.UpdateAsync(id, invoiceUpdate);
             return _mapper.Map<InvoiceDTO>(update);
         }
     }

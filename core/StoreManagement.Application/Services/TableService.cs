@@ -65,6 +65,13 @@ namespace StoreManagement.Services
             var update = await _tableRepository.UpdateAsync(id, tableUpdate);
             return _mapper.Map<TableResponse>(update);
         }
+        public async Task<TableResponse> UpdateStatusAsync(int id, bool status)
+        {
+            var table = await _tableRepository.GetByIdAsync(id);
+            table.Status = status;
+            var updated = await _tableRepository.UpdateAsync(id, table);
+            return _mapper.Map<TableResponse>(updated);
+        }
         public async Task<int> GetCountAsync(int id)
         {
             var count = await _tableRepository.GetCountAsync(id);

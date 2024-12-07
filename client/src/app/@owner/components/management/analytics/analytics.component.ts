@@ -15,6 +15,9 @@ import { FormControl } from "@angular/forms";
 import { ButtonDownloadComponent } from "src/app/shared/components/button-download/button-download.component";
 import { MatButtonModule } from "@angular/material/button";
 import { MatMenuModule } from "@angular/material/menu";
+import { MatDialog, MatDialogModule } from "@angular/material/dialog";
+import { DatetimePickerComponent } from "./datetime-picker/datetime-picker.component";
+import { ExportService } from "src/app/core/services/store/export.service";
 const MatImport = [
 	MatDatepickerModule,
 	MatInputModule,
@@ -22,6 +25,7 @@ const MatImport = [
 	MatNativeDateModule,
 	MatMenuModule,
 	MatButtonModule,
+	MatDialogModule,
 ];
 
 @Component({
@@ -47,9 +51,14 @@ export class AnalyticsComponent implements OnInit {
 	revenueDaily!: number;
 	orderDaily!: number;
 	date = new FormControl(new Date());
+	year = new Date().getFullYear();
 	selectDateFilter: string = "Today only";
 
-	constructor(private analystReportService: AnalystReportService) {}
+	constructor(
+		private analystReportService: AnalystReportService,
+		private exportExcel: ExportService,
+		public dialog: MatDialog
+	) {}
 	ngOnInit(): void {
 		this.store = JSON.parse(
 			sessionStorage.getItem("storeInfo") ?? ""
@@ -64,9 +73,12 @@ export class AnalyticsComponent implements OnInit {
 			.toString();
 		console.log(formattedDate);
 
-		const year = new Date().getFullYear();
+		this.loadData(formattedDate);
+	}
+
+	loadData(formattedDate: string) {
 		this.analystReportService
-			.getRevenueMonth(this.store.id, year)
+			.getRevenueMonth(this.store.id, this.year)
 			.subscribe({
 				next: (response) => {
 					const data = response.data;
@@ -172,6 +184,41 @@ export class AnalyticsComponent implements OnInit {
 	onExport() {
 		// TODO: Implement export logic here
 		console.log("Exporting data...");
+		const dialogRef = this.dialog.open(DatetimePickerComponent, {});
+
+		dialogRef.afterClosed().subscribe((result) => {
+			if (result) {
+				const startDate = new Date(result.start)
+					.toLocaleDateString("vi-VN", {
+						day: "2-digit",
+						month: "2-digit",
+						year: "numeric",
+					})
+					.toString();
+				const endDate = new Date(result.end)
+					.toLocaleDateString("vi-VN", {
+						day: "2-digit",
+						month: "2-digit",
+						year: "numeric",
+					})
+					.toString();
+				console.log(`Exporting data from ${startDate} to ${endDate}`);
+				this.exportExcel
+					.exportExcel(this.store.id, startDate, endDate)
+					.subscribe({
+						next: (res) => {
+							const url = window.URL.createObjectURL(res);
+							const a = document.createElement("a");
+							a.href = url;
+							a.download = "FoodSalesReport.xlsx"; // Đặt tên file
+							document.body.appendChild(a);
+							a.click();
+							document.body.removeChild(a);
+							window.URL.revokeObjectURL(url);
+						},
+					});
+			}
+		});
 	}
 
 	// Function Change Date Filter
@@ -193,5 +240,6 @@ export class AnalyticsComponent implements OnInit {
 			.toString();
 
 		console.log(formattedDate); // Kết quả: dd/MM/yyyy
+		this.loadData(formattedDate);
 	}
 }

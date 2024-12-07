@@ -62,7 +62,7 @@ namespace StoreManagement.Infrastructure.Repositories
 
         public Task<int> GetCountOrderInDay(int idStore, DateTime date, bool incluDeleted = false)
         {
-            var order = _dataContext.Orders.Include("Table").Where(x => x.Table.IdStore == idStore && x.IsDeleted == incluDeleted && x.CreatedAt.Date == date.Date).AsQueryable();
+            var order = _dataContext.Orders.Include("Table").Where(x => x.Table.IdStore == idStore && x.IsDeleted == incluDeleted && x.CreatedAt.Date >= date.Date && x.CreatedAt.Date <= DateTime.Now.Date).AsQueryable();
             if (!incluDeleted)
             {
                 order = order.Where(t => t.IsDeleted == incluDeleted);
