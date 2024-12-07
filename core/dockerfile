@@ -5,13 +5,15 @@ WORKDIR /app
 COPY ["StoreManagement.Application/*.csproj", "./StoreManagement.Application/"]
 COPY ["StoreManagement.Domain/*.csproj", "./StoreManagement.Domain/"]
 COPY ["StoreManagement.Infrastructure/*.csproj", "./StoreManagement.Infrastructure/"]
+COPY ["StoreManagement.Worker/*.csproj", "./StoreManagement.Worker/"]
 COPY ["StoreManagement/*.csproj", "./StoreManagement/"]
 
 # Restore dependencies
-RUN dotnet restore "StoreManagement.Application/*.csproj"
-RUN dotnet restore "StoreManagement.Domain/*.csproj"
-RUN dotnet restore "StoreManagement.Infrastructure/*.csproj"
-RUN dotnet restore "StoreManagement/*.csproj"
+RUN dotnet restore "./StoreManagement.Application/StoreManagement.Application.csproj"
+RUN dotnet restore "./StoreManagement.Domain/StoreManagement.Domain.csproj"
+RUN dotnet restore "./StoreManagement.Infrastructure/StoreManagement.Infrastructure.csproj"
+RUN dotnet restore "./StoreManagement.Worker/StoreManagement.Worker.csproj"
+RUN dotnet restore "./StoreManagement/StoreManagement.csproj"
 
 COPY . ./
 
