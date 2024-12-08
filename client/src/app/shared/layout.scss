@@ -88,7 +88,9 @@ h6 {
 			font-size: 0.8rem;
 			text-transform: uppercase;
 			font-weight: bold;
-
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
 			@media (max-width: $mobile-breakpoint) {
 				padding: 0.2rem 0.5rem;
 				font-size: 13px;
@@ -303,37 +305,36 @@ h6 {
 		}
 
 		.table-actions {
-				.btn-management {
-					&-edit {
-						background-color: $primary-dark ; 
-						color: white;
-						height: 25px;
-						display: flex;
-						align-items: center;
-						justify-content: center;
-						@media (max-width: $mobile-breakpoint) {
-							height: 20px;
-							i {
-								font-size: 10px;
-							}
+			.btn-management {
+				&-edit {
+					background-color: $primary-dark;
+					color: white;
+					height: 25px;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					@media (max-width: $mobile-breakpoint) {
+						height: 20px;
+						i {
+							font-size: 10px;
 						}
 					}
+				}
 
-					&-delete {
-						background-color: #ef5350;
-						color: whitesmoke;
-						height: 25px;
-						display: flex;
-						align-items: center;
-						justify-content: center;
-						@media (max-width: $mobile-breakpoint) {
-							height: 20px;
-							i {
-								font-size: 10px;
-							}
+				&-delete {
+					background-color: #ef5350;
+					color: whitesmoke;
+					height: 25px;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					@media (max-width: $mobile-breakpoint) {
+						height: 20px;
+						i {
+							font-size: 10px;
 						}
 					}
-				
+				}
 			}
 		}
 	}

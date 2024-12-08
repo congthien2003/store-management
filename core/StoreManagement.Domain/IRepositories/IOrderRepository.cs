@@ -1,5 +1,4 @@
 ﻿using StoreManagement.Domain.Models;
-using System.Runtime.CompilerServices;
 
 namespace StoreManagement.Domain.IRepositories
 {
@@ -16,8 +15,9 @@ namespace StoreManagement.Domain.IRepositories
         Task<int> GetDailyFoodSaleAsync(int idStore, DateTime dateTime, bool incluDeleted = false);
         Task<List<OrderDetail>> GetOrderDetailsByOrderIdAsync(int orderId);
         Task<bool> CheckOrderDetailExists(int orderId, int foodId);
-        Task<int> GetMonthFoodAsync(int idStore,int month ,int year, bool incluDeleted = false);
+        Task<int> GetMonthFoodAsync(int idStore, int month, int year, bool incluDeleted = false);
         Task<double> GetAVGFoodPerOrderOneMonthAsync(int idStore, int month, int year, bool incluDeleted = false);
+        Task<bool> UpdateHasInvoice(int idOrder, int idInvoice);
 
     }
 }

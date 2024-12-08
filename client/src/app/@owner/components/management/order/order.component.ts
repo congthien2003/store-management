@@ -21,6 +21,8 @@ import { OrderService } from "src/app/core/services/store/order.service";
 import { ApiResponse } from "src/app/core/models/interfaces/Common/ApiResponse";
 import { MatMenuModule } from "@angular/material/menu";
 import { OrderResponse } from "src/app/core/models/interfaces/Response/OrderResponse";
+import { PaymentService } from "src/app/core/services/store/payment.service";
+import { PaymentType } from "src/app/core/models/interfaces/PaymentType";
 const MatImport = [
 	MatRadioModule,
 	MatButtonModule,
@@ -85,13 +87,15 @@ export class OrderComponent implements OnInit {
 	constructor(
 		public dialog: MatDialog,
 		private toastr: ToastrService,
-		private orderService: OrderService
+		private orderService: OrderService,
+		private paymentService: PaymentService
 	) {}
 	ngOnInit(): void {
 		this.store = JSON.parse(
 			sessionStorage.getItem("storeInfo") ?? ""
 		) as Store;
 		this.loadListOrder();
+		this.loadPaymentType();
 	}
 
 	handleResponse(res: ApiResponse) {
@@ -129,6 +133,18 @@ export class OrderComponent implements OnInit {
 		this.loadListOrder();
 	}
 
+	listPayment: PaymentType[] = [];
+	loadPaymentType() {
+		// API call to load payment type
+		//...
+		this.paymentService.list(this.store.id, this.pagi).subscribe({
+			next: (res) => {
+				this.listPayment = res.list;
+				console.log(res.list);
+			},
+		});
+	}
+
 	loadListOrder(): void {
 		this.orderService
 			.list(this.store.id, this.pagi, this.filter, this.status)
@@ -161,7 +177,7 @@ export class OrderComponent implements OnInit {
 			data: {
 				idOrder: id,
 				idStore: this.store.id,
-				
+				listPayment: this.listPayment,
 			},
 		});
 		dialogRef.afterClosed().subscribe((result) => {

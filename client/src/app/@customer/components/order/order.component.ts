@@ -151,6 +151,7 @@ export class OrderComponent implements OnInit {
 		id: 0,
 		total: 0,
 		status: false,
+		hasInvoice: false,
 		createdAt: new Date(),
 		idTable: 0,
 		idStore: 0,
@@ -257,6 +258,7 @@ export class OrderComponent implements OnInit {
 	}
 
 	loadCategory(): void {
+		this.pagiFood.currentPage = 1;
 		this.categoryService.getAllByIdStore(this.store.id).subscribe({
 			next: (res) => {
 				if (res.isSuccess) {

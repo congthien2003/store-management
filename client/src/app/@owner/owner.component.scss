@@ -134,6 +134,7 @@
 		scrollbar-width: thin;
 		scrollbar-color: #888 #f1f1f1;
 		padding: 10px;
+		height: 100%;
 		&::-webkit-scrollbar {
 			width: 8px; /* Width of the scrollbar */
 		}
@@ -154,56 +155,18 @@
 		&::-webkit-scrollbar-track:hover {
 			background: #e0e0e0; /* Darker color for the track when hovered */
 		}
-		.message {
-			display: flex;
-			flex-direction: column;
-			padding: 0 8px;
-			margin-bottom: 8px;
-
-			&-owner {
-				align-items: flex-end;
-				margin-bottom: 0;
-				.chat-item-content {
-					background-color: #f2f2f2;
-				}
-			}
-
-			.chat-item-content {
-				padding: 4px 10px;
-				border-radius: 5px;
-				background-color: #fff;
-				color: #333;
-				font-size: 0.9rem;
-				max-width: 200px;
-				overflow: hidden;
-				word-wrap: break-word; /* Bọc văn bản nếu quá dài */
-				word-break: normal; /* Không tách từ */
-				white-space: pre-wrap; /* Bảo toàn xuống dòng và khoảng trắng */
-				overflow-wrap: break-word; /* Tự động bọc khi gặp từ dài */
-				line-height: 1.5;
-			}
-			.chat-item-time {
-				color: #888;
-				font-size: 0.8rem;
-				padding: 2px 4px;
-			}
-		}
-
-		.loading-text {
-			display: inline-block;
-			font-size: 16px;
-			font-weight: bold;
+		ul li {
+			padding: 4px 10px;
+			border-radius: 5px;
+			background-color: #fff;
 			color: #333;
-			position: relative;
-			margin-left: 10px;
-			transform: translateY(430%);
-		}
-
-		.loading-text::after {
-			content: "";
-			display: inline-block;
-			width: 1ch;
-			animation: typing 1.5s steps(3, end) infinite;
+			font-size: 0.9rem;
+			overflow: hidden;
+			word-wrap: break-word; /* Bọc văn bản nếu quá dài */
+			word-break: normal; /* Không tách từ */
+			white-space: pre-wrap; /* Bảo toàn xuống dòng và khoảng trắng */
+			overflow-wrap: break-word; /* Tự động bọc khi gặp từ dài */
+			line-height: 1.5;
 		}
 
 		@keyframes typing {

@@ -144,5 +144,28 @@ namespace StoreManagement.Infrastructure.Repositories
             return await _dataContext.OrderDetails
                 .AnyAsync(od => od.IdOrder == orderId && od.IdFood == foodId);
         }
+
+        public async Task<bool> UpdateStatusDone(int idOrder)
+        {
+            // Lấy danh sách các OrderDetails thuộc idOrder
+            var orderDetails = _dataContext.OrderDetails.Where(od => od.IdOrder == idOrder);
+
+            if (!orderDetails.Any())
+            {
+                // Nếu không có item nào, trả về false
+                return false;
+            }
+
+            // Cập nhật statusProgress = 2 cho tất cả các mục
+            foreach (var item in orderDetails)
+            {
+                item.StatusProcess = 2;
+            }
+
+            // Lưu thay đổi vào database
+            await _dataContext.SaveChangesAsync();
+
+            return true;
+        }
     }
 }
