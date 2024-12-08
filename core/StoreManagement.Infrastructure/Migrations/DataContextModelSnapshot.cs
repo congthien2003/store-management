@@ -222,6 +222,9 @@ namespace StoreManagement.Infrastructure.Migrations
                     b.Property<Guid>("Guid")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("IdInvoice")
+                        .HasColumnType("int");
+
                     b.Property<int>("IdTable")
                         .HasColumnType("int");
 
@@ -235,6 +238,8 @@ namespace StoreManagement.Infrastructure.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IdInvoice");
 
                     b.HasIndex("IdTable");
 
@@ -287,9 +292,6 @@ namespace StoreManagement.Infrastructure.Migrations
 
                     b.Property<int>("StatusProcess")
                         .HasColumnType("int");
-
-                    b.Property<bool>("isHoliday")
-                        .HasColumnType("bit");
 
                     b.HasKey("IdOrder", "IdFood");
 
@@ -515,11 +517,19 @@ namespace StoreManagement.Infrastructure.Migrations
 
             modelBuilder.Entity("StoreManagement.Domain.Models.Order", b =>
                 {
+                    b.HasOne("StoreManagement.Domain.Models.Invoice", "Invoice")
+                        .WithMany()
+                        .HasForeignKey("IdInvoice")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("StoreManagement.Domain.Models.Table", "Table")
                         .WithMany("Orders")
                         .HasForeignKey("IdTable")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Invoice");
 
                     b.Navigation("Table");
                 });

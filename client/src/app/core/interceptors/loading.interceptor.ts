@@ -12,7 +12,11 @@ import { LoaderService } from "../services/loader.service";
 @Injectable()
 export class LoadingInterceptor implements HttpInterceptor {
 	private totalRequests = 0;
-
+	// Mảng các URL cần bỏ qua loading
+	private ignoreUrls: string[] = [
+		"https://localhost:7272/api/client/chatGemini",
+		// Thêm các URL khác nếu cần
+	];
 	constructor(private loadingService: LoaderService) {}
 
 	intercept(
@@ -20,6 +24,10 @@ export class LoadingInterceptor implements HttpInterceptor {
 		next: HttpHandler
 	): Observable<HttpEvent<unknown>> {
 		this.totalRequests++;
+		// Kiểm tra xem URL có nằm trong mảng ignoreUrls không
+		if (this.ignoreUrls.includes(request.url)) {
+			return next.handle(request);
+		}
 		this.loadingService.setLoading(true);
 		return next.handle(request).pipe(
 			finalize(() => {

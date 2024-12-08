@@ -97,6 +97,7 @@
 			</div>
 			<div class="modal-footer">
 				<button
+					*ngIf="!this.data.invoice.status"
 					type="button"
 					mat-raised-button
 					color="primary"

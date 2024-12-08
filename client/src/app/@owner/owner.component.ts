@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import {
+	Component,
+	ElementRef,
+	OnDestroy,
+	OnInit,
+	ViewChild,
+} from "@angular/core";
 import { CommonModule } from "@angular/common";
 
 import { MatButtonModule } from "@angular/material/button";
@@ -16,6 +22,10 @@ import { Store } from "../core/models/interfaces/Store";
 import { OrderAccessToken } from "../core/models/interfaces/OrderAccessToken";
 import { Subscription } from "rxjs";
 import { BankInfoService } from "../core/services/store/bank-info.service";
+import { FormsModule } from "@angular/forms";
+import { GeminiService } from "../core/services/third-party/gemini.service";
+import { FormatTextPipe } from "../core/utils/format-text.pipe";
+import { LoaderService } from "../core/services/loader.service";
 const MatModuleImport = [MatButtonModule, MatCommonModule, MatMenuModule];
 
 @Component({
@@ -27,6 +37,8 @@ const MatModuleImport = [MatButtonModule, MatCommonModule, MatMenuModule];
 		RouterOutlet,
 		NotfoundStoreComponent,
 		SpinnerComponent,
+		FormsModule,
+		FormatTextPipe,
 	],
 	templateUrl: "./owner.component.html",
 	styleUrls: ["./owner.component.scss"],
@@ -39,13 +51,29 @@ export class OwnerComponent implements OnInit, OnDestroy {
 	haveStore: boolean = false;
 	store!: Store;
 	private subscription: Subscription | undefined;
+	showChatBox: boolean = false;
+	message: any[] = [
+		{
+			text: "Hello Owner",
+			timeline: "11:00 AM",
+			role: 0, // Gemini
+		},
+		{
+			text: "Hello Gemini",
+			timeline: "11:11 AM",
+			role: 1, // Owner
+		},
+	];
+	messageText: string = "";
 	constructor(
 		private router: Router,
 		private authService: AuthenticationService,
 		private userService: UserService,
 		private storeService: StoreService,
 		private toastr: ToastrService,
-		private hub: HubService
+		private hub: HubService,
+		private geminiService: GeminiService,
+		private loader: LoaderService
 	) {
 		const savedIndex = sessionStorage.getItem("selectedNavIndex");
 		if (savedIndex !== null) {
@@ -56,6 +84,8 @@ export class OwnerComponent implements OnInit, OnDestroy {
 				"3d487deb-e1d1-489f-a266-c72fa02b1dc2"
 			);
 		}, 1000);
+
+		this.message = this.geminiService.getChatHistory();
 
 		this.hub.onReloadData((message) => {
 			console.log(message);
@@ -151,6 +181,52 @@ export class OwnerComponent implements OnInit, OnDestroy {
 	statusNavbar: boolean = false;
 	openNavbar(): void {
 		this.statusNavbar = !this.statusNavbar;
+	}
+
+	openChatBox(): void {
+		this.showChatBox = !this.showChatBox;
+	}
+	loadingMessage: boolean = false;
+	@ViewChild("scrollContainer") private scrollContainer!: ElementRef;
+	submitChatBox(): void {
+		console.log("Submit Chat: " + this.messageText);
+		this.loadingMessage = true;
+		this.loader.setLoading(false);
+		this.scrollToBottom();
+		this.message.push({
+			text: this.messageText,
+			timeline: new Date().toLocaleTimeString(),
+			role: 1, // Owner
+		});
+		this.geminiService.chat(this.messageText).subscribe({
+			next: (res) => {
+				if (res.isSuccess) {
+					this.message.push({
+						text: res.data,
+						timeline: new Date().toLocaleTimeString(),
+						role: 0, // Gemini
+					});
+					this.scrollToBottom();
+					this.loadingMessage = false;
+					this.geminiService.saveChatHistory(this.message);
+				} else {
+					this.toastr.success(res.message, "Thông báo", {
+						timeOut: 3000,
+					});
+				}
+				this.messageText = "";
+			},
+		});
+	}
+
+	// Hàm tự động scroll xuống
+	private scrollToBottom(): void {
+		try {
+			this.scrollContainer.nativeElement.scrollTop =
+				this.scrollContainer.nativeElement.scrollHeight;
+		} catch (err) {
+			console.error(err);
+		}
 	}
 
 	bindActiveMenu(url: string) {

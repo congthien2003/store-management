@@ -12,6 +12,7 @@ namespace StoreManagement.Application.DTOs.Response
         public int Id { get; set; }
         public double Total { get; set; }
         public DateTime CreatedAt { get; set; }
+        public bool CreatedInvoice { get; set; }
         public TableDTO Table { get; set; }
         public bool Status { get; set; }
     }

@@ -45,6 +45,12 @@ namespace StoreManagement.Controllers
             var result = await _invoiceService.GetByIdAsync(id);
             return Ok(Result<InvoiceResponse?>.Success(result,"Lấy thông tin thành công"));
         }
+        [HttpGet("GetByIdOrder/{id:int}")]
+        public async Task<ActionResult<Result>> GetByIdOrder(int id)
+        {
+            var result = await _invoiceService.GetByIdOrderAsync(id);
+            return Ok(Result<InvoiceResponse?>.Success(result, "Lấy thông tin thành công"));
+        }
 
         [HttpGet("accept/{id:int}")]
         public async Task<ActionResult<Result>> AcceptAsync(int id)

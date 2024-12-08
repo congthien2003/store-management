@@ -153,7 +153,7 @@ export class FormEditComponent implements OnInit {
 		item.statusProcess = newValue;
 
 		this.orderDetailService
-			.updateStatusProcessItem(item.food.id, item.statusProcess)
+			.updateStatusProcessItem(item.food.id, item.statusProcess, this.order.id)
 			.subscribe({
 				next: (res) => {
 					if (res.isSuccess) {
