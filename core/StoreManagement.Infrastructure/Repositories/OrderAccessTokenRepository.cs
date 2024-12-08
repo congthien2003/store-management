@@ -1,13 +1,7 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using StoreManagement.Domain.IRepositories;
 using StoreManagement.Domain.Models;
 using StoreManagement.Infrastructure.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StoreManagement.Infrastructure.Repositories
 {
@@ -87,6 +81,16 @@ namespace StoreManagement.Infrastructure.Repositories
             }
             _dataContext.Remove(token);
             await _dataContext.SaveChangesAsync();
+            return token;
+        }
+
+        public async Task<OrderAccessToken> GetByIdOrder(int idOrder)
+        {
+            var token = await _dataContext.OrderAccessTokens.FirstOrDefaultAsync(x => x.IdOrder == idOrder);
+            if (token == null)
+            {
+                throw new NullReferenceException("Không tìm thấy");
+            }
             return token;
         }
     }

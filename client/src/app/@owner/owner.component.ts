@@ -1,8 +1,10 @@
 import {
 	Component,
+	effect,
 	ElementRef,
 	OnDestroy,
 	OnInit,
+	signal,
 	ViewChild,
 } from "@angular/core";
 import { CommonModule } from "@angular/common";
@@ -26,6 +28,7 @@ import { FormsModule } from "@angular/forms";
 import { GeminiService } from "../core/services/third-party/gemini.service";
 import { FormatTextPipe } from "../core/utils/format-text.pipe";
 import { LoaderService } from "../core/services/loader.service";
+import { NotificationClientService } from "../core/services/store/notification-client.service";
 const MatModuleImport = [MatButtonModule, MatCommonModule, MatMenuModule];
 
 @Component({
@@ -65,6 +68,9 @@ export class OwnerComponent implements OnInit, OnDestroy {
 		},
 	];
 	messageText: string = "";
+	notifications: any[] = [];
+	notificationCount: number = 0;
+	showNotifi: boolean = false;
 	constructor(
 		private router: Router,
 		private authService: AuthenticationService,
@@ -73,22 +79,25 @@ export class OwnerComponent implements OnInit, OnDestroy {
 		private toastr: ToastrService,
 		private hub: HubService,
 		private geminiService: GeminiService,
-		private loader: LoaderService
+		private loader: LoaderService,
+		private notificationService: NotificationClientService
 	) {
 		const savedIndex = sessionStorage.getItem("selectedNavIndex");
 		if (savedIndex !== null) {
 			this.activeIndex = parseInt(savedIndex, 10);
 		}
-		setTimeout(() => {
-			this.hub.startConnectionStoreByTable(
-				"3d487deb-e1d1-489f-a266-c72fa02b1dc2"
-			);
-		}, 1000);
 
 		this.message = this.geminiService.getChatHistory();
 
 		this.hub.onReloadData((message) => {
 			console.log(message);
+		});
+
+		this.notifications = this.notificationService.loadList();
+
+		effect(() => {
+			this.notificationCount =
+				this.notificationService.notificationCount();
 		});
 	}
 

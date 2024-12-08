@@ -4,6 +4,7 @@ import { Store } from "../models/interfaces/Store";
 import { ToastrService } from "ngx-toastr";
 import { AuthenticationService } from "./auth/authentication.service";
 import { StoreService } from "./store/store.service";
+import { NotificationClientService } from "./store/notification-client.service";
 @Injectable({
 	providedIn: "root",
 })
@@ -15,7 +16,8 @@ export class HubService {
 	constructor(
 		private toastr: ToastrService,
 		private authService: AuthenticationService,
-		private storeService: StoreService
+		private storeService: StoreService,
+		private notificationService: NotificationClientService
 	) {
 		const storeValue = sessionStorage.getItem("storeInfo") ?? null;
 
@@ -71,7 +73,10 @@ export class HubService {
 	private addNotificationListener() {
 		this.hubConnection.on("ReceiveNotification", (message: string) => {
 			console.log("Receive Noti");
-
+			this.notificationService.addNewNoti({
+				message: message,
+				key: this.notificationService.notificationCount.toString(),
+			});
 			this.toastr.info(message, "Thông báo", {
 				timeOut: 3000,
 			});

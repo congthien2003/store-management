@@ -1,9 +1,4 @@
 ﻿using StoreManagement.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StoreManagement.Domain.IRepositories
 {
@@ -17,6 +12,7 @@ namespace StoreManagement.Domain.IRepositories
         Task<TOrderAccessToken> Delete(Guid guid);
         Task<TOrderAccessToken> DeleteByIdOrder(int idOrder);
 
+        Task<TOrderAccessToken> GetByIdOrder(int idOrder);
 
     }
 }

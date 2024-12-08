@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using StoreManagement.Application.Common;
+using StoreManagement.Application.DTOs.Request;
 using StoreManagement.Application.DTOs.Request.OrderDetail;
 using StoreManagement.Application.DTOs.Response;
 using StoreManagement.Application.Interfaces.IServices;
@@ -35,14 +36,14 @@ namespace StoreManagement.Controllers
         {
             var result = await _orderDetailService.CreateByListAsync(orderDetailDTO);
 
-            //foreach (OrderDetailDTO orderDetail in result)
-            //{
-            //    ProductSellDTO productSellDTO = new ProductSellDTO();
-            //    productSellDTO.FoodId = orderDetail.IdFood;
-            //    productSellDTO.Quantity = orderDetail.Quantity;
-            //    productSellDTO.UpdatedAt = DateTime.Now;
-            //    await _productSellService.CreateAsync(productSellDTO);
-            //}
+            foreach (OrderDetailDTO orderDetail in result)
+            {
+                ProductSellDTO productSellDTO = new ProductSellDTO();
+                productSellDTO.FoodId = orderDetail.IdFood;
+                productSellDTO.Quantity = orderDetail.Quantity;
+                productSellDTO.UpdatedAt = DateTime.Now;
+                await _productSellService.CreateAsync(productSellDTO);
+            }
 
 
             return Ok(Result<List<OrderDetailDTO>>.Success(result, "Tạo mới thành công"));

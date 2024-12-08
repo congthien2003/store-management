@@ -33,12 +33,14 @@ namespace StoreManagement.Infrastructure
             /*services.AddScoped<IVoucherRepository<Voucher>, VoucherRepository>();*/
             services.AddScoped<IKPIRepository<KPI>, KPIRepository>();
             services.AddScoped<IBankInfoRepository<BankInfo>, BankInfoRepository>();
-
+            services.AddScoped<IRequestRepository, RequestRepository>();
             // Register Client Service
             services.AddTransient<IQRServices, QRService>();
             services.AddTransient<IExportExcellService, ExportExcellService>();
             services.AddTransient<IGoogleAPI, GoogleAPI>();
-            return services; 
+            services.AddSingleton<ISupabaseService, SupabaseServices>();
+
+            return services;
 
         }
     }
