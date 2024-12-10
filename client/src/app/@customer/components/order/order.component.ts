@@ -47,12 +47,14 @@ import { BankInfo } from "src/app/core/models/interfaces/BankInfo";
 import { ViewQrComponent } from "src/app/shared/components/view-qr/view-qr.component";
 import { BankInfoService } from "src/app/core/services/store/bank-info.service";
 import { PopupSubmitOrderComponent } from "src/app/shared/components/popup-submit-order/popup-submit-order.component";
+import { MatMenuModule } from "@angular/material/menu";
 
 const MatImport = [
 	MatButtonModule,
 	MatChipsModule,
 	MatBadgeModule,
 	MatDialogModule,
+	MatMenuModule,
 ];
 
 @Component({
@@ -77,6 +79,7 @@ export class OrderComponent implements OnInit {
 	store!: Store;
 	listCategory: Category[] = [];
 	listFood: Food[] = [];
+	listCombo: any[] = [];
 	listBestSeller: Food[] = [
 		{
 			id: 1,
@@ -206,6 +209,7 @@ export class OrderComponent implements OnInit {
 
 							this.loadCategory();
 							this.loadListFood();
+							this.loadListCombo();
 							this.loadToken(this.idTable, this.idStore);
 						}
 					});
@@ -219,15 +223,14 @@ export class OrderComponent implements OnInit {
 					});
 
 					this.orderHub.onReloadData((message) => {
-						console.log(message);
 						this.toastr.info(message);
 						this.loadListOrdered();
 					});
-					this.orderHub.onReceiveUpdateStatusOrder((message) => {
-						console.log("Update status order ", message);
 
+					this.orderHub.onReceiveUpdateStatusOrder((message) => {
 						this.loadListOrdered();
 					});
+
 					this.orderHub.ping(this.idTable);
 				} else {
 					this.router.navigateByUrl("/order/denied");
@@ -253,6 +256,15 @@ export class OrderComponent implements OnInit {
 					this.listFood = res.data.list;
 					this.pagiFood = res.data.pagination;
 				}
+			},
+		});
+	}
+
+	loadListCombo(): void {
+		this.foodService.listCombo(this.store.id).subscribe({
+			next: (res) => {
+				this.listCombo = res;
+				console.log(this.listCombo);
 			},
 		});
 	}
@@ -514,6 +526,16 @@ export class OrderComponent implements OnInit {
 					console.log("Error");
 				}
 			},
+		});
+	}
+
+	// Request Call Staff
+	requestCallStaff() {
+		console.log("Request Call Staff", this.idTable, this.idStore);
+		this.orderHub.requestCallStaff(this.idTable, this.idStore);
+		this.toastr.info("Vui lòng chờ trong giây lát!", "Thông báo", {
+			timeOut: 3000,
+			positionClass: "toast-bottom-center",
 		});
 	}
 }

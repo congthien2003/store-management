@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using StoreManagement.Application.RealTime;
 using StoreManagement.Domain.IRepositories;
 using StoreManagement.Domain.Models;
 
@@ -9,10 +11,12 @@ namespace StoreManagement.Controllers
     public class RequestController : ControllerBase
     {
         private readonly IRequestRepository _repository;
+        private readonly IHubContext<OrderHub> _hubContext;
 
-        public RequestController(IRequestRepository repository)
+        public RequestController(IRequestRepository repository, IHubContext<OrderHub> hubContext)
         {
             _repository = repository;
+            _hubContext = hubContext;
         }
 
         [HttpPost]
@@ -40,6 +44,12 @@ namespace StoreManagement.Controllers
             request.Id = id;
             await _repository.UpdateRequest(request);
             return Ok(new { Message = "Request updated successfully" });
+        }
+
+        [HttpPost("RequestCallStaff")]
+        public async void RequestCallStaff(int idStore, int idTable)
+        {
+            await _hubContext.Clients.Group(idStore.ToString()).SendAsync("ReceiveNotification", $"Bàn ${idTable} gửi yêu cầu thanh toán !");
         }
     }
 }

@@ -1,11 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using StoreManagement.Application.Interfaces.CachingServices;
 using StoreManagement.Application.Interfaces.IApiClientServices;
 using StoreManagement.Domain.IRepositories;
 using StoreManagement.Domain.Models;
 using StoreManagement.Infrastructure.ApiClient;
 using StoreManagement.Infrastructure.Data;
+using StoreManagement.Infrastructure.InMemoryCache;
 using StoreManagement.Infrastructure.Repositories;
 using StoreManagement.Infrastructure.Services;
 namespace StoreManagement.Infrastructure
@@ -39,7 +41,8 @@ namespace StoreManagement.Infrastructure
             services.AddTransient<IExportExcellService, ExportExcellService>();
             services.AddTransient<IGoogleAPI, GoogleAPI>();
             services.AddSingleton<ISupabaseService, SupabaseServices>();
-
+            services.AddTransient<IFlaskAPI, FlaskAPI>();
+            services.AddTransient<ICachingServices, CachingServices>();
             return services;
 
         }

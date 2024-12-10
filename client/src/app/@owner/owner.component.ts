@@ -87,8 +87,6 @@ export class OwnerComponent implements OnInit, OnDestroy {
 			this.activeIndex = parseInt(savedIndex, 10);
 		}
 
-		this.message = this.geminiService.getChatHistory();
-
 		this.hub.onReloadData((message) => {
 			console.log(message);
 		});
@@ -98,6 +96,7 @@ export class OwnerComponent implements OnInit, OnDestroy {
 		effect(() => {
 			this.notificationCount =
 				this.notificationService.notificationCount();
+			this.notifications = this.notificationService.loadList();
 		});
 	}
 

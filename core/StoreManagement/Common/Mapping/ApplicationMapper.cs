@@ -6,13 +6,15 @@ using StoreManagement.Application.DTOs.Request.Store;
 using StoreManagement.Application.DTOs.Response;
 using StoreManagement.Application.DTOs.Response.BankInfo;
 using StoreManagement.Application.DTOs.Response.KPI;
+using StoreManagement.Application.DTOs.Response.OrderDetail;
 using StoreManagement.Domain.Models;
 
 namespace StoreManagement.Application.Helper
 {
     public class ApplicationMapper : Profile
     {
-        public ApplicationMapper() {
+        public ApplicationMapper()
+        {
             CreateMap<User, UserDTO>().ReverseMap();
             CreateMap<User, RegisterDTO>().ReverseMap();
             CreateMap<Store, StoreDTO>().ReverseMap();
@@ -33,6 +35,7 @@ namespace StoreManagement.Application.Helper
             CreateMap<OrderAccessToken, OrderAccessTokenResponse>().ReverseMap();
             CreateMap<BankInfo, BankInfoDTO>().ReverseMap();
             CreateMap<BankInfo, BankInfoResponse>().ReverseMap();
+            CreateMap<OrderDetail, DataByIdStoreRes>().ReverseMap();
 
         }
     }
