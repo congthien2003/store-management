@@ -146,7 +146,7 @@ def process_combo(df):
 
     print(basket.head())
     # Áp dụng Apriori để tìm các combo món ăn phổ biến
-    frequent_itemsets = apriori(basket, min_support=0.15, use_colnames=True)
+	frequent_itemsets = apriori(basket, min_support=0.15, use_colnames=True)
 
     # Log thông tin
     print("Frequent itemsets shape:", frequent_itemsets.shape)
@@ -216,8 +216,9 @@ def predict():
 def get_popular_combos():
     # Load data from supabase
     json_data = request.json['data']
+
     df = pd.DataFrame(json_data)
-    print(df.head())
+
     # Xử lý
     combo_df = process_combo(df)
     # Trả về dữ liệu combo dưới dạng JSON

@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using StoreManagement.Application.DTOs.ApiClient.FlaskAPI;
 using StoreManagement.Application.DTOs.Request;
 using StoreManagement.Application.DTOs.Response.OrderDetail;
+using StoreManagement.Application.DTOs.Response.PredictRevenue;
 using StoreManagement.Application.Interfaces.CachingServices;
 using StoreManagement.Application.Interfaces.IApiClientServices;
 using StoreManagement.Domain.IRepositories;
@@ -70,6 +71,33 @@ namespace StoreManagement.Infrastructure.ApiClient
             };
                 result.Add(temp);
             }
+            return result;
+        }
+
+        public async Task<List<object>> GetPredictRevenue(int idStore)
+        {
+            string keyCacheListFood = "predict";
+            string url = "http://127.0.0.1:3253/predict";
+            var payload = new { numdays = 5 };
+
+            var response = await _httpClient.PostAsJsonAsync(url, payload);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Error calling Flask API");
+            }
+            var resultFlask = await response.Content.ReadAsStringAsync();
+
+            var predictions = JsonConvert.DeserializeObject<PredictResponse>(resultFlask)?.Prediction;
+
+
+            // Xây dựng kết quả trả về
+            var result = predictions.Select(p => new
+            {
+                Date = DateTime.Parse(p.Date).ToString("yyyy-MM-dd"),
+                p.Revenue,
+            }).ToList<object>();
+
             return result;
         }
     }
