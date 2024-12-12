@@ -32,7 +32,7 @@ namespace StoreManagement.Controllers
             var table = await _tableService.GetByIdAsync(order.IdTable);
             if (order != null)
             {
-                await _hubContext.Clients.Group(table.IdStore.ToString()).SendAsync("ReceiveNotification", $"Bàn {table.Name} có đơn đặt hàng");
+                await _hubContext.Clients.Group(table.IdStore.ToString()).SendAsync("ReceiveNotification", $"{table.Name} có đơn đặt hàng");
             }
             return Ok(Result<OrderDTO?>.Success(order, "Tạo mới thành công"));
 

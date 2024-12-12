@@ -66,8 +66,8 @@ namespace StoreManagement.Infrastructure.ApiClient
                 var temp = new
                 {
                     combo = listFoodName,
-                    score = combo.confidence
-                };
+                    score = Math.Round(combo.confidence, 2)
+            };
                 result.Add(temp);
             }
             return result;
