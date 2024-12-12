@@ -1,14 +1,19 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { MasterService } from "../master/master.service";
 
 @Injectable({
 	providedIn: "root",
 })
 export class AiPredictService {
-	endpoints = ["localhost:5000/predict", "localhost:5000/get_popular_combos"];
-	constructor(private http: HttpClient) {}
+	endpoints = ["Client/RevenuePredict", "Client/GetPopularComboFoods"];
+	constructor(private master: MasterService) {}
 
 	predict(numdays: number) {
-		return this.http.post<any>(this.endpoints[0], { numdays });
+		return this.master.post(this.endpoints[0], { numdays });
+	}
+
+	getPopularCombos(idStore: number) {
+		return this.master.post(this.endpoints[1], { idStore });
 	}
 }

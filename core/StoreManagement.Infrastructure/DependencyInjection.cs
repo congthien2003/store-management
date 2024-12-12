@@ -32,10 +32,11 @@ namespace StoreManagement.Infrastructure
             services.AddScoped<IInvoiceRepository<Invoice>, InvoiceRepository>();
             services.AddScoped<IProductSellRepository<ProductSell>, ProductSellRepository>();
             services.AddScoped<IOrderAccessTokenRepository<OrderAccessToken>, OrderAccessTokenRepository>();
-            /*services.AddScoped<IVoucherRepository<Voucher>, VoucherRepository>();*/
             services.AddScoped<IKPIRepository<KPI>, KPIRepository>();
             services.AddScoped<IBankInfoRepository<BankInfo>, BankInfoRepository>();
             services.AddScoped<IRequestRepository, RequestRepository>();
+            services.AddScoped<IComboRepository, ComboRepository>();
+            services.AddScoped<IComboItemRepository, ComboItemRepository>();
             // Register Client Service
             services.AddTransient<IQRServices, QRService>();
             services.AddTransient<IExportExcellService, ExportExcellService>();

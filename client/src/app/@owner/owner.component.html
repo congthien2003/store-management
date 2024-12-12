@@ -113,6 +113,32 @@
 						</button>
 					</li>
 				</ul>
+
+				<hr class="sidebar-divider" />
+
+				<div class="sidebar-heading">AI</div>
+
+				<ul class="sidebar-nav">
+					<li
+						class="nav-item"
+						[class.active]="11 == activeIndex"
+						(click)="swithRoute(11)">
+						<button class="nav-link">
+							<i class="fa-solid fa-circle-info"></i>
+							<span>Combo</span>
+						</button>
+					</li>
+					<li
+						class="nav-item"
+						[class.active]="12 == activeIndex"
+						(click)="swithRoute(12)">
+						<button class="nav-link">
+							<i class="fa-solid fa-list"></i>
+							<span>Dự đoán doanh thu</span>
+						</button>
+					</li>
+				</ul>
+
 				<hr class="sidebar-divider" />
 
 				<div class="sidebar-heading">Người dùng</div>

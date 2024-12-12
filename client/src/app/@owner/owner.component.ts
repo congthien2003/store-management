@@ -183,6 +183,14 @@ export class OwnerComponent implements OnInit, OnDestroy {
 				this.router.navigate(["/owner/infor-user"]);
 				break;
 			}
+			case 11: {
+				this.router.navigate(["/owner/combos"]);
+				break;
+			}
+			case 12: {
+				this.router.navigate(["/owner/predict-revenue"]);
+				break;
+			}
 		}
 	}
 
