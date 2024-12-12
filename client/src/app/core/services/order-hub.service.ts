@@ -51,6 +51,10 @@ export class OrderHubService {
 		return this.hubConnection.invoke("ReleaseAccess", tableId);
 	}
 
+	requestCallStaff(tableId: string, storeId: string) {
+		return this.hubConnection.invoke("RequestCallStaff", tableId, storeId);
+	}
+
 	// function ping hub when order a second
 
 	onAccessGranted(callback: (tableId: string) => void) {
