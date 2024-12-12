@@ -72,7 +72,7 @@ export class OrderComponent implements OnInit {
 		totalPage: 0,
 		totalRecords: 0,
 		currentPage: 1,
-		pageSize: 9,
+		pageSize: 20,
 		hasNextPage: false,
 		hasPrevPage: false,
 	};
@@ -130,6 +130,7 @@ export class OrderComponent implements OnInit {
 				this.status = false;
 			}
 		}
+		this.pagi.currentPage = 1;
 		this.loadListOrder();
 	}
 

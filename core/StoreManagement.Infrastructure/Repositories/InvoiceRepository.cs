@@ -57,7 +57,7 @@ namespace StoreManagement.Infrastructure.Repositories
         }
         public Task<List<Invoice>> GetAllByIdStoreAsync(int idStore, string sortCol = "", bool ascSort = true, bool incluDeleted = false)
         {
-            var invoice = _dataContext.Invoices.Include("Order").Include("PaymentType").Where(x => x.Order.Table.IdStore == idStore && x.IsDeleted == incluDeleted).AsQueryable();
+            var invoice = _dataContext.Invoices.Include("Order").Include("PaymentType").Where(x => x.Order.Table.IdStore == idStore && x.IsDeleted == incluDeleted).OrderByDescending(t => t.CreatedAt).AsQueryable();
             if (!incluDeleted)
             {
                 invoice = invoice.Where(t => t.IsDeleted == incluDeleted);

@@ -138,6 +138,7 @@ export class InvoiceComponent implements OnInit {
 				this.status = false;
 			}
 		}
+		this.pagi.currentPage = 1;
 		this.loadListInvoice();
 	}
 

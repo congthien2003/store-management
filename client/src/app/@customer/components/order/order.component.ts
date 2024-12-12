@@ -275,6 +275,7 @@ export class OrderComponent implements OnInit {
 
 	onChangeCategory(id: number): void {
 		this.selectedCategory = id;
+		this.pagiFood.currentPage =1;
 		if (this.selectedCategory === 0) {
 			this.loadListFood();
 		} else {

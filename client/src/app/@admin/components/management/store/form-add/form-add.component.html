@@ -31,7 +31,7 @@
 						<nz-form-control
 							[nzSm]="14"
 							[nzXs]="24"
-							nzErrorTip="The input is not valid E-mail!">
+							nzErrorTip="This input is not have enough length!">
 							<input
 								aria-label="username"
 								nz-input
@@ -40,20 +40,6 @@
 								id="username" />
 						</nz-form-control>
 					</nz-form-item>
-					<nz-form-item>
-						<nz-form-label [nzSm]="8" [nzXs]="24" nzRequired nzFor="store">
-							Tên quán
-						</nz-form-label>
-						<nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Vui lòng nhập tên quán!">
-							<input
-								aria-label="store"
-								nz-input
-								class="form-control"
-								formControlName="store"
-								id="store" />
-						</nz-form-control>
-					</nz-form-item>
-					
 					<nz-form-item>
 						<nz-form-label
 							[nzSm]="8"
@@ -65,7 +51,7 @@
 						<nz-form-control
 							[nzSm]="14"
 							[nzXs]="24"
-							nzErrorTip="The input is not valid E-mail!">
+							nzErrorTip="This input is not have enough length!">
 							<input
 								aria-label="email"
 								nz-input
@@ -74,21 +60,8 @@
 								id="email" />
 						</nz-form-control>
 					</nz-form-item>
-					<nz-form-item>
-						<nz-form-label [nzSm]="8" [nzXs]="24" nzRequired nzFor="address">
-							Địa chỉ
-						</nz-form-label>
-						<nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Vui lòng nhập địa chỉ!">
-							<input
-								aria-label="address"
-								nz-input
-								class="form-control"
-								formControlName="address"
-								id="address" />
-						</nz-form-control>
-					</nz-form-item>
 
-					<!-- <nz-form-item *ngIf="!formAdd">
+					<nz-form-item>
 						<nz-form-label
 							[nzSm]="8"
 							[nzXs]="24"
@@ -97,7 +70,6 @@
 							>Password</nz-form-label
 						>
 						<nz-form-control
-							*ngIf="!formAdd"
 							[nzSm]="14"
 							[nzXs]="24"
 							nzErrorTip="Please input your password!">
@@ -143,7 +115,7 @@
 								</ng-container>
 							</ng-template>
 						</nz-form-control>
-					</nz-form-item> -->
+					</nz-form-item>
 
 					<nz-form-item>
 						<nz-form-label
@@ -188,8 +160,12 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" mat-stroked-button (click)="onSubmit()">
-					Lưu
+				<button
+					type="button"
+					class="btn-primary-custom"
+					mat-stroked-button
+					(click)="onSubmit()">
+					Tạo mới
 				</button>
 				<button
 					type="button"
