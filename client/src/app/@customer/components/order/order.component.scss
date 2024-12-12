@@ -27,28 +27,15 @@
 		}
 	}
 	&--header {
-		.row {
-			min-height: 30px;
-
-			.order--search {
-				input {
-					height: 30px;
-				}
-			}
-			.order--actions {
-				width: 60px;
-				display: flex;
-				gap: 12px;
-				align-items: center;
-				button {
-					height: 30px;
-				}
-			}
-		}
+		display: flex;
+		gap: 12px;
+		align-items: center;
+		justify-content: space-between;
+		min-height: 30px;
+		width: 100%;
 	}
 
 	&--main {
-		margin-top: 12px;
 		width: 100%;
 		h4 {
 			color: $text-color-black;

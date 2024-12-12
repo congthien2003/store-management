@@ -30,8 +30,14 @@ export class FoodService {
 			.set("sortColumn", sortColumn)
 			.set("filter", filter)
 			.set("ascSrot", ascSort)
-			.set("categoryId", categoryId?.toString() ?? '');
+			.set("categoryId", categoryId?.toString() ?? "");
 		return this.service.get(this.endpoint.getByIdStore, { params });
+	}
+
+	listCombo(idStore: number): Observable<any> {
+		return this.service.post(`${this.endpoint.listCombo}`, {
+			idStore: idStore,
+		});
 	}
 
 	getById(id: number): Observable<ApiResponse> {

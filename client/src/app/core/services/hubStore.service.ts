@@ -60,6 +60,7 @@ export class HubService {
 					"JoinStoreGroup",
 					this.store.id.toString()
 				);
+				console.log("Joined store group");
 			})
 			.catch((err) =>
 				console.log("Error while starting SignalR connection: " + err)
@@ -104,6 +105,15 @@ export class HubService {
 			localStorage.setItem("AcessToken", url);
 			this.toastr.info("Có bàn truy cập !", "Thông báo", {
 				timeOut: 3000,
+			});
+		});
+		this.hubConnection.on("RequestCallStaff", (message: string) => {
+			this.toastr.info("Có bàn yêu cầu gọi nhân viên!", "Thông báo", {
+				timeOut: 3000,
+			});
+			this.notificationService.addNewNoti({
+				message: message,
+				key: this.notificationService.notificationCount.toString(),
 			});
 		});
 	}

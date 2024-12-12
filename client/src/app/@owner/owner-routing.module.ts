@@ -13,6 +13,8 @@ import { TableComponent } from "./components/management/table/table.component";
 import { ownerGuard } from "../@auth/guards/owner.guard";
 import { InforUserComponent } from "./components/management/infor-user/infor-user.component";
 import { ChangePasswordComponent } from "../@auth/components";
+import { PredictRevenueComponent } from "./components/management/predict-revenue/predict-revenue.component";
+import { ComboComponent } from "./components/management/combo/combo.component";
 
 const routes: Routes = [
 	{
@@ -62,7 +64,15 @@ const routes: Routes = [
 			},
 			{
 				path: "change-password",
-				component:	ChangePasswordComponent,
+				component: ChangePasswordComponent,
+			},
+			{
+				path: "predict-revenue",
+				component: PredictRevenueComponent,
+			},
+			{
+				path: "combos",
+				component: ComboComponent,
 			},
 		],
 	},

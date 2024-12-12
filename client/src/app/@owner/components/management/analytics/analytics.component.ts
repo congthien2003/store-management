@@ -18,6 +18,7 @@ import { MatMenuModule } from "@angular/material/menu";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { DatetimePickerComponent } from "./datetime-picker/datetime-picker.component";
 import { ExportService } from "src/app/core/services/store/export.service";
+import { AiPredictService } from "src/app/core/services/store/ai-predict.service";
 const MatImport = [
 	MatDatepickerModule,
 	MatInputModule,
@@ -57,7 +58,8 @@ export class AnalyticsComponent implements OnInit {
 	constructor(
 		private analystReportService: AnalystReportService,
 		private exportExcel: ExportService,
-		public dialog: MatDialog
+		public dialog: MatDialog,
+		private AIPredict: AiPredictService
 	) {}
 	ngOnInit(): void {
 		this.store = JSON.parse(

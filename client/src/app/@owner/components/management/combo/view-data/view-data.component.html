@@ -1,0 +1,52 @@
+<div class="modal fade show modal-view-combo" tabindex="5">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Đánh giá từ AI</h5>
+				<button
+					type="button"
+					class="btn-close"
+					data-bs-dismiss="modal"
+					(click)="onNoClick()"
+					aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="list-combo">
+					<div
+						class="combo-details"
+						*ngFor="let item of data.listCombo">
+						<!-- Food List -->
+						<ul class="food-list">
+							<li
+								class="food-item"
+								*ngFor="let food of item.combo">
+								<div class="food-info">
+									<h5 class="food-name">{{ food.name }}</h5>
+								</div>
+							</li>
+						</ul>
+						<div>
+							<span class="score">{{ item.score * 100 }} %</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<!-- <button
+					type="button"
+					mat-raised-button
+					color="primary"
+					(click)="onSubmit()">
+					Lưu
+				</button> -->
+				<button
+					type="button"
+					mat-stroked-button
+					data-bs-dismiss="modal"
+					(click)="onNoClick()">
+					Hủy
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

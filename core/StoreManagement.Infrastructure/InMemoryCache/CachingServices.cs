@@ -10,7 +10,7 @@ namespace StoreManagement.Infrastructure.InMemoryCache
         {
             try
             {
-                T item = (T) _memoryCache.Get(key);
+                T item = (T)_memoryCache.Get(key);
                 return item;
             }
             catch (Exception ex)
@@ -22,12 +22,40 @@ namespace StoreManagement.Infrastructure.InMemoryCache
 
         public object RemoveData(string key)
         {
-            throw new NotImplementedException();
+            var res = true;
+
+            try
+            {
+                if (!string.IsNullOrEmpty(key))
+                    _memoryCache.Remove(key);
+                else
+                    res = false;
+
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         public bool SetData<T>(string key, T value, DateTimeOffset expirationTime)
         {
-            throw new NotImplementedException();
+            var res = true;
+
+            try
+            {
+                if (!string.IsNullOrEmpty(key))
+                    _memoryCache.Set(key, value, expirationTime);
+                else
+                    res = false;
+
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 }

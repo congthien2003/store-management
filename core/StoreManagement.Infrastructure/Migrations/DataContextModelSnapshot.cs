@@ -93,6 +93,70 @@ namespace StoreManagement.Infrastructure.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("StoreManagement.Domain.Models.Combo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("Guid")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("IdStore")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdStore");
+
+                    b.ToTable("Combos");
+                });
+
+            modelBuilder.Entity("StoreManagement.Domain.Models.ComboItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("IdCombo")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdFood")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ComboItems");
+                });
+
             modelBuilder.Entity("StoreManagement.Domain.Models.Food", b =>
                 {
                     b.Property<int>("Id")
@@ -100,6 +164,9 @@ namespace StoreManagement.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("ComboId")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("Guid")
                         .HasColumnType("uniqueidentifier");
@@ -124,6 +191,8 @@ namespace StoreManagement.Infrastructure.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ComboId");
 
                     b.HasIndex("IdCategory");
 
@@ -524,8 +593,23 @@ namespace StoreManagement.Infrastructure.Migrations
                     b.Navigation("Store");
                 });
 
+            modelBuilder.Entity("StoreManagement.Domain.Models.Combo", b =>
+                {
+                    b.HasOne("StoreManagement.Domain.Models.Store", "Store")
+                        .WithMany()
+                        .HasForeignKey("IdStore")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Store");
+                });
+
             modelBuilder.Entity("StoreManagement.Domain.Models.Food", b =>
                 {
+                    b.HasOne("StoreManagement.Domain.Models.Combo", null)
+                        .WithMany("Foods")
+                        .HasForeignKey("ComboId");
+
                     b.HasOne("StoreManagement.Domain.Models.Category", "Category")
                         .WithMany("Foods")
                         .HasForeignKey("IdCategory")
@@ -640,6 +724,11 @@ namespace StoreManagement.Infrastructure.Migrations
                 });
 
             modelBuilder.Entity("StoreManagement.Domain.Models.Category", b =>
+                {
+                    b.Navigation("Foods");
+                });
+
+            modelBuilder.Entity("StoreManagement.Domain.Models.Combo", b =>
                 {
                     b.Navigation("Foods");
                 });
