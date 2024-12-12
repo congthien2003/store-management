@@ -24,6 +24,7 @@ namespace StoreManagement.Infrastructure.Repositories
             BankInfo bankInfo = new BankInfo{
                 AccountId = req.AccountId,
                 BankId = req.BankId,
+                BankName = req.BankName,
                 AccountName = req.AccountName,
                 IdStore = req.IdStore,
 

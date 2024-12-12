@@ -7,7 +7,7 @@ import { User } from "src/app/core/models/interfaces/User";
 import { PaginationComponent } from "../../../../shared/components/pagination/pagination.component";
 import { ModalDeleteComponent } from "src/app/shared/components/modal-delete/modal-delete.component";
 import { FormAddComponent } from "../user/form-add/form-add.component";
-import { FormEditComponent } from "../store/form-edit/form-edit.component";
+import { FormEditComponent } from "../user/form-edit/form-edit.component";
 import { MatDialog } from "@angular/material/dialog";
 import { ToastrService } from "ngx-toastr";
 

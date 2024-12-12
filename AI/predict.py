@@ -140,20 +140,27 @@ def add_features(df):
 def process_combo(df):
     # Tạo bảng giao dịch với các món pizza đã đặt trong cùng một order_id
     basket = df.groupby(['idOrder', 'idFood']).size().unstack().reset_index().fillna(0).set_index('idOrder')
-
+    
     # Chuyển dữ liệu sang dạng binary (1 nếu món ăn có trong đơn hàng, 0 nếu không)
-    basket = basket.applymap(lambda x: 1 if x > 0 else 0)
+    basket = basket.apply(lambda x: x.map(lambda y: 1 if y > 0 else 0))
 
+    print(basket.head())
     # Áp dụng Apriori để tìm các combo món ăn phổ biến
-    frequent_itemsets = apriori(basket, min_support=0.3, use_colnames=True)
+    frequent_itemsets = apriori(basket, min_support=0.15, use_colnames=True)
 
+    # Log thông tin
+    print("Frequent itemsets shape:", frequent_itemsets.shape)
+    
+    if frequent_itemsets.empty:
+        print("No frequent itemsets found.")
+        return pd.DataFrame()  # Hoặc xử lý phù hợp
     # Tính số lượng itemsets
     num_itemsets = len(frequent_itemsets)
 
     # Tìm các quy tắc kết hợp từ các itemsets
     rules = association_rules(frequent_itemsets, num_itemsets,  metric="lift", min_threshold=1.0)
 
-    min_confidence = 0.7
+    min_confidence = 0.8
     filtered_rules = rules[rules['confidence'] >= min_confidence]
 
     # Tạo danh sách các combo để trả về
@@ -209,8 +216,8 @@ def predict():
 def get_popular_combos():
     # Load data from supabase
     json_data = request.json['data']
-    print(json_data)
     df = pd.DataFrame(json_data)
+    print(df.head())
     # Xử lý
     combo_df = process_combo(df)
     # Trả về dữ liệu combo dưới dạng JSON
