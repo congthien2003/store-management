@@ -6,11 +6,11 @@ import { MasterService } from "../master/master.service";
 	providedIn: "root",
 })
 export class AiPredictService {
-	endpoints = ["Client/RevenuePredict", "Client/GetPopularComboFoods"];
+	endpoints = ["Client/GetPredictRevenue", "Client/GetPopularComboFoods"];
 	constructor(private master: MasterService) {}
 
-	predict(numdays: number) {
-		return this.master.post(this.endpoints[0], { numdays });
+	predict(idStore: number) {
+		return this.master.post(this.endpoints[0], { idStore });
 	}
 
 	getPopularCombos(idStore: number) {

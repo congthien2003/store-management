@@ -40,5 +40,12 @@ namespace StoreManagement.Controllers
             var result = await flaskApi.GetPopularComboAsync(list, req.IdStore);
             return Ok(result);
         }
+
+        [HttpPost("GetPredictRevenue")]
+        public async Task<dynamic> GetPredictRevenue(int idStore)
+        {
+            var result = await flaskApi.GetPredictRevenue(idStore);
+            return Ok(result);
+        }
     }
 }

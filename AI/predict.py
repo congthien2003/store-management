@@ -144,13 +144,10 @@ def process_combo(df):
     # Chuyển dữ liệu sang dạng binary (1 nếu món ăn có trong đơn hàng, 0 nếu không)
     basket = basket.apply(lambda x: x.map(lambda y: 1 if y > 0 else 0))
 
-    print(basket.head())
     # Áp dụng Apriori để tìm các combo món ăn phổ biến
     frequent_itemsets = apriori(basket, min_support=0.15, use_colnames=True)
 
-    # Log thông tin
-    print("Frequent itemsets shape:", frequent_itemsets.shape)
-    
+
     if frequent_itemsets.empty:
         print("No frequent itemsets found.")
         return pd.DataFrame()  # Hoặc xử lý phù hợp
@@ -163,12 +160,16 @@ def process_combo(df):
     min_confidence = 0.8
     filtered_rules = rules[rules['confidence'] >= min_confidence]
 
-    # Tạo danh sách các combo để trả về
+    # Tạo danh sách các combo để trả về và loại bỏ trùng lặp
     combo_data = []
+    seen_combos = set()  # Sử dụng set để kiểm tra trùng lặp
+
     for _, rule in filtered_rules.iterrows():
-        combo = list(rule['antecedents']) + list(rule['consequents'])
+        combo = tuple(sorted(list(rule['antecedents']) + list(rule['consequents'])))
         confidence = rule['confidence']
-        combo_data.append({"combo": combo, "confidence": confidence})
+        if combo not in seen_combos:  # Chỉ thêm nếu combo chưa tồn tại
+            seen_combos.add(combo)
+            combo_data.append({"combo": list(combo), "confidence": confidence})
 
     # Chuyển danh sách combo thành DataFrame để dễ dàng xử lý hơn
     combo_df = pd.DataFrame(combo_data)
@@ -216,8 +217,9 @@ def predict():
 def get_popular_combos():
     # Load data from supabase
     json_data = request.json['data']
+
     df = pd.DataFrame(json_data)
-    print(df.head())
+
     # Xử lý
     combo_df = process_combo(df)
     # Trả về dữ liệu combo dưới dạng JSON
