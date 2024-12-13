@@ -1,0 +1,41 @@
+<div class="modal fade show" tabindex="5">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xem thông tin ticket</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="onNoClick()"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="validateForm" (ngSubmit)="onSubmit()">
+                    <input hidden aria-label="id" nz-input class="form-control" formControlName="id" id="id" />
+                    <nz-form-item>
+                        <nz-form-label [nzSm]="8" [nzXs]="24"  nzFor="description">Chi tiết</nz-form-label>
+                        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
+                            <input aria-label="description" nz-input class="form-control" formControlName="description" id="description" readonly />
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="status" >Trạng thái</nz-form-label>
+                        <nz-form-control [nzSm]="14" [nzXs]="24">
+                            <select class="form-select" formControlName="status" aria-label="Vai trò">
+                                <option value="0">Pending</option>
+                                <option value="1">Doing</option>
+                                <option value="2">Done</option>
+                                <option value="3">Rejected</option>
+                            </select>
+                        </nz-form-control>
+                    </nz-form-item>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" mat-stroked-button (click)="onSubmit()">
+                    Lưu
+                </button>
+                <button type="button" mat-stroked-button data-bs-dismiss="modal" (click)="onNoClick()">
+                    Hủy
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

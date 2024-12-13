@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using StoreManagement.Application.DTOs.Auth;
 using StoreManagement.Application.DTOs.Request;
+using StoreManagement.Application.DTOs.Request.OrderDetail;
 using StoreManagement.Application.DTOs.Request.Store;
 using StoreManagement.Application.DTOs.Response;
 using StoreManagement.Application.DTOs.Response.BankInfo;
@@ -32,6 +33,8 @@ namespace StoreManagement.Application.Helper
             CreateMap<OrderAccessToken, OrderAccessTokenResponse>().ReverseMap();
             CreateMap<BankInfo, BankInfoDTO>().ReverseMap();
             CreateMap<BankInfo, BankInfoResponse>().ReverseMap();
+            CreateMap<Ticket, TicketDTO>().ReverseMap();
+            CreateMap<Ticket, TicketResponse>().ReverseMap();
 
         }
     }

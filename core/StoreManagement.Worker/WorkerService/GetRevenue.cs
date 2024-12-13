@@ -4,11 +4,11 @@ namespace StoreManagement.Worker.WorkerService
 {
     public class GetRevenue : IGetRevenue
     {
-        /*private readonly DataContext _context;
+        /*private readonly IOrderRepository<Order> _orderRepository;
 
-        public GetRevenue(DataContext context)
+        public GetRevenue(IOrderRepository<Order> orderRepository)
         {
-            _context = context;
+            _orderRepository = orderRepository;
         }*/
 
         public async Task<dynamic> DoWorkAsync()

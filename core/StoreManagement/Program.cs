@@ -4,13 +4,11 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using StoreManagement.Application;
-using StoreManagement.Application.Interfaces.IWorkerService;
 using StoreManagement.Application.RealTime;
 using StoreManagement.Domain.Enum;
 using StoreManagement.Infrastructure;
 using StoreManagement.Middleware;
 using StoreManagement.Worker.Worker;
-using StoreManagement.Worker.WorkerService;
 using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -90,8 +88,8 @@ builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddSignalR();
 
 // register Worker
-builder.Services.AddTransient<IGetRevenue, GetRevenue>();
-builder.Services.AddHostedService<WorkerGetDataRevenue>();
+/*builder.Services.AddTransient<IGetRevenue, GetRevenue>();*/
+//builder.Services.AddHostedService<WorkerGetDataRevenue>();
 
 // Register AWS
 

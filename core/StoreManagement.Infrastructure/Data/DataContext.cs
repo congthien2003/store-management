@@ -1,5 +1,5 @@
-﻿using StoreManagement.Domain.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using StoreManagement.Domain.Models;
 
 namespace StoreManagement.Infrastructure.Data
 {
@@ -18,16 +18,16 @@ namespace StoreManagement.Infrastructure.Data
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<ProductSell> ProductSells { get; set; }
         public DbSet<OrderAccessToken> OrderAccessTokens { get; set; }
-
         public DbSet<KPI> KPIs { get; set; }
         public DbSet<BankInfo> BankInfos { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<PaymentType>()
                 .HasOne(pt => pt.Store)
-                .WithMany(s => s.PaymentTypes) 
+                .WithMany(s => s.PaymentTypes)
                 .HasForeignKey(pt => pt.IdStore)
                 .OnDelete(DeleteBehavior.NoAction);
 

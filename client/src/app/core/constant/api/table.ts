@@ -4,4 +4,5 @@ export const TableApi = {
 	getById: "Table",
 	delete: "Table/delete",
 	update: "Table/update",
+	updateStatus: "Table/updateStatus",
 };

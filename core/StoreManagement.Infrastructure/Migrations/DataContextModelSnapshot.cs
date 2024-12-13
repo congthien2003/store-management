@@ -426,6 +426,44 @@ namespace StoreManagement.Infrastructure.Migrations
                     b.ToTable("Tables");
                 });
 
+            modelBuilder.Entity("StoreManagement.Domain.Models.Ticket", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("Guid")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("RequestBy")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RequestBy");
+
+                    b.ToTable("Tickets");
+                });
+
             modelBuilder.Entity("StoreManagement.Domain.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -595,6 +633,17 @@ namespace StoreManagement.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Store");
+                });
+
+            modelBuilder.Entity("StoreManagement.Domain.Models.Ticket", b =>
+                {
+                    b.HasOne("StoreManagement.Domain.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("RequestBy")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("StoreManagement.Domain.Models.Category", b =>

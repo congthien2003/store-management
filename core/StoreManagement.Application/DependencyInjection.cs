@@ -46,7 +46,7 @@ namespace StoreManagement.Application
                     storeService
                 );
             });
-            
+            services.AddTransient<ITicketService, TicketSerivce>();
             return services;
             
         }

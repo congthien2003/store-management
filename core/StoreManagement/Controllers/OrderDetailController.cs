@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.SignalR;
 using StoreManagement.Application.Common;
 using StoreManagement.Application.DTOs.Request;
+using StoreManagement.Application.DTOs.Request.OrderDetail;
 using StoreManagement.Application.DTOs.Response;
 using StoreManagement.Application.Interfaces.IServices;
 using StoreManagement.Application.RealTime;
@@ -56,9 +57,9 @@ namespace StoreManagement.Controllers
         }
 
         [HttpPut("updateStatus/{idFood:int}")]
-        public async Task<ActionResult<Result>> UpdateStatusAsync(int idFood, [FromBody] int statusProcess)
+        public async Task<ActionResult<Result>> UpdateStatusAsync(UpdateStatusReq req)
         {
-            var result = await _orderDetailService.UpdateStatusAsync(idFood, statusProcess);
+            var result = await _orderDetailService.UpdateStatusAsync(req);
             var order = await _orderService.GetByIdAsync(result.IdOrder);
             var table = await _tableService.GetByIdAsync(order.IdTable);
             Console.WriteLine(table.Guid);

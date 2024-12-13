@@ -6,7 +6,7 @@ namespace StoreManagement.Domain.IRepositories
     {
         Task<TOrderDetail> CreateAsync(OrderDetail orderDetail);
         Task<TOrderDetail> UpdateAsync(OrderDetail orderDetail);
-        Task<TOrderDetail> UpdateStatusAsync(int idFood, int statusProcess);
+        Task<TOrderDetail> UpdateStatusAsync(int idOrder, int idFood, int statusProcess);
 
         Task<TOrderDetail> DeleteAsync(int idOrder, int idFood);
         Task<List<TOrderDetail>> GetAllByIdOrderAsync(int idOrder);

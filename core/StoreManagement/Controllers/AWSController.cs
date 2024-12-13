@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StoreManagement.Application.Common;
+using StoreManagement.Application.DTOs.ApiClient.AWS;
 using StoreManagement.Infrastructure.ApiClient;
 
 namespace StoreManagement.Controllers
@@ -16,42 +17,59 @@ namespace StoreManagement.Controllers
             _emailService = emailService;
         }
         [HttpPost("send-mail")]
-        public async Task<ActionResult<Result>> SendEmail(string recipient, string subject, string body)
+        public async Task<ActionResult<Result>> SendEmail(EmailRequest emailRequest)
         {
-            var result = await _emailService.SendEmailAsync(recipient, subject, body);
+            var result = await _emailService.SendEmailAsync(emailRequest);
             return Ok(Result<bool>.Success(result,"Gửi thư thành công"));
         }
         [HttpPost("send-mail-attachment")]
-        public async Task<ActionResult<Result>> SendEmailAttachment(string recipient, string subject, string body, IFormFile attachment)
+        public async Task<ActionResult<Result>> SendEmailAttachment(EmailAttachment emailAttachment)
+{
+    if (emailAttachment?.Attachment != null && emailAttachment.Attachment.Length > 0)
+    {
+        using (var memoryStream = new MemoryStream(emailAttachment.Attachment))
         {
-            byte[] attachmentBytes = null;
-            string attachmentName = null;
-            string contentType = null;
-
-            if (attachment != null)
-            {
-                using (var memoryStream = new MemoryStream())
-                {
-                    await attachment.CopyToAsync(memoryStream);
-                    attachmentBytes = memoryStream.ToArray();
-                    attachmentName = attachment.FileName;
-                    contentType = attachment.ContentType; 
-                }
-            }
-
-            var result = await _emailService.SendEmailWithAttachmentAsync(recipient, subject, body, attachmentBytes, attachmentName, contentType);
-            return Ok(Result<bool>.Success(result, "Gửi thư thành công"));
+            
+            var updatedAttachment = new MemoryStream();
+            await memoryStream.CopyToAsync(updatedAttachment);
+            emailAttachment.Attachment = updatedAttachment.ToArray(); 
         }
+    }
+    else
+    {
+        return BadRequest(Result<bool>.Failure("Tệp đính kèm không hợp lệ"));
+    }
+
+    var result = await _emailService.SendEmailWithAttachmentAsync(emailAttachment);
+
+    if (result)
+    {
+        return Ok(Result<bool>.Success(result, "Gửi thư thành công"));
+    }
+    else
+    {
+        return StatusCode(500, Result<bool>.Failure("Gửi thư không thành công"));
+    }
+}
+
+
+
         [HttpPost("send-welcome")]
-        public async Task<ActionResult<Result>> SendEmailWelcome(string recipient, string name)
+        public async Task<ActionResult<Result>> SendEmailWelcome(MailWelcome mailWelcome)
         {
-            var result = await _emailService.SendEmailWelcome(recipient, name);
+            var result = await _emailService.SendEmailWelcome(mailWelcome);
             return Ok(Result<bool>.Success(result,"Gửi thư thành công"));
         }
         [HttpPost("send-monthly-report")]
-        public async Task<ActionResult<Result>> SendEmailMonthlyReport(string recipient, int idStore, string startDate, string endDate)
+        public async Task<ActionResult<Result>> SendEmailMonthlyReport(EmailMonthlyReport emailMonthlyReport)
         {
-            var result = await _emailService.SendMailMonthlyReport(recipient,idStore, startDate,endDate);
+            var result = await _emailService.SendMailMonthlyReport(emailMonthlyReport);
+            return Ok(Result<bool>.Success(result, "Gửi thư thành công"));
+        }
+        [HttpPost("send-mail-thanks")]
+        public async Task<ActionResult<Result>> SendEmailThanks([FromBody]string recipent)
+        {
+            var result = await _emailService.SendMailThanks(recipent);
             return Ok(Result<bool>.Success(result, "Gửi thư thành công"));
         }
     }

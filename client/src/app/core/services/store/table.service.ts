@@ -52,4 +52,8 @@ export class TableService {
 	updateOrder(id: number, statusAccess: boolean): Observable<ApiResponse> {
 		return this.service.put(`${this.endpoint.update}/${id}`, statusAccess);
 	}
+
+	updateStatus(id: number, status: boolean): Observable<ApiResponse> {
+		return this.service.put(`${this.endpoint.updateStatus}/${id}`, status);
+	}
 }

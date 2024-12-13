@@ -12,6 +12,7 @@ export const ownerGuard: CanActivateFn = (route, state) => {
 			if (res.isSuccess && res.data.role === "1") {
 				return true;
 			} else {
+				service.logout();
 				router.navigate(["/not-authorized"]);
 				return false;
 			}
