@@ -34,9 +34,9 @@ namespace StoreManagement.Infrastructure
             services.AddScoped<IOrderAccessTokenRepository<OrderAccessToken>, OrderAccessTokenRepository>();
             services.AddScoped<IKPIRepository<KPI>, KPIRepository>();
             services.AddScoped<IBankInfoRepository<BankInfo>, BankInfoRepository>();
-            services.AddScoped<IRequestRepository, RequestRepository>();
-            services.AddScoped<IComboRepository, ComboRepository>();
+			services.AddScoped<IComboRepository, ComboRepository>();
             services.AddScoped<IComboItemRepository, ComboItemRepository>();
+			services.AddScoped<ITicketRepository<Ticket>, TicketRepository>();
             // Register Client Service
             services.AddTransient<IQRServices, QRService>();
             services.AddTransient<IExportExcellService, ExportExcellService>();

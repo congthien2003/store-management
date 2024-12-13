@@ -1,0 +1,39 @@
+<div class="modal fade show" tabindex="5">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thêm mới</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="onNoClick()"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="validateForm" (ngSubmit)="onSubmit()">
+                    <input hidden aria-label="id" nz-input class="form-control" formControlName="id" id="id" />
+                    <nz-form-item>
+                        <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired nzFor="title">Tiêu đề</nz-form-label>
+                        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="This input is not have enough length!">
+                            <input aria-label="title" nz-input class="form-control" formControlName="title" id="title" />
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <nz-form-item>
+                        <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired nzFor="description">Chi tiết</nz-form-label>
+                        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="This input is not have enough length!">
+                            <input aria-label="description" nz-input class="form-control" formControlName="description"
+                                id="description" />
+                        </nz-form-control>
+                    </nz-form-item>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button [disabled]="this.validateForm.status === 'INVALID'" type="button" class="btn-primary-custom"
+                    mat-stroked-button (click)="onSubmit()">
+                    Tạo mới
+                </button>
+                <button type="button" mat-stroked-button data-bs-dismiss="modal" (click)="onNoClick()">
+                    Hủy
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

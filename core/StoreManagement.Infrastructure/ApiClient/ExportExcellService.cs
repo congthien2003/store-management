@@ -55,7 +55,7 @@ namespace StoreManagement.Infrastructure.Services
                 worksheet.Cell(row, 1).Value = item.Key;
                 worksheet.Cell(row, 2).Value = item.Value;
 
-                // Tính tổng số lượng bán được
+                
                 totalQuantitySold += item.Value;
 
                 worksheet.Cell(row, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
@@ -63,12 +63,12 @@ namespace StoreManagement.Infrastructure.Services
                 row++;
             }
 
-            // Định dạng các ô dữ liệu
+            
             var dataRange = worksheet.Range(6, 1, row - 1, 2);
             dataRange.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
             dataRange.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
 
-            // Thêm dòng tổng ở cuối bảng
+            
             worksheet.Cell(row, 1).Value = "Tổng cộng số món:";
             worksheet.Cell(row, 1).Style.Font.Bold = true;
             worksheet.Cell(row, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;

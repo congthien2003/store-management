@@ -33,14 +33,6 @@ namespace StoreManagement.Controllers
             return Ok(Result<TableResponse?>.Success(result, "Cập nhật thành công"));
         }
 
-        [HttpPut("updateStatus/{id:int}")]
-        public async Task<ActionResult<Result>> UpdateStatusAsync(int id, bool status)
-        {
-
-            var result = await _tableService.UpdateStatusAsync(id, status);
-            return Ok(Result<TableResponse?>.Success(result, "Cập nhật thành công"));
-        }
-
         [HttpDelete("delete/{id:int}")]
         public async Task<ActionResult<Result>> DeleteAsync(int id)
         {

@@ -311,6 +311,8 @@ namespace StoreManagement.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("IdInvoice");
+
                     b.HasIndex("IdTable");
 
                     b.ToTable("Orders");
@@ -640,11 +642,19 @@ namespace StoreManagement.Infrastructure.Migrations
 
             modelBuilder.Entity("StoreManagement.Domain.Models.Order", b =>
                 {
+                    b.HasOne("StoreManagement.Domain.Models.Invoice", "Invoice")
+                        .WithMany()
+                        .HasForeignKey("IdInvoice")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("StoreManagement.Domain.Models.Table", "Table")
                         .WithMany("Orders")
                         .HasForeignKey("IdTable")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Invoice");
 
                     b.Navigation("Table");
                 });

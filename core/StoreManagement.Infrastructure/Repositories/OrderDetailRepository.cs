@@ -120,6 +120,7 @@ namespace StoreManagement.Infrastructure.Repositories
                 .Include(od => od.Order)
                 .ThenInclude(o => o.Table)
                 .Include(od => od.Food)
+                ..Where(od => od.Order.Table.IdStore == idStore && od.StatusProcess == 1 && od.Order.CreatedAt >= startDate && od.Order.CreatedAt < endDate)
                 .Where(od => od.Order.Table.IdStore == idStore && od.Order.CreatedAt >= startDate && od.Order.CreatedAt < endDate)
                 .ToListAsync();
 

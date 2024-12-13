@@ -5,6 +5,7 @@ using Microsoft.OpenApi.Models;
 using Serilog;
 using StoreManagement.Application;
 using StoreManagement.Application.RealTime;
+using StoreManagement.Domain.Enum;
 using StoreManagement.Infrastructure;
 using StoreManagement.Middleware;
 using StoreManagement.Worker.Worker;
@@ -74,7 +75,7 @@ builder.Services.AddAuthentication(options =>
             ValidateIssuerSigningKey = true,
         };
     });
-
+builder.Services.Configure<AwsSesConfig>(builder.Configuration.GetSection("AWS"));
 builder.Services.AddCors(options => options.AddPolicy(name: "NgOrigins",
     policy =>
     {
@@ -89,7 +90,7 @@ builder.Services.AddSignalR();
 
 // register Worker
 /*builder.Services.AddTransient<IGetRevenue, GetRevenue>();*/
-builder.Services.AddHostedService<WorkerGetDataRevenue>();
+//builder.Services.AddHostedService<WorkerGetDataRevenue>();
 
 // Register AWS
 

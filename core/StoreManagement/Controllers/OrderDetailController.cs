@@ -56,12 +56,13 @@ namespace StoreManagement.Controllers
             return Ok(Result<OrderDetailDTO?>.Success(result, "Cập nhật thành công"));
         }
 
-        [HttpPut("updateStatus")]
+        [HttpPut("updateStatus/{idFood:int}")]
         public async Task<ActionResult<Result>> UpdateStatusAsync(UpdateStatusReq req)
         {
             var result = await _orderDetailService.UpdateStatusAsync(req);
             var order = await _orderService.GetByIdAsync(result.IdOrder);
             var table = await _tableService.GetByIdAsync(order.IdTable);
+            Console.WriteLine(table.Guid);
             // Send Event to FE
             await _hubContext.Clients.Group(table.Guid).SendAsync("ReceiveUpdateStatusOrder", "Cập nhật trạng thái đơn hàng của bạn");
             return Ok(Result<OrderDetailDTO?>.Success(result, "Cập nhật thành công"));
