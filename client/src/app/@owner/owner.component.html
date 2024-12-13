@@ -13,8 +13,31 @@
 				<hr class="sidebar-divider" />
 
 				<!-- Heading -->
-				<div class="sidebar-heading">Quản lý</div>
+				<div class="sidebar-heading">
+					Quản lý
 
+					<div class="icon-show-noti">
+						<!-- <i
+							(click)="showNotifi = !showNotifi"
+							class="fa fa-bell"
+							aria-hidden="true"></i> -->
+
+						<div class="notifilist" *ngIf="showNotifi">
+							<ul>
+								<li *ngFor="let noti of notifications">
+									<div>
+										<strong>{{ noti.message }}</strong>
+										<span
+											>({{
+												noti.timestamp | date : "short"
+											}})</span
+										>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
 				<ul class="sidebar-nav">
 					<li
 						class="nav-item"
@@ -90,6 +113,32 @@
 						</button>
 					</li>
 				</ul>
+
+				<hr class="sidebar-divider" />
+
+				<div class="sidebar-heading">AI</div>
+
+				<ul class="sidebar-nav">
+					<li
+						class="nav-item"
+						[class.active]="11 == activeIndex"
+						(click)="swithRoute(11)">
+						<button class="nav-link">
+							<i class="fa-solid fa-circle-info"></i>
+							<span>Combo</span>
+						</button>
+					</li>
+					<li
+						class="nav-item"
+						[class.active]="12 == activeIndex"
+						(click)="swithRoute(12)">
+						<button class="nav-link">
+							<i class="fa-solid fa-list"></i>
+							<span>Dự đoán doanh thu</span>
+						</button>
+					</li>
+				</ul>
+
 				<hr class="sidebar-divider" />
 
 				<div class="sidebar-heading">Người dùng</div>
@@ -113,7 +162,7 @@
 							<span>Đổi mật khẩu</span>
 						</button>
 					</li>
-					<li class="nav-item" [class.active]="11 == activeIndex" (click)="swithRoute(11)">
+					<li class="nav-item" [class.active]="13 == activeIndex" (click)="swithRoute(13)">
 						<button class="nav-link">
 							<i class="fa fa-user-circle" aria-hidden="true"></i>
 							<span>Ticket</span>
@@ -159,13 +208,7 @@
 					</div>
 					<div class="chat" *ngIf="showChatBox">
 						<div class="chat-header">
-							<div class="chat-header-title">
-								Chat with
-								<img
-									width="45px"
-									src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Google_Gemini_logo.svg/2560px-Google_Gemini_logo.svg.png"
-									alt="logo" />
-							</div>
+							<div class="chat-header-title">Notifications</div>
 							<div
 								class="chat-header-icon"
 								(click)="openChatBox()">
@@ -173,36 +216,18 @@
 							</div>
 						</div>
 						<div class="chat-body" #scrollContainer>
-							<div
-								class="message"
-								[ngClass]="{ 'message-owner': item.role == 1 }"
-								*ngFor="let item of message">
-								<div
-									class="chat-item-content"
-									[innerHTML]="item.text | formatText"></div>
-								<div class="chat-item-time">
-									{{ item.timeline }}
-								</div>
-							</div>
-							<span
-								class="loading-text"
-								*ngIf="this.loadingMessage"
-								>Loading...</span
-							>
-						</div>
-						<div class="chat-footer">
-							<div class="form">
-								<input
-									class="input"
-									placeholder="Type your text"
-									[(ngModel)]="messageText"
-									(keypress)="(messageText)"
-									type="text" />
-								<span class="input-border"></span>
-							</div>
-							<button type="button" (click)="submitChatBox()">
-								<i class="fa-solid fa-share"></i>
-							</button>
+							<ul>
+								<li *ngFor="let noti of notifications">
+									<div>
+										<strong>{{ noti.message }}</strong>
+										<span class="d-block"
+											>({{
+												noti.timestamp | date : "short"
+											}})</span
+										>
+									</div>
+								</li>
+							</ul>
 						</div>
 					</div>
 				</div>

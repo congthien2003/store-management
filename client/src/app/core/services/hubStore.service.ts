@@ -4,6 +4,7 @@ import { Store } from "../models/interfaces/Store";
 import { ToastrService } from "ngx-toastr";
 import { AuthenticationService } from "./auth/authentication.service";
 import { StoreService } from "./store/store.service";
+import { NotificationClientService } from "./store/notification-client.service";
 @Injectable({
 	providedIn: "root",
 })
@@ -15,7 +16,8 @@ export class HubService {
 	constructor(
 		private toastr: ToastrService,
 		private authService: AuthenticationService,
-		private storeService: StoreService
+		private storeService: StoreService,
+		private notificationService: NotificationClientService
 	) {
 		const storeValue = sessionStorage.getItem("storeInfo") ?? null;
 
@@ -58,6 +60,7 @@ export class HubService {
 					"JoinStoreGroup",
 					this.store.id.toString()
 				);
+				console.log("Joined store group");
 			})
 			.catch((err) =>
 				console.log("Error while starting SignalR connection: " + err)
@@ -71,7 +74,10 @@ export class HubService {
 	private addNotificationListener() {
 		this.hubConnection.on("ReceiveNotification", (message: string) => {
 			console.log("Receive Noti");
-
+			this.notificationService.addNewNoti({
+				message: message,
+				key: this.notificationService.notificationCount.toString(),
+			});
 			this.toastr.info(message, "Thông báo", {
 				timeOut: 3000,
 			});
@@ -99,6 +105,15 @@ export class HubService {
 			localStorage.setItem("AcessToken", url);
 			this.toastr.info("Có bàn truy cập !", "Thông báo", {
 				timeOut: 3000,
+			});
+		});
+		this.hubConnection.on("RequestCallStaff", (message: string) => {
+			this.toastr.info("Có bàn yêu cầu gọi nhân viên!", "Thông báo", {
+				timeOut: 3000,
+			});
+			this.notificationService.addNewNoti({
+				message: message,
+				key: this.notificationService.notificationCount.toString(),
 			});
 		});
 	}

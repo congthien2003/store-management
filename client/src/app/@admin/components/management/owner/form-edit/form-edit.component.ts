@@ -52,6 +52,8 @@ export class FormEditComponent implements OnInit {
 			email: ["", [Validators.email, Validators.required]],
 			phones: ["", [Validators.required]],
 			role: [1, [Validators.required]],
+			store: ["", [Validators.required]],
+			address: ["", [Validators.required]] 
 		});
 	}
 
@@ -72,7 +74,8 @@ export class FormEditComponent implements OnInit {
 					username: user.username,
 					email: user.email,
 					phones: user.phones,
-					role: user.role,
+					role: user.role,  store: user.store?.name || "", // New field
+					address: user.store?.address || "" // New field
 				});
 			},
 		});

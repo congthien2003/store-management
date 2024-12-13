@@ -39,7 +39,7 @@ namespace StoreManagement.Infrastructure.Repositories
 
         public Task<List<Order>> GetAllByIdStoreAsync(int idStore, string sortCol = "", bool ascSort = true, bool incluDeleted = false)
         {
-            var order = _dataContext.Orders.Include("Table").Where(x => x.Table.IdStore == idStore && x.IsDeleted == incluDeleted).AsQueryable();
+            var order = _dataContext.Orders.Include("Table").Where(x => x.Table.IdStore == idStore && x.IsDeleted == incluDeleted).OrderByDescending(t => t.CreatedAt).AsQueryable();
             if (!incluDeleted)
             {
                 order = order.Where(t => t.IsDeleted == incluDeleted);
@@ -202,6 +202,22 @@ namespace StoreManagement.Infrastructure.Repositories
                 return AvgFoodPerMonth;
             }
 
+
+
+        }
+
+        public async Task<bool> UpdateHasInvoice(int idOrder, int idInvoice)
+        {
+            var result = await _dataContext.Orders.FirstOrDefaultAsync(x => x.Id == idOrder);
+            if (result == null)
+            {
+                throw new Exception("Không tìm thấy");
+            }
+            result.hasInvoice = true;
+            result.IdInvoice = idInvoice;
+
+            await _dataContext.SaveChangesAsync();
+            return true;
         }
     }
 }

@@ -7,4 +7,5 @@ export const FoodApi = {
 	getByIdStore: "Food/store",
 	getByIdCategory: "Food/Category",
 	getByListId: "Food/listId",
+	listCombo: "Client/GetPopularComboFoods",
 };

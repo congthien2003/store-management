@@ -1,18 +1,23 @@
 ﻿using AutoMapper;
 using StoreManagement.Application.DTOs.Auth;
 using StoreManagement.Application.DTOs.Request;
+using StoreManagement.Application.DTOs.Request.Combo;
+using StoreManagement.Application.DTOs.Request.ComboItem;
 using StoreManagement.Application.DTOs.Request.OrderDetail;
 using StoreManagement.Application.DTOs.Request.Store;
 using StoreManagement.Application.DTOs.Response;
 using StoreManagement.Application.DTOs.Response.BankInfo;
+using StoreManagement.Application.DTOs.Response.Combo;
 using StoreManagement.Application.DTOs.Response.KPI;
+using StoreManagement.Application.DTOs.Response.OrderDetail;
 using StoreManagement.Domain.Models;
 
 namespace StoreManagement.Application.Helper
 {
     public class ApplicationMapper : Profile
     {
-        public ApplicationMapper() {
+        public ApplicationMapper()
+        {
             CreateMap<User, UserDTO>().ReverseMap();
             CreateMap<User, RegisterDTO>().ReverseMap();
             CreateMap<Store, StoreDTO>().ReverseMap();
@@ -33,9 +38,12 @@ namespace StoreManagement.Application.Helper
             CreateMap<OrderAccessToken, OrderAccessTokenResponse>().ReverseMap();
             CreateMap<BankInfo, BankInfoDTO>().ReverseMap();
             CreateMap<BankInfo, BankInfoResponse>().ReverseMap();
-            CreateMap<Ticket, TicketDTO>().ReverseMap();
+			CreateMap<OrderDetail, DataByIdStoreRes>().ReverseMap();
+            CreateMap<Combo, ComboDTO>().ReverseMap();
+            CreateMap<ComboItem, ComboItemDTO>().ReverseMap();
+            CreateMap<Combo, ComboWithFood>().ReverseMap();
+			CreateMap<Ticket, TicketDTO>().ReverseMap();
             CreateMap<Ticket, TicketResponse>().ReverseMap();
-
         }
     }
 }

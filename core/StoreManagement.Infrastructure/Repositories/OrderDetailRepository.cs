@@ -120,7 +120,20 @@ namespace StoreManagement.Infrastructure.Repositories
                 .Include(od => od.Order)
                 .ThenInclude(o => o.Table)
                 .Include(od => od.Food)
-                .Where(od => od.Order.Table.IdStore == idStore && od.StatusProcess == 2 && od.Order.CreatedAt >= startDate && od.Order.CreatedAt < endDate)
+                ..Where(od => od.Order.Table.IdStore == idStore && od.StatusProcess == 1 && od.Order.CreatedAt >= startDate && od.Order.CreatedAt < endDate)
+                .Where(od => od.Order.Table.IdStore == idStore && od.Order.CreatedAt >= startDate && od.Order.CreatedAt < endDate)
+                .ToListAsync();
+
+            return listOrderDetail;
+        }
+
+        public async Task<List<OrderDetail>> GetAllOrderDetailsByIdStore(int idStore)
+        {
+            var listOrderDetail = await _dataContext.OrderDetails
+                .Include(od => od.Order)
+                .ThenInclude(o => o.Table)
+                .Include(od => od.Food)
+                .Where(od => od.Order.Table.IdStore == idStore)
                 .ToListAsync();
 
             return listOrderDetail;
@@ -143,6 +156,29 @@ namespace StoreManagement.Infrastructure.Repositories
         {
             return await _dataContext.OrderDetails
                 .AnyAsync(od => od.IdOrder == orderId && od.IdFood == foodId);
+        }
+
+        public async Task<bool> UpdateStatusDone(int idOrder)
+        {
+            // Lấy danh sách các OrderDetails thuộc idOrder
+            var orderDetails = _dataContext.OrderDetails.Where(od => od.IdOrder == idOrder);
+
+            if (!orderDetails.Any())
+            {
+                // Nếu không có item nào, trả về false
+                return false;
+            }
+
+            // Cập nhật statusProgress = 2 cho tất cả các mục
+            foreach (var item in orderDetails)
+            {
+                item.StatusProcess = 2;
+            }
+
+            // Lưu thay đổi vào database
+            await _dataContext.SaveChangesAsync();
+
+            return true;
         }
     }
 }

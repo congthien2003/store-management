@@ -1,12 +1,13 @@
 import {
-  Component,
-  ElementRef,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
-import { CommonModule } from '@angular/common';
-
+	Component,
+	effect,
+	ElementRef,
+	OnDestroy,
+	OnInit,
+	signal,
+	ViewChild,
+} from "@angular/core";
+import { CommonModule } from "@angular/common";
 import { MatButtonModule } from '@angular/material/button';
 import { MatCommonModule } from '@angular/material/core';
 import { MatMenuModule } from '@angular/material/menu';
@@ -26,6 +27,7 @@ import { FormsModule } from '@angular/forms';
 import { GeminiService } from '../core/services/third-party/gemini.service';
 import { FormatTextPipe } from '../core/utils/format-text.pipe';
 import { LoaderService } from '../core/services/loader.service';
+import { NotificationClientService } from "../core/services/store/notification-client.service";
 const MatModuleImport = [MatButtonModule, MatCommonModule, MatMenuModule];
 
 @Component({
@@ -48,50 +50,53 @@ export class OwnerComponent implements OnInit, OnDestroy {
   activeIndex: number = 0;
   idUser: number = 0;
 
-  haveStore: boolean = false;
-  store!: Store;
-  private subscription: Subscription | undefined;
-  showChatBox: boolean = false;
-  message: any[] = [
-    {
-      text: 'Hello Owner',
-      timeline: '11:00 AM',
-      role: 0, // Gemini
-    },
-    {
-      text: 'Hello Gemini',
-      timeline: '11:11 AM',
-      role: 1, // Owner
-    },
-  ];
-  messageText: string = '';
-  constructor(
-    private router: Router,
-    private authService: AuthenticationService,
-    private userService: UserService,
-    private storeService: StoreService,
-    private toastr: ToastrService,
-    private hub: HubService,
-    private geminiService: GeminiService,
-    private loader: LoaderService
-  ) {
-    const savedIndex = sessionStorage.getItem('selectedNavIndex');
-    if (savedIndex !== null) {
-      this.activeIndex = parseInt(savedIndex, 10);
-    }
-    setTimeout(() => {
-      this.hub.startConnectionStoreByTable(
-        '3d487deb-e1d1-489f-a266-c72fa02b1dc2'
-      );
-    }, 1000);
+	haveStore: boolean = false;
+	store!: Store;
+	private subscription: Subscription | undefined;
+	showChatBox: boolean = false;
+	message: any[] = [
+		{
+			text: "Hello Owner",
+			timeline: "11:00 AM",
+			role: 0, // Gemini
+		},
+		{
+			text: "Hello Gemini",
+			timeline: "11:11 AM",
+			role: 1, // Owner
+		},
+	];
+	messageText: string = "";
+	notifications: any[] = [];
+	notificationCount: number = 0;
+	showNotifi: boolean = false;
+	constructor(
+		private router: Router,
+		private authService: AuthenticationService,
+		private userService: UserService,
+		private storeService: StoreService,
+		private toastr: ToastrService,
+		private hub: HubService,
+		private geminiService: GeminiService,
+		private loader: LoaderService,
+		private notificationService: NotificationClientService
+	) {
+		const savedIndex = sessionStorage.getItem("selectedNavIndex");
+		if (savedIndex !== null) {
+			this.activeIndex = parseInt(savedIndex, 10);
+		}
+this.hub.onReloadData((message) => {
+			console.log(message);
+		});
 
-    this.message = this.geminiService.getChatHistory();
+		this.notifications = this.notificationService.loadList();
 
-    this.hub.onReloadData((message) => {
-      console.log(message);
-    });
-  }
-
+		effect(() => {
+			this.notificationCount =
+				this.notificationService.notificationCount();
+			this.notifications = this.notificationService.loadList();
+		});
+	}
   ngOnInit(): void {
     this.idUser = this.authService.getIdFromToken();
     this.loadStore();
@@ -127,58 +132,65 @@ export class OwnerComponent implements OnInit, OnDestroy {
     }
   }
 
-  swithRoute(index: number) {
-    this.activeIndex = index;
-    this.statusNavbar = false;
-    sessionStorage.setItem('selectedNavIndex', index.toString());
-    switch (index) {
-      case 0: {
-        this.router.navigate(['/owner/dashboard']);
-        break;
-      }
-      case 1: {
-        this.router.navigate(['/owner/my-store']);
-        break;
-      }
-      case 2: {
-        this.router.navigate(['/owner/table']);
-        break;
-      }
-      case 3: {
-        this.router.navigate(['/owner/category']);
-        break;
-      }
-      case 4: {
-        this.router.navigate(['/owner/food']);
-        break;
-      }
-      case 5: {
-        this.router.navigate(['/owner/order']);
-        break;
-      }
-      case 6: {
-        this.router.navigate(['/owner/invoice']);
-        break;
-      }
-      case 7: {
-        this.router.navigate(['/owner/staff']);
-        break;
-      }
-      case 8: {
-        this.router.navigate(['/owner/analytics']);
-        break;
-      }
-      case 9: {
-        this.router.navigate(['/owner/infor-user']);
-        break;
-      }
-      case 11: {
-        this.router.navigate(['/owner/my-ticket']);
-        break;
-      }
-    }
-  }
-
+	swithRoute(index: number) {
+		this.activeIndex = index;
+		this.statusNavbar = false;
+		sessionStorage.setItem("selectedNavIndex", index.toString());
+		switch (index) {
+			case 0: {
+				this.router.navigate(["/owner/dashboard"]);
+				break;
+			}
+			case 1: {
+				this.router.navigate(["/owner/my-store"]);
+				break;
+			}
+			case 2: {
+				this.router.navigate(["/owner/table"]);
+				break;
+			}
+			case 3: {
+				this.router.navigate(["/owner/category"]);
+				break;
+			}
+			case 4: {
+				this.router.navigate(["/owner/food"]);
+				break;
+			}
+			case 5: {
+				this.router.navigate(["/owner/order"]);
+				break;
+			}
+			case 6: {
+				this.router.navigate(["/owner/invoice"]);
+				break;
+			}
+			case 7: {
+				this.router.navigate(["/owner/staff"]);
+				break;
+			}
+			case 8: {
+				this.router.navigate(["/owner/analytics"]);
+				break;
+			}
+			case 9: {
+				this.router.navigate(["/owner/infor-user"]);
+				break;
+			}
+			case 11: {
+				this.router.navigate(["/owner/combos"]);
+				break;
+			}
+			case 12: {
+				this.router.navigate(["/owner/predict-revenue"]);
+				break;
+			}
+			case 13: {
+        		this.router.navigate(['/owner/my-ticket']);
+        	break;
+      		}
+		}
+	}
   statusNavbar: boolean = false;
   openNavbar(): void {
     this.statusNavbar = !this.statusNavbar;

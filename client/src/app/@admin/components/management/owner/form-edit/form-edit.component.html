@@ -41,6 +41,20 @@
 						</nz-form-control>
 					</nz-form-item>
 					<nz-form-item>
+						<nz-form-label [nzSm]="8" [nzXs]="24" nzRequired nzFor="store">
+							Tên quán
+						</nz-form-label>
+						<nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Vui lòng nhập tên quán!">
+							<input
+								aria-label="store"
+								nz-input
+								class="form-control"
+								formControlName="store"
+								id="store" />
+						</nz-form-control>
+					</nz-form-item>
+					
+					<nz-form-item>
 						<nz-form-label
 							[nzSm]="8"
 							[nzXs]="24"
@@ -58,6 +72,19 @@
 								class="form-control"
 								formControlName="email"
 								id="email" />
+						</nz-form-control>
+					</nz-form-item>
+					<nz-form-item>
+						<nz-form-label [nzSm]="8" [nzXs]="24" nzRequired nzFor="address">
+							Địa chỉ
+						</nz-form-label>
+						<nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Vui lòng nhập địa chỉ!">
+							<input
+								aria-label="address"
+								nz-input
+								class="form-control"
+								formControlName="address"
+								id="address" />
 						</nz-form-control>
 					</nz-form-item>
 

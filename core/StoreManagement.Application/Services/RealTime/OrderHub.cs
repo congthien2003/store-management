@@ -1,11 +1,18 @@
 ﻿
 using Microsoft.AspNetCore.SignalR;
-using StoreManagement.Domain.Models;
+using StoreManagement.Application.Interfaces.IServices;
 namespace StoreManagement.Application.RealTime
 {
     public class OrderHub : Hub
     {
         private static Dictionary<string, string> ActiveUsers = new Dictionary<string, string>();
+        private readonly ITableService _tableService;
+
+        public OrderHub(ITableService tableService)
+        {
+            _tableService = tableService;
+        }
+
         // Invoke từ Front end
         public async Task NotifyOwner(string orderId, string storeId)
         {
@@ -21,7 +28,7 @@ namespace StoreManagement.Application.RealTime
 
         public async Task JoinTableGroup(string tableID)
         {
-            Console.WriteLine("Có người truy cập vào bàn: "+ tableID);
+            Console.WriteLine("Có người truy cập vào bàn: " + tableID);
             await Groups.AddToGroupAsync(Context.ConnectionId, tableID);
         }
 
@@ -29,7 +36,7 @@ namespace StoreManagement.Application.RealTime
         {
             Console.WriteLine("Có thông báo từ bàn: " + tableID);
 
-            await Clients.Group(tableID).SendAsync("ReloadData","Có thay đổi");
+            await Clients.Group(tableID).SendAsync("ReloadData", "Có thay đổi");
         }
 
         // Create Connection
@@ -79,6 +86,12 @@ namespace StoreManagement.Application.RealTime
             }
             Console.WriteLine($"Client {Context.ConnectionId} đã ngắt kết nối.");
             await base.OnDisconnectedAsync(exception);
+        }
+
+        public async Task RequestCallStaff(string guidTable, string guidStore)
+        {
+            var table = await _tableService.GetByGuIdAsync(new Guid(guidTable));
+            await Clients.Group(table.IdStore.ToString()).SendAsync("RequestCallStaff", $"{table.Name} đang yêu cầu gọi nhân viên !");
         }
     }
 }

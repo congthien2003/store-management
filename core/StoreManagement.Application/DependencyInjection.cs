@@ -32,7 +32,9 @@ namespace StoreManagement.Application
             services.AddTransient<IAnalystReportService, AnalystReportService>();
             services.AddTransient<IKPIService, KPIService>();
             services.AddTransient<IBankInfoService, BankInfoService>();
-            services.AddTransient<IEmailService>(provider =>
+			services.AddTransient<IComboService, ComboService>();
+            services.AddTransient<IComboItemService, ComboItemService>();
+			services.AddTransient<IEmailService>(provider =>
             {
                 var awsSesConfig = provider.GetRequiredService<IOptions<AwsSesConfig>>().Value;
                 var exportExcellService = provider.GetRequiredService<IExportExcellService>();

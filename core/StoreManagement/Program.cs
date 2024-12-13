@@ -9,6 +9,7 @@ using StoreManagement.Domain.Enum;
 using StoreManagement.Infrastructure;
 using StoreManagement.Middleware;
 using StoreManagement.Worker.Worker;
+using Supabase;
 using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -97,6 +98,17 @@ builder.Services.AddDefaultAWSOptions(builder.Configuration.GetAWSOptions());
 
 // These AWS service clients will be singleton by default
 builder.Services.AddAWSService<IAmazonS3>();
+
+// Supabase
+builder.Services.AddScoped<Supabase.Client>(_ => new Supabase.Client(
+        builder.Configuration["Supabase:URL"],
+        builder.Configuration["Supabase:Key"],
+        new SupabaseOptions
+        {
+            AutoRefreshToken = true,
+            AutoConnectRealtime = true,
+        })
+);
 
 // Serilog
 builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));

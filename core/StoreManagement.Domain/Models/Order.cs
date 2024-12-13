@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations.Schema;
-using StoreManagement.Domain.Models;
 
 namespace StoreManagement.Domain.Models
 {
@@ -12,6 +11,11 @@ namespace StoreManagement.Domain.Models
         public int IdTable { get; set; }
         [ForeignKey("IdTable")]
         public Table Table { get; set; }
+
+        public int IdInvoice { get; set; }
+        [ForeignKey("IdInvoice")]
+
+        public bool hasInvoice { get; set; } = false;
         public virtual Collection<OrderDetail> OrderDetails { get; set; }
     }
 }
