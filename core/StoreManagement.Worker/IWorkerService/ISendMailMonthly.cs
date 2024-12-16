@@ -1,7 +1,7 @@
 ﻿namespace StoreManagement.Application.Interfaces.IWorkerService
 {
-    public interface IGetRevenue
+    public interface ISendMailMonthly
     {
-        Task<dynamic> DoWorkAsync();
+        Task DoWorkAsync();
     }
 }

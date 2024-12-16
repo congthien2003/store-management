@@ -1,5 +1,8 @@
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+WORKDIR /app
+EXPOSE 80
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-dev
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 
 COPY ["StoreManagement.Application/*.csproj", "./StoreManagement.Application/"]
@@ -17,11 +20,18 @@ RUN dotnet restore "./StoreManagement/StoreManagement.csproj"
 
 COPY . ./
 
-RUN dotnet publish -c release -o out
+# build dependencies
+RUN dotnet build "./StoreManagement.Application/StoreManagement.Application.csproj" -c release -o /app/build
+RUN dotnet build "./StoreManagement.Domain/StoreManagement.Domain.csproj" -c release -o /app/build
+RUN dotnet build "./StoreManagement.Infrastructure/StoreManagement.Infrastructure.csproj" -c release -o /app/build
+RUN dotnet build "./StoreManagement.Worker/StoreManagement.Worker.csproj"
+RUN dotnet build "./StoreManagement/StoreManagement.csproj" -c release -o /app/build
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0
+FROM build as publish
+RUN dotnet publish -c release -o /app/publish
+
+FROM base as final
 WORKDIR /app
-EXPOSE 80
-COPY --from=build-dev /app/out .
+COPY --from=publish /app/publish .
 ENTRYPOINT [ "dotnet", "StoreManagement.dll" ]
 
