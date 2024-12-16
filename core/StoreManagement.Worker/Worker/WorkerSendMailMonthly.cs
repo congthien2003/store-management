@@ -5,12 +5,12 @@ using StoreManagement.Application.Interfaces.IWorkerService;
 
 namespace StoreManagement.Worker.Worker
 {
-    public class WorkerGetDataRevenue : BackgroundService
+    public class WorkerSendMailMonthly : BackgroundService
     {
-        private readonly ILogger<WorkerGetDataRevenue> _logger;
-        private readonly IGetRevenue _workerService;
+        private readonly ILogger<WorkerSendMailMonthly> _logger;
+        private readonly ISendMailMonthly _workerService;
         private readonly IAmazonS3 _s3Client;
-        public WorkerGetDataRevenue(IGetRevenue workerService, ILogger<WorkerGetDataRevenue> logger, IAmazonS3 s3Client)
+        public WorkerSendMailMonthly(ISendMailMonthly workerService, ILogger<WorkerSendMailMonthly> logger, IAmazonS3 s3Client)
         {
             _workerService = workerService;
             _logger = logger;
@@ -40,12 +40,8 @@ namespace StoreManagement.Worker.Worker
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                var order = await _workerService.DoWorkAsync();
-                Console.WriteLine(order.ToString());
-                _logger.LogInformation("Get Order Success");
-
-                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 await _workerService.DoWorkAsync();
+                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 await Task.Delay(100000, stoppingToken);  // Delay tùy chỉnh giữa các lần thực thi
             }
         }

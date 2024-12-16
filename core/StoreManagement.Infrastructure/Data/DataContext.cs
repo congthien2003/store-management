@@ -23,6 +23,7 @@ namespace StoreManagement.Infrastructure.Data
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Combo> Combos { get; set; }
         public DbSet<ComboItem> ComboItems { get; set; }
+        public DbSet<Staff> Staffs { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -47,6 +48,9 @@ namespace StoreManagement.Infrastructure.Data
                 .WithMany(f => f.OrderDetails)
                 .HasForeignKey(od => od.IdFood)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Staff>()
+                .HasOne(s => s.Store);
 
 
             base.OnModelCreating(modelBuilder);
