@@ -1,37 +1,30 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
-EXPOSE 80
+EXPOSE 5263
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /app
-
-COPY ["StoreManagement.Application/*.csproj", "./StoreManagement.Application/"]
-COPY ["StoreManagement.Domain/*.csproj", "./StoreManagement.Domain/"]
-COPY ["StoreManagement.Infrastructure/*.csproj", "./StoreManagement.Infrastructure/"]
-COPY ["StoreManagement.Worker/*.csproj", "./StoreManagement.Worker/"]
-COPY ["StoreManagement/*.csproj", "./StoreManagement/"]
-
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+COPY ["StoreManagement.Application/StoreManagement.Application.csproj", "StoreManagement.Application/"]
+COPY ["StoreManagement.Domain/StoreManagement.Domain.csproj", "StoreManagement.Domain/"]
+COPY ["StoreManagement.Infrastructure/StoreManagement.Infrastructure.csproj", "StoreManagement.Infrastructure/"]
+COPY ["StoreManagement.Worker/StoreManagement.Worker.csproj", "StoreManagement.Worker/"]
+COPY ["StoreManagement/StoreManagement.csproj", "StoreManagement/"]
 # Restore dependencies
-RUN dotnet restore "./StoreManagement.Application/StoreManagement.Application.csproj"
-RUN dotnet restore "./StoreManagement.Domain/StoreManagement.Domain.csproj"
-RUN dotnet restore "./StoreManagement.Infrastructure/StoreManagement.Infrastructure.csproj"
-RUN dotnet restore "./StoreManagement.Worker/StoreManagement.Worker.csproj"
 RUN dotnet restore "./StoreManagement/StoreManagement.csproj"
-
-COPY . ./
+COPY . .
+WORKDIR "/src/StoreManagement"
 
 # build dependencies
-RUN dotnet build "./StoreManagement.Application/StoreManagement.Application.csproj" -c release -o /app/build
-RUN dotnet build "./StoreManagement.Domain/StoreManagement.Domain.csproj" -c release -o /app/build
-RUN dotnet build "./StoreManagement.Infrastructure/StoreManagement.Infrastructure.csproj" -c release -o /app/build
-RUN dotnet build "./StoreManagement.Worker/StoreManagement.Worker.csproj"
-RUN dotnet build "./StoreManagement/StoreManagement.csproj" -c release -o /app/build
+RUN dotnet build "StoreManagement.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build as publish
-RUN dotnet publish -c release -o /app/publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "StoreManagement.csproj" -c $BUILD_CONFIGURATION -o /app/publish
 
 FROM base as final
 WORKDIR /app
 COPY --from=publish /app/publish .
+ENV ASPNETCORE_URLS=http://+:5263
 ENTRYPOINT [ "dotnet", "StoreManagement.dll" ]
 
