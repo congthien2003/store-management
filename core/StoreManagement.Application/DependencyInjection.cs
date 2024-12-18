@@ -35,7 +35,7 @@ namespace StoreManagement.Application
             services.AddTransient<IComboService, ComboService>();
             services.AddTransient<IComboItemService, ComboItemService>();
             services.AddTransient<ITicketService, TicketSerivce>();
-
+            services.AddTransient<IStaffService, StaffService>();
             services.AddTransient<IEmailService>(provider =>
             {
                 var awsSesConfig = provider.GetRequiredService<IOptions<AwsSesConfig>>().Value;

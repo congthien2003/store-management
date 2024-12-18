@@ -49,10 +49,17 @@ namespace StoreManagement.Infrastructure.Data
                 .HasForeignKey(od => od.IdFood)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<Staff>()
-                .HasOne(s => s.Store);
-
-
+            modelBuilder.Entity<Staff>(entity =>
+            {
+                entity.HasOne(s => s.Store)
+                .WithMany(st => st.Staff) // Một Store có nhiều Staff
+                .HasForeignKey(s => s.IdStore) // Foreign Key
+                .OnDelete(DeleteBehavior.NoAction);
+                entity.HasOne(s => s.User)
+                      .WithOne(u => u.Staff)
+                      .HasForeignKey<Staff>(s => s.IdUser)
+                      .OnDelete(DeleteBehavior.NoAction); 
+            });
             base.OnModelCreating(modelBuilder);
         }
     }

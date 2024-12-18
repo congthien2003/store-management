@@ -37,12 +37,14 @@ namespace StoreManagement.Infrastructure
 			services.AddScoped<IComboRepository, ComboRepository>();
             services.AddScoped<IComboItemRepository, ComboItemRepository>();
 			services.AddScoped<ITicketRepository<Ticket>, TicketRepository>();
+            services.AddTransient<IStaffRepository<Staff>, StaffRepository>();
             // Register Client Service
             services.AddTransient<IQRServices, QRService>();
             services.AddTransient<IExportExcellService, ExportExcellService>();
             services.AddTransient<IGoogleAPI, GoogleAPI>();
             services.AddSingleton<ISupabaseService, SupabaseServices>();
             services.AddTransient<IFlaskAPI, FlaskAPI>();
+            
             services.AddTransient<ICachingServices, CachingServices>();
             return services;
 
