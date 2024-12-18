@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StoreManagement.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using StoreManagement.Infrastructure.Data;
 namespace StoreManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20241217090626_UpdateModelStaff")]
+    partial class UpdateModelStaff
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -464,7 +467,8 @@ namespace StoreManagement.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdStore");
+                    b.HasIndex("IdStore")
+                        .IsUnique();
 
                     b.HasIndex("IdUser")
                         .IsUnique();
@@ -752,9 +756,9 @@ namespace StoreManagement.Infrastructure.Migrations
             modelBuilder.Entity("StoreManagement.Domain.Models.Staff", b =>
                 {
                     b.HasOne("StoreManagement.Domain.Models.Store", "Store")
-                        .WithMany("Staff")
-                        .HasForeignKey("IdStore")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .WithOne("Staff")
+                        .HasForeignKey("StoreManagement.Domain.Models.Staff", "IdStore")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("StoreManagement.Domain.Models.User", "User")
@@ -834,7 +838,8 @@ namespace StoreManagement.Infrastructure.Migrations
 
                     b.Navigation("PaymentTypes");
 
-                    b.Navigation("Staff");
+                    b.Navigation("Staff")
+                        .IsRequired();
 
                     b.Navigation("Tables");
                 });

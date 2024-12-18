@@ -44,6 +44,8 @@ namespace StoreManagement.Application.Helper
             CreateMap<Combo, ComboWithFood>().ReverseMap();
 			CreateMap<Ticket, TicketDTO>().ReverseMap();
             CreateMap<Ticket, TicketResponse>().ReverseMap();
+            CreateMap<Staff, StaffDTO>().ReverseMap();
+            CreateMap<Staff,StaffResponse>().ReverseMap();
         }
     }
 }

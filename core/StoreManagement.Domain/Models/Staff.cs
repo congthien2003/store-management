@@ -12,6 +12,10 @@ namespace StoreManagement.Domain.Models
         [ForeignKey("IdStore")]
         public Store Store { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public int IdUser { get; set; }
+        [ForeignKey("IdUser")]
+        public User User { get; set; }
+
 
     }
 }
