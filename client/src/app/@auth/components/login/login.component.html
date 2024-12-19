@@ -1,53 +1,44 @@
 <div class="auth--wrapper">
-	<div class="login">
-		<h4 class="text-center fw-bold fs-3 text-black">Đăng nhập</h4>
-		<form #form="ngForm">
+	<div class="login-container">
+		<h4 class="login-title">Đăng nhập</h4>
+		<form #form="ngForm" class="login-form">
 			<div class="form-group">
 				<!-- Email input -->
-				<div class="form-outline mb-4">
-					<label class="form-label" for="email">Email</label>
+				<div class="form-field">
 					<input
 						[(ngModel)]="user.email"
 						name="email"
 						type="email"
 						id="email"
-						class="form-control" />
+						class="form-input"
+						required
+						placeholder=" " />
+					<label class="form-label" for="email">Email</label>
 				</div>
 
 				<!-- Password input -->
-				<div class="form-outline mb-4">
-					<label class="form-label" for="password">Mật khẩu</label>
+				<div class="form-field">
 					<input
 						[(ngModel)]="user.password"
 						name="password"
 						type="password"
 						id="password"
-						class="form-control" />
+						class="form-input"
+						required
+						placeholder=" " />
+					<label class="form-label" for="password">Mật khẩu</label>
 				</div>
 
-				<!-- 2 column grid layout for inline styling -->
-				<div class="row mb-4">
-					<div class="col d-flex justify-content-center">
-						<!-- Checkbox -->
-						<div class="form-check">
-							<input
-								class="form-check-input"
-								type="checkbox"
-								value=""
-								id="form2Example31"
-								checked />
-							<label
-								class="form-check-label"
-								for="form2Example31">
-								Ghi nhớ lần đăng nhập
-							</label>
-						</div>
-					</div>
-
-					<div class="col d-flex justify-content-center">
-						<!-- Simple link -->
-						<a href="/auth/restore-password">Quên mật khẩu?</a>
-					</div>
+				<!-- Remember me and Forgot password -->
+				<div class="form-options">
+					<label class="checkbox-container">
+						<input type="checkbox" checked />
+						<span class="checkmark"></span>
+						Ghi nhớ lần đăng nhập
+					</label>
+					<a href="/auth/restore-password" class="forgot-password"
+						>Quên mật khẩu?</a
+					>
 				</div>
 
 				<!-- Submit button -->
@@ -55,33 +46,17 @@
 					mat-raised-button
 					color="primary"
 					type="submit"
-					class="btn mb-4 w-100 btn-auth"
+					class="login-button"
 					(click)="login()">
 					Đăng nhập
 				</button>
-				<!-- Register buttons -->
-				<div class="text-center">
+
+				<!-- Register link -->
+				<div class="register-link">
 					<p>
 						Chưa có tài khoản ? <a href="/auth/register">Đăng ký</a>
 					</p>
 				</div>
-
-				<!-- <p>or sign up with:</p> -->
-				<!-- <button type="button" class="btn btn-link btn-floating mx-1">
-					<i class="fab fa-facebook-f"></i>
-				</button>
-
-				<button type="button" class="btn btn-link btn-floating mx-1">
-					<i class="fab fa-google"></i>
-				</button>
-
-				<button type="button" class="btn btn-link btn-floating mx-1">
-					<i class="fab fa-twitter"></i>
-				</button>
-
-				<button type="button" class="btn btn-link btn-floating mx-1">
-					<i class="fab fa-github"></i>
-				</button> -->
 			</div>
 		</form>
 	</div>

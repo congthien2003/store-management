@@ -112,6 +112,15 @@
 							<span>Thống kê</span>
 						</button>
 					</li>
+					<li
+						class="nav-item"
+						[class.active]="14 == activeIndex"
+						(click)="swithRoute(14)">
+						<button class="nav-link">
+							<i class="fa-solid fa-chart-line"></i>
+							<span>Nhân viên</span>
+						</button>
+					</li>
 				</ul>
 
 				<hr class="sidebar-divider" />
@@ -162,7 +171,10 @@
 							<span>Đổi mật khẩu</span>
 						</button>
 					</li>
-					<li class="nav-item" [class.active]="13 == activeIndex" (click)="swithRoute(13)">
+					<li
+						class="nav-item"
+						[class.active]="13 == activeIndex"
+						(click)="swithRoute(13)">
 						<button class="nav-link">
 							<i class="fa fa-user-circle" aria-hidden="true"></i>
 							<span>Ticket</span>

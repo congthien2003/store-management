@@ -1,95 +1,103 @@
 <div class="management--wrapper">
-    <div class="management--header">
-        <!-- <div class="management--search">
+	<div class="management--header">
+		<!-- <div class="management--search">
             <input aria-label="Search User" type="text" class="form-control" [(ngModel)]="searchTerm"
                 (ngModelChange)="onSearchTerm()" />
         </div> -->
-        <div class="management--action">
+		<div class="management--action"></div>
+		<div class="management--action">
+			<button
+				mat-stroked-button
+				class="btn btn-sm btn-action-add"
+				(click)="openAddDialog()">
+				Thêm mới Ticket
+			</button>
+			<button
+				matTooltip="Lọc"
+				aria-label="Filter"
+				class="btn btn-sm btn-action-filter"
+				[matMenuTriggerFor]="menu">
+				<i class="fa fa-filter" aria-hidden="true"></i>
+			</button>
+			<mat-menu #menu="matMenu">
+				<mat-menu #menu="matMenu"></mat-menu>
+				<button mat-menu-item (click)="loadListTicket(3)">
+					<span class="filter-label-radio">Rejected</span>
+				</button>
+				<button mat-menu-item (click)="loadListTicket(2)">
+					<span class="filter-label-radio">Done</span>
+				</button>
+				<button mat-menu-item (click)="loadListTicket(1)">
+					<span class="filter-label-radio">Doing</span>
+				</button>
+				<button mat-menu-item (click)="loadListTicket(0)">
+					<span class="filter-label-radio">Pending</span>
+				</button>
+			</mat-menu>
+		</div>
+	</div>
+	<div class="management--main">
+		<div class="management--table">
+			<table class="table">
+				<thead>
+					<tr>
+						<th
+							*ngFor="let columns of config.displayedColumns"
+							scope="col">
+							{{ columns.display }}
+						</th>
+						<th>-</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let item of listTicket">
+						<th scope="row">{{ item.id }}</th>
+						<td>
+							{{ getNameUser(item.requestBy) || "Unknown User" }}
+						</td>
+						<td>{{ item.title }}</td>
+						<td>{{ item.created }}</td>
+						<td>
+							<ng-container [ngSwitch]="item.status">
+								<span *ngSwitchCase="0"
+									>Chưa được chấp nhận</span
+								>
+								<span *ngSwitchCase="1">Đang thực hiện</span>
+								<span *ngSwitchCase="2">Hoàn thành</span>
+								<span *ngSwitchCase="3">Bị từ chối</span>
+								<span *ngSwitchDefault>Không rõ</span>
+							</ng-container>
+						</td>
 
-        </div>
-        <div class="management--action">
-            <button class="btn btn-sm btn-action-add" (click)="openAddDialog()">
-                Thêm mới Ticket
-            </button>
-            <button matTooltip="Lọc" aria-label="Filter" class="btn btn-sm btn-action-filter"
-                [matMenuTriggerFor]="menu">
-                <i class="fa fa-filter" aria-hidden="true"></i>
-            </button>
-            <mat-menu #menu="matMenu">
-                <mat-menu #menu="matMenu"></mat-menu>
-                <button mat-menu-item (click)="loadListTicket(3)">
-                    <span class="filter-label-radio">Rejected</span>
-                </button>
-                <button mat-menu-item (click)="loadListTicket(2)">
-                    <span class="filter-label-radio">Done</span>
-                </button>
-                <button mat-menu-item (click)="loadListTicket(1)">
-                    <span class="filter-label-radio">Doing</span>
-                </button>
-                <button mat-menu-item (click)="loadListTicket(0)">
-                    <span class="filter-label-radio">Pending</span>
-                </button>
-            </mat-menu>
-        </div>
-    </div>
-    <div class="management--main">
-        <div class="management--table">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th *ngFor="let columns of config.displayedColumns" scope="col">
-                            {{ columns.display }}
-                        </th>
-                        <th>-</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let item of listTicket">
-                        <th scope="row">{{ item.id }}</th>
-                        <td>{{ getNameUser(item.requestBy) || 'Unknown User' }}</td>
-                        <td>{{ item.title }}</td>
-                        <td>{{ item.created }}</td>
-                        <td>
-                            <ng-container [ngSwitch]="item.status">
-                                <span *ngSwitchCase="0">Chưa được chấp nhận</span>
-                                <span *ngSwitchCase="1">Đang thực hiện</span>
-                                <span *ngSwitchCase="2">Hoàn thành</span>
-                                <span *ngSwitchCase="3">Bị từ chối</span>
-                                <span *ngSwitchDefault>Không rõ</span>
-                            </ng-container>
-                        </td>
-
-
-                        <td class="table-actions">
-                            <div class="button-group">
-                                <!-- <button class="btn-management-edit btn btn-sm btn-info"
+						<td class="table-actions">
+							<div class="button-group">
+								<!-- <button class="btn-management-edit btn btn-sm btn-info"
                                     matTooltip="Chỉnh sửa trạng thái" (click)="openEditDialog(item.id)"
                                     aria-label="Edit">
                                     <i class="fa-solid fa-user-pen"></i>
                                 </button> -->
-                                <!-- <button *ngIf="item.status==0" class="btn-management-delete btn btn-sm btn-danger"
+								<!-- <button *ngIf="item.status==0" class="btn-management-delete btn btn-sm btn-danger"
                                     matTooltip="Xóa ticket" (click)="openDeleteDialog(item.id)" aria-label="Delete">
                                     <i class="fa-solid fa-trash"></i>
                                 </button> -->
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <h4 *ngIf="listTicket.length == 0" class="text-center fw-bold">
-                Không có ticket trong danh sách
-                <i class="fa fa-smile-o" aria-hidden="true"></i>
-            </h4>
-            <div class="table--pagination">
-                <table-pagination 
-                    [_hasNext]="pagi.hasNextPage" 
-                    [_hasPrev]="pagi.hasPrevPage"
-                    [_currentPage]="pagi.currentPage" 
-                    [_totalPage]="pagi.totalPage"
-                    (changePage)="onChangePage($event)">
-                </table-pagination>
-            </div>
-
-        </div>
-    </div>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<h4 *ngIf="listTicket.length == 0" class="text-center fw-bold">
+				Không có ticket trong danh sách
+				<i class="fa fa-smile-o" aria-hidden="true"></i>
+			</h4>
+			<div class="table--pagination">
+				<table-pagination
+					[_hasNext]="pagi.hasNextPage"
+					[_hasPrev]="pagi.hasPrevPage"
+					[_currentPage]="pagi.currentPage"
+					[_totalPage]="pagi.totalPage"
+					(changePage)="onChangePage($event)">
+				</table-pagination>
+			</div>
+		</div>
+	</div>
 </div>
