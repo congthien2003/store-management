@@ -21,6 +21,27 @@ namespace StoreManagement.Infrastructure.Repositories
                 .ToListAsync();
         }
 
+        public async Task<bool> AddComboItemByListId(List<int> foodId, int comboId)
+        {
+            try
+            {
+                var comboItems = foodId.Select(idFood => new ComboItem
+                {
+                    IdCombo = comboId,
+                    IdFood = idFood
+                }).ToList();
+
+                await _context.ComboItems.AddRangeAsync(comboItems);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                throw new Exception("Lỗi trong quá trình tạo combo item");
+            }
+
+        }
+
         public async Task<ComboItem> AddComboItemAsync(ComboItem comboItem)
         {
             await _context.ComboItems.AddAsync(comboItem);

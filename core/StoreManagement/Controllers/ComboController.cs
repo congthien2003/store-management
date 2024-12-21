@@ -18,7 +18,7 @@ namespace StoreManagement.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<ActionResult<Result>> CreateAsync(ComboDTO combo)
+        public async Task<ActionResult<Result>> CreateAsync(CreateComboReq combo)
         {
             var result = await _comboService.CreateAsync(combo);
             return Ok(Result<ComboDTO?>.Success(result, "Tạo mới thành công"));

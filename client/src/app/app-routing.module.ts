@@ -4,6 +4,7 @@ import { AccessDeninedComponent } from "./shared/components/access-denined/acces
 import { NotAuthorComponent } from "./shared/components/not-author/not-author.component";
 
 const routes: Routes = [
+	{ path: "", redirectTo: "pages", pathMatch: "full" },
 	{
 		path: "auth",
 		loadChildren: () =>
@@ -42,7 +43,6 @@ const routes: Routes = [
 		path: "denied",
 		component: AccessDeninedComponent,
 	},
-	{ path: "", redirectTo: "pages", pathMatch: "full" },
 	{ path: "**", redirectTo: "pages" },
 ];
 

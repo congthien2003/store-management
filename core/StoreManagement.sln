@@ -14,7 +14,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoreManagement.Application
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoreManagement.Infrastructure", "StoreManagement.Infrastructure\StoreManagement.Infrastructure.csproj", "{8BAFCF77-4501-4E51-9842-6B28B902F3B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreManagement.Worker", "StoreManagement.Worker\StoreManagement.Worker.csproj", "{E70A7976-2F13-4D18-AF44-53170A590BBA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoreManagement.Worker", "StoreManagement.Worker\StoreManagement.Worker.csproj", "{E70A7976-2F13-4D18-AF44-53170A590BBA}"
 	ProjectSection(ProjectDependencies) = postProject
 		{8BAFCF77-4501-4E51-9842-6B28B902F3B0} = {8BAFCF77-4501-4E51-9842-6B28B902F3B0}
 	EndProjectSection

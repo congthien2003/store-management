@@ -6,7 +6,7 @@ namespace StoreManagement.Application.Interfaces.IServices
 {
     public interface IComboService
     {
-        Task<ComboDTO> CreateAsync(ComboDTO comboDTO);
+        Task<ComboDTO> CreateAsync(CreateComboReq combo);
         Task<ComboDTO> UpdateAsync(int id, ComboDTO comboDTO);
         Task<bool> DeleteAsync(int id);
         Task<ComboDTO> GetByIdAsync(int id);

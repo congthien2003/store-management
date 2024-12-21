@@ -13,17 +13,24 @@ namespace StoreManagement.Application.Services
     {
         private readonly IMapper _mapper;
         private readonly IComboRepository _comboRepository;
-
-        public ComboService(IMapper mapper, IComboRepository comboRepository)
+        private readonly IComboItemRepository _comboItemRepository;
+        public ComboService(IMapper mapper, IComboRepository comboRepository, IComboItemRepository comboItemRepository)
         {
             _mapper = mapper;
             _comboRepository = comboRepository;
+            _comboItemRepository = comboItemRepository;
         }
 
-        public async Task<ComboDTO> CreateAsync(ComboDTO comboDTO)
+        public async Task<ComboDTO> CreateAsync(CreateComboReq comboDTO)
         {
             var combo = _mapper.Map<Combo>(comboDTO);
             var createdCombo = await _comboRepository.AddComboAsync(combo);
+            var createComboItem = await _comboItemRepository.AddComboItemByListId(comboDTO.IdFoods, createdCombo.Id);
+            if (!createComboItem)
+            {
+                await _comboRepository.DeleteComboAsync(createdCombo.Id);
+                return null;
+            }
             return _mapper.Map<ComboDTO>(createdCombo);
         }
 
