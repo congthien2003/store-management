@@ -93,6 +93,72 @@ namespace StoreManagement.Infrastructure.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("StoreManagement.Domain.Models.Combo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("Guid")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("IdStore")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdStore");
+
+                    b.ToTable("Combos");
+                });
+
+            modelBuilder.Entity("StoreManagement.Domain.Models.ComboItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("IdCombo")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdFood")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdCombo");
+
+                    b.ToTable("ComboItems");
+                });
+
             modelBuilder.Entity("StoreManagement.Domain.Models.Food", b =>
                 {
                     b.Property<int>("Id")
@@ -222,6 +288,9 @@ namespace StoreManagement.Infrastructure.Migrations
                     b.Property<Guid>("Guid")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("IdInvoice")
+                        .HasColumnType("int");
+
                     b.Property<int>("IdTable")
                         .HasColumnType("int");
 
@@ -233,6 +302,9 @@ namespace StoreManagement.Infrastructure.Migrations
 
                     b.Property<decimal>("Total")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<bool>("hasInvoice")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -287,9 +359,6 @@ namespace StoreManagement.Infrastructure.Migrations
 
                     b.Property<int>("StatusProcess")
                         .HasColumnType("int");
-
-                    b.Property<bool>("isHoliday")
-                        .HasColumnType("bit");
 
                     b.HasKey("IdOrder", "IdFood");
 
@@ -354,6 +423,53 @@ namespace StoreManagement.Infrastructure.Migrations
                     b.HasIndex("FoodId");
 
                     b.ToTable("ProductSells");
+                });
+
+            modelBuilder.Entity("StoreManagement.Domain.Models.Staff", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("Guid")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("IdStore")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdUser")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdStore");
+
+                    b.HasIndex("IdUser")
+                        .IsUnique();
+
+                    b.ToTable("Staffs");
                 });
 
             modelBuilder.Entity("StoreManagement.Domain.Models.Store", b =>
@@ -424,6 +540,44 @@ namespace StoreManagement.Infrastructure.Migrations
                     b.ToTable("Tables");
                 });
 
+            modelBuilder.Entity("StoreManagement.Domain.Models.Ticket", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("Guid")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("RequestBy")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RequestBy");
+
+                    b.ToTable("Tickets");
+                });
+
             modelBuilder.Entity("StoreManagement.Domain.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -481,6 +635,36 @@ namespace StoreManagement.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Store");
+                });
+
+            modelBuilder.Entity("StoreManagement.Domain.Models.Combo", b =>
+                {
+                    b.HasOne("StoreManagement.Domain.Models.Store", "Store")
+                        .WithMany()
+                        .HasForeignKey("IdStore")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Store");
+                });
+
+            modelBuilder.Entity("StoreManagement.Domain.Models.ComboItem", b =>
+                {
+                    b.HasOne("StoreManagement.Domain.Models.Combo", "Combo")
+                        .WithMany("ComboItems")
+                        .HasForeignKey("IdCombo")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StoreManagement.Domain.Models.Food", "Food")
+                        .WithMany()
+                        .HasForeignKey("IdCombo")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Combo");
+
+                    b.Navigation("Food");
                 });
 
             modelBuilder.Entity("StoreManagement.Domain.Models.Food", b =>
@@ -565,6 +749,25 @@ namespace StoreManagement.Infrastructure.Migrations
                     b.Navigation("Food");
                 });
 
+            modelBuilder.Entity("StoreManagement.Domain.Models.Staff", b =>
+                {
+                    b.HasOne("StoreManagement.Domain.Models.Store", "Store")
+                        .WithMany("Staff")
+                        .HasForeignKey("IdStore")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("StoreManagement.Domain.Models.User", "User")
+                        .WithOne("Staff")
+                        .HasForeignKey("StoreManagement.Domain.Models.Staff", "IdUser")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Store");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("StoreManagement.Domain.Models.Store", b =>
                 {
                     b.HasOne("StoreManagement.Domain.Models.User", "User")
@@ -587,9 +790,25 @@ namespace StoreManagement.Infrastructure.Migrations
                     b.Navigation("Store");
                 });
 
+            modelBuilder.Entity("StoreManagement.Domain.Models.Ticket", b =>
+                {
+                    b.HasOne("StoreManagement.Domain.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("RequestBy")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("StoreManagement.Domain.Models.Category", b =>
                 {
                     b.Navigation("Foods");
+                });
+
+            modelBuilder.Entity("StoreManagement.Domain.Models.Combo", b =>
+                {
+                    b.Navigation("ComboItems");
                 });
 
             modelBuilder.Entity("StoreManagement.Domain.Models.Food", b =>
@@ -615,6 +834,8 @@ namespace StoreManagement.Infrastructure.Migrations
 
                     b.Navigation("PaymentTypes");
 
+                    b.Navigation("Staff");
+
                     b.Navigation("Tables");
                 });
 
@@ -625,6 +846,9 @@ namespace StoreManagement.Infrastructure.Migrations
 
             modelBuilder.Entity("StoreManagement.Domain.Models.User", b =>
                 {
+                    b.Navigation("Staff")
+                        .IsRequired();
+
                     b.Navigation("Store")
                         .IsRequired();
                 });

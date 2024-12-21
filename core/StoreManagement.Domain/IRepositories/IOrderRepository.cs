@@ -11,11 +11,13 @@ namespace StoreManagement.Domain.IRepositories
         Task<int> GetCountAsync(int idStore, string searchTerm = "", bool incluDeleted = false);
         Task<List<TOrder>> GetAllByIdStoreAsync(int idStore, string sortCol = "", bool ascSort = true, bool incluDeleted = false);
         Task<int> GetCountOrderInDay(int idStore, DateTime date, bool incluDeleted = false);
-        Task<List<int>> GetMonthOrder(int idStore, int year, bool incluDeleted = false);
+        Task<int> GetMonthOrderAsync(int idStore, int month, int year, bool incluDeleted = false);
         Task<int> GetDailyFoodSaleAsync(int idStore, DateTime dateTime, bool incluDeleted = false);
         Task<List<OrderDetail>> GetOrderDetailsByOrderIdAsync(int orderId);
         Task<bool> CheckOrderDetailExists(int orderId, int foodId);
-
+        Task<int> GetMonthFoodAsync(int idStore, int month, int year, bool incluDeleted = false);
+        Task<double> GetAVGFoodPerOrderOneMonthAsync(int idStore, int month, int year, bool incluDeleted = false);
+        Task<bool> UpdateHasInvoice(int idOrder, int idInvoice);
 
     }
 }

@@ -1,13 +1,11 @@
-﻿using StoreManagement.Application.Interfaces.IServices;
-using StoreManagement.Services;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using StoreManagement.Application.Common;
-using StoreManagement.Domain.Models;
-using StoreManagement.Application.DTOs.Response;
-using StoreManagement.Application.DTOs.Request;
-using StoreManagement.Application.RealTime;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using StoreManagement.Application.Common;
+using StoreManagement.Application.DTOs.Request;
+using StoreManagement.Application.DTOs.Request.OrderDetail;
+using StoreManagement.Application.DTOs.Response;
+using StoreManagement.Application.Interfaces.IServices;
+using StoreManagement.Application.RealTime;
 
 namespace StoreManagement.Controllers
 {
@@ -37,18 +35,18 @@ namespace StoreManagement.Controllers
         public async Task<ActionResult<Result>> CreateAsync(List<OrderDetailDTO> orderDetailDTO)
         {
             var result = await _orderDetailService.CreateByListAsync(orderDetailDTO);
-            
-            //foreach (OrderDetailDTO orderDetail in result)
-            //{
-            //    ProductSellDTO productSellDTO = new ProductSellDTO();
-            //    productSellDTO.FoodId = orderDetail.IdFood;
-            //    productSellDTO.Quantity = orderDetail.Quantity;
-            //    productSellDTO.UpdatedAt = DateTime.Now;
-            //    await _productSellService.CreateAsync(productSellDTO);
-            //}
-            
-            
-            return Ok(Result<List<OrderDetailDTO>>.Success(result,"Tạo mới thành công"));
+
+            foreach (OrderDetailDTO orderDetail in result)
+            {
+                ProductSellDTO productSellDTO = new ProductSellDTO();
+                productSellDTO.FoodId = orderDetail.IdFood;
+                productSellDTO.Quantity = orderDetail.Quantity;
+                productSellDTO.UpdatedAt = DateTime.Now;
+                await _productSellService.CreateAsync(productSellDTO);
+            }
+
+
+            return Ok(Result<List<OrderDetailDTO>>.Success(result, "Tạo mới thành công"));
         }
 
         [HttpPut("update/{id:int}")]
@@ -59,9 +57,9 @@ namespace StoreManagement.Controllers
         }
 
         [HttpPut("updateStatus/{idFood:int}")]
-        public async Task<ActionResult<Result>> UpdateStatusAsync(int idFood, [FromBody] int statusProcess)
+        public async Task<ActionResult<Result>> UpdateStatusAsync(UpdateStatusReq req)
         {
-            var result = await _orderDetailService.UpdateStatusAsync(idFood, statusProcess);
+            var result = await _orderDetailService.UpdateStatusAsync(req);
             var order = await _orderService.GetByIdAsync(result.IdOrder);
             var table = await _tableService.GetByIdAsync(order.IdTable);
             Console.WriteLine(table.Guid);

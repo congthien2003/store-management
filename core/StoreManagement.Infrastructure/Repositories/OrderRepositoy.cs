@@ -1,8 +1,8 @@
-﻿using StoreManagement.Infrastructure.Data;
-using StoreManagement.Domain.Models;
-using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
+﻿using Microsoft.EntityFrameworkCore;
 using StoreManagement.Domain.IRepositories;
+using StoreManagement.Domain.Models;
+using StoreManagement.Infrastructure.Data;
+using System.Linq.Expressions;
 
 namespace StoreManagement.Infrastructure.Repositories
 {
@@ -10,7 +10,7 @@ namespace StoreManagement.Infrastructure.Repositories
     {
         private readonly DataContext _dataContext;
 
-        public OrderRepositoy(DataContext dataContext) 
+        public OrderRepositoy(DataContext dataContext)
         {
             _dataContext = dataContext;
         }
@@ -39,7 +39,7 @@ namespace StoreManagement.Infrastructure.Repositories
 
         public Task<List<Order>> GetAllByIdStoreAsync(int idStore, string sortCol = "", bool ascSort = true, bool incluDeleted = false)
         {
-            var order = _dataContext.Orders.Include("Table").Where(x => x.Table.IdStore == idStore && x.IsDeleted == incluDeleted).AsQueryable();
+            var order = _dataContext.Orders.Include("Table").Where(x => x.Table.IdStore == idStore && x.IsDeleted == incluDeleted).OrderByDescending(t => t.CreatedAt).AsQueryable();
             if (!incluDeleted)
             {
                 order = order.Where(t => t.IsDeleted == incluDeleted);
@@ -62,7 +62,7 @@ namespace StoreManagement.Infrastructure.Repositories
 
         public Task<int> GetCountOrderInDay(int idStore, DateTime date, bool incluDeleted = false)
         {
-            var order = _dataContext.Orders.Include("Table").Where(x => x.Table.IdStore == idStore && x.IsDeleted == incluDeleted && x.CreatedAt.Date == date.Date).AsQueryable();
+            var order = _dataContext.Orders.Include("Table").Where(x => x.Table.IdStore == idStore && x.IsDeleted == incluDeleted && x.CreatedAt.Date >= date.Date && x.CreatedAt.Date <= DateTime.Now.Date).AsQueryable();
             if (!incluDeleted)
             {
                 order = order.Where(t => t.IsDeleted == incluDeleted);
@@ -83,7 +83,7 @@ namespace StoreManagement.Infrastructure.Repositories
 
         public async Task<int> GetCountAsync(int idStore, string searchTerm = "", bool incluDeleted = false)
         {
-            var order = _dataContext.Orders.Where(x => x.Table.IdStore ==  idStore && x.IsDeleted == incluDeleted).AsQueryable();
+            var order = _dataContext.Orders.Where(x => x.Table.IdStore == idStore && x.IsDeleted == incluDeleted).AsQueryable();
             if (!incluDeleted)
             {
                 order = order.Where(t => t.IsDeleted == incluDeleted);
@@ -92,10 +92,10 @@ namespace StoreManagement.Infrastructure.Repositories
             return searchFood.Count();
         }
 
-        public async Task<int> GetDailyFoodSaleAsync(int idStore, DateTime dateTime, bool incluDeleted = false)
+        public async Task<int> GetDailyFoodSaleAsync(int idStore, DateTime dateTime, bool includeDeleted = false)
         {
             var orders = await _dataContext.Orders
-                                .Where(x => x.Table.IdStore == idStore && x.CreatedAt.Date == dateTime.Date && x.IsDeleted == incluDeleted)
+                                .Where(x => x.Table.IdStore == idStore && x.CreatedAt.Date == dateTime.Date && x.IsDeleted == includeDeleted)
                                 .Include(x => x.OrderDetails)
                                 .ToListAsync();
             int totalQuantity = orders.SelectMany(x => x.OrderDetails).Sum(x => x.Quantity);
@@ -106,7 +106,7 @@ namespace StoreManagement.Infrastructure.Repositories
         {
             switch (sortColumn)
             {
-                
+
                 default:
                     return x => x.Id;
             }
@@ -114,7 +114,7 @@ namespace StoreManagement.Infrastructure.Repositories
         public async Task<Order> UpdateAsync(int id, Order order, bool incluDeleted = false)
         {
             var orderUpdate = await _dataContext.Orders.FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == incluDeleted);
-            if(orderUpdate == null)
+            if (orderUpdate == null)
             {
                 throw new KeyNotFoundException("Order không tồn tại");
             }
@@ -138,29 +138,86 @@ namespace StoreManagement.Infrastructure.Repositories
             return await _dataContext.OrderDetails
            .AnyAsync(od => od.IdOrder == orderId && od.IdFood == foodId);
         }
-		public async Task<List<int>> GetMonthOrder(int idStore, int year, bool incluDeleted = false)
+        public async Task<int> GetMonthOrderAsync(int idStore, int month, int year, bool incluDeleted = false)
         {
-           List<int> OrderAllMonth = new List<int>();
-            for (int month = 1; month <= 12; month++)
-            {
-                DateTime startDate = new DateTime(year, month, 1);
-                DateTime endDate = startDate.AddMonths(1).AddDays(-1);
-                var monthlyOrders = await _dataContext.Orders.Where(x => x.Table.IdStore == idStore &&
-                                                                    x.CreatedAt >= startDate &&
-                                                                    x.CreatedAt<= endDate && 
-                                                                    x.IsDeleted == incluDeleted).ToListAsync();
-                int totalOrder = monthlyOrders.Count;
-                OrderAllMonth.Add(totalOrder);
-            }
-            return OrderAllMonth; 
-        }<<<<<<< .mine
-            }
-            return OrderAllMonth; 
+            DateTime startDate = new DateTime(year, month, 1);
+            DateTime endDate = startDate.AddMonths(1).AddDays(-1);
+
+            // Truy vấn tổng số đơn hàng trong tháng
+            int totalOrder = await _dataContext.Orders
+                .Where(x => x.Table.IdStore == idStore &&
+                            x.CreatedAt >= startDate &&
+                            x.CreatedAt <= endDate &&
+                            x.IsDeleted == incluDeleted)
+                .CountAsync();
+
+            return totalOrder;
         }
-=======
+
+        public async Task<int> GetMonthFoodAsync(int idStore, int month, int year, bool incluDeleted = false)
+        {
+            DateTime startDate = new DateTime(year, month, 1);
+            DateTime endDate = startDate.AddMonths(1).AddDays(-1);
+
+            // Lấy tất cả các đơn hàng trong tháng
+            var monthlyFoods = await _dataContext.Orders
+                .Where(x => x.Table.IdStore == idStore &&
+                            x.CreatedAt >= startDate &&
+                            x.CreatedAt <= endDate &&
+                            x.IsDeleted == incluDeleted)
+                .Include(x => x.OrderDetails)
+                .ToListAsync();
+
+            // Tính tổng số món ăn đã bán trong tháng
+            int totalQuantity = monthlyFoods.SelectMany(x => x.OrderDetails).Sum(x => x.Quantity);
+
+            return totalQuantity;
+        }
+
+        public async Task<double> GetAVGFoodPerOrderOneMonthAsync(int idStore, int month, int year, bool incluDeleted = false)
+        {
+            DateTime startDate = new DateTime(year, month, 1);
+            DateTime endDate = startDate.AddMonths(1).AddDays(-1);
+            var monthlyFood = await _dataContext.Orders.Where(x => x.Table.IdStore == idStore &&
+                                                                    x.CreatedAt >= startDate &&
+                                                                    x.CreatedAt <= endDate &&
+                                                                    x.IsDeleted == incluDeleted)
+                                                            .Include(x => x.OrderDetails)
+                                                            .ToListAsync();
+            int totalFood = monthlyFood.SelectMany(x => x.OrderDetails).Sum(x => x.Quantity);
+            var monthlyOrders = await _dataContext.Orders.Where(x => x.Table.IdStore == idStore &&
+                                                                    x.CreatedAt >= startDate &&
+                                                                    x.CreatedAt <= endDate &&
+                                                                    x.IsDeleted == incluDeleted).ToListAsync();
+            int totalOrder = monthlyOrders.Count;
+            if (totalOrder == 0)
+            {
+
+                return 0;
+            }
+            else
+            {
+                double AvgFoodPerMonth = totalFood / totalOrder;
+                AvgFoodPerMonth = Math.Round(AvgFoodPerMonth, 2);
+                return AvgFoodPerMonth;
+            }
 
 
 
->>>>>>> .theirs
+        }
+
+        public async Task<bool> UpdateHasInvoice(int idOrder, int idInvoice)
+        {
+            var result = await _dataContext.Orders.FirstOrDefaultAsync(x => x.Id == idOrder);
+            if (result == null)
+            {
+                throw new Exception("Không tìm thấy");
+            }
+            result.hasInvoice = true;
+            result.IdInvoice = idInvoice;
+
+            await _dataContext.SaveChangesAsync();
+            return true;
+        }
     }
 }

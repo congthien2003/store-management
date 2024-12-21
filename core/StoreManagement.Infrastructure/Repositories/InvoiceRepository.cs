@@ -1,8 +1,8 @@
-﻿using StoreManagement.Infrastructure.Data;
-using StoreManagement.Domain.Models;
-using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
+﻿using Microsoft.EntityFrameworkCore;
 using StoreManagement.Domain.IRepositories;
+using StoreManagement.Domain.Models;
+using StoreManagement.Infrastructure.Data;
+using System.Linq.Expressions;
 
 namespace StoreManagement.Infrastructure.Repositories
 {
@@ -10,19 +10,19 @@ namespace StoreManagement.Infrastructure.Repositories
     {
         private readonly DataContext _dataContext;
 
-        public InvoiceRepository(DataContext dataContext) 
+        public InvoiceRepository(DataContext dataContext)
         {
             _dataContext = dataContext;
         }
         public async Task<Invoice> CreateAsync(Invoice invoice)
         {
             var order = await _dataContext.Orders.FirstOrDefaultAsync(x => x.Id == invoice.IdOrder);
-            if(order == null)
+            if (order == null)
             {
                 throw new InvalidOperationException("Order không tồn tại");
             }
             var paymentType = await _dataContext.PaymentTypes.FirstOrDefaultAsync(x => x.Id == invoice.IdPaymentType);
-            if(paymentType == null)
+            if (paymentType == null)
             {
                 throw new InvalidOperationException("Thể loại thanh toán không tồn tại");
             }
@@ -39,7 +39,7 @@ namespace StoreManagement.Infrastructure.Repositories
         public async Task<Invoice> DeleteAsync(int id, bool incluDeleted = false)
         {
             var invoice = await _dataContext.Invoices.FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false);
-            if(invoice == null)
+            if (invoice == null)
             {
                 throw new InvalidOperationException("Hóa đơn này không tồn tại");
             }
@@ -57,7 +57,7 @@ namespace StoreManagement.Infrastructure.Repositories
         }
         public Task<List<Invoice>> GetAllByIdStoreAsync(int idStore, string sortCol = "", bool ascSort = true, bool incluDeleted = false)
         {
-            var invoice = _dataContext.Invoices.Include("Order").Include("PaymentType").Where(x => x.Order.Table.IdStore == idStore && x.IsDeleted == incluDeleted).AsQueryable();
+            var invoice = _dataContext.Invoices.Include("Order").Include("PaymentType").Where(x => x.Order.Table.IdStore == idStore && x.IsDeleted == incluDeleted).OrderByDescending(t => t.CreatedAt).AsQueryable();
             if (!incluDeleted)
             {
                 invoice = invoice.Where(t => t.IsDeleted == incluDeleted);
@@ -80,6 +80,15 @@ namespace StoreManagement.Infrastructure.Repositories
         public async Task<Invoice> GetByIdAsync(int id, bool incluDeleted = false)
         {
             var invoice = await _dataContext.Invoices.Include("Order").Include("PaymentType").FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == incluDeleted);
+            if (invoice == null)
+            {
+                throw new KeyNotFoundException("Không tìm thấy hóa đơn");
+            }
+            return invoice;
+        }
+        public async Task<Invoice> GetByIdOrderAsync(int id, bool incluDeleted = false)
+        {
+            var invoice = await _dataContext.Invoices.Include("Order").Include("PaymentType").FirstOrDefaultAsync(x => x.IdOrder == id && x.IsDeleted == incluDeleted);
             if (invoice == null)
             {
                 throw new KeyNotFoundException("Không tìm thấy hóa đơn");
@@ -113,33 +122,34 @@ namespace StoreManagement.Infrastructure.Repositories
 
         public async Task<double> GetDailyRevenueService(int idStore, DateTime dateTime, bool incluDeleted = false)
         {
-            var invoice = _dataContext.Invoices.Where(x => x.Order.Table.IdStore == idStore && x.CreatedAt.Date == dateTime.Date && x.IsDeleted == incluDeleted)
+            // dateTime : 06/12/2024
+            // dateTimeNow: 06/12/2024
+            // Target: x -> dateTime
+            // if dateTime == dateTimeNow -> Get by DateTimeNow
+            // if dateTime < dateTimeNow -> Get from dateTime to dateTimeNow (use >=)
+
+            var invoice = _dataContext.Invoices.Where(x => x.Order.Table.IdStore == idStore && x.CreatedAt.Date >= dateTime.Date && x.CreatedAt.Date <= DateTime.Now.Date && x.IsDeleted == incluDeleted)
                                                 .Include(x => x.Order)
                                                 .ThenInclude(x => x.Table);
             double totalRevenue = await invoice.SumAsync(i => (double)i.Total);
             return totalRevenue;
         }
 
-        public async Task<List<double>> GetMonthRevenue(int idStore, int year, bool incluDeleted = false)
+        public async Task<double> GetMonthRevenueAsync(int idStore, int month, int year, bool incluDeleted = false)
         {
-            List<double> RevenueAllMonth = new List<double>();
+            DateTime startDate = new DateTime(year, month, 1);
+            DateTime endDate = startDate.AddMonths(1).AddDays(-1);
 
-            for (int month = 1; month <= 12; month++)
-            {
-                DateTime startDate = new DateTime(year, month, 1);
-                DateTime endDate = startDate.AddMonths(1).AddDays(-1);
+            var monthlyInvoices = await _dataContext.Invoices
+                .Where(x => x.Order.Table.IdStore == idStore &&
+                            x.CreatedAt >= startDate &&
+                            x.CreatedAt <= endDate &&
+                            x.IsDeleted == incluDeleted)
+                .ToListAsync();
 
-                var monthlyInvoices = await _dataContext.Invoices
-                    .Where(x => x.Order.Table.IdStore == idStore &&
-                    x.CreatedAt >= startDate && x.CreatedAt <= endDate && x.IsDeleted == incluDeleted)
-                    .ToListAsync();
+            double totalRevenue = monthlyInvoices.Sum(invoice => (double)invoice.Total);
 
-                double totalRevenue = monthlyInvoices.Sum(invoice => (double)invoice.Total);
-
-                RevenueAllMonth.Add(totalRevenue);
-            }
-            return RevenueAllMonth;
-
+            return totalRevenue;
         }
     }
 }

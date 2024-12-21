@@ -16,8 +16,8 @@ namespace StoreManagement.Services
         private readonly IProductSellRepository<ProductSell> _productSellRepository;
         private readonly IOrderAccessTokenRepository<OrderAccessToken> _orderAccessTokenRepository;
 
-        public OrderService(IMapper mapper, 
-            IOrderRepository<Order> orderRepository, 
+        public OrderService(IMapper mapper,
+            IOrderRepository<Order> orderRepository,
             ITableRepository<Table> tableRepository,
             IProductSellRepository<ProductSell> productSellRepository,
             IOrderAccessTokenRepository<OrderAccessToken> orderAccessTokenRepository)

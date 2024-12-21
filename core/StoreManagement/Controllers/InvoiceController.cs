@@ -1,10 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using StoreManagement.Application.Common;
 using StoreManagement.Application.DTOs.Request;
 using StoreManagement.Application.DTOs.Response;
 using StoreManagement.Application.Interfaces.IServices;
-using StoreManagement.Services;
 
 namespace StoreManagement.Controllers
 {
@@ -13,6 +11,7 @@ namespace StoreManagement.Controllers
     public class InvoiceController : ControllerBase
     {
         private readonly IInvoiceService _invoiceService;
+
         public InvoiceController(IInvoiceService invoiceService)
         {
             _invoiceService = invoiceService;
@@ -22,28 +21,34 @@ namespace StoreManagement.Controllers
         public async Task<ActionResult<Result>> CreateAsync(InvoiceDTO invoiceDTO)
         {
             var result = await _invoiceService.CreateAsync(invoiceDTO);
-            return Ok(Result<InvoiceDTO?>.Success(result,"Tạo thành công"));
+            return Ok(Result<InvoiceDTO?>.Success(result, "Tạo thành công"));
         }
 
         [HttpDelete("delete/{id:int}")]
         public async Task<ActionResult<Result>> DeleteAsync(int id)
         {
             var result = await _invoiceService.DeleteAsync(id);
-            return Ok(Result<bool>.Success(result,"Xóa thành công"));
+            return Ok(Result<bool>.Success(result, "Xóa thành công"));
         }
 
         [HttpPut("update/{id:int}")]
         public async Task<ActionResult<Result>> UpdateAsync(int id, InvoiceDTO invoiceDTO)
         {
             var result = await _invoiceService.UpdateAsync(id, invoiceDTO);
-            return Ok(Result<InvoiceDTO?>.Success(result,"Cập nhật thành công"));
+            return Ok(Result<InvoiceDTO?>.Success(result, "Cập nhật thành công"));
         }
 
         [HttpGet("{id:int}")]
         public async Task<ActionResult<Result>> GetByIdAsync(int id)
         {
             var result = await _invoiceService.GetByIdAsync(id);
-            return Ok(Result<InvoiceResponse?>.Success(result,"Lấy thông tin thành công"));
+            return Ok(Result<InvoiceResponse?>.Success(result, "Lấy thông tin thành công"));
+        }
+        [HttpGet("GetByIdOrder/{id:int}")]
+        public async Task<ActionResult<Result>> GetByIdOrder(int id)
+        {
+            var result = await _invoiceService.GetByIdOrderAsync(id);
+            return Ok(Result<InvoiceResponse?>.Success(result, "Lấy thông tin thành công"));
         }
 
         [HttpGet("accept/{id:int}")]

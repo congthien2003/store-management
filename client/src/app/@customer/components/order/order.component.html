@@ -4,45 +4,37 @@
 
 	<div class="container">
 		<div class="order--header">
-			<div class="row">
-				<div class="col-6 col-lg-11">
-					<div class="order--search">
-						<input
-							aria-label="search"
-							type="text"
-							class="form-control"
-							[value]="search" />
-					</div>
-				</div>
-				<div class="col-6 col-lg-1">
-					<div class="order--actions">
-						<button
-							[matBadge]="listOrderDetail.length"
-							matBadgeColor="accent"
-							aria-label="cart"
-							mat-raised-button
-							color="primary"
-							class="btn btn-sm"
-							(click)="openCart()">
-							<i
-								class="fa fa-shopping-cart"
-								aria-hidden="true"></i>
-						</button>
-						<button
-							aria-label="qr"
-							mat-raised-button
-							color="accent"
-							(click)="reviewQR()"
-							class="btn btn-sm">
-							QR
-						</button>
-					</div>
-				</div>
-			</div>
+			<button mat-stroked-button [matMenuTriggerFor]="menu">Menu</button>
+			<mat-menu #menu="matMenu">
+				<button
+					mat-menu-item
+					color="primary"
+					(click)="reviewQR()"
+					class="btn btn-sm">
+					QR
+				</button>
+				<button
+					mat-menu-item
+					color="primary"
+					(click)="requestCallStaff()"
+					class="btn btn-sm">
+					Gọi nhân viên
+				</button>
+			</mat-menu>
+			<button
+				[matBadge]="listOrderDetail.length"
+				matBadgeColor="accent"
+				aria-label="cart"
+				mat-raised-button
+				color="primary"
+				class="btn btn-sm"
+				(click)="openCart()">
+				<i class="fa fa-shopping-cart" aria-hidden="true"></i>
+			</button>
 		</div>
 		<div class="order--main">
 			<div class="list-category">
-				<h4>Loại thức ăn</h4>
+				<h4>Loại</h4>
 				<mat-chip-listbox
 					aria-label="Category"
 					class="list-options mt-2">
@@ -61,12 +53,10 @@
 				</mat-chip-listbox>
 			</div>
 			<h4>
-				Món ăn nổi bật
-				<img
 					width="20px"
 					height="20px"
 					src="../../../../assets/images/fire-flame.gif"
-					alt="GIF" />
+					alt="GIF" /> -->
 			</h4>
 			<h5
 				class="text-center fw-bold fs-4 mt-2"
@@ -99,7 +89,7 @@
 			</div>
 
 			<div class="list-food">
-				<h4>Danh sách món ăn</h4>
+				<h4>Danh sách</h4>
 				<h5
 					class="text-center fw-bold fs-4 mt-2"
 					*ngIf="listFood.length == 0">

@@ -19,9 +19,9 @@ namespace StoreManagement.Services
 
         public async Task<AuthResult> ChangePassword(ChangePasswordDTO request)
         {
-            
+
             AuthResult result = new AuthResult();
-            if (request == null || string.IsNullOrEmpty(request.Email) || string.IsNullOrEmpty(request.Password) || string.IsNullOrEmpty(request.ConfirmPassword) )
+            if (request == null || string.IsNullOrEmpty(request.Email) || string.IsNullOrEmpty(request.Password) || string.IsNullOrEmpty(request.ConfirmPassword))
             {
                 throw new Exception("Vui lòng nhập đầy đủ thông tin");
                 return result;
@@ -43,7 +43,7 @@ namespace StoreManagement.Services
                 throw new Exception("Sai thông tin tài khoản");
                 return result;
             }
-            else 
+            else
             {
                 request.Password = _jwtManager.getHashpassword(request.Password);
                 var edit = await _userService.UpdatePassword(user.Id, request.Password);
@@ -68,10 +68,12 @@ namespace StoreManagement.Services
                 throw new Exception("Sai thông tin tài khoản");
             }
             var token = _jwtManager.CreateToken(user);
-            
+
             result.Token = token;
+            result.Role = user.Role;
+            result.UserName = user.Username;
             return result;
-                
+
         }
 
         public async Task<AuthResult> Register(RegisterDTO register)

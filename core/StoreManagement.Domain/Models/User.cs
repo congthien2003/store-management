@@ -16,5 +16,6 @@ namespace StoreManagement.Domain.Models
         public string Password { get; set; }
         public int Role { get; set; } = 1;
         public Store Store { get; set; }
+        public Staff Staff { get; set; }
     }
 }

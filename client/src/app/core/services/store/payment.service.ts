@@ -15,7 +15,7 @@ export class PaymentService {
 	endpoint = PaymentApi;
 	constructor(private service: MasterService) {}
 
-	list(idStore: number, pagi: Pagination): Observable<ApiResponse> {
+	list(idStore: number, pagi: Pagination): Observable<any> {
 		const params = new HttpParams()
 			.set("idStore", idStore)
 			.set("currentPage", pagi.currentPage)

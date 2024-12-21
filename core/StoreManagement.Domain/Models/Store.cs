@@ -14,6 +14,7 @@ namespace StoreManagement.Domain.Models
         public int IdUser { get; set; }
         [ForeignKey("IdUser")]
         public User User { get; set; }
+        public ICollection<Staff> Staff { get; set; }
         
     }
 }

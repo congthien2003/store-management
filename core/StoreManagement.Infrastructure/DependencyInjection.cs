@@ -1,12 +1,15 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using StoreManagement.Domain.IRepositories;
-using StoreManagement.Infrastructure.Repositories;
-using StoreManagement.Domain.Models;
-using StoreManagement.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using StoreManagement.Application.Interfaces.CachingServices;
 using StoreManagement.Application.Interfaces.IApiClientServices;
+using StoreManagement.Domain.IRepositories;
+using StoreManagement.Domain.Models;
 using StoreManagement.Infrastructure.ApiClient;
+using StoreManagement.Infrastructure.Data;
+using StoreManagement.Infrastructure.InMemoryCache;
+using StoreManagement.Infrastructure.Repositories;
+using StoreManagement.Infrastructure.Services;
 namespace StoreManagement.Infrastructure
 {
     public static class DependencyInjection
@@ -29,16 +32,22 @@ namespace StoreManagement.Infrastructure
             services.AddScoped<IInvoiceRepository<Invoice>, InvoiceRepository>();
             services.AddScoped<IProductSellRepository<ProductSell>, ProductSellRepository>();
             services.AddScoped<IOrderAccessTokenRepository<OrderAccessToken>, OrderAccessTokenRepository>();
-            /*services.AddScoped<IVoucherRepository<Voucher>, VoucherRepository>();*/
             services.AddScoped<IKPIRepository<KPI>, KPIRepository>();
             services.AddScoped<IBankInfoRepository<BankInfo>, BankInfoRepository>();
-
-
+			services.AddScoped<IComboRepository, ComboRepository>();
+            services.AddScoped<IComboItemRepository, ComboItemRepository>();
+			services.AddScoped<ITicketRepository<Ticket>, TicketRepository>();
+            services.AddTransient<IStaffRepository<Staff>, StaffRepository>();
             // Register Client Service
             services.AddTransient<IQRServices, QRService>();
+            services.AddTransient<IExportExcellService, ExportExcellService>();
+            services.AddTransient<IGoogleAPI, GoogleAPI>();
+            services.AddSingleton<ISupabaseService, SupabaseServices>();
+            services.AddTransient<IFlaskAPI, FlaskAPI>();
+            
+            services.AddTransient<ICachingServices, CachingServices>();
+            return services;
 
-
-            return services; 
         }
     }
 }

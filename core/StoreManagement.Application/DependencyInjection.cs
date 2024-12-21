@@ -1,7 +1,11 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Amazon;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using StoreManagement.Application.Interfaces.IApiClientServices;
 using StoreManagement.Application.Interfaces.IServices;
 using StoreManagement.Application.Services;
+using StoreManagement.Domain.Enum;
+using StoreManagement.Infrastructure.ApiClient;
 using StoreManagement.Services;
 namespace StoreManagement.Application
 {
@@ -26,10 +30,28 @@ namespace StoreManagement.Application
             services.AddTransient<IProductSellService, ProductSellService>();
             services.AddTransient<IOrderAccessService, OrderAccessService>();
             services.AddTransient<IAnalystReportService, AnalystReportService>();
-           /* services.AddTransient<IVoucherService, VoucherService>();*/
             services.AddTransient<IKPIService, KPIService>();
             services.AddTransient<IBankInfoService, BankInfoService>();
-            return services; 
+            services.AddTransient<IComboService, ComboService>();
+            services.AddTransient<IComboItemService, ComboItemService>();
+            services.AddTransient<ITicketService, TicketSerivce>();
+            services.AddTransient<IStaffService, StaffService>();
+            services.AddTransient<IEmailService>(provider =>
+            {
+                var awsSesConfig = provider.GetRequiredService<IOptions<AwsSesConfig>>().Value;
+                var exportExcellService = provider.GetRequiredService<IExportExcellService>();
+                var storeService = provider.GetRequiredService<IStoreService>();
+                return new AwsSesEmailService(
+                    awsAccessKey: awsSesConfig.AccessKey,
+                    awsSecretKey: awsSesConfig.SecretKey,
+                    senderEmail: awsSesConfig.SenderEmail,
+                    region: RegionEndpoint.GetBySystemName(awsSesConfig.Region),
+                    exportExcellService,
+                    storeService
+                );
+            });
+            return services;
+
         }
     }
 }

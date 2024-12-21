@@ -45,7 +45,23 @@ export class LoginComponent implements OnInit {
 			this.service.login(this.user.email, this.user.password).subscribe({
 				next: (res) => {
 					this.jwtManager.setToken(res.data.token);
-					this.route.navigate(["/pages"]);
+					console.log(res);
+					switch (res.data.role) {
+						case 0:
+							this.route.navigate(["/admin"]);
+							break;
+						case 1:
+							this.route.navigate(["/owner"]);
+							break;
+						case 3:
+							this.route.navigate(["/staff"]);
+							break;
+						default:
+							this.route.navigate(["/pages"]);
+							break;
+					}
+
+					this.toastr.success("Đăng nhập thành công!", "");
 				},
 				error: (error) => {
 					console.log(error);

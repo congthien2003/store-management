@@ -1,14 +1,8 @@
-﻿using StoreManagement.Application.Interfaces.IApiClientServices;
-using StoreManagement.Application.Interfaces.IServices;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using ClosedXML.Excel;
-namespace StoreManagement.Application.Services
+using StoreManagement.Application.Interfaces.IApiClientServices;
+using StoreManagement.Application.Interfaces.IServices;
+namespace StoreManagement.Infrastructure.Services
 {
     public class ExportExcellService : IExportExcellService
     {
@@ -61,7 +55,7 @@ namespace StoreManagement.Application.Services
                 worksheet.Cell(row, 1).Value = item.Key;
                 worksheet.Cell(row, 2).Value = item.Value;
 
-                // Tính tổng số lượng bán được
+                
                 totalQuantitySold += item.Value;
 
                 worksheet.Cell(row, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
@@ -69,12 +63,12 @@ namespace StoreManagement.Application.Services
                 row++;
             }
 
-            // Định dạng các ô dữ liệu
+            
             var dataRange = worksheet.Range(6, 1, row - 1, 2);
             dataRange.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
             dataRange.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
 
-            // Thêm dòng tổng ở cuối bảng
+            
             worksheet.Cell(row, 1).Value = "Tổng cộng số món:";
             worksheet.Cell(row, 1).Style.Font.Bold = true;
             worksheet.Cell(row, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;

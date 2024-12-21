@@ -1,8 +1,5 @@
-﻿using ClosedXML.Excel;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using StoreManagement.Application.Interfaces.IApiClientServices;
-using StoreManagement.Application.Interfaces.IServices;
 using System.Globalization;
 
 namespace StoreManagement.Controllers
@@ -18,7 +15,7 @@ namespace StoreManagement.Controllers
             _exportExcellService = exportExcellService;
         }
 
-        [HttpGet("export-excell")]
+        [HttpGet("export-excel")]
         public async Task<ActionResult> ExportFoodSalesToExcell(int idStore, string startDateStr, string endDateStr)
         {
             DateTime startDate = DateTime.ParseExact(startDateStr, "dd/MM/yyyy", CultureInfo.InvariantCulture);
@@ -30,3 +27,4 @@ namespace StoreManagement.Controllers
 
     }
 }
+ 

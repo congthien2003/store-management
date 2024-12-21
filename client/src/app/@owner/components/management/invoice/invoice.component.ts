@@ -88,8 +88,7 @@ export class InvoiceComponent implements OnInit {
 		public dialog: MatDialog,
 		private toastr: ToastrService,
 		private invoiceService: InvoiceService,
-		private tableService: TableService,
-		private loader: LoaderService
+		private tableService: TableService
 	) {}
 	ngOnInit(): void {
 		this.store = JSON.parse(
@@ -139,6 +138,7 @@ export class InvoiceComponent implements OnInit {
 				this.status = false;
 			}
 		}
+		this.pagi.currentPage = 1;
 		this.loadListInvoice();
 	}
 
@@ -162,6 +162,7 @@ export class InvoiceComponent implements OnInit {
 								timeOut: 3000,
 							});
 							this.loadListInvoice();
+							// Update Status Table
 						}
 					},
 				});

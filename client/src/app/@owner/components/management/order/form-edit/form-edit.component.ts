@@ -28,6 +28,8 @@ import { LoaderService } from "src/app/core/services/loader.service";
 import { PricePipe } from "src/app/core/utils/price.pipe";
 import { InvoiceService } from "src/app/core/services/store/invoice.service";
 import { OrderDetailResponse } from "src/app/core/models/interfaces/Response/OrderDetailResponse";
+import { PaymentService } from "src/app/core/services/store/payment.service";
+import { PaymentType } from "src/app/core/models/interfaces/PaymentType";
 
 const NzModule = [NzFormModule];
 
@@ -102,21 +104,24 @@ export class FormEditComponent implements OnInit {
 		public dialog: MatDialog,
 		public dialogRef: MatDialogRef<FormEditComponent>,
 		@Inject(MAT_DIALOG_DATA)
-		public data: { idOrder: number; idStore: number },
+		public data: {
+			idOrder: number;
+			idStore: number;
+			listPayment: PaymentType[];
+		},
 		private orderService: OrderService,
 		private orderDetailService: OrderDetailService,
 		private invoiceService: InvoiceService,
 		private loader: LoaderService,
-		private toastr: ToastrService
+		private toastr: ToastrService,
+		private paymentTypeService: PaymentService
 	) {}
 	ngOnInit(): void {
-		this.loader.setLoading(true);
 		this.orderService.getById(this.data.idOrder).subscribe({
 			next: (res) => {
 				if (res.isSuccess) {
 					this.order = res.data;
 					this.order.idStore = this.data.idStore;
-					this.loader.setLoading(false);
 				}
 			},
 		});
@@ -153,7 +158,11 @@ export class FormEditComponent implements OnInit {
 		item.statusProcess = newValue;
 
 		this.orderDetailService
-			.updateStatusProcessItem(item.food.id, item.statusProcess)
+			.updateStatusProcessItem(
+				item.food.id,
+				item.statusProcess,
+				this.order.id
+			)
 			.subscribe({
 				next: (res) => {
 					if (res.isSuccess) {
@@ -178,6 +187,11 @@ export class FormEditComponent implements OnInit {
 		idOrder: 0,
 		idPaymentType: 2,
 	};
+
+	onChangePaymentType($event: any): void {
+		this.invoice.idPaymentType = +$event.target.value;
+	}
+
 	openCreateInvoiceDialog(): void {
 		// Opened form create
 		if (this.createInvoice) {
@@ -202,4 +216,6 @@ export class FormEditComponent implements OnInit {
 			this.invoice.total = this.invoice.totalOrder + this.invoice.charge;
 		}
 	}
+
+	openInvoice() {}
 }

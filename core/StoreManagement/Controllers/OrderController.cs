@@ -15,22 +15,24 @@ namespace StoreManagement.Controllers
     {
         private readonly IOrderSerivce _OrderService;
         private readonly ITableService _tableService;
-        
+
         private readonly IHubContext<OrderHub> _hubContext;
 
-        public OrderController(IOrderSerivce orderSerivce, IHubContext<OrderHub> hubContext)
+        public OrderController(IOrderSerivce orderSerivce, ITableService tableService, IHubContext<OrderHub> hubContext)
         {
             _OrderService = orderSerivce;
             _hubContext = hubContext;
+            _tableService = tableService;
         }
 
         [HttpPost("create")]
         public async Task<ActionResult<Result>> CreateAsync(OrderDTO orderDTO)
-        {   
+        {
             var order = await _OrderService.CreateAsync(orderDTO);
             var table = await _tableService.GetByIdAsync(order.IdTable);
-            if (order != null) {
-                await _hubContext.Clients.Group(table.IdStore.ToString()).SendAsync("ReceiveNotification", "Có đơn đặt hàng vừa được tạo");
+            if (order != null)
+            {
+                await _hubContext.Clients.Group(table.IdStore.ToString()).SendAsync("ReceiveNotification", $"{table.Name} có đơn đặt hàng");
             }
             return Ok(Result<OrderDTO?>.Success(order, "Tạo mới thành công"));
 
@@ -40,7 +42,7 @@ namespace StoreManagement.Controllers
         public async Task<ActionResult<Result>> DeleteAsync(int id)
         {
             var result = await _OrderService.DeleteAsync(id);
-            return Ok(Result<bool>.Success(result,"Xóa thành công"));
+            return Ok(Result<bool>.Success(result, "Xóa thành công"));
         }
 
         [HttpPut("update/{id:int}")]

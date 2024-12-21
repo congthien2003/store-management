@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using StoreManagement.Application.Common;
 using StoreManagement.Application.DTOs.Request;
+using StoreManagement.Application.DTOs.Request.OrderDetail;
 using StoreManagement.Application.DTOs.Response;
+using StoreManagement.Application.DTOs.Response.OrderDetail;
 using StoreManagement.Application.Interfaces.IServices;
 using StoreManagement.Domain.IRepositories;
 using StoreManagement.Domain.Models;
-using System.Collections.Generic;
 
 namespace StoreManagement.Services
 {
@@ -21,7 +22,7 @@ namespace StoreManagement.Services
         }
         public async Task<List<OrderDetailDTO>> CreateByListAsync(List<OrderDetailDTO> orderDetailDTO)
         {
-            List <OrderDetailDTO> listOrderDetailDTO = new List <OrderDetailDTO>();
+            List<OrderDetailDTO> listOrderDetailDTO = new List<OrderDetailDTO>();
             foreach (var orderDetail in orderDetailDTO)
             {
                 var orderCreated = await _orderDetailRepo.CreateAsync(_mapper.Map<OrderDetail>(orderDetail));
@@ -100,10 +101,19 @@ namespace StoreManagement.Services
             return _mapper.Map<OrderDetailDTO>(update);
         }
 
-        public async Task<OrderDetailDTO> UpdateStatusAsync(int idFood, int statusProcess)
+        public async Task<OrderDetailDTO> UpdateStatusAsync(UpdateStatusReq req)
         {
-            var update = await _orderDetailRepo.UpdateStatusAsync(idFood, statusProcess);
+            var update = await _orderDetailRepo.UpdateStatusAsync(req.IdOrder, req.IdFood, req.StatusProcess);
             return _mapper.Map<OrderDetailDTO>(update);
+        }
+
+        public async Task<List<DataByIdStoreRes>> GetFoodOrderDetailDataByIdStore(int idStore)
+        {
+            var orderDetails = await _orderDetailRepo.GetAllOrderDetailsByIdStore(idStore);
+
+            var result = _mapper.Map<List<DataByIdStoreRes>>(orderDetails);
+
+            return result;
         }
     }
 }

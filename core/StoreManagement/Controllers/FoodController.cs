@@ -65,7 +65,7 @@ namespace StoreManagement.Controllers
             var list = await _foodService.GetAllByIdStoreAsync(idStore, currentPage, pageSize, searchTerm, filter, categoryId: categoryId);
             if (list == null)
             {
-                return BadRequest(Result.Failure("Không tìm thấy người dùng"));
+                return BadRequest(Result.Failure("Không tìm thấy món ăn"));
             }
             return Ok(Result<PaginationResult<List<FoodDTO>>>.Success(list, "Lấy thông tin thành công"));
         }

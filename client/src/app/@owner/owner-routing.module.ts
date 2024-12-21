@@ -6,12 +6,16 @@ import { CategoryComponent } from "./components/management/category/category.com
 import { FoodComponent } from "./components/management/food/food.component";
 import { OrderComponent } from "./components/management/order/order.component";
 import { InvoiceComponent } from "./components/management/invoice/invoice.component";
-import { StaffComponent } from "./components/management/staff/staff.component";
+import { StaffManagementComponent } from "./components/management/staff/staff.component";
 import { AnalyticsComponent } from "./components/management/analytics/analytics.component";
 import { OwnerDashboardComponent } from "./components/owner-dashboard/owner-dashboard.component";
 import { TableComponent } from "./components/management/table/table.component";
 import { ownerGuard } from "../@auth/guards/owner.guard";
 import { InforUserComponent } from "./components/management/infor-user/infor-user.component";
+import { ChangePasswordComponent } from "../@auth/components";
+import { MyTicketComponent } from "./components/management/my-ticket/my-ticket.component";
+import { PredictRevenueComponent } from "./components/management/predict-revenue/predict-revenue.component";
+import { ComboComponent } from "./components/management/combo/combo.component";
 
 const routes: Routes = [
 	{
@@ -49,7 +53,7 @@ const routes: Routes = [
 			},
 			{
 				path: "staff",
-				component: StaffComponent,
+				component: StaffManagementComponent,
 			},
 			{
 				path: "analytics",
@@ -58,6 +62,22 @@ const routes: Routes = [
 			{
 				path: "infor-user",
 				component: InforUserComponent,
+			},
+			{
+				path: "change-password",
+				component: ChangePasswordComponent,
+			},
+			{
+				path: "predict-revenue",
+				component: PredictRevenueComponent,
+			},
+			{
+				path: "combos",
+				component: ComboComponent,
+			},
+			{
+				path: "my-ticket",
+				component: MyTicketComponent,
 			},
 		],
 	},

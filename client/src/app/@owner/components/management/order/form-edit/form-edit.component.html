@@ -45,12 +45,6 @@
 						<tbody *ngIf="listOrderDetail != undefined">
 							<tr *ngFor="let item of listOrderDetail">
 								<td>{{ item.food.name }}</td>
-								<!-- <td>
-									<img
-										[src]="item.food.imageUrl"
-										alt="{{ item.food.name }}"
-										loading="lazy" />
-								</td> -->
 								<td>
 									{{
 										item.food.idCategory
@@ -126,11 +120,11 @@
 						</div>
 						<div class="invoice-payment">
 							Phương thức thanh toán:
-							<select>
+							<select (change)="onChangePaymentType($event)">
 								<option
-									[selected]="invoice.idPaymentType == 3"
-									(click)="invoice.idPaymentType = 3">
-									Tiền mặt
+									*ngFor="let item of data.listPayment"
+									[value]="item.id">
+									{{ item.name }}
 								</option>
 							</select>
 						</div>
@@ -142,7 +136,15 @@
 			</div>
 			<div class="modal-footer">
 				<button
-					*ngIf="this.order.status"
+					*ngIf="this.order.status && this.order.hasInvoice"
+					type="button"
+					mat-stroked-button
+					color="accent"
+					(click)="openInvoice()">
+					Xem hóa đơn
+				</button>
+				<button
+					*ngIf="this.order.status && !this.order.hasInvoice"
 					type="button"
 					mat-raised-button
 					color="primary"
