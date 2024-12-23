@@ -1,16 +1,10 @@
 ﻿using AutoMapper;
-using DocumentFormat.OpenXml.VariantTypes;
 using StoreManagement.Application.Common;
 using StoreManagement.Application.DTOs.Request;
 using StoreManagement.Application.DTOs.Response;
 using StoreManagement.Application.Interfaces.IServices;
 using StoreManagement.Domain.IRepositories;
 using StoreManagement.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StoreManagement.Application.Services
 {
@@ -43,7 +37,7 @@ namespace StoreManagement.Application.Services
         {
             int _currentPage = int.Parse(currentPage);
             int _pageSize = int.Parse(pageSize);
-            var list = await _staffRepository.GetAllByIdStore(idStore);
+            var list = await _staffRepository.GetAllByIdStore(idStore, false, searchTerm);
             var count = list.Count;
             list = list.Skip(_currentPage * _pageSize - _pageSize).Take(_pageSize).ToList();
             var listStaff = _mapper.Map<List<StaffResponse>>(list);
@@ -62,7 +56,7 @@ namespace StoreManagement.Application.Services
             return _mapper.Map<List<StaffResponse>>(listStaffs);
         }
 
-        public async Task<StaffDTO> UpdateAsync(int id,StaffDTO staffDTO)
+        public async Task<StaffDTO> UpdateAsync(int id, StaffDTO staffDTO)
         {
             var staffUpdate = _mapper.Map<Staff>(staffDTO);
             var update = await _staffRepository.UpdateASync(id, staffUpdate);

@@ -38,14 +38,15 @@ namespace StoreManagement.Application.Helper
             CreateMap<OrderAccessToken, OrderAccessTokenResponse>().ReverseMap();
             CreateMap<BankInfo, BankInfoDTO>().ReverseMap();
             CreateMap<BankInfo, BankInfoResponse>().ReverseMap();
-			CreateMap<OrderDetail, DataByIdStoreRes>().ReverseMap();
+            CreateMap<OrderDetail, DataByIdStoreRes>().ReverseMap();
             CreateMap<Combo, ComboDTO>().ReverseMap();
             CreateMap<ComboItem, ComboItemDTO>().ReverseMap();
+            CreateMap<Combo, CreateComboReq>().ReverseMap();
             CreateMap<Combo, ComboWithFood>().ReverseMap();
-			CreateMap<Ticket, TicketDTO>().ReverseMap();
+            CreateMap<Ticket, TicketDTO>().ReverseMap();
             CreateMap<Ticket, TicketResponse>().ReverseMap();
             CreateMap<Staff, StaffDTO>().ReverseMap();
-            CreateMap<Staff,StaffResponse>().ReverseMap();
+            CreateMap<Staff, StaffResponse>().ReverseMap();
         }
     }
 }

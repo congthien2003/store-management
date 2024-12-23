@@ -11,6 +11,7 @@ import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { Staff } from "src/app/core/models/interfaces/Staff";
 import { StaffInfoResponse } from "src/app/core/models/interfaces/Response/StaffInfoResponse";
 import { MatButtonModule } from "@angular/material/button";
+import { Subject, debounceTime, distinctUntilChanged } from "rxjs";
 
 @Component({
 	selector: "app-staff-management",
@@ -50,7 +51,7 @@ export class StaffManagementComponent implements OnInit {
 		hasNextPage: false,
 		hasPrevPage: false,
 	};
-
+	private searchSubject = new Subject<string>();
 	constructor(
 		private userService: UserService,
 		private staffService: StaffService,
@@ -58,6 +59,17 @@ export class StaffManagementComponent implements OnInit {
 		public dialog: MatDialog
 	) {
 		this.storeId = this.getStoreId();
+
+		// Setup search debounce
+		this.searchSubject
+			.pipe(
+				debounceTime(1500), // Wait 1.5 seconds after the last event
+				distinctUntilChanged() // Only emit if value is different from previous
+			)
+			.subscribe(() => {
+				this.pagi.currentPage = 1; // Reset to first page when searching
+				this.loadStaffList();
+			});
 	}
 
 	ngOnInit(): void {
@@ -86,8 +98,7 @@ export class StaffManagementComponent implements OnInit {
 	}
 
 	onSearchTerm(): void {
-		this.pagi.currentPage = 1; // Reset to first page when searching
-		this.loadStaffList();
+		this.searchSubject.next(this.searchTerm);
 	}
 
 	onChangePage(page: number): void {

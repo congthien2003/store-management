@@ -117,7 +117,7 @@
 						[class.active]="14 == activeIndex"
 						(click)="swithRoute(14)">
 						<button class="nav-link">
-							<i class="fa-solid fa-chart-line"></i>
+							<i class="fa-solid fa-users"></i>
 							<span>Nhân viên</span>
 						</button>
 					</li>
@@ -176,7 +176,7 @@
 						[class.active]="13 == activeIndex"
 						(click)="swithRoute(13)">
 						<button class="nav-link">
-							<i class="fa fa-user-circle" aria-hidden="true"></i>
+							<i class="fa-solid fa-tag"></i>
 							<span>Ticket</span>
 						</button>
 					</li>
@@ -209,37 +209,53 @@
 					<notfound-store *ngIf="!haveStore"></notfound-store>
 
 					<router-outlet *ngIf="haveStore"></router-outlet>
-					<div class="chat-button">
-						<button class="Btn" (click)="openChatBox()">
-							<div class="sign">
+					<div class="chat-button" [class.active]="showChatBox">
+						<button class="chat-toggle" (click)="openChatBox()">
+							<div class="chat-icon">
 								<i class="fa-solid fa-message"></i>
 							</div>
-
-							<div class="text">Chat</div>
+							<span class="chat-label">Chat</span>
 						</button>
 					</div>
-					<div class="chat" *ngIf="showChatBox">
+					<div class="chat-box" *ngIf="showChatBox" [@slideInOut]>
 						<div class="chat-header">
-							<div class="chat-header-title">Notifications</div>
-							<div
-								class="chat-header-icon"
-								(click)="openChatBox()">
-								<i class="fa fa-close" aria-hidden="true"></i>
+							<div class="chat-header-title">
+								<i class="fa-solid fa-bell me-2"></i>
+								Thông báo
 							</div>
+							<button
+								class="close-button"
+								(click)="openChatBox()">
+								<i class="fa-solid fa-xmark"></i>
+							</button>
 						</div>
+
 						<div class="chat-body" #scrollContainer>
-							<ul>
-								<li *ngFor="let noti of notifications">
-									<div>
-										<strong>{{ noti.message }}</strong>
-										<span class="d-block"
-											>({{
-												noti.timestamp | date : "short"
-											}})</span
-										>
+							<div class="chat-messages">
+								<div
+									class="message"
+									*ngFor="let noti of notifications"
+									[@fadeIn]>
+									<div class="message-content">
+										<div class="message-text">
+											{{ noti.message }}
+										</div>
+										<div class="message-time">
+											{{
+												noti.timestamp
+													| date
+														: "HH:mm - dd/MM/yyyy"
+											}}
+										</div>
 									</div>
-								</li>
-							</ul>
+								</div>
+								<div
+									class="no-messages"
+									*ngIf="!notifications?.length">
+									<i class="fa-regular fa-bell-slash"></i>
+									<p>Chưa có thông báo nào</p>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

@@ -39,7 +39,6 @@ const MatModuleImport = [MatButtonModule, MatCommonModule, MatMenuModule];
 		RouterOutlet,
 		NotfoundStoreComponent,
 		SpinnerComponent,
-		FormsModule,
 		FormatTextPipe,
 	],
 	templateUrl: "./owner.component.html",
