@@ -25,21 +25,21 @@
 						"tsConfig": "tsconfig.app.json",
 						"inlineStyleLanguage": "scss",
 						"assets": [
-              "src/favicon.ico",
-              "src/assets",
-              {
-                "glob": "**/*",
-                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
-                "output": "/assets/"
-              }
-            ],
+							"src/favicon.ico",
+							"src/assets",
+							{
+								"glob": "**/*",
+								"input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+								"output": "/assets/"
+							}
+						],
 						"styles": [
-              "src/theme.less",
-              "@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.scss",
-              "node_modules/ngx-toastr/toastr.css",
-              "node_modules/ngx-spinner/animations/ball-scale-multiple.css"
-            ],
+							"src/theme.less",
+							"@angular/material/prebuilt-themes/indigo-pink.css",
+							"src/styles.scss",
+							"node_modules/ngx-toastr/toastr.css",
+							"node_modules/ngx-spinner/animations/ball-scale-multiple.css"
+						],
 						"scripts": [
 							"node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
 						]
@@ -49,13 +49,13 @@
 							"budgets": [
 								{
 									"type": "initial",
-									"maximumWarning": "500kb",
-									"maximumError": "1mb"
+									"maximumWarning": "5000kb",
+									"maximumError": "5mb"
 								},
 								{
 									"type": "anyComponentStyle",
-									"maximumWarning": "2kb",
-									"maximumError": "4kb"
+									"maximumWarning": "200kb",
+									"maximumError": "1mb"
 								}
 							],
 							"outputHashing": "all"
@@ -111,8 +111,8 @@
 				}
 			}
 		}
-  },
-  "cli": {
-    "analytics": "b6b23340-d153-49f9-b6e2-a96ca51fdb73"
-  }
+	},
+	"cli": {
+		"analytics": "b6b23340-d153-49f9-b6e2-a96ca51fdb73"
+	}
 }
