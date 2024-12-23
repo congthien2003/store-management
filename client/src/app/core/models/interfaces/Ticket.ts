@@ -1,9 +1,9 @@
-import { User } from './User';
+import { User } from "./User";
 export interface Ticket {
-  id: number;
-  title: string;
-  description: string;
-  status: number;
-  created: Date;
-  requestBy: User;
+	id: number;
+	title: string;
+	description: string;
+	status: number;
+	createdAt: Date;
+	requestBy: User;
 }

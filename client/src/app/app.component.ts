@@ -1,3 +1,4 @@
+import { trigger, transition, style, animate } from "@angular/animations";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { Component } from "@angular/core";
 import { RouterOutlet } from "@angular/router";

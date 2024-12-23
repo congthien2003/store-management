@@ -56,7 +56,9 @@
 							{{ getNameUser(item.requestBy) || "Unknown User" }}
 						</td>
 						<td>{{ item.title }}</td>
-						<td>{{ item.created }}</td>
+						<td>
+							{{ this.convertToFormattedDate(item.createdAt) }}
+						</td>
 						<td>
 							<ng-container [ngSwitch]="item.status">
 								<span *ngSwitchCase="0"
