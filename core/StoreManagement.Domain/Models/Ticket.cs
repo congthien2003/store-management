@@ -11,7 +11,7 @@ namespace StoreManagement.Domain.Models
         public int RequestBy { get; set; }
         [ForeignKey("RequestBy")]
         public User User { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
 
     }
 }
