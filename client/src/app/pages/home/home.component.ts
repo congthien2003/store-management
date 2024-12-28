@@ -4,7 +4,13 @@ import { FooterComponent } from "../layout/footer/footer.component";
 import { NgFor } from "@angular/common";
 import { HeaderComponent } from "../layout/header/header.component";
 import { CarouselComponent } from "./carousel/carousel.component";
-import { trigger, transition, style, animate } from "@angular/animations";
+import {
+	trigger,
+	transition,
+	style,
+	animate,
+	state,
+} from "@angular/animations";
 
 @Component({
 	selector: "app-home",
@@ -12,6 +18,26 @@ import { trigger, transition, style, animate } from "@angular/animations";
 	styleUrls: ["./home.component.scss"],
 	standalone: true,
 	imports: [HeaderComponent, NgFor, FooterComponent, CarouselComponent],
+	animations: [
+		trigger("fadeInUp", [
+			transition(":enter", [
+				style({ opacity: 0, transform: "translateY(20px)" }),
+				animate(
+					"0.6s ease-out",
+					style({ opacity: 1, transform: "translateY(0)" })
+				),
+			]),
+		]),
+		trigger("slideInRight", [
+			transition(":enter", [
+				style({ opacity: 0, transform: "translateX(30px)" }),
+				animate(
+					"0.8s ease-out",
+					style({ opacity: 1, transform: "translateX(0)" })
+				),
+			]),
+		]),
+	],
 })
 export class HomeComponent {
 	constructor() {}
