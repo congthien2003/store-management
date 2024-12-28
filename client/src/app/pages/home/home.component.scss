@@ -3,165 +3,167 @@
 
 .home--wrapper {
 	#header {
-	  display: block;
-  
-	  .header-wrapper {
-		background-position: 50% 0;
-		background-size: cover;
-		position: relative;
-		transition: background-color 0.3s, opacity 0.3s;
-		width: 100%;
-		z-index: 30;
-  
-		.header-main {
-		  background-color: #ffffff;
-		  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-		  padding: 15px 0;
-		  position: relative;
-		  z-index: 1000;
-  
-		  .header-inner {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			max-width: 1200px;
-			margin: 0 auto;
-			padding: 0 15px;
-  
-			.logo img {
-			  max-width: 150px;
-			  height: auto;
-			  transition: transform 0.3s ease;
-  
-			  &:hover {
-				transform: scale(1.05);
-			  }
-			}
-  
-			.header-nav {
-			  display: flex;
-			  list-style: none;
-			  margin: 0;
-			  padding: 0;
-  
-			  li {
+		display: block;
+
+		.header-wrapper {
+			background-position: 50% 0;
+			background-size: cover;
+			position: relative;
+			transition: background-color 0.3s, opacity 0.3s;
+			width: 100%;
+			z-index: 30;
+
+			.header-main {
+				background-color: #ffffff;
+				box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+				padding: 15px 0;
 				position: relative;
-				margin-left: 20px;
-  
-				.nav-top-link {
-				  color: #7c7c7c;
-				  font-size: 16px;
-				  text-decoration: none;
-				  font-weight: 600;
-				  padding: 10px 15px;
-				  transition: color 0.3s ease;
-  
-				  &:hover {
-					color: #000000; /* Change color on hover */
-				  }
-  
-				  i {
-					margin-left: 5px;
-				  }
-				}
-  
-				&.has-dropdown {
-				  position: relative;
-  
-				  .nav-dropdown {
-					opacity: 0;
-					visibility: hidden;
-					position: absolute;
-					top: 100%;
-					background-color: white;
-					box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-					z-index: 1000;
-					min-width: 200px;
-					left: 0;
-					transition: opacity 0.3s ease, visibility 0.3s ease;
-					transition-delay: 0s; 
-					padding: 0; 
-					margin-top: 15px;
-  					border: none;
-  					box-shadow: none; 
-  
-					li {
-					  margin: 0;
-					  padding: 0;
-  
-					  a {
-						color: #000000;
-						padding: 10px 20px;
-						text-decoration: none;
-						display: block;
-						transition: background-color 0.3s ease;
-						margin: 0px;
-						position: relative;
-  
-						&::after {
-							content: "";
-							position: absolute;
-							left: 0;
-							bottom: 0;
-							width: 0;
-							height: 2px;
-							background-color: #000000; // Màu gạch chân
-							transition: width 0.3s ease;
-						  }
-						
-						  &:hover {
-							background-color: #ffffff; /* Submenu item hover */
-						
-							// Khi hover, gạch chân xuất hiện từ trái sang phải
-							&::after {
-							  width: 100%;
-							}
-						  }
-					  }
+				z-index: 1000;
+
+				.header-inner {
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					max-width: 1200px;
+					margin: 0 auto;
+					padding: 0 15px;
+
+					.logo img {
+						max-width: 150px;
+						height: auto;
+						transition: transform 0.3s ease;
+
+						&:hover {
+							transform: scale(1.05);
+						}
 					}
-				  }
-  
-				  &:hover .nav-dropdown {
-					opacity: 1;
-					visibility: visible;
-					transition-delay: 0s; /* Hiển thị ngay lập tức */
-				  }
-  
-				  &:not(:hover) .nav-dropdown {
-					opacity: 0;
-					visibility: hidden;
-					transition-delay: 0.1s; /* Đợi 0.3 giây trước khi ẩn */
-				  }
+
+					.header-nav {
+						display: flex;
+						list-style: none;
+						margin: 0;
+						padding: 0;
+
+						li {
+							position: relative;
+							margin-left: 20px;
+
+							.nav-top-link {
+								color: #7c7c7c;
+								font-size: 16px;
+								text-decoration: none;
+								font-weight: 600;
+								padding: 10px 15px;
+								transition: color 0.3s ease;
+
+								&:hover {
+									color: #000000; /* Change color on hover */
+								}
+
+								i {
+									margin-left: 5px;
+								}
+							}
+
+							&.has-dropdown {
+								position: relative;
+
+								.nav-dropdown {
+									opacity: 0;
+									visibility: hidden;
+									position: absolute;
+									top: 100%;
+									background-color: white;
+									box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+									z-index: 1000;
+									min-width: 200px;
+									left: 0;
+									transition: opacity 0.3s ease,
+										visibility 0.3s ease;
+									transition-delay: 0s;
+									padding: 0;
+									margin-top: 15px;
+									border: none;
+									box-shadow: none;
+
+									li {
+										margin: 0;
+										padding: 0;
+
+										a {
+											color: #000000;
+											padding: 10px 20px;
+											text-decoration: none;
+											display: block;
+											transition: background-color 0.3s
+												ease;
+											margin: 0px;
+											position: relative;
+
+											&::after {
+												content: "";
+												position: absolute;
+												left: 0;
+												bottom: 0;
+												width: 0;
+												height: 2px;
+												background-color: #000000; // Màu gạch chân
+												transition: width 0.3s ease;
+											}
+
+											&:hover {
+												background-color: #ffffff; /* Submenu item hover */
+
+												// Khi hover, gạch chân xuất hiện từ trái sang phải
+												&::after {
+													width: 100%;
+												}
+											}
+										}
+									}
+								}
+
+								&:hover .nav-dropdown {
+									opacity: 1;
+									visibility: visible;
+									transition-delay: 0s; /* Hiển thị ngay lập tức */
+								}
+
+								&:not(:hover) .nav-dropdown {
+									opacity: 0;
+									visibility: hidden;
+									transition-delay: 0.1s; /* Đợi 0.3 giây trước khi ẩn */
+								}
+							}
+						}
+					}
 				}
-			  }
 			}
-		  }
 		}
-	  }
 	}
-	.section-first{
+	.section-first {
 		background-color: $primary;
 		color: #ffffff;
-		
+
 		padding: 50px 0 50px 0;
-		.overview-detail{
+		.overview-detail {
 			.text-left {
 				text-align: left;
-				padding: 20px; 
-        		font-size: 18px; 
-        		line-height: 1.5; 
-        		color: #ffffff; 
+				padding: 20px;
+				font-size: 18px;
+				line-height: 1.5;
+				color: #ffffff;
 			}
 			h1 {
-            	font-size: 30px; 
-            	font-weight: bold; 
-            	margin-bottom: 20px; 
-        	}
+				font-size: 30px;
+				font-weight: bold;
+				margin-bottom: 20px;
+			}
 			p {
-            	font-size: 16px;
-            	margin-bottom: 20px;
-       		}
-		
+				font-size: 16px;
+				margin-bottom: 20px;
+			}
+
 			.col-inner {
 				background-position: 50% 50%;
 				background-repeat: no-repeat;
@@ -174,110 +176,110 @@
 			}
 			.button {
 				left: 0;
-            	background-color: #ff9800; 
-            	border-radius: 99px;
-           		padding: 10px 20px; 
-            	color: white; 
-            	text-decoration: none; 
-            	font-weight: bold; 
-           		transition: background-color 0.3s ease; 
+				background-color: #ff9800;
+				border-radius: 99px;
+				padding: 10px 20px;
+				color: white;
+				text-decoration: none;
+				font-weight: bold;
+				transition: background-color 0.3s ease;
 				text-transform: uppercase;
-            	&:hover {
-               		background-color: #e68900; 
-            	}
-           		span {
-                	display: inline-block;
-                	vertical-align: middle;
-            	}
-        	}
+				&:hover {
+					background-color: #e68900;
+				}
+				span {
+					display: inline-block;
+					vertical-align: middle;
+				}
+			}
 		}
 	}
 	.section-why {
 		padding: 50px 0;
 		background-color: #f9f9f9;
 		.inforDetail-image {
-		  text-align: center;
-		  img {
-			max-width: 100%;
-			height: auto;
-			display: inline-block;
-		  }
+			text-align: center;
+			img {
+				max-width: 100%;
+				height: auto;
+				display: inline-block;
+			}
 		}
-	  
+
 		.inforDetail-title {
-		  h3 {
-			font-size: 28px;
-			color: $primary;
-			font-weight: 700;
-			margin-bottom: 20px;
-			line-height: 1.4;
-		  }
+			h3 {
+				font-size: 28px;
+				color: $primary;
+				font-weight: 700;
+				margin-bottom: 20px;
+				line-height: 1.4;
+			}
 		}
-	  
+
 		.inforDetail-text {
-		  ul {
-			li {
-			  font-size: 16px;
-			  color: #000000;
-			  margin-bottom: 10px;
-			  line-height: 1.6;
-	  
-			  &:before {
-				content: "–";
-				margin-right: 5px;
-				color: #000000;
-			  }
+			ul {
+				li {
+					font-size: 16px;
+					color: #000000;
+					margin-bottom: 10px;
+					line-height: 1.6;
+
+					&:before {
+						content: "–";
+						margin-right: 5px;
+						color: #000000;
+					}
+				}
 			}
-		  }
 		}
-	  
+
 		.groupAction-hrweb {
-		  margin-top: 20px;
-		  text-align: left;
-	  
-		  .btn-haraweb {
-			background-color: $primary;
-			color: #fff;
-			padding: 10px 20px;
-			border-radius: 25px;
-			text-transform: uppercase;
-			font-weight: 600;
-			text-decoration: none;
-			display: inline-block;
-			transition: all 0.3s ease;
-	  
-			&:hover {
-			  background-color: $primary-dark;
-			  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+			margin-top: 20px;
+			text-align: left;
+
+			.btn-haraweb {
+				background-color: $primary;
+				color: #fff;
+				padding: 10px 20px;
+				border-radius: 25px;
+				text-transform: uppercase;
+				font-weight: 600;
+				text-decoration: none;
+				display: inline-block;
+				transition: all 0.3s ease;
+
+				&:hover {
+					background-color: $primary-dark;
+					box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+				}
 			}
-		  }
 		}
-	  
+
 		// Responsive adjustments
 		@media (max-width: 767px) {
-		  .inforDetail-image {
-			margin-bottom: 20px;
-		  }
-	  
-		  .inforDetail-title h3 {
-			font-size: 24px;
-		  }
-	  
-		  .inforDetail-text {
-			ul {
-			  li {
-				font-size: 14px;
-			  }
+			.inforDetail-image {
+				margin-bottom: 20px;
 			}
-		  }
-	  
-		  .groupAction-hrweb {
-			text-align: center;
-	  
-			.btn-haraweb {
-			  padding: 10px 30px;
+
+			.inforDetail-title h3 {
+				font-size: 24px;
 			}
-		  }
+
+			.inforDetail-text {
+				ul {
+					li {
+						font-size: 14px;
+					}
+				}
+			}
+
+			.groupAction-hrweb {
+				text-align: center;
+
+				.btn-haraweb {
+					padding: 10px 30px;
+				}
+			}
 		}
 	}
 	.section-benefit {
@@ -324,11 +326,9 @@
 				transition: background-color 0.3s ease;
 				&:hover {
 					background-color: $primary-dark;
-			  		box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Màu nền khi hover */
+					box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Màu nền khi hover */
 				}
 			}
-			
-			
 		}
 	}
 	.section-interface {
@@ -363,133 +363,180 @@
 					display: block;
 				}
 			}
-			
 		}
 	}
-	
-	.section-Instruct{
-		padding-top: 30px;
-    	padding-bottom: 30px;
-    	background-color: $primary;
-		color: white;
-		font-size: 16px;
-		.relative {
-			position: relative !important;
+
+	.section-Instruct {
+		padding: 60px 0;
+		background: #f8f9fa;
+
+		.content {
+			margin-bottom: 40px;
 		}
-		.section-content{
-			z-index: 1;
-			width: 100%;
-			.col-inner {
-				background-position: 50% 50%;
-				background-repeat: no-repeat;
-				background-size: cover;
-				flex: 1 0 auto;
-				margin-left: auto;
-				margin-right: auto;
-				position: relative;
-				width: 100%;
-				text-align: center;
-				padding: 0 15px 30px;
-				h2{
-					font-weight: 700;
-   					font-style: normal;
-					font-size: 1.6em;
-					line-height: 1.3;
-					margin-bottom: 12;
-				}
-				p{
-					margin-bottom: 13;
-				}
-				b{
-					font-weight: bolder;
-				}
-				p.uppercase {
-					font-size: 1.2rem;
-					color: #ffffff;
-					text-transform: uppercase;
-					margin-bottom: 10px;
+
+		.instruct,
+		.instruct2 {
+			.col {
+				.col-inner {
+					background: white;
+					padding: 25px;
+					border-radius: 15px;
+					box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+					margin: 10px;
+					transition: all 0.3s ease;
 					position: relative;
-					&::after {
+					overflow: hidden;
+
+					&::before {
 						content: "";
 						position: absolute;
-						bottom: -3px; /* Đặt vị trí ngay dưới chữ "BƯỚC" */
+						top: 0;
 						left: 0;
-						width: 0;
-						height: 2px;
-						background-color: #ffffff; /* Màu của đường line */
-						transition: width 0.4s ease; /* Thời gian chuyển động của line */
+						width: 4px;
+						height: 100%;
+						background: $primary;
+						transform: scaleY(0);
+						transition: transform 0.3s ease;
+						transform-origin: top;
 					}
-					
-				}
-				&:hover .text p.uppercase::after {
-					width: 100%; /* Khi hover, line sẽ chạy từ 0% đến 100% */
+
+					&:hover {
+						transform: translateY(-5px);
+						box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+
+						&::before {
+							transform: scaleY(1);
+						}
+
+						.text {
+							p.uppercase {
+								color: $primary;
+
+								b {
+									transform: translateX(5px);
+								}
+							}
+						}
+					}
+
+					.text {
+						p.uppercase {
+							font-size: 1.1rem;
+							margin-bottom: 15px;
+							color: #333;
+							transition: color 0.3s ease;
+							display: flex;
+							align-items: center;
+							gap: 10px;
+
+							u {
+								text-decoration: none;
+								position: relative;
+
+								&::after {
+									content: "";
+									position: absolute;
+									bottom: -2px;
+									left: 0;
+									width: 100%;
+									height: 2px;
+									background: currentColor;
+									transform: scaleX(0);
+									transition: transform 0.3s ease;
+									transform-origin: right;
+								}
+							}
+
+							b {
+								transition: transform 0.3s ease;
+
+								&:last-child {
+									color: $primary;
+									opacity: 0.7;
+								}
+							}
+						}
+
+						p:last-child {
+							color: #666;
+							font-size: 0.95rem;
+							margin: 0;
+							line-height: 1.5;
+						}
+					}
+
+					&:hover {
+						.text {
+							p.uppercase u::after {
+								transform: scaleX(1);
+								transform-origin: left;
+							}
+						}
+					}
 				}
 			}
-			
 		}
 	}
-	.testimonials{
+	.testimonials {
 		padding: 40px 0;
 		text-align: center;
 		background-color: #ffffff;
-		.inner{
+		.inner {
 			max-width: 1200px;
-			margin:auto ;
+			margin: auto;
 			overflow: hidden;
 			padding: 0 20px;
-			.h1{
+			.h1 {
 				font-weight: bold;
 				color: #000000;
 			}
-			.border{
+			.border {
 				width: 160px;
 				height: 5px;
 				background-color: rgb(230, 230, 32);
 				margin: 26px auto;
 			}
-			.row{
+			.row {
 				display: flex;
 				flex-wrap: wrap;
 				justify-content: center;
-				.col{
+				.col {
 					flex: 33.33%;
 					max-width: 33.33%;
 					box-sizing: border-box;
 					padding: 15px;
-					.testimonial{
+					.testimonial {
 						background-color: #fff;
 						padding: 30px;
-						img{
+						img {
 							width: 100px;
 							height: 100px;
 							border: 50%;
 						}
-						.name{
+						.name {
 							font-size: 20px;
 							text-transform: uppercase;
-							margin-top: 20px ;
+							margin-top: 20px;
 							color: $primary;
 						}
-						.detail-position{
+						.detail-position {
 							margin-top: 10px;
-							margin-bottom: 20px ;
+							margin-bottom: 20px;
 							color: #000000;
 						}
-						.stars{
+						.stars {
 							color: rgb(230, 230, 32);
 							margin-bottom: 20px;
 						}
-						p{
+						p {
 							color: #000000;
 						}
 					}
 				}
 			}
-			
 		}
-		
 	}
-	.section-freetrial{
+	.section-freetrial {
 		padding: 100px 0;
 		background-color: $primary;
 		color: white;
@@ -505,7 +552,7 @@
 			.subhead-freetrial {
 				font-size: 17px;
 				font-weight: 500;
-				line-height: 28.80px;
+				line-height: 28.8px;
 				margin: 0;
 			}
 		}
@@ -520,21 +567,21 @@
 				text-decoration: none;
 				display: inline-block;
 				transition: all 0.3s ease;
-	  
+
 				&:hover {
 					color: #fff;
-			  		background-color: $primary-dark;
-			  		box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+					background-color: $primary-dark;
+					box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
 				}
 			}
 		}
 	}
-	.section-questions{
+	.section-questions {
 		margin-top: 60px;
 		color: $primary;
 		.sitebox-heading {
 			margin: 0 0 5px;
-			h2{
+			h2 {
 				font-size: 30px;
 			}
 		}
@@ -571,17 +618,17 @@
 			}
 			&.is-active {
 				.questions-item__content {
-				  max-height: 500px; /* Set max height enough for the content */
-				  padding: 15px 0;
-				  opacity: 1; /* Show the content */
+					max-height: 500px; /* Set max height enough for the content */
+					padding: 15px 0;
+					opacity: 1; /* Show the content */
 				}
-		  
+
 				.questions-item__title .fa-solid {
-				  transform: rotate(180deg); /* Rotate the icon on active state */
+					transform: rotate(
+						180deg
+					); /* Rotate the icon on active state */
 				}
-			  }
+			}
 		}
 	}
-	
 }
-	
