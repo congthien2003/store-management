@@ -24,24 +24,20 @@ namespace StoreManagement.Services
             if (request == null || string.IsNullOrEmpty(request.Email) || string.IsNullOrEmpty(request.Password) || string.IsNullOrEmpty(request.ConfirmPassword))
             {
                 throw new Exception("Vui lòng nhập đầy đủ thông tin");
-                return result;
             }
             if (request.OldPassword == request.Password)
             {
                 throw new Exception("Mật khẩu mới trùng với mật khẩu cũ");
-                return result;
             }
             if (request.ConfirmPassword != request.Password)
             {
                 throw new Exception("Mật khẩu mới không trùng khớp");
-                return result;
             }
 
             var user = await _userService.GetByEmail(request.Email);
             if (user == null)
             {
                 throw new Exception("Sai thông tin tài khoản");
-                return result;
             }
             else
             {

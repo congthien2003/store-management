@@ -5,6 +5,7 @@ namespace StoreManagement.Domain.Models
 {
     public class OrderDetail
     {
+        public Guid Id { get; set; } = Guid.NewGuid();
         public int Quantity { get; set; }
         public int IdOrder { get; set; }
         [ForeignKey("IdOrder")]
@@ -12,7 +13,7 @@ namespace StoreManagement.Domain.Models
         public int IdFood { get; set; }
         [ForeignKey("IdFood")]
         public Food Food { get; set; }
-        public int StatusProcess { get; set; } = (int) EStatusProcess.Pending;
+        public int StatusProcess { get; set; } = (int)EStatusProcess.Pending;
         public DateTime CreatedAt { get; set; } = DateTime.Now;
     }
 }

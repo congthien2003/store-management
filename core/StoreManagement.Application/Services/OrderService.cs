@@ -1,7 +1,9 @@
-﻿using AutoMapper;
+﻿using System.Text.Json;
+using AutoMapper;
 using StoreManagement.Application.Common;
 using StoreManagement.Application.DTOs.Request;
 using StoreManagement.Application.DTOs.Response;
+using StoreManagement.Application.EventStore;
 using StoreManagement.Application.Interfaces.IServices;
 using StoreManagement.Domain.IRepositories;
 using StoreManagement.Domain.Models;
@@ -11,22 +13,24 @@ namespace StoreManagement.Services
     public class OrderService : IOrderSerivce
     {
         private readonly IMapper _mapper;
-        private readonly IOrderRepository<Order> _orderRepository;
+        private readonly IOrderRepository<StoreManagement.Domain.Models.Order> _orderRepository;
         private readonly ITableRepository<Table> _tableRepository;
         private readonly IProductSellRepository<ProductSell> _productSellRepository;
         private readonly IOrderAccessTokenRepository<OrderAccessToken> _orderAccessTokenRepository;
-
+        private readonly IEventStore _eventStore;
         public OrderService(IMapper mapper,
-            IOrderRepository<Order> orderRepository,
+            IOrderRepository<StoreManagement.Domain.Models.Order> orderRepository,
             ITableRepository<Table> tableRepository,
             IProductSellRepository<ProductSell> productSellRepository,
-            IOrderAccessTokenRepository<OrderAccessToken> orderAccessTokenRepository)
+            IOrderAccessTokenRepository<OrderAccessToken> orderAccessTokenRepository,
+            IEventStore eventStore)
         {
             _mapper = mapper;
             _orderRepository = orderRepository;
             _tableRepository = tableRepository;
             _productSellRepository = productSellRepository;
             _orderAccessTokenRepository = orderAccessTokenRepository;
+            _eventStore = eventStore;
         }
 
         public async Task<OrderDTO> AcceptOrder(int id)
@@ -49,8 +53,9 @@ namespace StoreManagement.Services
 
         public async Task<OrderDTO> CreateAsync(OrderDTO orderDTO)
         {
-            var order = _mapper.Map<Order>(orderDTO);
+            var order = _mapper.Map<StoreManagement.Domain.Models.Order>(orderDTO);
             var orderCreated = await _orderRepository.CreateAsync(order);
+            await _eventStore.SaveEventTest(Guid.NewGuid(), JsonSerializer.Serialize(order));
             return _mapper.Map<OrderDTO>(orderCreated);
         }
 
@@ -93,7 +98,7 @@ namespace StoreManagement.Services
 
         public async Task<OrderDTO> UpdateAsync(int id, OrderDTO orderDTO)
         {
-            var orderUpdate = _mapper.Map<Order>(orderDTO);
+            var orderUpdate = _mapper.Map<StoreManagement.Domain.Models.Order>(orderDTO);
             var updatedOrder = await _orderRepository.UpdateAsync(id, orderUpdate);
             if (updatedOrder.Status == true)
             {

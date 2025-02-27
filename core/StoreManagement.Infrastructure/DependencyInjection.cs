@@ -20,6 +20,7 @@ namespace StoreManagement.Infrastructure
             {
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly(typeof(DataContext).Assembly.FullName));
             });
+
             // add scoped repository
             services.AddScoped<IUserRepository<User>, UserRepository>();
             services.AddScoped<IStoreRepository<Store>, StoreRepository>();
@@ -34,18 +35,24 @@ namespace StoreManagement.Infrastructure
             services.AddScoped<IOrderAccessTokenRepository<OrderAccessToken>, OrderAccessTokenRepository>();
             services.AddScoped<IKPIRepository<KPI>, KPIRepository>();
             services.AddScoped<IBankInfoRepository<BankInfo>, BankInfoRepository>();
-			services.AddScoped<IComboRepository, ComboRepository>();
+            services.AddScoped<IComboRepository, ComboRepository>();
             services.AddScoped<IComboItemRepository, ComboItemRepository>();
-			services.AddScoped<ITicketRepository<Ticket>, TicketRepository>();
+            services.AddScoped<ITicketRepository<Ticket>, TicketRepository>();
             services.AddTransient<IStaffRepository<Staff>, StaffRepository>();
+
             // Register Client Service
             services.AddTransient<IQRServices, QRService>();
             services.AddTransient<IExportExcellService, ExportExcellService>();
             services.AddTransient<IGoogleAPI, GoogleAPI>();
             services.AddSingleton<ISupabaseService, SupabaseServices>();
             services.AddTransient<IFlaskAPI, FlaskAPI>();
-            
-            services.AddTransient<ICachingServices, CachingServices>();
+
+            // Register Caching Service
+            services.AddScoped<IRedisCacheServices, RedisCacheServices>();
+            services.AddScoped<ICachingServices, CachingServices>();
+
+            // Register Event Service
+            //services.AddScoped<IEventStore, EventStore>();
             return services;
 
         }

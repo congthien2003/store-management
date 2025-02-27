@@ -15,14 +15,16 @@ namespace StoreManagement.Controllers
     {
         private readonly IOrderSerivce _OrderService;
         private readonly ITableService _tableService;
+        private readonly IRedisCacheServices _redisCacheServices;
 
         private readonly IHubContext<OrderHub> _hubContext;
 
-        public OrderController(IOrderSerivce orderSerivce, ITableService tableService, IHubContext<OrderHub> hubContext)
+        public OrderController(IOrderSerivce orderSerivce, ITableService tableService, IHubContext<OrderHub> hubContext, IRedisCacheServices redisCacheServices)
         {
             _OrderService = orderSerivce;
             _hubContext = hubContext;
             _tableService = tableService;
+            _redisCacheServices = redisCacheServices;
         }
 
         [HttpPost("create")]
@@ -68,7 +70,14 @@ namespace StoreManagement.Controllers
         [HttpGet("all")]
         public async Task<ActionResult> GetAllByIdStoreAsync(int idStore, string currentPage = "1", string pageSize = "5", string sortColumn = "", bool asc = false, bool filter = false, bool status = false)
         {
-            var list = await _OrderService.GetAllByIdStoreAsync(idStore, currentPage, pageSize, sortColumn, asc, filter, status);
+            string redisKey = "list_order_" + idStore;
+
+            var list = _redisCacheServices.GetData<PaginationResult<List<OrderResponse>>>(redisKey);
+            if (list is null)
+            {
+                list = await _OrderService.GetAllByIdStoreAsync(idStore, currentPage, pageSize, sortColumn, asc, filter, status);
+                _redisCacheServices.SetData<PaginationResult<List<OrderResponse>>>(redisKey, list);
+            }
             return Ok(Result<PaginationResult<List<OrderResponse>>>.Success(list, "Lấy thông tin thành công"));
         }
     }

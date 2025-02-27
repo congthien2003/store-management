@@ -9,13 +9,11 @@ namespace StoreManagement.Worker.Worker
     {
         private readonly ILogger<WorkerSendMailMonthly> _logger;
         private readonly ISendMailMonthly _workerService;
-        private readonly IAmazonS3 _s3Client;
-        public WorkerSendMailMonthly(ISendMailMonthly workerService, ILogger<WorkerSendMailMonthly> logger, IAmazonS3 s3Client)
+        
+        public WorkerSendMailMonthly(ISendMailMonthly workerService, ILogger<WorkerSendMailMonthly> logger)
         {
             _workerService = workerService;
             _logger = logger;
-            _s3Client = s3Client;
-
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)

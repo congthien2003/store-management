@@ -2,7 +2,7 @@
 
 namespace StoreManagement.Domain.IRepositories
 {
-    public interface IOrderRepository<TOrder> where TOrder : Order
+    public interface IOrderRepository<TOrder> where TOrder : StoreManagement.Domain.Models.Order
     {
         Task<TOrder> CreateAsync(TOrder order);
         Task<TOrder> UpdateAsync(int id, TOrder order, bool incluDeleted = false);

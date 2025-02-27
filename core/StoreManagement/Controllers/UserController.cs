@@ -1,14 +1,9 @@
-﻿using StoreManagement.Application.Interfaces.IServices;
-
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using StoreManagement.Application.Common;
-using StoreManagement.Domain.Models;
 using StoreManagement.Application.DTOs.Auth;
-using Azure.Core;
 using StoreManagement.Application.DTOs.Request;
 using StoreManagement.Application.DTOs.Response;
+using StoreManagement.Application.Interfaces.IServices;
 
 namespace StoreManagement.Controllers
 {
@@ -21,7 +16,7 @@ namespace StoreManagement.Controllers
         public UserController(IUserService userService)
         {
             _userService = userService;
-            
+
         }
 
         [HttpGet("getall")]
@@ -49,7 +44,7 @@ namespace StoreManagement.Controllers
             sortCol,
             asc,
             incluDeleted);
-            if(list == null)
+            if (list == null)
             {
                 return BadRequest(Result.Failure("Không tìm thấy người dùng"));
             }

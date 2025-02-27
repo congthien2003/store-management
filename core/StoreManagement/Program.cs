@@ -1,4 +1,3 @@
-using Amazon.S3;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -8,6 +7,7 @@ using StoreManagement.Application.Interfaces.IWorkerService;
 using StoreManagement.Application.RealTime;
 using StoreManagement.Domain.Enum;
 using StoreManagement.Infrastructure;
+using StoreManagement.Infrastructure.Common;
 using StoreManagement.Middleware;
 using StoreManagement.Worker.Worker;
 using StoreManagement.Worker.WorkerService;
@@ -70,7 +70,7 @@ builder.Services.AddAuthentication(options =>
         options.TokenValidationParameters = new TokenValidationParameters
         {
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
-                 .GetBytes(builder.Configuration.GetSection("JwtSettings:Secret").Value)),
+                 .GetBytes(builder.Configuration.GetSection("JwtSettings:Secret").Value!)),
             ValidateIssuer = false,
             ValidateAudience = false,
             ValidateLifetime = true,
@@ -84,24 +84,24 @@ builder.Services.AddCors(options => options.AddPolicy(name: "NgOrigins",
         policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader().AllowCredentials(); ;
     }));
 
-// add automapper
+#region automapper
 builder.Services.AddAutoMapper(typeof(Program));
 
-// register SignalR
+#endregion
+
+#region register SignalR
 builder.Services.AddSignalR();
 
+#endregion
+
+#region Worker
 // register Worker
 builder.Services.AddTransient<ISendMailMonthly, SendMailMonthly>();
 builder.Services.AddHostedService<WorkerSendMailMonthly>();
 
-// Register AWS
+#endregion
 
-builder.Services.AddDefaultAWSOptions(builder.Configuration.GetAWSOptions());
-
-// These AWS service clients will be singleton by default
-builder.Services.AddAWSService<IAmazonS3>();
-
-// Supabase
+#region Supabase
 builder.Services.AddScoped<Supabase.Client>(_ => new Supabase.Client(
         builder.Configuration["Supabase:URL"],
         builder.Configuration["Supabase:Key"],
@@ -111,10 +111,28 @@ builder.Services.AddScoped<Supabase.Client>(_ => new Supabase.Client(
             AutoConnectRealtime = true,
         })
 );
+#endregion
 
-// Serilog
+#region Redis
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder.Configuration.GetSection("Redis:ConnectionString").Value;
+    options.InstanceName = "SM_Redis";
+});
+
+#endregion
+
+#region Mongo
+builder.Services.Configure<EventStoreDatabaseSettings>(
+    builder.Configuration.GetSection("MongoDb"));
+
+#endregion
+
+#region Serilog
 builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));
 var app = builder.Build();
+
+#endregion
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
